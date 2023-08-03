@@ -1,0 +1,7 @@
+{
+  "name": "TRABAWHO",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}
