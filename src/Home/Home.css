@@ -1,0 +1,9 @@
+.HomeJobSeekerButtonActions {
+  --background-activated: #898989;
+}
+
+.HomeJobSeekerBackground {
+  background-image: url("../assets/background-Login.jpg");
+  background-size: cover;
+  background-position: center;
+}

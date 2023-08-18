@@ -1,0 +1,16 @@
+.LoginBackground{
+    background-image: url("../assets/background-Login.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.LoginJobSeekerFlexCenter{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 100vh;
+}
+
+.LoginJobSeekerInputBoxes{
+
+}
