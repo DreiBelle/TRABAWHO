@@ -21,9 +21,9 @@
               <IonCol>
                 <IonInput
                   class="text"
-                  label="First Name"
+                  label="Elementary"
                   labelPlacement="floating"
-                  placeholder="Enter First Name"
+                  placeholder="Enter Elementary School"
                   required
                   style="
                     margin-top: 10px;
@@ -43,9 +43,9 @@
               <IonCol>
                 <IonInput
                   class="text"
-                  label="Middle Name"
+                  label="Junior High"
                   labelPlacement="floating"
-                  placeholder="Enter Middle Name"
+                  placeholder="Enter Junior High School "
                   required
                   style="
                     min-height: 40px;
@@ -64,9 +64,9 @@
               <IonCol>
                 <IonInput
                   class="text"
-                  label="Last Name"
+                  label="Senior High"
                   labelPlacement="floating"
-                  placeholder="Enter Last Name"
+                  placeholder="Enter Senior High School"
                   required
                   style="
                     min-height: 40px;
@@ -85,9 +85,30 @@
               <IonCol>
                 <IonInput
                   class="text"
-                  label="Suffix"
+                  label="College"
                   labelPlacement="floating"
-                  placeholder="Enter Suffix"
+                  placeholder="Enter College School"
+                  required
+                  style="
+                    min-height: 40px;
+                    height: 45px;
+                    border-bottom: 1px solid black;
+                    text-align: left;
+                    background: snow;
+                    border-top-left-radius: 10px;
+                    border-top-right-radius: 10px;
+                  "
+                >
+                </IonInput>
+              </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol>
+                <IonInput
+                  class="text"
+                  label="Other"
+                  labelPlacement="floating"
+                  placeholder="Enter other education attainment"
                   required
                   style="
                     min-height: 40px;
@@ -111,9 +132,9 @@
               <IonCol>
                 <IonInput
                   class="text"
-                  label="Email"
+                  label="Work Experience"
                   labelPlacement="floating"
-                  placeholder="Enter Email"
+                  placeholder="Enter Work Experience"
                   required
                   style="
                     min-height: 40px;
@@ -130,43 +151,12 @@
             </IonRow>
             <IonRow>
               <IonCol>
-                <IonInput
-                  class="text"
-                  label="Password"
-                  labelPlacement="floating"
-                  placeholder="Enter Password"
-                  required
-                  style="
-                    min-height: 40px;
-                    height: 45px;
-                    border-bottom: 1px solid black;
-                    text-align: left;
-                    background: snow;
-                    border-top-left-radius: 10px;
-                    border-top-right-radius: 10px;
-                  "
-                >
-                </IonInput>
-              </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol style="text-align: right" size="2">
-                <IonCheckbox></IonCheckbox>
-              </IonCol>
-              <IonCol style="text-align: left" size="10">
-                <IonText>
-                  I have read and accept the terms and conditions
-                </IonText>
-              </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol>
-                <IonButton expand="block" fill="outline" @click="GoRegister2"> Continue </IonButton>
+                <IonButton expand="block" fill="outline" @click="GoRegister3"> Continue </IonButton>
               </IonCol>
             </IonRow>
           </IonGrid>
         </IonCard>
-      </div>
+      </div>    
     </IonContent>
   </IonPage>
 </template>
@@ -185,7 +175,7 @@ import {
   IonCheckbox,
 } from "@ionic/vue";
 import "./SignUp.css";
-import {GoRegister2} from "./SignUp-Controller"
+import {GoRegister3} from "./SignUp-Controller"
 </script>
 
 <style lang=""></style>

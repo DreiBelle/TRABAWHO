@@ -69,6 +69,7 @@
                 class="LoginJobSeekerButtonLogin"
                 expand="block"
                 style="color: black; --border-color: black; margin-top: 30px;"
+                @click="GoHomeSwipeJobSeekers"
               >
                 Login
               </IonButton>
@@ -121,7 +122,7 @@ import {
   IonText,
 } from "@ionic/vue";
 import "./Login.css";
-import {GoRegister, GoHome} from "./Login-Controller"
+import {GoRegister, GoHome, GoHomeSwipeJobSeekers} from "./Login-Controller"
 </script>
 
 <style lang=""></style>

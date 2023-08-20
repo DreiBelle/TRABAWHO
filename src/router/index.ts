@@ -20,6 +20,21 @@ const routes: Array<RouteRecordRaw> = [
     path: '/SignUp',
     name: 'SignUp',
     component: () => import('../SignUp/SignUp-View.vue')
+  },
+  {
+    path: '/SignUp2',
+    name: 'SignUp2',
+    component: () => import('../SignUp/EducationalBG-View.vue')
+  },
+  {
+    path: '/SignUp3',
+    name: 'SignUp3',
+    component: () => import('../SignUp/Interest-View.vue')
+  },
+  {
+    path: '/HomeSwipe-JobSeekers',
+    name: 'HomeSwipe-JobSeekers',
+    component: () => import('../HomeSwipe-JobSeekers/HomeSwipe-JobSeekers-View.vue')
   }
 ]
 
