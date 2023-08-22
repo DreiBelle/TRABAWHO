@@ -43,6 +43,7 @@
                 style="margin-top: 30px;
                 border-bottom: 1px solid black;
                 width: 90vw;"
+                v-model="Username"
               >
               </IonInput>
             </IonCol>
@@ -58,6 +59,7 @@
                 style="margin-top: 10px;
                  border-bottom: 1px solid black;
                  width: 90vw;"
+                 v-model="Password"
               >
               </IonInput>
             </IonCol>
@@ -66,10 +68,10 @@
             <IonCol>
               <IonButton
                 fill="outline"
-                class="LoginJobSeekerButtonLogin"
+                class="LogInButtonActions"
                 expand="block"
                 style="color: black; --border-color: black; margin-top: 30px;"
-                @click="GoHomeSwipeJobSeekers"
+                @click="handleUserLogin"
               >
                 Login
               </IonButton>
@@ -123,6 +125,17 @@ import {
 } from "@ionic/vue";
 import "./Login.css";
 import {GoRegister, GoHome, GoHomeSwipeJobSeekers} from "./Login-Controller"
+import { UserLogin } from "./Login-Model"
 </script>
 
-<style lang=""></style>
+<script lang="ts">
+import {ref} from "vue"
+
+ const Username = ref("")
+ const Password = ref("")
+
+ const handleUserLogin = () => {
+  UserLogin(Username.value, Password.value);
+ }
+
+</script>

@@ -11,6 +11,7 @@
             height: 100vh;
           "
         >
+        eto na yung swipe swipe
         </div>
       </IonContent>
     </IonPage>

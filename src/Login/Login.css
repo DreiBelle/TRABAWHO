@@ -11,6 +11,6 @@
     height: 100vh;
 }
 
-.LoginJobSeekerInputBoxes{
-
-}
+.LogInButtonActions {
+    --background-activated: snow;
+  }

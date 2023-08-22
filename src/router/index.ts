@@ -35,6 +35,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/HomeSwipe-JobSeekers',
     name: 'HomeSwipe-JobSeekers',
     component: () => import('../HomeSwipe-JobSeekers/HomeSwipe-JobSeekers-View.vue')
+  },
+  {
+    path: '/TermsandConditions',
+    name: 'TermsandConditions',
+    component: () => import('../SignUp/TermsAndConditions-View.vue')
   }
 ]
 

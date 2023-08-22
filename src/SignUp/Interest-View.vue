@@ -14,29 +14,85 @@
         <IonCard
           style="width: 90vw; height: 95vh; padding: 10px; text-align: center"
         >
-          <IonText style="font-size: 25px"> REGISTER </IonText>
-
-          <IonRow>
-            <IonCol>
-              <IonRow>
+          <IonGrid>
+            <IonRow>
+              <IonCol size="3">
                 <IonButton
-                  style="height: 40px; width: 100px"
+                  style="
+                    min-height: 20px;
+                    min-width: 20px;
+                    border-radius: 20px;
+                    font-size: 14px;
+                    color: black;
+                  "
+                  @click="goBack"
+                  fill="clear"
+                >
+                  back
+                </IonButton>
+              </IonCol>
+              <IonCol
+                size="6"
+                style="
+                  align-items: center;
+                  justify-content: center;
+                  display: flex;
+                "
+              >
+                <IonText style="font-size: 25px"> INTEREST </IonText>
+              </IonCol>
+              <IonCol size="3">
+                <IonButton
+                  class="SignUpButtonActions"
+                  style="
+                    min-height: 20px;
+                    min-width: 20px;
+                    border-radius: 20px;
+                    color: black;
+                    --border-color: black;
+                  "
                   @click="openModal"
+                  fill="outline"
                 >
                   +
                 </IonButton>
-              </IonRow>
-            </IonCol>
-          </IonRow>
+              </IonCol>
+            </IonRow>
 
-          <IonRow v-for="choice in chosenChoices" :key="choice.id">
-            <IonCol> Chosen Choice: {{ choice.label }} </IonCol>
-          </IonRow>
+            <IonRow>
+              <IonCol>
+                <IonRow>
+                  <IonCol
+                    v-for="choice in chosenChoices"
+                    :key="choice.id"
+                    style="padding: 0px"
+                  >
+                    <IonButton
+                      class="SignUpButtonActions"
+                      fill="outline"
+                      size="small"
+                      style="
+                        height: 40px;
+                        justify-content: center;
+                        align-items: center;
+                        display: flex;
+                        color: black;
+                        --border-color: black;
+                      "
+                      @click="removeChoice(choice.id)"
+                    >
+                      {{ choice.label }}
+                    </IonButton>
+                  </IonCol>
+                </IonRow>
+              </IonCol>
+            </IonRow>
+          </IonGrid>
         </IonCard>
       </div>
 
       <IonModal :is-open="modalOpen" @did-dismiss="closeModal">
-        <choice-modal
+        <ChoiceModal
           :choices="modalChoices"
           @choice-selected="handleChoiceSelected"
         />
@@ -53,41 +109,29 @@ import {
   IonGrid,
   IonRow,
   IonCol,
-  IonInput,
   IonText,
   IonCard,
-  IonCheckbox,
   IonModal,
 } from "@ionic/vue";
 import "./SignUp.css";
+import { goBack } from "./SignUp-Controller";
 </script>
 
 <script lang="ts">
 import ChoiceModal from "./InterestModal-View.vue";
 
 export default {
-  components: {
-    IonModal,
-    IonPage,
-    IonContent,
-    IonRow,
-    IonCol,
-    IonButton,
-    ChoiceModal,
-  },
   data() {
     return {
       modalOpen: false,
-      modalChoices: [
-        { id: 1, label: "Choice 1" },
-        { id: 2, label: "Choice 2" },
-        { id: 3, label: "Choice 3" },
-        // Add more choices as needed
-      ],
+      modalChoices: [],
       chosenChoices: [],
     };
   },
   methods: {
+    removeChoice(choiceId) {
+      this.chosenChoices = this.chosenChoices.filter(choice => choice.id !== choiceId);
+    },
     openModal() {
       this.modalOpen = true;
     },
@@ -95,7 +139,7 @@ export default {
       this.modalOpen = false;
     },
     handleChoiceSelected(choice) {
-      this.chosenChoices.push(choice); // Add the choice to the chosenChoices array
+      this.chosenChoices.push(choice);
       this.modalOpen = false;
     },
   },

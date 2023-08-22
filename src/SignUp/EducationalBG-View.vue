@@ -14,9 +14,36 @@
         <IonCard
           style="width: 90vw; height: 95vh; padding: 10px; text-align: center"
         >
-          <IonText style="font-size: 25px"> REGISTER </IonText>
-
           <IonGrid>
+            <IonRow>
+              <IonCol size="3">
+                <IonButton
+                  style="
+                    min-height: 20px;
+                    min-width: 20px;
+                    border-radius: 20px;
+                    font-size: 14px;
+                    color: black;
+                  "
+                  @click="goBack"
+                  fill="clear"
+                >
+                  back
+                </IonButton>
+              </IonCol>
+              <IonCol
+                size="6"
+                style="
+                  align-items: center;
+                  justify-content: center;
+                  display: flex;
+                "
+              >
+                <IonText style="font-size: 20px"> BACKGROUND </IonText>
+              </IonCol>
+              <IonCol size="3"> </IonCol>
+            </IonRow>
+
             <IonRow>
               <IonCol>
                 <IonInput
@@ -151,12 +178,20 @@
             </IonRow>
             <IonRow>
               <IonCol>
-                <IonButton expand="block" fill="outline" @click="GoRegister3"> Continue </IonButton>
+                <IonButton
+                  class="SignUpButtonActions"
+                  expand="block"
+                  fill="outline"
+                  @click="GoRegister3"
+                  style="color: black; --border-color: black"
+                >
+                  Continue
+                </IonButton>
               </IonCol>
             </IonRow>
           </IonGrid>
         </IonCard>
-      </div>    
+      </div>
     </IonContent>
   </IonPage>
 </template>
@@ -175,7 +210,5 @@ import {
   IonCheckbox,
 } from "@ionic/vue";
 import "./SignUp.css";
-import {GoRegister3} from "./SignUp-Controller"
+import { GoRegister3, goBack } from "./SignUp-Controller";
 </script>
-
-<style lang=""></style>

@@ -14,9 +14,36 @@
         <IonCard
           style="width: 90vw; height: 95vh; padding: 10px; text-align: center"
         >
-          <IonText style="font-size: 25px"> REGISTER </IonText>
-
           <IonGrid>
+            <IonRow>
+              <IonCol>
+                <IonButton
+                  style="
+                    min-height: 20px;
+                    min-width: 20px;
+                    border-radius: 20px;
+                    font-size: 14px;
+                    color: black;
+                  "
+                  @click="goBack"
+                  fill="clear"
+                >
+                  back
+                </IonButton>
+              </IonCol>
+              <IonCol
+                size="6"
+                style="
+                  align-items: center;
+                  justify-content: center;
+                  display: flex;
+                "
+              >
+                <IonText style="font-size: 25px"> REGISTER </IonText>
+              </IonCol>
+              <IonCol> </IonCol>
+            </IonRow>
+
             <IonRow>
               <IonCol>
                 <IonInput
@@ -24,6 +51,7 @@
                   label="First Name"
                   labelPlacement="floating"
                   placeholder="Enter First Name"
+                  v-model="FirstName"
                   required
                   style="
                     margin-top: 10px;
@@ -155,13 +183,22 @@
               </IonCol>
               <IonCol style="text-align: left" size="10">
                 <IonText>
-                  I have read and accept the terms and conditions
+                  I have read and accept the
+                  <a href="/TermsandConditions"> terms and conditions</a>
                 </IonText>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol>
-                <IonButton expand="block" fill="outline" @click="GoRegister2"> Continue </IonButton>
+                <IonButton
+                  class="SignUpButtonActions"
+                  expand="block"
+                  fill="outline"
+                  @click="GoRegister2" 
+                  style="color: black; --border-color: black"
+                >
+                  Continue
+                </IonButton>
               </IonCol>
             </IonRow>
           </IonGrid>
@@ -183,9 +220,14 @@ import {
   IonText,
   IonCard,
   IonCheckbox,
+  IonModal,
 } from "@ionic/vue";
 import "./SignUp.css";
-import {GoRegister2} from "./SignUp-Controller"
+import { GoRegister2, goBack, goTermsandCondition } from "./SignUp-Controller";
 </script>
 
-<style lang=""></style>
+<script lang="ts">
+import {ref} from "vue"
+
+const FirstName = ref("")
+</script>
