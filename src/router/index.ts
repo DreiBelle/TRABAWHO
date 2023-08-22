@@ -19,17 +19,20 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/SignUp',
     name: 'SignUp',
-    component: () => import('../SignUp/SignUp-View.vue')
+    component: () => import('../SignUp/SignUp-View.vue'),
+    props: true
   },
   {
     path: '/SignUp2',
     name: 'SignUp2',
-    component: () => import('../SignUp/EducationalBG-View.vue')
+    component: () => import('../SignUp/EducationalBG-View.vue'),
+    props: true
   },
   {
     path: '/SignUp3',
     name: 'SignUp3',
-    component: () => import('../SignUp/Interest-View.vue')
+    component: () => import('../SignUp/Interest-View.vue'),
+    props: true
   },
   {
     path: '/HomeSwipe-JobSeekers',

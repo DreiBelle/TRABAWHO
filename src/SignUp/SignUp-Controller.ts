@@ -1,7 +1,12 @@
 import router from "../router"
 
-function GoRegister2_(){
-    router.push("/SignUp2")
+function GoRegister2_(userId){
+    router.push({
+        name: 'SignUp2',
+        state: {
+            userId: userId
+        }
+    })
 }
 
 function GoRegister3_(){

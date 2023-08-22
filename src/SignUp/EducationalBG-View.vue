@@ -212,3 +212,7 @@ import {
 import "./SignUp.css";
 import { GoRegister3, goBack } from "./SignUp-Controller";
 </script>
+
+<script lang="ts">
+
+</script>

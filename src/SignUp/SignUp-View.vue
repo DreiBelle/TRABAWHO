@@ -204,8 +204,9 @@
           </IonGrid>
         </IonCard>
       </div>
-    </IonContent>
+    </IonContent> 
   </IonPage>
+  
 </template>
 
 <script setup lang="ts">
@@ -230,4 +231,5 @@ import { GoRegister2, goBack, goTermsandCondition } from "./SignUp-Controller";
 import {ref} from "vue"
 
 const FirstName = ref("")
+
 </script>
