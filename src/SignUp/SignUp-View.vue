@@ -225,6 +225,7 @@ import {
 } from "@ionic/vue";
 import "./SignUp.css";
 import { GoRegister2, goBack, goTermsandCondition } from "./SignUp-Controller";
+import { defineStore } from 'pinia'
 </script>
 
 <script lang="ts">
@@ -232,4 +233,13 @@ import {ref} from "vue"
 
 const FirstName = ref("")
 
+var passme = FirstName.value
+
+  export const useStore = defineStore('storeId', {
+    state: () => {
+      return {
+        name: passme,
+      }
+    },
+  })
 </script>

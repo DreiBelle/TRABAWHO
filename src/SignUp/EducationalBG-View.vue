@@ -211,6 +211,17 @@ import {
 } from "@ionic/vue";
 import "./SignUp.css";
 import { GoRegister3, goBack } from "./SignUp-Controller";
+
+import { useStore } from './SignUp-View.vue'
+import { computed } from 'vue'
+
+const store = useStore()
+
+const getName = computed(() => {
+  return store.name
+})
+
+console.log(getName.value)
 </script>
 
 <script lang="ts">
