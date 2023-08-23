@@ -43,7 +43,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/TermsandConditions',
     name: 'TermsandConditions',
     component: () => import('../SignUpJobSeeker/TermsAndConditions-View.vue')
-  }
+  },
   {
     path: '/SignUpEmployer1',
     name: 'SignUpEmployer1',

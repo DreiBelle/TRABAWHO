@@ -1,53 +1,35 @@
 <template>
   <IonPage>
     <IonContent>
-      <div
-        class="HomeJobSeekerBackground"
-        name="centercontents"
-        style="
-          justify-content: center;
-          align-items: center;
-          display: flex;
-          height: 100vh;
-        "
-      >
+      <div class="HomeJobSeekerBackground" name="centercontents">
         <IonGrid>
           <IonRow>
-            <IonCol
-              style="
-                align-items: center;
-                justify-content: center;
-                display: flex;
-              "
-            >
+            <IonCol class="Home-FlexCenter">
               <img
-                style="border-radius: 50px; height: auto; width: 150px; border: 2px solid black;"
+                class="Home-Logo"
                 src="../assets/logosample.jpg"
                 alt="logo"
               />
             </IonCol>
           </IonRow>
           <IonRow>
-            <IonCol>
+            <IonCol class="Home-FlexCenter">
               <IonButton
                 class="HomeJobSeekerButtonActions"
-                expand="block"
                 fill="outline"
-                style="color: black; --border-color: black; margin-top: 100px;"
-                @click="GoLogin"  
+                @click="GoLogin"
+                style="margin-top: 100px"
               >
                 Login
               </IonButton>
             </IonCol>
           </IonRow>
           <IonRow>
-            <IonCol>
+            <IonCol class="Home-FlexCenter">
               <IonButton
                 class="HomeJobSeekerButtonActions"
-                expand="block"
                 fill="outline"
-                style="color: black; --border-color: black"
-                @click="GoRegister"  
+                @click="detectDeviceType"
               >
                 Register
               </IonButton>
@@ -72,7 +54,19 @@ import {
   IonImg,
 } from "@ionic/vue";
 import "./Home.css";
-import {GoRegister, GoLogin} from './Home-Controller';
+import { GoEmployer, GoRegister, GoLogin } from "./Home-Controller";
+</script>
+
+<script lang="ts">
+function detectDeviceType() {
+  if (window.innerWidth <= 768) {
+    GoRegister();
+  } else {
+    GoEmployer();
+  }
+}
+
+console.log("hello");
 </script>
 
 <style lang=""></style>

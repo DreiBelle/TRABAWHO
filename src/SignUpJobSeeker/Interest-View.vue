@@ -1,56 +1,25 @@
 <template>
   <IonPage>
     <IonContent>
-      <div
-        class="SignUpBackground"
-        name="centercontents"
-        style="
-          justify-content: center;
-          align-items: center;
-          display: flex;
-          height: 100vh;
-        "
-      >
-        <IonCard
-          style="width: 90vw; height: 95vh; padding: 10px; text-align: center"
-        >
+      <div class="SignUpBackground" name="centercontents">
+        <IonCard class="SignUpJobSeeker-ioncard">
           <IonGrid>
             <IonRow>
               <IonCol size="3">
                 <IonButton
-                  style="
-                    min-height: 20px;
-                    min-width: 20px;
-                    border-radius: 20px;
-                    font-size: 14px;
-                    color: black;
-                  "
+                  class="SignUpJobSeeker-Back"
                   @click="goBack"
                   fill="clear"
                 >
                   back
                 </IonButton>
               </IonCol>
-              <IonCol
-                size="6"
-                style="
-                  align-items: center;
-                  justify-content: center;
-                  display: flex;
-                "
-              >
+              <IonCol size="6" class="SignUpJobSeeker-FlexCenter">
                 <IonText style="font-size: 25px"> INTEREST </IonText>
               </IonCol>
               <IonCol size="3">
                 <IonButton
-                  class="SignUpButtonActions"
-                  style="
-                    min-height: 20px;
-                    min-width: 20px;
-                    border-radius: 20px;
-                    color: black;
-                    --border-color: black;
-                  "
+                  class="SignUpJobSeeker-AddInterest"
                   @click="openModal"
                   fill="outline"
                 >
@@ -68,17 +37,9 @@
                     style="padding: 0px"
                   >
                     <IonButton
-                      class="SignUpButtonActions"
+                      class="SignUpJobSeeker-ChosenInterest"
                       fill="outline"
                       size="small"
-                      style="
-                        height: 40px;
-                        justify-content: center;
-                        align-items: center;
-                        display: flex;
-                        color: black;
-                        --border-color: black;
-                      "
                       @click="removeChoice(choice.id)"
                     >
                       {{ choice.label }}
@@ -97,6 +58,7 @@
           @choice-selected="handleChoiceSelected"
         />
       </IonModal>
+      
     </IonContent>
   </IonPage>
 </template>
@@ -130,7 +92,9 @@ export default {
   },
   methods: {
     removeChoice(choiceId) {
-      this.chosenChoices = this.chosenChoices.filter(choice => choice.id !== choiceId);
+      this.chosenChoices = this.chosenChoices.filter(
+        (choice) => choice.id !== choiceId
+      );
     },
     openModal() {
       this.modalOpen = true;

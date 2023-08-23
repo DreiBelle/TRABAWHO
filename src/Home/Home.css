@@ -1,9 +1,33 @@
 .HomeJobSeekerButtonActions {
   --background-activated: snow;
+  color: black;
+  --border-color: black;
+  --margin-top: 100px;
+  max-width: 450px !important;
+  width: 90vw !important;
 }
 
 .HomeJobSeekerBackground {
   background-image: url("../assets/background-Login.jpg");
   background-size: cover;
   background-position: center;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  height: 100vh;
+}
+
+.Home-FlexCenter {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  
+}
+.Home-Logo {
+  border-radius: 50px;
+  height: auto;
+  width: 150px;
+  border: 2px solid black;
+}
+.Home- {
 }

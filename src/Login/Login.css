@@ -1,16 +1,52 @@
-.LoginBackground{
-    background-image: url("../assets/background-Login.jpg");
-    background-size: cover;
-    background-position: center;
+.LoginBackground {
+  background-image: url("../assets/background-Login.jpg");
+  background-size: cover;
+  background-position: center;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  height: 100vh;
 }
 
-.LoginJobSeekerFlexCenter{
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    height: 100vh;
+.LoginJobSeekerFlexCenter {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  height: 100vh;
 }
 
 .LogInButtonActions {
-    --background-activated: snow;
-  }
+  --background-activated: snow;
+  color: black;
+  --border-color: black;
+  margin-top: 40px !important;
+  max-width: 450px !important;
+  width: 90vw !important;
+}
+
+.LogIn-FlexCenter {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.LogIn-Logo {
+  border-radius: 30px;
+  height: auto;
+  width: 100px;
+  border: 2px solid black;
+}
+.LogIn-Input {
+  --margin-top: 30px;
+  border-bottom: 1px solid black;
+  max-width: 450px !important;
+  width: 90vw !important;
+}
+.LogIn-SignUpCancel {
+  font-size: 15px;
+  margin-top: -5px;
+  margin-left: -5px;
+  margin-left: -5px;
+}
+.LogIn- {
+}

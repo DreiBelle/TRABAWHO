@@ -1,76 +1,50 @@
 <template>
   <IonPage>
     <IonContent>
-      <div
-        class="LoginBackground"
-        name="centercontents"
-        style="
-          justify-content: center;
-          align-items: center;
-          display: flex;
-          height: 100vh;
-        "
-      >
+      <div class="LoginBackground" name="centercontents">
         <IonGrid>
           <IonRow>
-            <IonCol
-              style="
-                align-items: center;
-                justify-content: center;
-                display: flex;
-              "
-            >
+            <IonCol class="LogIn-FlexCenter">
               <img
-                style="
-                  border-radius: 30px;
-                  height: auto;
-                  width: 100px;
-                  border: 2px solid black;
-                "
+                class="LogIn-Logo"
                 src="../assets/logosample.jpg"
                 alt="logo"
               />
             </IonCol>
           </IonRow>
           <IonRow>
-            <IonCol style="display: flex; justify-content: center; align-items: center;">
+            <IonCol class="LogIn-FlexCenter">
               <IonInput
-                class="text"
                 label="Username"
                 labelPlacement="floating"
                 placeholder="Enter Username"
-                required
-                style="margin-top: 30px;
-                border-bottom: 1px solid black;
-                width: 90vw;"
+                class="LogIn-Input"
                 v-model="Username"
+                required
+                style="margin-top: 50px"
               >
               </IonInput>
             </IonCol>
           </IonRow>
           <IonRow>
-            <IonCol style="display: flex; justify-content: center; align-items: center;">
+            <IonCol class="LogIn-FlexCenter">
               <IonInput
-                class="text"
+                class="LogIn-Input"
                 label="Password"
                 labelPlacement="floating"
                 placeholder="Enter Password"
                 required
-                style="margin-top: 10px;
-                 border-bottom: 1px solid black;
-                 width: 90vw;"
-                 v-model="Password"
+                v-model="Password"
               >
               </IonInput>
             </IonCol>
           </IonRow>
           <IonRow>
-            <IonCol>
+            <IonCol class="LogIn-FlexCenter">
               <IonButton
                 fill="outline"
                 class="LogInButtonActions"
                 expand="block"
-                style="color: black; --border-color: black; margin-top: 30px;"
                 @click="handleUserLogin"
               >
                 Login
@@ -78,29 +52,20 @@
             </IonCol>
           </IonRow>
           <IonRow>
-            <IonCol style="text-align: center; margin-top: -15px;">
+            <IonCol style="text-align: center; margin-top: -15px">
               <IonText>Don't have an account?</IonText>
               <IonButton
                 fill="clear"
-                style="
-                  font-size: 15px;
-                  margin-top: -5px;
-                  margin-left: -5px;
-                  margin-left: -5px;
-                  color: lightblue;
-                "
+                class="LogIn-SignUpCancel"
+                style="color: lightblue"
                 @click="GoRegister"
                 >Sign Up</IonButton
               >
               <IonText>|</IonText>
               <IonButton
+                class="LogIn-SignUpCancel"
                 fill="clear"
-                style="
-                  font-size: 15px;
-                  color: red;
-                  margin-top: -5px;
-                  margin-left: -5px;
-                "
+                style="color: red"
                 @click="GoHome"
                 >Cancel</IonButton
               >
@@ -124,18 +89,17 @@ import {
   IonText,
 } from "@ionic/vue";
 import "./Login.css";
-import {GoRegister, GoHome, GoHomeSwipeJobSeekers} from "./Login-Controller"
-import { UserLogin } from "./Login-Model"
+import { GoRegister, GoHome, GoHomeSwipeJobSeekers } from "./Login-Controller";
+import { UserLogin } from "./Login-Model";
 </script>
 
 <script lang="ts">
-import {ref} from "vue"
+import { ref } from "vue";
 
- const Username = ref("")
- const Password = ref("")
+const Username = ref("");
+const Password = ref("");
 
- const handleUserLogin = () => {
+const handleUserLogin = () => {
   UserLogin(Username.value, Password.value);
- }
-
+};
 </script>

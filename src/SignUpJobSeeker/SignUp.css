@@ -2,8 +2,64 @@
   background-image: url("../assets/background-Login.jpg");
   background-size: cover;
   background-position: center;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  height: 100vh;
 }
 
 .SignUpButtonActions {
   --background-activated: snow;
+  color: black;
+  --border-color: black;
+}
+
+.SignUpJobSeeker-FlexCenter {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.SignUpJobSeeker-Back {
+  min-height: 20px;
+  min-width: 20px;
+  border-radius: 20px;
+  font-size: 14px;
+  color: black;
+}
+
+.SignUpJobSeeker-input {
+  --margin-top: 10px;
+  min-height: 40px !important;
+  height: 45px;
+  border-bottom: 1px solid black;
+  text-align: left;
+  background: snow;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.SignUpJobSeeker-ioncard {
+  width: 90vw;
+  height: 95vh;
+  padding: 10px;
+  text-align: center;
+}
+.SignUpJobSeeker-AddInterest {
+  --background-activated: snow;
+  min-height: 20px !important;
+  min-width: 20px !important;
+  border-radius: 20px;
+  color: black;
+  --border-color: black;
+}
+.SignUpJobSeeker-ChosenInterest {
+  --background-activated: snow;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  color: black;
+  --border-color: black;
+}
+.SignUpJobSeeker- {
 }
