@@ -233,7 +233,7 @@ import {ref} from "vue"
 
 const FirstName = ref("")
 
-var passme = FirstName.value
+var passme = "asd"
 
   export const useStore = defineStore('storeId', {
     state: () => {

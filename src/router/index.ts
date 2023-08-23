@@ -19,19 +19,19 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/SignUp',
     name: 'SignUp',
-    component: () => import('../SignUp/SignUp-View.vue'),
+    component: () => import('../SignUpJobSeeker/SignUp-View.vue'),
     props: true
   },
   {
     path: '/SignUp2',
     name: 'SignUp2',
-    component: () => import('../SignUp/EducationalBG-View.vue'),
+    component: () => import('../SignUpJobSeeker/EducationalBG-View.vue'),
     props: true
   },
   {
     path: '/SignUp3',
     name: 'SignUp3',
-    component: () => import('../SignUp/Interest-View.vue'),
+    component: () => import('../SignUpJobSeeker/Interest-View.vue'),
     props: true
   },
   {
@@ -42,7 +42,12 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/TermsandConditions',
     name: 'TermsandConditions',
-    component: () => import('../SignUp/TermsAndConditions-View.vue')
+    component: () => import('../SignUpJobSeeker/TermsAndConditions-View.vue')
+  }
+  {
+    path: '/SignUpEmployer1',
+    name: 'SignUpEmployer1',
+    component: () => import('../SignUpEmployer/SignUpEmployer1.vue')
   }
 ]
 
