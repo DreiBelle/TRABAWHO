@@ -12,8 +12,14 @@ function GoEmployer_(){
     router.push("/SignUpEmployer1")
 }
 
+function GoLoginComputer_()
+{
+    router.push("/LoginComputer")
+}
+
 
 
 export const GoLogin = GoLogin_
 export const GoRegister = GoRegister_
 export const GoEmployer = GoEmployer_
+export const GoLoginComputer = GoLoginComputer_

@@ -42,7 +42,6 @@
           <IonRow>
             <IonCol class="LogIn-FlexCenter">
               <IonButton
-                fill="outline"
                 class="LogInButtonActions"
                 expand="block"
                 @click="handleUserLogin"
@@ -52,22 +51,19 @@
             </IonCol>
           </IonRow>
           <IonRow>
-            <IonCol style="text-align: center; margin-top: -15px">
-              <IonText>Don't have an account?</IonText>
-              <IonButton
-                fill="clear"
+            <IonCol style="text-align: center">
+              <IonText class="LogIn-SignUpCancel"
+                >Don't have an account?</IonText
+              >
+              <a
                 class="LogIn-SignUpCancel"
                 style="color: lightblue"
                 @click="GoRegister"
-                >Sign Up</IonButton
+                >Sign Up</a
               >
               <IonText>|</IonText>
-              <IonButton
-                class="LogIn-SignUpCancel"
-                fill="clear"
-                style="color: red"
-                @click="GoHome"
-                >Cancel</IonButton
+              <a class="LogIn-SignUpCancel" style="color: red" @click="GoHome"
+                >Cancel</a
               >
             </IonCol>
           </IonRow>

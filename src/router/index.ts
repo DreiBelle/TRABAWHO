@@ -19,36 +19,61 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/SignUp',
     name: 'SignUp',
-    component: () => import('../SignUpJobSeeker/SignUp-View.vue'),
+    component: () => import('../SignUp/Seeker-SignUp.vue'),
     props: true
   },
   {
     path: '/SignUp2',
     name: 'SignUp2',
-    component: () => import('../SignUpJobSeeker/EducationalBG-View.vue'),
+    component: () => import('../SignUp/Seeker-SignUp2.vue'),
     props: true
   },
   {
     path: '/SignUp3',
     name: 'SignUp3',
-    component: () => import('../SignUpJobSeeker/Interest-View.vue'),
+    component: () => import('../SignUp/Seeker-SignUp3.vue'),
     props: true
   },
   {
-    path: '/HomeSwipe-JobSeekers',
-    name: 'HomeSwipe-JobSeekers',
-    component: () => import('../HomeSwipe-JobSeekers/HomeSwipe-JobSeekers-View.vue')
+    path: '/Swipe',
+    name: 'Swipe',
+    component: () => import('../Swipe/Swipe.vue')
   },
   {
     path: '/TermsandConditions',
     name: 'TermsandConditions',
-    component: () => import('../SignUpJobSeeker/TermsAndConditions-View.vue')
+    component: () => import('../SignUp/Seeker-Terms.vue')
+  },
+  {
+    path: '/TermsandConditionsEmployer',
+    name: 'TermsandConditionsEmployer',
+    component: () => import('../SignUp/Employer-Terms.vue')
   },
   {
     path: '/SignUpEmployer1',
     name: 'SignUpEmployer1',
-    component: () => import('../SignUpEmployer/SignUpEmployer1.vue')
-  }
+    component: () => import('../SignUp/Employer-SignUp.vue')
+  },
+  {
+    path: '/LoginComputer',
+    name: 'LoginComputer',
+    component: () => import('../Login/LoginComputer-View.vue')
+  },
+  {
+    path: '/NavBar',
+    name: 'NavBar',
+    component: () => import('../NavBar/NavBar.vue')
+  },
+  {
+    path: '/Seeker-Message',
+    name: 'Seeker-Message',
+    component: () => import('../Message/Seeker-Message.vue')
+  },
+  {
+    path: '/Seeker-Profile',
+    name: 'Seeker-Profile',
+    component: () => import('../Profile/Seeker-Profile.vue')
+  },
 ]
 
 const router = createRouter({

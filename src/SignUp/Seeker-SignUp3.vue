@@ -80,7 +80,7 @@ import { goBack } from "./SignUp-Controller";
 </script>
 
 <script lang="ts">
-import ChoiceModal from "./InterestModal-View.vue";
+import ChoiceModal from "./Seeker-InterestModal.vue";
 
 export default {
   data() {

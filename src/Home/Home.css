@@ -8,13 +8,14 @@
 }
 
 .HomeJobSeekerBackground {
-  background-image: url("../assets/background-Login.jpg");
+  /* background-image: url("../assets/background-Login.jpg"); */
   background-size: cover;
   background-position: center;
   justify-content: center;
   align-items: center;
   display: flex;
   height: 100vh;
+  color:snow;
 }
 
 .Home-FlexCenter {

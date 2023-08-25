@@ -1,5 +1,5 @@
 .LoginBackground {
-  background-image: url("../assets/background-Login.jpg");
+  /* background-image: url("../assets/background-Login.jpg"); */
   background-size: cover;
   background-position: center;
   justify-content: center;
@@ -17,7 +17,7 @@
 
 .LogInButtonActions {
   --background-activated: snow;
-  color: black;
+  color: white;
   --border-color: black;
   margin-top: 40px !important;
   max-width: 450px !important;
@@ -37,16 +37,28 @@
   border: 2px solid black;
 }
 .LogIn-Input {
-  --margin-top: 30px;
-  border-bottom: 1px solid black;
   max-width: 450px !important;
   width: 90vw !important;
+  height: 60px !important;
+  --margin-top: 30px;
+  min-height: 40px !important;
+  height: 45px;
+  border-bottom: 1px solid black;
+  text-align: left;
+  background: snow;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 .LogIn-SignUpCancel {
-  font-size: 15px;
-  margin-top: -5px;
-  margin-left: -5px;
-  margin-left: -5px;
+  font-size: 14px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
+.LogIn-Card {
+  padding: 20px;
+  max-width: 350px;
+  border-radius: 20px;
+}
+
 .LogIn- {
 }

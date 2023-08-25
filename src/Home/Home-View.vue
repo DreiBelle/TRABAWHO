@@ -17,7 +17,7 @@
               <IonButton
                 class="HomeJobSeekerButtonActions"
                 fill="outline"
-                @click="GoLogin"
+                @click="Login"
                 style="margin-top: 100px"
               >
                 Login
@@ -29,7 +29,7 @@
               <IonButton
                 class="HomeJobSeekerButtonActions"
                 fill="outline"
-                @click="detectDeviceType"
+                @click="Register"
               >
                 Register
               </IonButton>
@@ -54,15 +54,23 @@ import {
   IonImg,
 } from "@ionic/vue";
 import "./Home.css";
-import { GoEmployer, GoRegister, GoLogin } from "./Home-Controller";
+import { GoEmployer, GoRegister, GoLogin, GoLoginComputer } from "./Home-Controller";
 </script>
 
 <script lang="ts">
-function detectDeviceType() {
+function Register() {
   if (window.innerWidth <= 768) {
     GoRegister();
   } else {
     GoEmployer();
+  }
+}
+
+function Login() {
+  if (window.innerWidth <= 768) {
+    GoLogin();
+  } else {
+    GoLoginComputer();
   }
 }
 

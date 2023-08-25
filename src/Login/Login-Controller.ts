@@ -9,7 +9,11 @@ function GoHome_(){
 }
 
 function GoHomeSwipeJobSeekers_(){
-    router.push("/HomeSwipe-JobSeekers")
+    router.push("/Swipe")
+}
+
+function GoEmployer_(){
+    router.push("/SignUpEmployer1")
 }
 
 
@@ -17,3 +21,4 @@ function GoHomeSwipeJobSeekers_(){
 export const GoRegister = GoRegister_
 export const GoHome = GoHome_
 export const GoHomeSwipeJobSeekers = GoHomeSwipeJobSeekers_
+export const GoEmployer = GoEmployer_

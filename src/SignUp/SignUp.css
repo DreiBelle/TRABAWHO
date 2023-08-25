@@ -1,5 +1,6 @@
 .SignUpBackground {
-  background-image: url("../assets/background-Login.jpg");
+  /* background-image: url("../assets/background-Login.jpg"); */
+ color: snow;
   background-size: cover;
   background-position: center;
   justify-content: center;
@@ -40,6 +41,7 @@
 }
 .SignUpJobSeeker-ioncard {
   width: 90vw;
+  max-width: 400px;
   height: 95vh;
   padding: 10px;
   text-align: center;
@@ -62,4 +64,8 @@
   --border-color: black;
 }
 .SignUpJobSeeker- {
+}
+.SignUpEmployer-IonCard {
+  padding: 20px;
+  border-radius: 20px;
 }
