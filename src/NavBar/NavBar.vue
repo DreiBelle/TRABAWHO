@@ -1,21 +1,37 @@
 <template>
-    <IonFooter>
-      <IonToolbar>
-        <IonGrid>
-          <IonRow>
-            <IonCol size="4">
-              <IonButton @click="GoMessage" expand="block"> Message </IonButton>
-            </IonCol>
-            <IonCol size="4">
-              <IonButton @click="GoSwipe" expand="block"> Home </IonButton>
-            </IonCol>
-            <IonCol size="4">
-              <IonButton @click="GoProfile" expand="block"> Profile </IonButton>
-            </IonCol>
-          </IonRow>
-        </IonGrid>
-      </IonToolbar>
-    </IonFooter>
+  <div class="NavBar-Toolbar">
+    <IonGrid>
+      <IonRow>
+        <IonCol size="4" class="NavBar-FlexCenter">
+          <IonButton
+            class="NavBar-Buttons"
+            expand="block"
+            router-link="/Seeker-Message"
+          >
+            <img class="NavBar-Icons" src="../assets/chat.png" alt="chat" />
+          </IonButton>
+        </IonCol>
+        <IonCol size="4" class="NavBar-FlexCenter">
+          <IonButton
+            class="NavBar-Buttons"
+            expand="block"
+            router-link="/Swipe"
+          >
+            <img class="NavBar-Icons" src="../assets/home.png" alt="home" />
+          </IonButton>
+        </IonCol>
+        <IonCol size="4" class="NavBar-FlexCenter">
+          <IonButton
+            class="NavBar-Buttons"
+            expand="block"
+            router-link="/Seeker-Profile"
+          >
+            <img class="NavBar-Icons" src="../assets/user.png" alt="profile" />
+          </IonButton>
+        </IonCol>
+      </IonRow>
+    </IonGrid>
+  </div>
 </template>
 <script setup lang="ts">
 import {
@@ -29,4 +45,10 @@ import {
   IonContent,
 } from "@ionic/vue";
 import { GoSwipe, GoMessage, GoProfile } from "./NavBar-Controller";
+import "./NavBar.css";
+import { toHandlers } from "vue";
 </script>
+
+<script lang="ts"></script>
+
+<style></style>
