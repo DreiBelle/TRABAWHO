@@ -1,7 +1,9 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import { createGesture } from '@ionic/vue';
 import App from './App.vue'
 import router from './router';
+import { ref } from 'vue';
 
 import { IonicVue } from '@ionic/vue';
 
@@ -23,6 +25,8 @@ import '@ionic/vue/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+
+const elementRef = ref();
 
 const pinia = createPinia()
 const app = createApp(App)
