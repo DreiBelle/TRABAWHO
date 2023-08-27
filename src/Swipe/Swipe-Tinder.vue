@@ -41,14 +41,14 @@ export default {
     endSwipe() {
       if (!this.isSwiping) return;
       this.isSwiping = false;
-      const swipeThreshold = 100;
+      const swipeThreshold = 200;
       if (this.position > swipeThreshold) {
         this.$emit('swipeRight', this.item);
       } else if (this.position < -swipeThreshold) {
         this.$emit('swipeLeft', this.item);
-      } else {
-        this.position = 0;
       }
+
+      this.position = this.currentPosition
     },
   },
 };

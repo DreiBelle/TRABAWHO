@@ -1,18 +1,17 @@
 <template>
-  <div class="app">
+  <div class="swipe" id="swipe">
     <SwipeableCard
+      id="cards"
       v-if="currentCardIndex < cards.length"
       :item="cards[currentCardIndex]"
       @swipeLeft="handleSwipeLeft"
       @swipeRight="handleSwipeRight"
     />
-    <div v-else class="no-more-cards">
-      No more cards to show.
-    </div>
+    <div v-else class="no-more-cards">No more cards to show.</div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import SwipeableCard from "./Swipe-Tinder.vue";
 
 export default {
@@ -22,6 +21,7 @@ export default {
   data() {
     return {
       currentCardIndex: 0,
+      cardTranslation: -100,
       cards: [
         { id: 1, content: "Card 1" },
         { id: 2, content: "Card 2" },
@@ -34,10 +34,15 @@ export default {
     handleSwipeLeft(item) {
       this.cards = this.cards.filter(card => card.id !== item.id);
       this.showNextCard();
+
+      console.log("swipeLeft");
     },
     handleSwipeRight(item) {
       this.cards = this.cards.filter(card => card.id !== item.id);
       this.showNextCard();
+
+      console.log("swipeRight");
+
     },
     showNextCard() {
       this.currentCardIndex++;
@@ -47,7 +52,7 @@ export default {
 </script>
 
 <style>
-.app {
+.swipe {
   display: flex;
   justify-content: center;
   align-items: center;
