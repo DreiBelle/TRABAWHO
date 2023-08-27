@@ -3,6 +3,33 @@
   align-items: center;
   display: flex;
   height: 100vh;
+  background-color: white;
 }
+
+.Swipe-NoMore {
+  text-align: center;
+  font-size: 18px;
+  color: black;
+}
+
+.Swipe-Swipeable {
+  width: 80vw;
+  height: 85vh;
+  margin-bottom: 7vh !important;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease-out;
+  user-select: none;
+}
+
+.Swipe-CardContent {
+  padding: 16px;
+  text-align: center;
+}
+
 .Swipe- {
 }

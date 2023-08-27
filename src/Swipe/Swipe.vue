@@ -1,48 +1,49 @@
 <template>
-  <div class="swipe" id="swipe">
+  <div class="Swipe-Background">
     <SwipeableCard
-      id="cards"
       v-if="currentCardIndex < cards.length"
       :item="cards[currentCardIndex]"
       @swipeLeft="handleSwipeLeft"
       @swipeRight="handleSwipeRight"
     />
-    <div v-else class="no-more-cards">No more cards to show.</div>
+    <div v-else class="Swipe-NoMore">No more jobs</div>
+    <NavBar/>
   </div>
 </template>
 
 <script lang="ts">
 import SwipeableCard from "./Swipe-Tinder.vue";
+import NavBar from "../NavBar/NavBar.vue";
+import "./Swipe.css";
 
 export default {
   components: {
     SwipeableCard,
+    NavBar,
   },
   data() {
     return {
       currentCardIndex: 0,
-      cardTranslation: -100,
       cards: [
         { id: 1, content: "Card 1" },
         { id: 2, content: "Card 2" },
         { id: 3, content: "Card 3" },
-        // Add more card objects as needed
+        { id: 4, content: "Card 4" },
       ],
     };
   },
   methods: {
-    handleSwipeLeft(item) {
-      this.cards = this.cards.filter(card => card.id !== item.id);
+    handleSwipeLeft() {
+      this.cards = this.cards.filter((card) => card.id);
       this.showNextCard();
 
       console.log("swipeLeft");
     },
-    handleSwipeRight(item) {
-      this.cards = this.cards.filter(card => card.id !== item.id);
+    handleSwipeRight() {
+      this.cards = this.cards.filter((card) => card.id);
       this.showNextCard();
 
       console.log("swipeRight");
-
     },
     showNextCard() {
       this.currentCardIndex++;
@@ -51,18 +52,4 @@ export default {
 };
 </script>
 
-<style>
-.swipe {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #f0f0f0;
-}
 
-.no-more-cards {
-  text-align: center;
-  font-size: 18px;
-  color: gray;
-}
-</style>

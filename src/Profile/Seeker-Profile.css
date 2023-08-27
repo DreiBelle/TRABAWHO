@@ -1,0 +1,61 @@
+.Seeker-Profile-{
+
+}
+
+.Seeker-Profile-Buttons{
+font-size: 10;
+color: black;
+}
+
+.Seeker-Profile-Educational-Header{
+    padding-top: 20px;
+    border-bottom: 1px solid black;
+    text-align: center;
+   }
+
+.Seeker-Profile-Educational-Table{
+ border-bottom: 1px solid black;
+ border-left: 1.3px solid black;
+ margin-left: 20px;
+ margin-right: 20px;
+ padding-top: 20px;
+}
+
+.Seeker-Profile-Table{
+    height: 100vh;
+}
+
+.Seeker-Profile-Information{
+}
+
+.Seeker-Profile-Picture{
+    height: 100px;
+    border-radius: 100px;
+}
+
+.Seeker-Profile-Picture-Container{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    height: 20vh;
+}
+
+.Seeker-Profile-Name-Container{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    height: 5vh;
+}
+
+.Seeker-Profile-Tabs-Container{
+    height: fit-content;
+    padding: 0px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.Seeker-Profile-Information-Container{
+    display: flex;
+    justify-content: center;
+    height: 52vh;
+}

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="swipeable-card"
+    class="Swipe-Swipeable"
     :style="{ transform: `translateX(${position}px)` }"
     @mousedown="startSwipe"
     @mousemove="swipe"
@@ -9,11 +9,13 @@
     @touchmove="swipe"
     @touchend="endSwipe"
   >
-    <div class="card-content">{{ item.content }}</div>
+    <div class="Swipe-CardContent">{{ item.content }}</div>
   </div>
 </template>
 
 <script lang="ts">
+import "./Swipe.css"
+
 export default {
   props: {
     item: Object,
@@ -41,7 +43,7 @@ export default {
     endSwipe() {
       if (!this.isSwiping) return;
       this.isSwiping = false;
-      const swipeThreshold = 200;
+      const swipeThreshold = 300;
       if (this.position > swipeThreshold) {
         this.$emit('swipeRight', this.item);
       } else if (this.position < -swipeThreshold) {
@@ -55,21 +57,7 @@ export default {
 </script>
 
 <style scoped>
-.swipeable-card {
-  width: 300px;
-  height: 200px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.3s ease-out;
-  user-select: none;
-}
 
-.card-content {
-  padding: 16px;
-  text-align: center;
-}
+
+
 </style>
