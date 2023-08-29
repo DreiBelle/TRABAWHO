@@ -9,12 +9,26 @@
     @touchmove="swipe"
     @touchend="endSwipe"
   >
-    <div class="Swipe-CardContent">{{ item.content }}</div>
+    <div class="Swipe-CardContent">
+      <IonGrid>
+        <IonRow>
+          <IonCol>
+            {{ item.content }}
+          </IonCol>
+        </IonRow>
+        <IonRow>
+          <IonCol>
+            Name
+          </IonCol>
+        </IonRow>
+      </IonGrid>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import "./Swipe.css"
+import { IonCol, IonGrid, IonRow } from "@ionic/vue";
+import "./Swipe.css";
 
 export default {
   props: {
@@ -45,19 +59,15 @@ export default {
       this.isSwiping = false;
       const swipeThreshold = 300;
       if (this.position > swipeThreshold) {
-        this.$emit('swipeRight', this.item);
+        this.$emit("swipeRight", this.item);
       } else if (this.position < -swipeThreshold) {
-        this.$emit('swipeLeft', this.item);
+        this.$emit("swipeLeft", this.item);
       }
-
-      this.position = this.currentPosition
+      this.position = this.currentPosition;
     },
   },
+  components: { IonGrid, IonRow, IonCol },
 };
 </script>
 
-<style scoped>
-
-
-
-</style>
+<style scoped></style>
