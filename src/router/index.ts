@@ -74,6 +74,11 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Seeker-Profile',
     component: () => import('../Profile/Seeker-Profile.vue')
   },
+  {
+    path: '/Employer-Dashboard',
+    name: 'Employer-Dashboard',
+    component: () => import('../Dashboard/Employer-Dashboard.vue')
+  },
 ]
 
 const router = createRouter({
