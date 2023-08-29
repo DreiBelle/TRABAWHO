@@ -46,7 +46,6 @@ import {
 } from "@ionic/vue";
 import { GoSwipe, GoMessage, GoProfile } from "./NavBar-Controller";
 import "./NavBar.css";
-import { toHandlers } from "vue";
 </script>
 
 <script lang="ts"></script>

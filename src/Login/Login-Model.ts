@@ -1,26 +1,39 @@
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../firebaseDB";
 import { GoHomeSwipeJobSeekers } from "./Login-Controller";
 
 async function UserLogin_(Username, Password) {
-  const docSnap = await getDoc(doc(db, "Users", Username));
-  console.log("calling function")
-  console.log(Username)
+  const usersRef = collection(db, "users");
 
-  if (docSnap.exists()) {
-    var UN = docSnap.data().Username;
-    var P = docSnap.data().Password;
-    console.log("user found");
-    if (Username == UN && Password == P) {
-      GoHomeSwipeJobSeekers();
-    } else {  
-      console.log("wrong password");
+  const q = query(usersRef, where("email", "==", Username));
+  const querySnapshot = await getDocs(q);
+
+  if (!querySnapshot.empty) {
+    const docSnap = querySnapshot.docs[0];
+    const userDoc = docSnap.data();
+    
+    const storedPassword = userDoc.password;
+    const storedtype = userDoc.type;
+    
+    if (Password === storedPassword) {
+      if(storedtype === "jobseeker"){
+        console.log("Succesfully login");
+        GoHomeSwipeJobSeekers();
+      }
+      else if(storedtype === "employer"){
+        console.log("Succesfully login");
+        console.log("Employer view");
+      }
+      else{
+        console.log("Succesfully login");
+        console.log("Admin view")
+      }
+    } else {
+      console.log("Wrong password");
     }
-  }
-  else{
-    console.log("no username")
+  } else {
+    console.log("Username not found");
   }
 }
 
-export const UserLogin = UserLogin_
-
+export const UserLogin = UserLogin_;

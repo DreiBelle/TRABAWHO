@@ -27,6 +27,7 @@
                   label="Email"
                   labelPlacement="floating"
                   placeholder="Enter valid email address"
+                  v-model="formData.email"
                   required
                 >
                 </IonInput>
@@ -39,6 +40,7 @@
                   label="Contact Person Name"
                   labelPlacement="floating"
                   placeholder="Enter Full Name"
+                  v-model="formData.contactpn"
                   required
                 >
                 </IonInput>
@@ -51,6 +53,7 @@
                   label="Contact Number"
                   labelPlacement="floating"
                   placeholder="Enter Contact Number"
+                  v-model="formData.number"
                   required
                 >
                 </IonInput>
@@ -64,6 +67,7 @@
                   label="Registered Business Name"
                   labelPlacement="floating"
                   placeholder="Enter Business Name"
+                  v-model="formData.businessname"
                   required
                 >
                 </IonInput>
@@ -77,6 +81,7 @@
                   label="Password"
                   labelPlacement="floating"
                   placeholder="Enter Password"
+                  v-model="formData.password"
                   required
                 >
                 </IonInput>
@@ -89,7 +94,9 @@
               <IonCol style="text-align: left" size="10">
                 <IonText>
                   I have read and accept the
-                  <a href="/TermsandConditionsEmployer"> terms and conditions</a>
+                  <a href="/TermsandConditionsEmployer">
+                    terms and conditions</a
+                  >
                 </IonText>
               </IonCol>
             </IonRow>
@@ -99,7 +106,7 @@
                   class="SignUpButtonActions"
                   expand="block"
                   fill="outline"
-                  @click="GoRegister2"
+                  @click="submitForm"
                   style="color: black; --border-color: black"
                 >
                   Continue
@@ -129,6 +136,25 @@ import {
 } from "@ionic/vue";
 import "./SignUp.css";
 import { GoRegister2, goBack, goTermsandCondition } from "./SignUp-Controller";
+import { useSignupStore2 } from "@/stores/signupstore2";
+import { Firestore } from "firebase/firestore";
+const signupStore2 = useSignupStore2();
+const formData = {
+  email: "",
+  contactpn: "",
+  number: "",
+  businessname: "",
+  password: "",
+  dateCreated: "",
+  type: "",
+};
+const submitForm = async () => {
+  // Submit logic, then update the store with the form data
+  signupStore2.setFormData(formData);
+
+  await signupStore2.registerUser();
+};
+
 </script>
 
 <script lang="ts"></script>

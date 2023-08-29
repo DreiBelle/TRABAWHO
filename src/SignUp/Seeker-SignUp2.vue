@@ -27,6 +27,7 @@
                   label="Elementary"
                   labelPlacement="floating"
                   placeholder="Enter Elementary School"
+                  v-model="formData.elementary"
                   required
                 >
                 </IonInput>
@@ -39,6 +40,7 @@
                   label="Junior High"
                   labelPlacement="floating"
                   placeholder="Enter Junior High School "
+                  v-model="formData.juniorhigh"
                   required
                 >
                 </IonInput>
@@ -51,6 +53,7 @@
                   label="Senior High"
                   labelPlacement="floating"
                   placeholder="Enter Senior High School"
+                  v-model="formData.seniorhigh"
                   required
                 >
                 </IonInput>
@@ -63,6 +66,7 @@
                   label="College"
                   labelPlacement="floating"
                   placeholder="Enter College School"
+                  v-model="formData.college"
                   required
                 >
                 </IonInput>
@@ -75,6 +79,7 @@
                   label="Other"
                   labelPlacement="floating"
                   placeholder="Enter other education attainment"
+                  v-model="formData.othereduc"
                   required
                 >
                 </IonInput>
@@ -92,6 +97,7 @@
                   label="Work Experience"
                   labelPlacement="floating"
                   placeholder="Enter Work Experience"
+                  v-model="formData.workexp"
                   required
                 >
                 </IonInput>
@@ -103,7 +109,7 @@
                   class="SignUpButtonActions"
                   expand="block"
                   fill="outline"
-                  @click="GoRegister3"
+                  @click="submitForm"
                 >
                   Continue
                 </IonButton>
@@ -131,6 +137,51 @@ import {
 } from "@ionic/vue";
 import "./SignUp.css";
 import { GoRegister3, goBack } from "./SignUp-Controller";
+import { useSignupStore } from "@/stores/signupstore"
+import { SignupModel } from "@/SignUp/Seeker-Model";
+
+
+const signupStore = useSignupStore();
+const formData = {
+  elementary: "",
+  juniorhigh: "",
+  seniorhigh: "",
+  college: "",
+  othereduc: "",
+  workexp: "",
+};
+const submitForm = async () => {
+  signupStore.setFormData({
+    ...sharedFormData,
+    elementary: formData.elementary,
+    juniorhigh: formData.juniorhigh,
+    seniorhigh: formData.seniorhigh,
+    college: formData.college,
+    othereduc: formData.othereduc,
+    workexp: formData.workexp,
+  });
+
+  // await signupStore.registerUser();
+
+  // Log the form data values
+  console.log(formData.elementary);
+  console.log(formData.juniorhigh);
+  console.log(formData.seniorhigh);
+  console.log(formData.college);
+  console.log(formData.othereduc);
+  console.log(formData.workexp);
+
+  GoRegister3()
+}
+
+const sharedFormData = signupStore.formData;
+  console.log(sharedFormData.firstName);
+  console.log(sharedFormData.middleName);
+  console.log(sharedFormData.lastName);
+  console.log(sharedFormData.suffix);
+  console.log(sharedFormData.email);
+  console.log(sharedFormData.password);
+
 </script>
 
 <script lang="ts"></script>

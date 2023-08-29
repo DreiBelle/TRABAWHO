@@ -49,6 +49,7 @@
               </IonCol>
             </IonRow>
           </IonGrid>
+          <IonButton @click="handleSubmit">Register</IonButton>
         </IonCard>
       </div>
 
@@ -77,11 +78,28 @@ import {
 } from "@ionic/vue";
 import "./SignUp.css";
 import { goBack } from "./SignUp-Controller";
+import { useSignupStore } from "@/stores/signupstore"
+import { ref } from "vue"; // Import the ref function
+import ChoiceModal from "./Seeker-InterestModal.vue";
+const signupStore = useSignupStore();
+const sharedFormData = signupStore.formData;
+  console.log("Page 3");
+  console.log(sharedFormData.firstName);
+  console.log(sharedFormData.middleName);
+  console.log(sharedFormData.lastName);
+  console.log(sharedFormData.suffix);
+  console.log(sharedFormData.email);
+  console.log(sharedFormData.password);
+  console.log(sharedFormData.elementary);
+  console.log(sharedFormData.juniorhigh);
+  console.log(sharedFormData.seniorhigh);
+  console.log(sharedFormData.college);
+  console.log(sharedFormData.othereduc);
+  console.log(sharedFormData.workexp);
 </script>
 
 <script lang="ts">
-import ChoiceModal from "./Seeker-InterestModal.vue";
-
+import { goLogin} from '@/SignUp/SignUp-Controller';
 export default {
   data() {
     return {
@@ -105,6 +123,14 @@ export default {
     handleChoiceSelected(choice) {
       this.chosenChoices.push(choice);
       this.modalOpen = false;
+    },
+    async handleSubmit() {
+      const signupStore = useSignupStore();
+      signupStore.setChosenInterests(this.chosenChoices);
+      console.log("Chosen Choices:", this.chosenChoices);
+      await signupStore.registerUser(); // Register the user
+      // GoHomeSwipeJobSeekers()
+      goLogin()
     },
   },
 };

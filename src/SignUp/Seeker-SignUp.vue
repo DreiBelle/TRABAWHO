@@ -27,6 +27,7 @@
                   label="First Name"
                   labelPlacement="floating"
                   placeholder="Enter First Name"
+                  v-model="formData.firstName"
                   required
                 >
                 </IonInput>
@@ -39,6 +40,7 @@
                   label="Middle Name"
                   labelPlacement="floating"
                   placeholder="Enter Middle Name"
+                  v-model="formData.middleName"
                   required
                 >
                 </IonInput>
@@ -51,6 +53,7 @@
                   label="Last Name"
                   labelPlacement="floating"
                   placeholder="Enter Last Name"
+                  v-model="formData.lastName"
                   required
                 >
                 </IonInput>
@@ -64,6 +67,7 @@
                   label="Suffix"
                   labelPlacement="floating"
                   placeholder="Enter Suffix"
+                  v-model="formData.suffix"
                   required
                 >
                 </IonInput>
@@ -81,6 +85,7 @@
                   label="Email"
                   labelPlacement="floating"
                   placeholder="Enter Email"
+                  v-model="formData.email"
                   required
                 >
                 </IonInput>
@@ -93,6 +98,7 @@
                   label="Password"
                   labelPlacement="floating"
                   placeholder="Enter Password"
+                  v-model="formData.password"
                   required
                 >
                 </IonInput>
@@ -115,7 +121,7 @@
                   class="SignUpButtonActions"
                   expand="block"
                   fill="outline"
-                  @click="GoRegister2"
+                  @click="submitForm"
                   style="color: black; --border-color: black"
                 >
                   Continue
@@ -145,7 +151,23 @@ import {
 } from "@ionic/vue";
 import "./SignUp.css";
 import { GoRegister2, goBack, goTermsandCondition } from "./SignUp-Controller";
-import { defineStore } from "pinia";
+import { useSignupStore } from "@/stores/signupstore";
+import { Firestore } from "firebase/firestore";
+const signupStore = useSignupStore();
+const formData = {
+  firstName: "",
+  middleName: "",
+  lastName: "",
+  suffix: "",
+  email: "",
+  password: "",
+};
+const submitForm = async () => {
+  // Submit logic, then update the store with the form data
+  signupStore.setFormData(formData);
+
+  GoRegister2();
+};
 </script>
 
 <script lang="ts"></script>

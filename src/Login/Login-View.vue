@@ -32,6 +32,7 @@
                 class="LogIn-Input"
                 label="Password"
                 labelPlacement="floating"
+                type="password"
                 placeholder="Enter Password"
                 required
                 v-model="Password"
