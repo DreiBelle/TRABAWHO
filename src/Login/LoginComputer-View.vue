@@ -101,5 +101,6 @@ const Password = ref("");
 
 const handleUserLogin = () => {
   UserLogin(Username.value, Password.value);
+  console.log("hello")
 };
 </script>
