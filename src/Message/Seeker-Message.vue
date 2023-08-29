@@ -6,7 +6,7 @@
     </IonContent>
   </IonPage>
 </template>
-S
+
 <script setup lang="ts">
 import { IonPage, IonContent, IonText } from "@ionic/vue";
 import Navbar from "../NavBar/NavBar.vue";
