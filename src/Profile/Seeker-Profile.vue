@@ -13,7 +13,7 @@
         </IonRow>
         <IonRow>
           <IonCol class="Seeker-Profile-Name-Container">
-            <IonText> First Name, Middle Name, Last Name, Suffix </IonText>
+            <IonText> {{ user ? `${user.firstName} ${user.middleName} ${user.lastName} ${user.suffix}` : "Loading..." }} </IonText>
           </IonCol>
         </IonRow>
         <IonRow>
@@ -83,6 +83,11 @@ import EducationalBackground from "./Seeker-Profile-Education.vue";
 import Experience from "./Seeker-Profile-Experience.vue";
 import Skills from "./Seeker-Profile-Skills.vue";
 import "./Seeker-Profile.css";
+import {getUserProfile} from "./Profile-Model"
+import { UseProfileStore } from "@/stores/profilestore";
+import { ref, onMounted, computed } from "vue";
+const Username = ref("");
+const Password = ref("");
 
 export default {
   components: {
@@ -98,8 +103,23 @@ export default {
     Skills,
     IonButton,
   },
-  data() {
+  setup() {
+    
+    const user = ref(null);
+    const profilestore = UseProfileStore();
+    const sharedFormData = profilestore.formData;
+
+    onMounted(async () => {
+      const email = sharedFormData.email;
+      user.value = await getUserProfile(email);
+    });
+
     return {
+      user, // Expose user ref to the template
+    };
+  },
+  data() {
+  return {
       Tabs: "Experience",
     };
   },

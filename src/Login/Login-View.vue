@@ -88,15 +88,29 @@ import {
 import "./Login.css";
 import { GoRegister, GoHome, GoHomeSwipeJobSeekers } from "./Login-Controller";
 import { UserLogin } from "./Login-Model";
+import { UseProfileStore } from "@/stores/profilestore";
+import { Firestore } from "firebase/firestore";
 </script>
 
 <script lang="ts">
 import { ref } from "vue";
 
+
 const Username = ref("");
 const Password = ref("");
 
+
 const handleUserLogin = () => {
+  const profilestore = UseProfileStore();
+  const formData = {
+    email: Username.value,
+    password: Password.value,
+  };
   UserLogin(Username.value, Password.value);
+  profilestore.setFormData(formData)
+
+
+  console.log(formData.email)
+  console.log(formData.password)
 };
 </script>

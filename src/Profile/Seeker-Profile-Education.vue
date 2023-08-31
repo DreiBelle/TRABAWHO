@@ -11,7 +11,7 @@
         Elementary: 
       </IonCol>
       <IonCol>
-        Central
+        {{ user ? `${user.elementary}` : "Loading..." }}
       </IonCol>
     </IonRow>
     <IonRow class="Seeker-Profile-Educational-Table">
@@ -19,7 +19,7 @@
         Junior HighSchool: 
       </IonCol>
       <IonCol>
-        Saint Mary's
+        {{ user ? `${user.juniorhigh}` : "Loading..." }}
       </IonCol>
     </IonRow>
     <IonRow class="Seeker-Profile-Educational-Table">
@@ -27,7 +27,7 @@
         Senior HighSchool: 
       </IonCol>
       <IonCol>
-        Saint Mary's
+        {{ user ? `${user.seniorhigh}` : "Loading..." }}
       </IonCol>
     </IonRow>
     <IonRow class="Seeker-Profile-Educational-Table">
@@ -35,7 +35,7 @@
         College: 
       </IonCol>
       <IonCol>
-        Saint Mary's
+        {{ user ? `${user.college}` : "Loading..." }}
       </IonCol>
     </IonRow>
     <IonRow class="Seeker-Profile-Educational-Table">
@@ -43,7 +43,7 @@
         Other Education: 
       </IonCol>
       <IonCol>
-        etc.
+        {{ user ? `${user.othereduc}` : "Loading..." }}
       </IonCol>
     </IonRow>
    </IonGrid>
@@ -53,6 +53,9 @@
 <script lang="ts">
 import { IonCol, IonContent, IonGrid, IonRow } from "@ionic/vue";
 import "./Seeker-Profile.css";
+import {getUserProfile} from "./Profile-Model"
+import { UseProfileStore } from "@/stores/profilestore";
+import { ref, onMounted  } from "vue";
 
 export default {
   components: {
@@ -61,5 +64,20 @@ export default {
     IonRow,
     IonCol
 },
+setup() {
+    // Assuming you have access to the email from your sharedFormData
+    const user = ref(null);
+    const profilestore = UseProfileStore();
+    const sharedFormData = profilestore.formData;
+
+    onMounted(async () => {
+      const email = sharedFormData.email;
+      user.value = await getUserProfile(email);
+    });
+
+    return {
+      user, // Expose user ref to the template
+    };
+  },
 };
 </script>

@@ -1,6 +1,6 @@
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../firebaseDB";
-import { GoHomeSwipeJobSeekers } from "./Login-Controller";
+import { GoHomeSwipeJobSeekers, GoEmployerDashboard } from "./Login-Controller";
 
 async function UserLogin_(Username, Password) {
   const usersRef = collection(db, "users");
@@ -22,7 +22,7 @@ async function UserLogin_(Username, Password) {
       }
       else if(storedtype === "employer"){
         console.log("Succesfully login");
-        console.log("Employer view");
+        GoEmployerDashboard();
       }
       else{
         console.log("Succesfully login");
@@ -34,6 +34,11 @@ async function UserLogin_(Username, Password) {
   } else {
     console.log("Username not found");
   }
+}
+
+export interface ProfileModel {
+  email: string;
+  password: string;
 }
 
 export const UserLogin = UserLogin_;

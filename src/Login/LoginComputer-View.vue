@@ -89,7 +89,7 @@ import {
   IonCard,
 } from "@ionic/vue";
 import "./Login.css";
-import { GoRegister, GoHome, GoEmployer } from "./Login-Controller";
+import { GoRegister, GoHome, GoEmployer, GoEmployerDashboard } from "./Login-Controller";
 import { UserLogin } from "./Login-Model";
 </script>
 
@@ -101,6 +101,5 @@ const Password = ref("");
 
 const handleUserLogin = () => {
   UserLogin(Username.value, Password.value);
-  console.log("hello")
 };
 </script>
