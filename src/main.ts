@@ -1,8 +1,8 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import { createGesture } from '@ionic/vue';
-import App from './App.vue'
-import router from './router';
+import App from './App.vue';
+import router from './router/index';
 import { ref } from 'vue';
 
 import { IonicVue } from '@ionic/vue';
@@ -26,14 +26,13 @@ import '@ionic/vue/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
-const elementRef = ref();
-
+// const elementRef = ref();
+const app = createApp(App).use(IonicVue).use(router);
 const pinia = createPinia()
-const app = createApp(App)
-  .use(IonicVue)
-  .use(router);
+
+
   
 router.isReady().then(() => {
-  app.use(pinia)
+  app.use(pinia);
   app.mount('#app');
 });

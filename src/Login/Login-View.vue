@@ -101,16 +101,12 @@ const Password = ref("");
 
 
 const handleUserLogin = () => {
-  const profilestore = UseProfileStore();
-  const formData = {
-    email: Username.value,
-    password: Password.value,
-  };
+
+  localStorage.setItem("email", Username.value);
+  localStorage.setItem("password", Password.value);
+
   UserLogin(Username.value, Password.value);
-  profilestore.setFormData(formData)
-
-
-  console.log(formData.email)
-  console.log(formData.password)
+  Username.value = "";
+  Password.value = "";
 };
 </script>

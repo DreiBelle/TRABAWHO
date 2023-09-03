@@ -2,6 +2,7 @@
   <IonPage>
     <IonContent>
       <IonGrid style="height: 100vh">
+        <IonButton @click="logout" >Logout</IonButton>
         <IonRow>
           <IonCol class="Seeker-Profile-Picture-Container">
             <img
@@ -84,10 +85,8 @@ import Experience from "./Seeker-Profile-Experience.vue";
 import Skills from "./Seeker-Profile-Skills.vue";
 import "./Seeker-Profile.css";
 import {getUserProfile} from "./Profile-Model"
-import { UseProfileStore } from "@/stores/profilestore";
 import { ref, onMounted, computed } from "vue";
-const Username = ref("");
-const Password = ref("");
+import { GoLogin } from "./Profile-Controller";
 
 export default {
   components: {
@@ -106,12 +105,11 @@ export default {
   setup() {
     
     const user = ref(null);
-    const profilestore = UseProfileStore();
-    const sharedFormData = profilestore.formData;
 
     onMounted(async () => {
-      const email = sharedFormData.email;
-      user.value = await getUserProfile(email);
+      const userEmail = localStorage.getItem("email");
+      // const userPassword = localStorage.getItem("password");
+      user.value = await getUserProfile(userEmail);
     });
 
     return {
@@ -141,6 +139,12 @@ export default {
         document.getElementById("Skills").style.background = "#F9F6EE";
       }
     },
+    logout(){
+
+      localStorage.removeItem("email");
+      localStorage.removeItem("password");
+      GoLogin()
+    }
   },
   computed: {
     ShowComponents() {

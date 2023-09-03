@@ -1,5 +1,9 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
-import { RouteRecordRaw } from 'vue-router';
+import { RouteRecordRaw, NavigationGuardNext, RouteLocationNormalized  } from 'vue-router';
+import { useRouter } from 'vue-router';
+import { useAuthStore } from '@/stores/authstore';
+
+
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -14,7 +18,8 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/Login',
     name: 'Login',
-    component: () => import('../Login/Login-View.vue')
+    component: () => import('../Login/Login-View.vue'),
+
   },
   {
     path: '/SignUp',
@@ -37,7 +42,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/Swipe',
     name: 'Swipe',
-    component: () => import('../Swipe/Swipe.vue')
+    component: () => import('../Swipe/Swipe.vue'),
   },
   {
     path: '/TermsandConditions',
@@ -62,22 +67,22 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/NavBar',
     name: 'NavBar',
-    component: () => import('../NavBar/NavBar.vue')
+    component: () => import('../NavBar/NavBar.vue'),
   },
   {
     path: '/Seeker-Message',
     name: 'Seeker-Message',
-    component: () => import('../Message/Seeker-Message.vue')
+    component: () => import('../Message/Seeker-Message.vue'),
   },
   {
     path: '/Seeker-Profile',
     name: 'Seeker-Profile',
-    component: () => import('../Profile/Seeker-Profile.vue')
+    component: () => import('../Profile/Seeker-Profile.vue'),
   },
   {
     path: '/Employer-Dashboard',
     name: 'Employer-Dashboard',
-    component: () => import('../Dashboard/Employer-Dashboard.vue')
+    component: () => import('../Dashboard/Employer-Dashboard.vue'),
   },
 ]
 
@@ -86,4 +91,6 @@ const router = createRouter({
   routes
 })
 
-export default router
+
+export default router 
+
