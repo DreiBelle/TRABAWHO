@@ -1,6 +1,6 @@
 <template>
     <IonCard class="Dashboard-Card-Postings">
-        <IonGrid style="height: 100%;">
+        <IonGrid style="height: 95%;">
             <IonRow style="height: 12%;">
                 <IonCol class="Dashboard-Card-Postings-Title">
                     Title

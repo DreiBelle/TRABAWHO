@@ -1,54 +1,21 @@
 <template>
     <IonCard class="Dashboard-Card-Description">
-        <IonGrid>
-            <IonRow>
+        <IonGrid style="height: 100%;">
+            <IonRow style="height: 30%;">
                 <IonCol>
                     <IonText class="Dashboard-FlexCenter" style="color: black; font-size: 18px; padding-top: 10px;">
                         Title
                     </IonText>
                 </IonCol>
             </IonRow>
-            <IonRow>
+            <IonRow style="max-height: 16vh; overflow-y: auto ;" class="noscroll">
                 <IonCol>
-                    <div class="Dashboard-Overflow">
-                        <p style="font-size: 16px; color: black; text-align: justify;">
-                            Lorem ipsum dolor sit amet. Est blanditiis nobis ut ipsa nisi sed iusto accusamus et possimus
-                            esse. Aut beatae quibusdam sed recusandae blanditiis aut nisi quae ut blanditiis dolorem?
-                            Qui unde corporis eos voluptas molestiae At accusamus iste in dolores laudantium ex nostrum
-                            voluptas ea labore repellendus 33 galisum perspiciatis. Qui odio sint non illum iusto ea
-                            voluptates natus sed quia tempora non quas dolor est cumque Lorem ipsum dolor sit amet. Est
-                            blanditiis nobis ut ipsa nisi sed iusto accusamus et possimus esse. Aut beatae quibusdam sed
-                            recusandae blanditiis aut nisi quae ut blanditiis dolorem?
-                            Qui unde corporis eos voluptas molestiae At accusamus iste in dolores laudantium ex nostrum
-                            voluptas ea labore repellendus 33 galisum perspiciatis. Qui odio sint non illum iusto ea
-                            voluptates natus sed quia tempora non quas dolor est cumque Lorem ipsum dolor sit amet. Est
-                            blanditiis nobis ut ipsa nisi sed iusto accusamus et possimus esse. Aut beatae quibusdam sed
-                            recusandae blanditiis aut nisi quae ut blanditiis dolorem?
-                            Qui unde corporis eos voluptas molestiae At accusamus iste in dolores laudantium ex nostrum
-                            voluptas ea labore repellendus 33 galisum perspiciatis. Qui odio sint non illum iusto ea
-                            voluptates natus sed quia tempora non quas dolor est cumque Lorem ipsum dolor sit amet. Est
-                            blanditiis nobis ut ipsa nisi sed iusto accusamus et possimus esse. Aut beatae quibusdam sed
-                            recusandae blanditiis aut nisi quae ut blanditiis dolorem?
-                            Qui unde corporis eos voluptas molestiae At accusamus iste in dolores laudantium ex nostrum
-                            voluptas ea labore repellendus 33 galisum perspiciatis. Qui odio sint non illum iusto ea
-                            voluptates natus sed quia tempora non quas dolor est cumque Lorem ipsum dolor sit amet. Est
-                            blanditiis nobis ut ipsa nisi sed iusto accusamus et possimus esse. Aut beatae quibusdam sed
-                            recusandae blanditiis aut nisi quae ut blanditiis dolorem?
-                            Qui unde corporis eos voluptas molestiae At accusamus iste in dolores laudantium ex nostrum
-                            voluptas ea labore repellendus 33 galisum perspiciatis. Qui odio sint non illum iusto ea
-                            voluptates natus sed quia tempora non quas dolor est cumque Lorem ipsum dolor sit amet. Est
-                            blanditiis nobis ut ipsa nisi sed iusto accusamus et possimus esse. Aut beatae quibusdam sed
-                            recusandae blanditiis aut nisi quae ut blanditiis dolorem?
-                            Qui unde corporis eos voluptas molestiae At accusamus iste in dolores laudantium ex nostrum
-                            voluptas ea labore repellendus 33 galisum perspiciatis. Qui odio sint non illum iusto ea
-                            voluptates natus sed quia tempora non quas dolor est cumque Lorem ipsum dolor sit amet. Est
-                            blanditiis nobis ut ipsa nisi sed iusto accusamus et possimus esse. Aut beatae quibusdam sed
-                            recusandae blanditiis aut nisi quae ut blanditiis dolorem?
-                            Qui unde corporis eos voluptas molestiae At accusamus iste in dolores laudantium ex nostrum
-                            voluptas ea labore repellendus 33 galisum perspiciatis. Qui odio sint non illum iusto ea
-                            voluptates natus sed quia tempora non quas dolor est cumque
-                        </p>
-                    </div>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                 </IonCol>
             </IonRow>
         </IonGrid>
