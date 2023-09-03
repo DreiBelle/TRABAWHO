@@ -3,7 +3,7 @@
 }
 
 .Seeker-Profile-Buttons{
-font-size: 10;
+font-size: 12px;
 color: black;
 }
 
@@ -37,25 +37,27 @@ color: black;
     align-items: center;
     display: flex;
     justify-content: center;
-    height: 20vh;
 }
 
 .Seeker-Profile-Name-Container{
     align-items: center;
     display: flex;
     justify-content: center;
-    height: 5vh;
 }
 
 .Seeker-Profile-Tabs-Container{
-    height: fit-content;
     padding: 0px;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 .Seeker-Profile-Information-Container{
     display: flex;
     justify-content: center;
-    height: 52vh;
+}
+
+.Seeker-Profile-Button-LogOut{
+    min-height: 5px !important;
+    color: black;
+    --border-color: black;
 }
