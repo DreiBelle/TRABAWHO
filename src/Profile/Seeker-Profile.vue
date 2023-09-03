@@ -1,9 +1,14 @@
 <template>
   <IonPage> 
       <IonGrid style="height: 100%; color: black; background-color: #f3f2ee; width: 100%;">
+        <IonRow style="height: 10%;">
+          <IonCol>
+
+          </IonCol>
+        </IonRow>
         <IonRow style="height: 20%">
           <IonCol class="Seeker-Profile-Picture-Container">
-            <img class="Seeker-Profile-Picture" src="../assets/logosample.jpg" alt="profile" />
+            <img style="border: 1px solid black;" class="Seeker-Profile-Picture" src="../assets/logosample.jpg" alt="profile" />
           </IonCol>
         </IonRow>
         <IonRow style="height: 5%">
@@ -34,12 +39,12 @@
             </IonButton>
           </IonCol>
         </IonRow>
-        <IonRow style="background-color: #f9f6ee; height: 53%">
+        <IonRow style="background-color: #f9f6ee; height: 46%">
           <IonCol class="Seeker-Profile-Information-Container">
             <component :is="ShowComponents" />
           </IonCol>
         </IonRow>
-        <IonRow style="height: 15%">
+        <IonRow style="height: 10%">
           <IonCol>
             <Navbar />
           </IonCol>
