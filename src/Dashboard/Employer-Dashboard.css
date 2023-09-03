@@ -1,16 +1,182 @@
-.Dashboard-{
-
+.Dashboard- {
 }
 
-.Dashboard-HeaderButtons{
-    height: 60px !important;
-    width: 60px !important;
-    border-radius: 100px;
-    
+.Dashboard-Header {
+  background-color: #1d1d1d;
 }
 
-.Dashboard-FlexCenter{
-    justify-content: center;
-    align-items: center;
-    display: flex;
+.Dashboard-FlexCenter {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.Dashboard-HeaderButtons {
+  height: auto !important;
+  max-height: 55px;
+  width: auto !important;
+  border-radius: 100%;
+  cursor: pointer;
+}
+
+.Dashboard-Contents {
+  width: 100vw;
+  padding: 20px;
+}
+
+.Dashboard-Page {
+  background-color: #f3f2ee;
+  color: black;
+}
+
+.Dashboard-Card-Postings {
+  height: 95%;
+  width: 20%;
+  color: black;
+}
+
+.Dashboard-Card-Postings-Title {
+  font-size: 20px;
+  text-align: center;
+}
+
+.Dashboard-Card-Postings-Description {
+  font-size: 15px;
+  text-align: justify;
+}
+
+.Dashboard-Card-JobPosting {
+  height: 95%;
+  width: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 70px;
+  color: lightblue;
+  background-color: white;
+}
+
+.Dashboard-Card-JobPosting:hover {
+  height: 95%;
+  width: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 70px;
+  color: lightblue;
+  background-color: whitesmoke;
+  transition: background-color 0.5s ease;
+  cursor: pointer;
+}
+
+.Dashboard-FirstRow {
+  height: 60%;
+}
+
+.Dashboard-SecondRow {
+  height: 40%;
+}
+
+.Dashboard-AddJobPostings {
+  display: flex;
+  align-items: center;
+}
+
+.Dashboard-OuterCard-JobPosting {
+  height: 100%;
+  width: 100%;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.Dashboard-Card {
+  margin: 5px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Dashboard-Profile {
+  height: auto;
+  max-height: 190px;
+  width: auto;
+  border: 1px solid black;
+  border-radius: 100%;
+}
+
+.Dashboard-Container-Profile {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+
+.Dashboard-Container-Name {
+  display: flex;
+  align-items: center;
+}
+
+.Dashboard-Container-Picture {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-self: center;
+}
+
+.Dashboard-Picture {
+  height: auto;
+  max-height: 190px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid black;
+}
+
+.Dashboard-Container-Description {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  
+}
+
+.Dashboard-Card-Postings-Picture{
+  height: auto;
+  max-height: 50px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid black;
+}
+
+.Dashboard-Overflow-Postings {
+  overflow-y: auto;
+  height: 135px;
+  padding: 10px;
+}
+
+.Dashboard-Overflow {
+  overflow-y: auto;
+  height: 250px;
+  max-height: 250px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.Dashboard-Overflow::-webkit-scrollbar {
+  width: 1px;
+  background-color: transparent;
+}
+
+.Dashboard-Overflow-Postings::-webkit-scrollbar {
+  width: 1px;
+  background-color: transparent;
+}
+
+.Dashboard-Card-Description {
+  height: 100%;
+  width: 100%;
 }

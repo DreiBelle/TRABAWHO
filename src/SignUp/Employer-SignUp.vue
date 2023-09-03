@@ -138,6 +138,7 @@ import "./SignUp.css";
 import { GoRegister2, goBack, goTermsandCondition } from "./SignUp-Controller";
 import { useSignupStore2 } from "@/stores/signupstore2";
 import { Firestore } from "firebase/firestore";
+import router from "../router";
 const signupStore2 = useSignupStore2();
 const formData = {
   email: "",
@@ -153,6 +154,8 @@ const submitForm = async () => {
   signupStore2.setFormData(formData);
 
   await signupStore2.registerUser();
+
+  router.push("/LoginComputer")
 };
 
 </script>
