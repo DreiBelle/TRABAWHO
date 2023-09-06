@@ -28,26 +28,26 @@
               </IonCol>
             </IonRow>
 
-            <IonRow>
-              <IonCol>
-                <IonRow>
-                  <IonCol
-                    v-for="choice in chosenChoices"
-                    :key="choice.id"
-                    style="padding: 0px"
-                  >
-                    <IonButton
-                      class="SignUpJobSeeker-ChosenInterest"
-                      fill="outline"
-                      size="small"
-                      @click="removeChoice(choice.id)"
+              <IonRow>
+                <IonCol>
+                  <IonRow>
+                    <IonCol
+                      v-for="choice in chosenChoices"
+                      :key="choice.id"
+                      style="padding: 0px"
                     >
-                      {{ choice.label }}
-                    </IonButton>
-                  </IonCol>
-                </IonRow>
-              </IonCol>
-            </IonRow>
+                      <IonButton
+                        class="SignUpJobSeeker-ChosenInterest"
+                        fill="outline"
+                        size="small"
+                        @click="removeChoice(choice.id)"
+                      >
+                        {{ choice.label }}
+                      </IonButton>
+                    </IonCol>
+                  </IonRow>
+                </IonCol>
+              </IonRow>
           </IonGrid>
           <IonButton @click="handleSubmit">Register</IonButton>
         </IonCard>

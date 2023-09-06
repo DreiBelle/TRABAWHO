@@ -1,3 +1,7 @@
+.SignUp-{
+
+}
+
 .SignUpBackground {
   /* background-image: url("../assets/background-Login.jpg"); */
  color: snow;
@@ -63,9 +67,17 @@
   color: black;
   --border-color: black;
 }
-.SignUpJobSeeker- {
-}
+
 .SignUpEmployer-IonCard {
   padding: 20px;
   border-radius: 20px;
+}
+
+.SignUp-Modal-Search{
+  --border-radius: 10px;
+  padding: 20px;
+}
+
+.SignUp-ListOfInterest{
+  padding: 10px;
 }

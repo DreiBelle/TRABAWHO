@@ -109,11 +109,11 @@
     </IonContent>
   </IonMenu>
 
-  <IonModal ref="modal" trigger="open-modal">
-    <IonContent>
-      <AddModal />
-    </IonContent>
-  </IonModal>
+    <IonModal ref="modal" trigger="open-modal" style="--height: 80%; --border-radius: 20px;">
+      <IonContent>
+        <AddModal/>
+      </IonContent>
+    </IonModal>
 </template>
 <script lang="ts">
 import {
@@ -160,9 +160,9 @@ export default {
     AddModal,
   },
   methods: {
-    closeModal(){
+    closeModal() {
       modalController.dismiss();
-    }
+    },
   },
 };
 </script>

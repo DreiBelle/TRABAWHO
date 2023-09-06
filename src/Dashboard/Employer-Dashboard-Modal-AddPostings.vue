@@ -1,10 +1,13 @@
 <template>
-  <IonGrid style="height: 100%; width: 100%">
+  <IonGrid style="height: 100%; width: 100%; background-color: #f3f2ee;">
     <IonRow style="height: 12%">
       <IonCol size="1" class="Dashboard-FlexCenter"></IonCol>
       <IonCol size="10" class="Dashboard-FlexCenter"> Add Job Posting </IonCol>
       <IonCol size="1" class="Dashboard-FlexCenter">
-        <IonButton @click="closeOther" class="Dashboard-Modal-Button-Cancel" fill="clear"
+        <IonButton
+          @click="closeOther"
+          class="Dashboard-Modal-Button-Cancel"
+          fill="clear"
           >x</IonButton
         >
       </IonCol>
@@ -55,13 +58,31 @@
         ></IonInput>
       </IonCol>
     </IonRow>
-    <IonRow style="height: 11%">
-      <IonCol
+    <IonRow style="height: 11%; overflow-x: auto; background-color: white;  ">
+      <IonCol size="3"
         class="Dashboard-FlexCenter"
-        style="justify-content: left !important"
-        ><IonButton class="Dashboard-Modal-Button-SameColor" fill="outline"
+        style="justify-content: left !important;"
+        ><IonButton
+          @click="openModal"
+          class="Dashboard-Modal-Button-SameColor"
+          fill="outline"
           >ADD FILTER</IonButton
         >
+      </IonCol>
+      <IonCol
+        v-for="choice in chosenChoices"
+        :key="choice.id"
+        style="padding: 0px; background-color: white;"
+        class="Dashboard-FlexCenter"
+      >
+        <IonButton
+          class="JobPostings-ChosenInterest"
+          fill="outline"
+          size="small"
+          @click="removeChoice(choice.id)"
+        >
+          {{ choice.label }}
+        </IonButton>
       </IonCol>
     </IonRow>
     <IonRow style="height: 11%">
@@ -76,6 +97,13 @@
       </IonCol>
     </IonRow>
   </IonGrid>
+
+  <IonModal :is-open="modalOpen" @did-dismiss="closeModal">
+    <ChoiceModal
+      :choice="modalChoices"
+      @choice-selected="handleChoiceSelected"
+    />
+  </IonModal>
 </template>
 <script lang="ts">
 import {
@@ -86,19 +114,56 @@ import {
   IonInput,
   IonRow,
   modalController,
+  IonPage,
+  IonContent,
+  IonModal,
 } from "@ionic/vue";
+import ChoiceModal from "@/SignUp/Seeker-InterestModal.vue";
 
 export default {
-  components: { IonGrid, IonRow, IonCol, IonCard, IonInput, IonButton },
+  components: {
+    IonGrid,
+    IonRow,
+    IonCol,
+    IonCard,
+    IonInput,
+    IonButton,
+    IonPage,
+    IonContent,
+    IonModal,
+    ChoiceModal,
+  },
+  data() {
+    return {
+      modalOpen: false,
+      modalChoices: [],
+      chosenChoices: [],
+    };
+  },
   methods: {
-    closeOther(){
+    closeOther() {
       modalController.dismiss();
-    }
+    },
+    removeChoice(choiceId) {
+      this.chosenChoices = this.chosenChoices.filter(
+        (choice) => choice.id !== choiceId
+      );
+    },
+    openModal() {
+      this.modalOpen = true;
+    },
+    closeModal() {
+      this.modalOpen = false;
+    },
+    handleChoiceSelected(choice) {
+      this.chosenChoices.push(choice);
+      this.modalOpen = false;
+    },
   },
 };
 </script>
 <style>
-ion-col {
+/* ion-col {
   border: 1px solid black;
-}
+} */
 </style>

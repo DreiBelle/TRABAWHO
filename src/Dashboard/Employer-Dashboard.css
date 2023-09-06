@@ -194,6 +194,7 @@
   --padding-start: 20px;
   margin-left: 10px ;
   margin-right: 10px ;
+  background-color: white;
 }
 
 .Dashboard-Modal-Picture {
@@ -227,5 +228,23 @@
 .Dashboard-Modal-Button-SameColor{
   color: black;
   --border-color: black;
-  --border-width: 1px
+  --border-width: 1px;
+  background-color: white;
+  margin-left: 10px ;
+  margin-right: 10px ;
+
+}
+
+.JobPostings-ChosenInterest {
+  --background-activated: snow;
+  height: 35px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  color: black;
+  --border-color: black;
+  --border-width: 1px;
+  width: 100% !important;
+  padding-right: 12px;
+  padding-left: 12px;
 }
