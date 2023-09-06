@@ -16,7 +16,7 @@
             <IonCol size=".5"> </IonCol>
             <IonCol size="3"> </IonCol>
             <IonCol class="Dashboard-FlexCenter" size="4">
-              <IonSearchbar style="height: 10px;"> </IonSearchbar>
+              <IonSearchbar style="height: 10px"> </IonSearchbar>
             </IonCol>
             <IonCol size="3"> </IonCol>
             <IonCol class="Dashboard-FlexCenter" size=".5">
@@ -90,7 +90,9 @@
             <IonCol class="Dashboard-AddJobPostings">
               <IonCard class="Dashboard-OuterCard-JobPosting">
                 <Postings></Postings>
-                <IonCard class="Dashboard-Card-JobPosting"> + </IonCard>
+                <IonCard id="open-modal" class="Dashboard-Card-JobPosting">
+                  +
+                </IonCard>
               </IonCard>
             </IonCol>
           </IonRow>
@@ -106,6 +108,12 @@
       </IonMenuToggle>
     </IonContent>
   </IonMenu>
+
+  <IonModal ref="modal" trigger="open-modal">
+    <IonContent>
+      <AddModal />
+    </IonContent>
+  </IonModal>
 </template>
 <script lang="ts">
 import {
@@ -117,6 +125,8 @@ import {
   IonHeader,
   IonMenu,
   IonMenuToggle,
+  IonModal,
+  modalController,
   IonPage,
   IonRow,
   IonSearchbar,
@@ -127,6 +137,7 @@ import Postings from "./Employer-Postings.vue";
 import Description from "./Employer-Description.vue";
 import DataAnalytics from "./Employer-DataAnalytics.vue";
 import SideBar from "./Employer-Sidebar.vue";
+import AddModal from "./Employer-Dashboard-Modal-AddPostings.vue";
 export default {
   components: {
     SideBar,
@@ -145,6 +156,13 @@ export default {
     Postings,
     IonMenu,
     IonMenuToggle,
+    IonModal,
+    AddModal,
+  },
+  methods: {
+    closeModal(){
+      modalController.dismiss();
+    }
   },
 };
 </script>
