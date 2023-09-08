@@ -1,7 +1,7 @@
 <template>
   <IonPage> 
       <IonGrid style="height: 100%; color: black; background-color: #f3f2ee; width: 100%;">
-        <IonRow style="height: 10%;">
+        <IonRow style="height: 8%;">
           <IonCol>
 
           </IonCol>

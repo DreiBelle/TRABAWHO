@@ -10,15 +10,26 @@
     @touchend="endSwipe"
   >
     <div class="Swipe-CardContent">
-      <IonGrid>
-        <IonRow>
+      <IonGrid style="height: 100%; width: 100%;">
+        <IonRow style="height: 10%;">
           <IonCol>
+            Job Name
             {{ item.content }}
           </IonCol>
         </IonRow>
-        <IonRow>
+        <IonRow style="height: 30%;">
           <IonCol>
-            Name
+            Picture
+          </IonCol>
+        </IonRow>
+        <IonRow style="height: 10%;">
+          <IonCol>
+            Job Type
+          </IonCol>
+        </IonRow>
+        <IonRow style="height: 50%;">
+          <IonCol>
+            Job Description
           </IonCol>
         </IonRow>
       </IonGrid>
@@ -70,4 +81,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style>
+ion-col{
+  border: 1px solid white !important;
+}
+</style>

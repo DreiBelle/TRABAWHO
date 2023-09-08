@@ -4,7 +4,7 @@
         <IonRow style="height: 8%">
           <IonCol> </IonCol>
         </IonRow>
-        <IonRow style="height: 80%">
+        <IonRow style="height: 78%">
           <IonCol>
             <div class="Swipe-Background">
               <SwipeableCard
