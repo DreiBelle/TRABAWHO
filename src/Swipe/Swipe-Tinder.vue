@@ -10,7 +10,7 @@
     @touchend="endSwipe"
   >
     <div class="Swipe-CardContent">
-      <IonGrid style="height: 100%; width: 100%;">
+      <IonGrid style="height: 100%;">
         <IonRow style="height: 10%;">
           <IonCol>
             Job Name
