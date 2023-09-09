@@ -52,7 +52,7 @@
                     alt="profile"
                   />
                 </IonCol>
-                <IonCol class="Dashboard-Container-Name"> name </IonCol>
+                <IonCol class="Dashboard-Container-Name"> {{ user ? `${user.businessname}` : "Loading..." }} </IonCol>
               </IonRow>
             </IonCol>
             <IonCol class="Dashboard-Container-Picture">
@@ -138,6 +138,8 @@ import Description from "./Employer-Description.vue";
 import DataAnalytics from "./Employer-DataAnalytics.vue";
 import SideBar from "./Employer-Sidebar.vue";
 import AddModal from "./Employer-Dashboard-Modal-AddPostings.vue";
+import { getDashboardProfile } from "./Dashboard-Model"
+import { ref, onMounted, computed } from "vue";
 export default {
   components: {
     SideBar,
@@ -159,6 +161,20 @@ export default {
     IonModal,
     AddModal,
   },
+  setup() {
+
+  const user = ref(null);
+
+  onMounted(async () => {
+    const userEmail = localStorage.getItem("email");
+    // const userPassword = localStorage.getItem("password");
+    user.value = await getDashboardProfile(userEmail);
+  });
+
+  return {
+    user, // Expose user ref to the template
+  };
+},
   methods: {
     closeModal() {
       modalController.dismiss();

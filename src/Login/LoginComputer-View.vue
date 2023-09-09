@@ -100,6 +100,13 @@ const Username = ref("");
 const Password = ref("");
 
 const handleUserLogin = () => {
+
+  localStorage.setItem("email", Username.value);
+  localStorage.setItem("password", Password.value);
+
   UserLogin(Username.value, Password.value);
+  
+  Username.value = "";
+  Password.value = "";
 };
 </script>

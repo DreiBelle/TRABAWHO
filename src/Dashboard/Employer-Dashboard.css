@@ -248,3 +248,14 @@
   padding-right: 12px;
   padding-left: 12px;
 }
+
+.image-preview {
+  max-width: 200px; /* Adjust the maximum width as needed */
+  max-height: 200px; /* Adjust the maximum height as needed */
+  object-fit: cover; /* This property ensures the image retains its aspect ratio and covers the specified dimensions */
+}
+
+.file-input-text{
+  margin-left: 100px;
+}
+
