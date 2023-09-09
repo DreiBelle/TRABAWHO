@@ -4,12 +4,7 @@
       <IonCol size="1" class="Dashboard-FlexCenter"></IonCol>
       <IonCol size="10" class="Dashboard-FlexCenter"> Add Job Posting </IonCol>
       <IonCol size="1" class="Dashboard-FlexCenter">
-        <IonButton
-          @click="closeOther"
-          class="Dashboard-Modal-Button-Cancel"
-          fill="clear"
-          >x</IonButton
-        >
+        <IonButton @click="closeOther" class="Dashboard-Modal-Button-Cancel" fill="clear">x</IonButton>
       </IonCol>
     </IonRow>
     <IonRow style="height: 22%">
@@ -17,81 +12,43 @@
         <IonCard class="Dashboard-Modal-Picture"> + </IonCard>
       </IonCol>
     </IonRow>
-    <IonRow style="height: 11%">
+    <IonRow style="height: 11%;">
       <IonCol class="Dashboard-FlexCenter">
-        <IonInput
-          class="Dashboard-Modal-Input"
-          label="Job Name"
-          labelPlacement="stacked"
-          fill="outline"
-        >
+        <IonInput class="Dashboard-Modal-Input" label="Job Name" labelPlacement="stacked" fill="outline">
         </IonInput>
       </IonCol>
     </IonRow>
     <IonRow style="height: 11%">
       <IonCol class="Dashboard-FlexCenter">
-        <IonInput
-          class="Dashboard-Modal-Input"
-          label="Job Type"
-          labelPlacement="stacked"
-          fill="outline"
-        ></IonInput>
+        <IonInput class="Dashboard-Modal-Input" label="Job Type" labelPlacement="stacked" fill="outline"></IonInput>
       </IonCol>
     </IonRow>
     <IonRow style="height: 11%">
       <IonCol class="Dashboard-FlexCenter">
-        <IonInput
-          class="Dashboard-Modal-Input"
-          label="Job Description"
-          labelPlacement="stacked"
-          fill="outline"
-        ></IonInput>
+        <IonInput class="Dashboard-Modal-Input" label="Job Description" labelPlacement="stacked" fill="outline">
+        </IonInput>
       </IonCol>
     </IonRow>
     <IonRow style="height: 11%">
       <IonCol class="Dashboard-FlexCenter">
-        <IonInput
-          class="Dashboard-Modal-Input"
-          label="Additional Information"
-          labelPlacement="stacked"
-          fill="outline"
-        ></IonInput>
+        <IonInput class="Dashboard-Modal-Input" label="Additional Information" labelPlacement="stacked" fill="outline">
+        </IonInput>
       </IonCol>
     </IonRow>
     <IonRow style="height: 11%; overflow-x: auto; background-color: white;  ">
-      <IonCol size="3"
-        class="Dashboard-FlexCenter"
-        style="justify-content: left !important;"
-        ><IonButton
-          @click="openModal"
-          class="Dashboard-Modal-Button-SameColor"
-          fill="outline"
-          >ADD FILTER</IonButton
-        >
+      <IonCol size="3" class="Dashboard-FlexCenter" style="justify-content: left !important;">
+        <IonButton @click="openModal" class="Dashboard-Modal-Button-SameColor" fill="outline">ADD FILTER</IonButton>
       </IonCol>
-      <IonCol
-        v-for="choice in chosenChoices"
-        :key="choice.id"
-        style="padding: 0px; background-color: white;"
-        class="Dashboard-FlexCenter"
-      >
-        <IonButton
-          class="JobPostings-ChosenInterest"
-          fill="outline"
-          size="small"
-          @click="removeChoice(choice.id)"
-        >
+      <IonCol v-for="choice in chosenChoices" :key="choice.id" style="padding: 0px; background-color: white;"
+        class="Dashboard-FlexCenter">
+        <IonButton class="JobPostings-ChosenInterest" fill="outline" size="small" @click="removeChoice(choice.id)">
           {{ choice.label }}
         </IonButton>
       </IonCol>
     </IonRow>
     <IonRow style="height: 11%">
       <IonCol class="Dashboard-FlexCenter">
-        <IonButton
-          class="Dashboard-Modal-Button-SameColor"
-          fill="outline"
-          style="width: 100%"
-        >
+        <IonButton class="Dashboard-Modal-Button-SameColor" fill="outline" style="width: 100%">
           POST
         </IonButton>
       </IonCol>
@@ -99,10 +56,7 @@
   </IonGrid>
 
   <IonModal :is-open="modalOpen" @did-dismiss="closeModal">
-    <ChoiceModal
-      :choice="modalChoices"
-      @choice-selected="handleChoiceSelected"
-    />
+    <ChoiceModal style="border: 1px solid black;" :choice="modalChoices" @choice-selected="handleChoiceSelected" />
   </IonModal>
 </template>
 <script lang="ts">

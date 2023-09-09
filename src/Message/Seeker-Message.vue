@@ -7,9 +7,9 @@
             <IonText> MESSAGES </IonText>
           </IonCol>
         </IonRow>
-        <IonRow style="height: 78%">
+        <IonRow style="height: 81%">
           <IonCol>
-            <IonItem style="border-radius: 10px">
+            <IonItem @click="gotoMessage" style="border-radius: 10px">
               <IonGrid>
                 <IonRow>
                   <IonCol size="3"> picture </IonCol>
@@ -27,7 +27,7 @@
           </IonCol>
         </IonRow>
         <IonRow style="height: 10%">
-          <IonCol>
+          <IonCol style="padding: 0;">
             <Navbar />
           </IonCol>
         </IonRow>
@@ -36,7 +36,7 @@
   </IonPage>
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
 import {
   IonPage,
   IonContent,
@@ -51,6 +51,26 @@ import {
 } from "@ionic/vue";
 import Navbar from "../NavBar/NavBar.vue";
 import "./Seeker-Message.css";
+import { gotoMessage } from "./Message-Controller"
+
+export default {
+  components: {
+    IonPage,
+    IonContent,
+    IonText,
+    IonGrid,
+    IonRow,
+    IonCol,
+    IonList,
+    IonItem,
+    IonLabel,
+    IonCard,
+    Navbar,
+  },
+  methods:{
+    gotoMessage
+  }
+}
 </script>
 
 <style>

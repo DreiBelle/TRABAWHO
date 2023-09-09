@@ -1,5 +1,5 @@
 <template>
-    <IonGrid style="height: 100%; width: 100%;">
+    <IonGrid style="height: 100%; width: 100%; padding: 0;">
       <IonRow>
         <IonCol size="4" class="NavBar-FlexCenter">
           <IonButton
@@ -49,7 +49,7 @@ import "./NavBar.css";
 <script lang="ts"></script>
 
 <style>
-/* ion-col{
+ion-col{
   border: 1px solid black;
-} */
+}
 </style>

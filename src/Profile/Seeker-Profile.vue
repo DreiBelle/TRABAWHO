@@ -71,7 +71,7 @@
           </IonButton>
         </IonCol>
       </IonRow>
-      <IonRow style="background-color: #f9f6ee; height: 54%">
+      <IonRow style="background-color: #f9f6ee; height: 57%">
         <IonCol class="Seeker-Profile-Information-Container">
           <IonContent class="Seeker-Profile-IonContent">
             <component :is="ShowComponents" />  
@@ -79,7 +79,7 @@
         </IonCol>
       </IonRow>
       <IonRow style="height: 10%">
-        <IonCol>
+        <IonCol style="padding: 0;">
           <Navbar/>
         </IonCol>
       </IonRow>

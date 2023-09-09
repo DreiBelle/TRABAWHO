@@ -78,7 +78,7 @@ export default {
 </script>
 
 <style>
-ion-col {
+/* ion-col {
   border: 1px solid white !important;
-}
+} */
 </style>

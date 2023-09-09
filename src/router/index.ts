@@ -84,6 +84,16 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Employer-Dashboard',
     component: () => import('../Dashboard/Employer-Dashboard.vue'),
   },
+  {
+    path: '/Employer-Message',
+    name: 'Employer-Message',
+    component: () => import('../Message/Employer-Message.vue'),
+  },
+  {
+    path: '/Seeker-Message2',
+    name: 'Seeker-Message2',
+    component: () => import('../Message/Seeker-Chatbox.vue'),
+  },
 ]
 
 const router = createRouter({

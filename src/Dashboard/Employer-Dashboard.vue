@@ -6,11 +6,7 @@
           <IonRow>
             <IonCol class="Dashboard-FlexCenter" size=".5">
               <IonMenuToggle>
-                <img
-                  class="Dashboard-HeaderButtons"
-                  src="../assets/logosample.jpg"
-                  alt="logo"
-                />
+                <img class="Dashboard-HeaderButtons" src="../assets/logosample.jpg" alt="logo" />
               </IonMenuToggle>
             </IonCol>
             <IonCol size=".5"> </IonCol>
@@ -20,19 +16,11 @@
             </IonCol>
             <IonCol size="3"> </IonCol>
             <IonCol class="Dashboard-FlexCenter" size=".5">
-              <img
-                class="Dashboard-HeaderButtons"
-                style="border-radius: 0px"
-                src="../assets/message.png"
-                alt="message button"
-              />
+              <img class="Dashboard-HeaderButtons" style="border-radius: 0px" src="../assets/message.png"
+                alt="message button" @click="GoEmployerMessage" />
             </IonCol>
             <IonCol class="Dashboard-FlexCenter" size=".5">
-              <img
-                class="Dashboard-HeaderButtons"
-                src="../assets/logosample.jpg"
-                alt="profile"
-              />
+              <img class="Dashboard-HeaderButtons" src="../assets/logosample.jpg" alt="profile" @click="GoEmployerHome" />
             </IonCol>
           </IonRow>
         </IonGrid>
@@ -46,25 +34,13 @@
             <IonCol class="Dashboard-FlexCenter">
               <IonRow style="height: 100%; width: 100%">
                 <IonCol class="Dashboard-Container-Profile">
-                  <img
-                    class="Dashboard-Profile"
-                    src="../assets/logosample.jpg"
-                    alt="profile"
-                  />
+                  <img class="Dashboard-Profile" src="../assets/logosample.jpg" alt="profile" />
                 </IonCol>
                 <IonCol class="Dashboard-Container-Name"> name </IonCol>
               </IonRow>
             </IonCol>
             <IonCol class="Dashboard-Container-Picture">
-              <IonRow style="height: 100%; width: 100%">
-                <IonCol class="Dashboard-Container-Profile">
-                  <img
-                    class="Dashboard-Picture"
-                    src="../assets/companybackground.jpg"
-                    alt="picture"
-                  />
-                </IonCol>
-              </IonRow>
+              <img class="Dashboard-Picture" src="../assets/companybackground.jpg" alt="picture" />
             </IonCol>
           </IonRow>
           <IonRow style="height: 60%">
@@ -79,7 +55,13 @@
         <IonCol size="2">
           <IonRow style="height: 100%">
             <IonCol class="Dashboard-FlexCenter">
-              <IonCard class="Dashboard-Card"> recent activities </IonCard>
+              <IonCard class="Dashboard-Card">
+                <div style="text-align: center">
+                  this function is currently <br />
+                  under developement <br />
+                  (recent activities)
+                </div>
+              </IonCard>
             </IonCol>
           </IonRow>
         </IonCol>
@@ -109,11 +91,11 @@
     </IonContent>
   </IonMenu>
 
-    <IonModal ref="modal" trigger="open-modal" style="--height: 80%; --border-radius: 20px;">
-      <IonContent>
-        <AddModal/>
-      </IonContent>
-    </IonModal>
+  <IonModal ref="modal" trigger="open-modal" style="--height: 60%; --width: 40%; --border-radius: 20px;">
+    <IonContent>
+      <AddModal />
+    </IonContent>
+  </IonModal>
 </template>
 <script lang="ts">
 import {
@@ -138,6 +120,7 @@ import Description from "./Employer-Description.vue";
 import DataAnalytics from "./Employer-DataAnalytics.vue";
 import SideBar from "./Employer-Sidebar.vue";
 import AddModal from "./Employer-Dashboard-Modal-AddPostings.vue";
+import { GoEmployerMessage, GoEmployerHome } from "./Employer-Dashboard-Controller"
 export default {
   components: {
     SideBar,
@@ -163,6 +146,8 @@ export default {
     closeModal() {
       modalController.dismiss();
     },
+    GoEmployerMessage,
+    GoEmployerHome,
   },
 };
 </script>

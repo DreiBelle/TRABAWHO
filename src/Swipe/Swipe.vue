@@ -4,7 +4,7 @@
       <IonRow style="height: 8%">
         <IonCol> </IonCol>
       </IonRow>
-      <IonRow style="height: 78%">
+      <IonRow style="height: 81%">
         <IonCol>
           <div class="Swipe-Background">
             <SwipeableCard
@@ -21,8 +21,8 @@
           </div>
         </IonCol>
       </IonRow>
-      <IonRow style="height: 10%">
-        <IonCol>
+      <IonRow style="height: 10%;">
+        <IonCol style="padding: 0;">
           <NavBar />
         </IonCol>
       </IonRow>
@@ -79,7 +79,7 @@ export default {
 </script>
 
 <style>
-ion-col {
+/* ion-col {
   border: 1px solid black;
-}
+} */
 </style>
