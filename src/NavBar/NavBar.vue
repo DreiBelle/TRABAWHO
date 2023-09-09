@@ -1,6 +1,5 @@
 <template>
-  <div class="NavBar-Toolbar">
-    <IonGrid>
+    <IonGrid style="height: 100%; width: 100%;">
       <IonRow>
         <IonCol size="4" class="NavBar-FlexCenter">
           <IonButton
@@ -31,7 +30,6 @@
         </IonCol>
       </IonRow>
     </IonGrid>
-  </div>
 </template>
 <script setup lang="ts">
 import {
@@ -50,4 +48,8 @@ import "./NavBar.css";
 
 <script lang="ts"></script>
 
-<style></style>
+<style>
+/* ion-col{
+  border: 1px solid black;
+} */
+</style>
