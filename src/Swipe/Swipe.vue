@@ -1,28 +1,32 @@
 <template>
   <IonPage>
-      <IonGrid style="height: 100%;  width: 100%;;background-color: #f3f2ee">
-        <IonRow style="height: 8%">
-          <IonCol> </IonCol>
-        </IonRow>
-        <IonRow style="height: 80%">
-          <IonCol>
-            <div class="Swipe-Background">
-              <SwipeableCard
-                v-if="currentCardIndex < cards.length"
-                :item="cards[currentCardIndex]"
-                @swipeLeft="handleSwipeLeft"
-                @swipeRight="handleSwipeRight"
-              />
-              <div v-else class="Swipe-NoMore">No more jobs</div>
-            </div>
-          </IonCol>
-        </IonRow>
-        <IonRow style="height: 10%">
-          <IonCol>
-            <NavBar />
-          </IonCol>
-        </IonRow>
-      </IonGrid>
+    <IonGrid style="height: 100%; width: 100%; background-color: #f3f2ee">
+      <IonRow style="height: 8%">
+        <IonCol> </IonCol>
+      </IonRow>
+      <IonRow style="height: 81%">
+        <IonCol>
+          <div class="Swipe-Background">
+            <SwipeableCard
+              v-if="currentCardIndex < cards.length"
+              :item="cards[currentCardIndex]"
+              @swipeLeft="handleSwipeLeft"
+              @swipeRight="handleSwipeRight"
+              style="z-index: 2;"
+            />
+            <div v-else class="Swipe-NoMore">No more jobs</div>
+            <IonCard style="position: absolute; z-index: 1; height: 95%; width: 80%;">
+              asd
+            </IonCard>
+          </div>
+        </IonCol>
+      </IonRow>
+      <IonRow style="height: 10%;">
+        <IonCol style="padding: 0;">
+          <NavBar />
+        </IonCol>
+      </IonRow>
+    </IonGrid>
   </IonPage>
 </template>
 
@@ -30,7 +34,7 @@
 import SwipeableCard from "./Swipe-Tinder.vue";
 import NavBar from "../NavBar/NavBar.vue";
 import "./Swipe.css";
-import { IonCol, IonContent, IonGrid, IonPage, IonRow } from "@ionic/vue";
+import { IonCard, IonCol, IonContent, IonGrid, IonPage, IonRow } from "@ionic/vue";
 
 export default {
   components: {
@@ -41,7 +45,8 @@ export default {
     IonCol,
     IonPage,
     IonContent,
-  },
+    IonCard
+},
   data() {
     return {
       currentCardIndex: 0,

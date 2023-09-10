@@ -36,7 +36,6 @@
 }
 
 .Dashboard-Card-Postings-Title {
-  font-size: 60%;
   text-align: center;
 }
 
@@ -100,7 +99,7 @@
 }
 
 .Dashboard-Profile {
-  height: auto;
+  height: 100%;
   max-height: 100px;
   width: auto;
   border: 1px solid black;
@@ -111,6 +110,7 @@
   display: flex;
   justify-content: right;
   align-items: center;
+  height: 100%;
 }
 
 .Dashboard-Container-Name {
@@ -128,7 +128,7 @@
 
 .Dashboard-Picture {
   height: auto;
-  max-height: 105px;
+  max-height: 19vh;
   width: 100%;
   object-fit: cover;
   border-radius: 10px;
@@ -187,13 +187,25 @@
 
 .Dashboard-Modal-Input {
   width: 100% !important;
-  height: 100% !important;
+  height: 50px !important;
   min-height: 40px !important;
   color: black;
   --highlight-color-focused: brown;
   --padding-start: 20px;
-  margin-left: 10px ;
-  margin-right: 10px ;
+  margin-left: 10px;
+  margin-right: 10px;
+  background-color: white;
+}
+
+.Dashboard-ModalEdit-Input {
+  width: 100% !important;
+  height: 30px !important;
+  min-height: 30px !important;
+  color: black;
+  --highlight-color-focused: brown;
+  --padding-start: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
   background-color: white;
 }
 
@@ -225,14 +237,13 @@
   --border-color: black;
 }
 
-.Dashboard-Modal-Button-SameColor{
+.Dashboard-Modal-Button-SameColor {
   color: black;
   --border-color: black;
   --border-width: 1px;
   background-color: white;
-  margin-left: 10px ;
-  margin-right: 10px ;
-
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .JobPostings-ChosenInterest {
@@ -249,6 +260,7 @@
   padding-left: 12px;
 }
 
+
 .image-preview {
   max-width: 200px; /* Adjust the maximum width as needed */
   max-height: 200px; /* Adjust the maximum height as needed */
@@ -259,3 +271,26 @@
   margin-left: 100px;
 }
 
+.Dashboard-AddJobPostings-Card-Container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Dashboard-AddJobPostings-Card-Picture {
+  height: 10vh;
+  width: 100%;
+  object-fit: cover;
+}
+
+.no-scroll {
+  --offset-bottom: auto !important;
+  --overflow: hidden;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

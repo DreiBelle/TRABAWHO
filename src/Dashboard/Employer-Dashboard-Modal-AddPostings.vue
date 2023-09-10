@@ -18,7 +18,7 @@
         </IonCard>
       </IonCol>
     </IonRow>
-    <IonRow style="height: 11%">
+    <IonRow style="height: 11%;">
       <IonCol class="Dashboard-FlexCenter">
         <IonInput class="Dashboard-Modal-Input" label="Job Name" labelPlacement="stacked" fill="outline"
           v-model="formData.jobname">
@@ -28,19 +28,22 @@
     <IonRow style="height: 11%">
       <IonCol class="Dashboard-FlexCenter">
         <IonInput class="Dashboard-Modal-Input" label="Job Type" labelPlacement="stacked" fill="outline"
-          v-model="formData.jobtype"></IonInput>
+          v-model="formData.jobtype">
+        </IonInput>
       </IonCol>
     </IonRow>
     <IonRow style="height: 11%">
       <IonCol class="Dashboard-FlexCenter">
         <IonInput class="Dashboard-Modal-Input" label="Job Description" labelPlacement="stacked" fill="outline"
-          v-model="formData.jobdes"></IonInput>
+          v-model="formData.jobdes">
+        </IonInput>
       </IonCol>
     </IonRow>
     <IonRow style="height: 11%">
       <IonCol class="Dashboard-FlexCenter">
         <IonInput class="Dashboard-Modal-Input" label="Additional Information" labelPlacement="stacked" fill="outline"
-          v-model="formData.additioninfo"></IonInput>
+          v-model="formData.additioninfo">
+        </IonInput>
       </IonCol>
     </IonRow>
     <IonRow style="height: 11%; overflow-x: auto; background-color: white;  ">
@@ -65,6 +68,7 @@
 
   <IonModal :is-open="modalOpen" @did-dismiss="closeModal">
     <ChoiceModal :choice="modalChoices" @choice-selected="handleChoiceSelected" />
+    <ChoiceModal style="border: 1px solid black;" :choice="modalChoices" @choice-selected="handleChoiceSelected" />
   </IonModal>
 </template>
 <script lang="ts">

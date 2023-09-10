@@ -1,0 +1,28 @@
+.SeekerMessage- {
+}
+
+.EmployerMessage- {
+}
+
+.SeekerMessage-FlexCenter {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+
+.EmployerMessage-Content {
+  height: 100%;
+  width: 100%;
+  padding: 20px;
+  background-color:#f3f2ee;
+}
+
+.EmployerMessage-Container {
+    height: 100%;
+    background-color: white;
+}
+
+.SeekerMessage-Chatbox-Container{
+    background-color: #f3f2ee;
+    color: black;
+}

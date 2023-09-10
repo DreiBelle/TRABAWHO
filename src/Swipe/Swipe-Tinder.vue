@@ -9,17 +9,22 @@
     @touchmove="swipe"
     @touchend="endSwipe"
   >
-    <div class="Swipe-CardContent">
-      <IonGrid>
-        <IonRow>
+    <div class="Swipe-CardContent" id="card">
+      <IonGrid style="height: 100%">
+        <IonRow style="height: 10%">
           <IonCol>
+            Job Name
             {{ item.content }}
           </IonCol>
         </IonRow>
-        <IonRow>
-          <IonCol>
-            Name
-          </IonCol>
+        <IonRow style="height: 30%">
+          <IonCol> Picture </IonCol>
+        </IonRow>
+        <IonRow style="height: 10%">
+          <IonCol> Job Type </IonCol>
+        </IonRow>
+        <IonRow style="height: 50%">
+          <IonCol> Job Description </IonCol>
         </IonRow>
       </IonGrid>
     </div>
@@ -57,9 +62,11 @@ export default {
     endSwipe() {
       if (!this.isSwiping) return;
       this.isSwiping = false;
-      const swipeThreshold = 300;
+      const swipeThreshold = 400;
+
       if (this.position > swipeThreshold) {
         this.$emit("swipeRight", this.item);
+
       } else if (this.position < -swipeThreshold) {
         this.$emit("swipeLeft", this.item);
       }
@@ -70,4 +77,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style>
+/* ion-col {
+  border: 1px solid white !important;
+} */
+</style>
