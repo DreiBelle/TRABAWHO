@@ -184,7 +184,7 @@ export default {
     },
 
     async handleSubmit(event) {
-      const requiredFields = ['jobname', 'jobtype', 'jobdes', 'additioninfo', 'chosenChoices'];
+      const requiredFields = ['jobname', 'jobtype', 'jobdes', 'additioninfo'];
       let isFormValid = true;
 
       for (const field of requiredFields) {
@@ -194,7 +194,7 @@ export default {
         }
       }
 
-      if (isFormValid) {
+      if (isFormValid && this.chosenChoices.length > 0) {
         // All required fields are filled out, proceed with submission
         const jobstore = useJobStore();
         jobstore.setFormData(this.formData);
