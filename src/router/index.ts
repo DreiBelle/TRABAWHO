@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw, NavigationGuardNext, RouteLocationNormalized  } from 'vue-router';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/authstore';
+import NavBar from '../NavBar/NavBar.vue'
 
 
 
@@ -41,8 +42,24 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/Swipe',
-    name: 'Swipe',
-    component: () => import('../Swipe/Swipe.vue'),
+    component: NavBar,
+    children: [
+      {
+        path: '/Swipe',
+        name: 'Swipe',
+        component: () => import('../Swipe/Swipe.vue'),
+      },
+      {
+        path: '/Seeker-Profile',
+        name: 'Seeker-Profile',
+        component: () => import('../Profile/Seeker-Profile.vue'),
+      },
+      {
+        path: '/Seeker-Message',
+        name: 'Seeker-Message',
+        component: () => import('../Message/Seeker-Message.vue'),
+      },
+    ]
   },
   {
     path: '/TermsandConditions',
@@ -63,21 +80,6 @@ const routes: Array<RouteRecordRaw> = [
     path: '/LoginComputer',
     name: 'LoginComputer',
     component: () => import('../Login/LoginComputer-View.vue')
-  },
-  {
-    path: '/NavBar',
-    name: 'NavBar',
-    component: () => import('../NavBar/NavBar.vue'),
-  },
-  {
-    path: '/Seeker-Message',
-    name: 'Seeker-Message',
-    component: () => import('../Message/Seeker-Message.vue'),
-  },
-  {
-    path: '/Seeker-Profile',
-    name: 'Seeker-Profile',
-    component: () => import('../Profile/Seeker-Profile.vue'),
   },
   {
     path: '/Employer-Dashboard',
