@@ -31,54 +31,59 @@
 </template>
 <style scoped>
 .job-postings-container {
-  display: flex;
-  overflow-x: auto; /* Enable horizontal scrolling if needed */
+    display: flex;
+    overflow-x: auto;
+    /* Enable horizontal scrolling if needed */
 }
 
 .job-item {
-  margin: 10px;
-  border: 1px solid #ccc;
-  padding: 10px;
-  border-radius: 5px;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  min-width: 300px; /* Adjust as needed */
-  margin-right: 20px; /* Adjust spacing between job postings */
+    margin: 10px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    min-width: 300px;
+    /* Adjust as needed */
+    margin-right: 20px;
+    /* Adjust spacing between job postings */
 }
 
 .job-title h2 {
-  font-size: 1.5rem;
-  margin: 0;
+    font-size: 1.5rem;
+    margin: 0;
 }
 
 .job-picture img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 5px;
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
 }
 
 .job-description {
-  margin-top: 10px;
+    margin-top: 10px;
 }
 
 .job-actions {
-  margin-top: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 1rem;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1rem;
 }
 
 ion-icon {
-  margin-right: 5px;
-  font-size: 1.2rem;
+    margin-right: 5px;
+    font-size: 1.2rem;
 }
 </style>
 <script lang="ts">
 import { IonCard, IonCol, IonGrid, IonRow, IonText } from '@ionic/vue';
 import { getJobPostings } from '@/Dashboard/Dashboard-Model';
 import { getDashboardProfile } from "./Dashboard-Model"
-import { ref, onMounted } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
+import { collection, onSnapshot, query, where, getDocs } from "firebase/firestore";
+import { db } from "../firebaseDB";
 export default {
     components: { IonCard, IonGrid, IonRow, IonCol, IonText },
     methods: {
@@ -94,12 +99,28 @@ export default {
         const user = ref(null);
         const jobPostings = ref([]);
 
+        const updateJobPostings = (snapshot) => {
+            jobPostings.value = snapshot.docs.map((doc) => doc.data());
+        };
+
         onMounted(async () => {
             const userEmail = localStorage.getItem("email");
             // const userPassword = localStorage.getItem("password");
             user.value = await getDashboardProfile(userEmail);
 
             jobPostings.value = await getJobPostings(userEmail, user.value.businessname);
+
+
+            const jobPostingsRef = collection(db, "jobpost");
+            const q = query(jobPostingsRef, where("company", "==", user.value.businessname));
+
+            // Set up a real-time listener for job postings
+            const unsubscribe = onSnapshot(q, (snapshot) => {
+                updateJobPostings(snapshot);
+            });
+
+            // Remember to unsubscribe when the component is unmounted
+            onUnmounted(unsubscribe);
         });
 
         return {

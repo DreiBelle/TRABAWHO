@@ -1,5 +1,6 @@
 <template>
   <IonGrid style="height: 100%; width: 100%; background-color: #f3f2ee;">
+  <ion-form>
     <IonRow style="height: 12%">
       <IonCol size="1" class="Dashboard-FlexCenter"></IonCol>
       <IonCol size="10" class="Dashboard-FlexCenter"> Add Job Posting </IonCol>
@@ -21,28 +22,28 @@
     <IonRow style="height: 11%;">
       <IonCol class="Dashboard-FlexCenter">
         <IonInput class="Dashboard-Modal-Input" label="Job Name" labelPlacement="stacked" fill="outline"
-          v-model="formData.jobname">
+          v-model="formData.jobname" required>
         </IonInput>
       </IonCol>
     </IonRow>
     <IonRow style="height: 11%">
       <IonCol class="Dashboard-FlexCenter">
         <IonInput class="Dashboard-Modal-Input" label="Job Type" labelPlacement="stacked" fill="outline"
-          v-model="formData.jobtype">
+          v-model="formData.jobtype" required>
         </IonInput>
       </IonCol>
     </IonRow>
     <IonRow style="height: 11%">
       <IonCol class="Dashboard-FlexCenter">
         <IonInput class="Dashboard-Modal-Input" label="Job Description" labelPlacement="stacked" fill="outline"
-          v-model="formData.jobdes">
+          v-model="formData.jobdes" required>
         </IonInput>
       </IonCol>
     </IonRow>
     <IonRow style="height: 11%">
       <IonCol class="Dashboard-FlexCenter">
         <IonInput class="Dashboard-Modal-Input" label="Additional Information" labelPlacement="stacked" fill="outline"
-          v-model="formData.additioninfo">
+          v-model="formData.additioninfo" required>
         </IonInput>
       </IonCol>
     </IonRow>
@@ -64,10 +65,10 @@
         </IonButton>
       </IonCol>
     </IonRow>
+  </ion-form>
   </IonGrid>
 
   <IonModal :is-open="modalOpen" @did-dismiss="closeModal">
-    <ChoiceModal :choice="modalChoices" @choice-selected="handleChoiceSelected" />
     <ChoiceModal style="border: 1px solid black;" :choice="modalChoices" @choice-selected="handleChoiceSelected" />
   </IonModal>
 </template>
@@ -183,10 +184,29 @@ export default {
     },
 
     async handleSubmit(event) {
-      const jobstore = useJobStore()
-      jobstore.setFormData(this.formData);
-      jobstore.setChosenInterests(this.chosenChoices);
-      await jobstore.postjob();
+      const requiredFields = ['jobname', 'jobtype', 'jobdes', 'additioninfo', 'chosenChoices'];
+      let isFormValid = true;
+
+      for (const field of requiredFields) {
+        if (!this.formData[field]) {
+          isFormValid = false;
+          break; // Exit the loop if any required field is empty
+        }
+      }
+
+      if (isFormValid) {
+        // All required fields are filled out, proceed with submission
+        const jobstore = useJobStore();
+        jobstore.setFormData(this.formData);
+        jobstore.setChosenInterests(this.chosenChoices);
+        await jobstore.postjob();
+        modalController.dismiss();
+
+      } else {
+        // Handle the case where a required field is empty
+        console.error("Please fill in all required fields.");
+        alert("Please fill in all required fields");
+      }      
 
       if (event && event.target && event.target.files && event.target.files.length > 0) {
         const file = event.target.files[0];
