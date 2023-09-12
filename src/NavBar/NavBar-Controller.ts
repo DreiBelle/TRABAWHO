@@ -12,6 +12,11 @@ function GoProfile_(){
     router.push("/Seeker-Profile")
 }
 
+function GoHome_(){
+    router.push("/home")
+}
+
 export const GoSwipe = GoSwipe_
 export const GoMessage = GoMessage_
 export const GoProfile = GoProfile_
+export const GoHome = GoHome_

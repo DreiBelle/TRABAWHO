@@ -62,7 +62,7 @@ export default {
     endSwipe() {
       if (!this.isSwiping) return;
       this.isSwiping = false;
-      const swipeThreshold = 400;
+      const swipeThreshold = 200;
 
       if (this.position > swipeThreshold) {
         this.$emit("swipeRight", this.item);
@@ -79,6 +79,6 @@ export default {
 
 <style>
 /* ion-col {
-  border: 1px solid white !important;
+  border: 1px solid black !important;
 } */
 </style>

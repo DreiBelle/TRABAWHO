@@ -1,37 +1,41 @@
 <template>
-    <IonGrid style="height: 100%; width: 100%; padding: 0;">
-      <IonRow>
-        <IonCol size="4" class="NavBar-FlexCenter">
-          <IonButton
-            class="NavBar-Buttons"
-            expand="block"
-            router-link="/Seeker-Message"
-          >
-            <img class="NavBar-Icons" src="../assets/chat.png" alt="chat" />
-          </IonButton>
-        </IonCol>
-        <IonCol size="4" class="NavBar-FlexCenter">
-          <IonButton
-            class="NavBar-Buttons"
-            expand="block"
-            router-link="/Swipe"
-          >
-            <img class="NavBar-Icons" src="../assets/home.png" alt="home" />
-          </IonButton>
-        </IonCol>
-        <IonCol size="4" class="NavBar-FlexCenter">
-          <IonButton
-            class="NavBar-Buttons"
-            expand="block"
-            router-link="/Seeker-Profile"
-          >
-            <img class="NavBar-Icons" src="../assets/user.png" alt="profile" />
-          </IonButton>
-        </IonCol>
-      </IonRow>
-    </IonGrid>
+  <IonPage>
+    <IonTabs>
+      <IonRouterOutlet></IonRouterOutlet>
+      <IonTabBar slot="bottom">
+
+        <!-- change this button later -->
+        <IonTabButton class="NavBar-Buttons" tab="Logout" href="/home">
+          <IonIcon :icon="logOutOutline"></IonIcon>
+          <IonLabel>Logout</IonLabel>
+        </IonTabButton>
+
+        <IonTabButton class="NavBar-Buttons" tab="Message" href="/Seeker-Message">
+          <IonIcon :icon="chatbubblesOutline"></IonIcon>
+          <IonLabel>Message</IonLabel>
+        </IonTabButton>
+
+        <IonTabButton class="NavBar-Buttons" tab="Home" href="/Swipe">
+          <IonIcon :icon="homeOutline"></IonIcon>
+          <IonLabel>Home</IonLabel>
+        </IonTabButton>
+
+        <IonTabButton class="NavBar-Buttons" tab="Notification">
+          <IonIcon :icon="notificationsOutline"></IonIcon>
+          <IonLabel>Notification</IonLabel>
+        </IonTabButton>
+
+        <IonTabButton class="NavBar-Buttons" tab="Profile" href="/Seeker-Profile">
+          <IonIcon :icon="personOutline"></IonIcon>
+          <IonLabel>Profile</IonLabel>
+        </IonTabButton>
+
+      </IonTabBar>
+    </IonTabs>
+  </IonPage>
 </template>
-<script setup lang="ts">
+
+<script lang="ts">
 import {
   IonButton,
   IonFooter,
@@ -41,15 +45,44 @@ import {
   IonToolbar,
   IonPage,
   IonContent,
+  IonCard,
+  IonTabs,
+  IonTabBar,
+  IonRouterOutlet,
+  IonTabButton,
+  IonIcon,
+  IonLabel,
 } from "@ionic/vue";
 import { GoSwipe, GoMessage, GoProfile } from "./NavBar-Controller";
 import "./NavBar.css";
+import { chatbubblesOutline, homeOutline, notificationsOutline, logOutOutline, personOutline } from "ionicons/icons";
+
+export default {
+  components: {
+    IonButton,
+    IonFooter,
+    IonGrid,
+    IonRow,
+    IonCol,
+    IonToolbar,
+    IonPage,
+    IonContent,
+    IonCard,
+    IonTabs,
+    IonTabBar,
+    IonRouterOutlet,
+    IonTabButton,
+    IonIcon,
+    IonLabel,
+  },
+  setup() {
+    return { chatbubblesOutline, homeOutline, notificationsOutline, logOutOutline, personOutline };
+  },
+};
 </script>
 
-<script lang="ts"></script>
-
 <style>
-ion-col{
+/* ion-col {
   border: 1px solid black;
-}
+} */
 </style>

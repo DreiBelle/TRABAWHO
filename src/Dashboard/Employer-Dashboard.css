@@ -30,9 +30,23 @@
 }
 
 .Dashboard-Card-Postings {
-  height: 95%;
-  width: 20%;
+  height: 90%;
+  width: 200px;
+  min-width: 330px;
   color: black;
+  cursor: pointer;
+  transition: background-color 0.3s ease, height 0.3s ease, min-width 0.3s ease;
+}
+
+.Dashboard-Card-Postings:hover {
+  height: 90.5%;
+  width: 330px;
+  min-width: 335px;
+  color: black;
+  cursor: pointer;
+  transition: background-color 0.3s ease, height 0.3s ease, min-width 0.3s ease;
+  background-color: whitesmoke;
+  --background: whitesmoke;
 }
 
 .Dashboard-Card-Postings-Title {
@@ -45,26 +59,32 @@
 }
 
 .Dashboard-Card-JobPosting {
-  height: 95%;
-  width: 20%;
+  height: 85%;
+  width: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 70px;
-  color: lightblue;
+  font-size: 30px;
+  color: #1d1d1d;
   background-color: white;
+  transition: background-color 0.5s ease, width 0.5s ease, font-size 0.5s ease,
+    color 0.5s ease;
+  padding: 0;
+  margin-left: 0;
+  margin-right: 20px;
 }
 
 .Dashboard-Card-JobPosting:hover {
-  height: 95%;
-  width: 20%;
+  height: 85%;
+  width: 400px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 70px;
-  color: lightblue;
+  font-size: 50px;
+  color: navy;
   background-color: whitesmoke;
-  transition: background-color 0.5s ease;
+  transition: background-color 0.5s ease, width 0.5s ease, font-size 0.5s ease,
+    color 0.5s ease;
   cursor: pointer;
 }
 
@@ -260,14 +280,13 @@
   padding-left: 12px;
 }
 
-
 .image-preview {
   max-width: 200px; /* Adjust the maximum width as needed */
   max-height: 200px; /* Adjust the maximum height as needed */
   object-fit: cover; /* This property ensures the image retains its aspect ratio and covers the specified dimensions */
 }
 
-.file-input-text{
+.file-input-text {
   margin-left: 100px;
 }
 
@@ -285,7 +304,7 @@
   object-fit: cover;
 }
 
-.no-scroll {
+/* .no-scroll {
   --offset-bottom: auto !important;
   --overflow: hidden;
   overflow: auto;
@@ -293,4 +312,65 @@
   &::-webkit-scrollbar {
     display: none;
   }
+} */
+
+.Dashboard-Container-EmployerPosting {
+  display: block;
+  overflow-y: auto;
+  overflow-x: auto;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+
+.Dashboard-Container-EmployerPosting::-webkit-scrollbar {
+  height: 6px;
+}
+
+.Dashboard-Container-EmployerPosting::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.Dashboard-Container-EmployerPosting::-webkit-scrollbar-thumb {
+  background: #1d1d1d;
+  border-radius: 5px;
+}
+
+.Dashboard-Container-EmployerPosting::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.job-description {
+  --background: inherit;
+}
+
+.Dashboard-Icons {
+  color: black;
+  cursor: pointer;
+  font-size: 15px;
+  transition: color 0.3s ease, font-size 0.3s ease;
+}
+
+.Dashboard-Icons:hover {
+  color: navy;
+  transition: color 0.3s ease, font-size 0.3s ease;
+  font-size: 17px;
+}
+
+.Dashboard-Icon-Message {
+  color: white;
+  cursor: pointer;
+  font-size: 50px;
+  transition: color 0.3s ease, font-size 0.3s ease;
+}
+
+.Dashboard-Icon-Message:hover {
+  color: lightskyblue;
+  cursor: pointer;
+  font-size: 55px;
+  transition: color 0.3s ease, font-size 0.3s ease;
 }

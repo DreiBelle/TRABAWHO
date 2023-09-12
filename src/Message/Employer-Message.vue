@@ -1,5 +1,5 @@
 <template>
-    <IonPage class="Dashboard-Page" id="main-content">
+    <IonPage class="Dashboard-Page" id="main-content-message">
         <IonHeader class="Dashboard-Header">
             <div name="header">
                 <IonGrid>
@@ -15,13 +15,13 @@
                             <IonSearchbar style="height: 10px"> </IonSearchbar>
                         </IonCol>
                         <IonCol size="3"> </IonCol>
-                        <IonCol class="Dashboard-FlexCenter" size=".5">
-                            <img class="Dashboard-HeaderButtons" style="border-radius: 0px" src="../assets/message.png"
-                                alt="message button" @click="GoEmployerMessage" />
+                        <IonCol class="Dashboard-FlexCenter Dashboard-Icon-Message" size=".5">
+                            <IonIcon @click="GoEmployerMessage" :icon="chatboxEllipsesOutline">
+                            </IonIcon>
                         </IonCol>
                         <IonCol class="Dashboard-FlexCenter" size=".5">
-                            <img @click="GoEmployerHome" class="Dashboard-HeaderButtons" src="../assets/logosample.jpg"
-                                alt="profile" />
+                            <img class="Dashboard-HeaderButtons" src="../assets/logosample.jpg" alt="profile"
+                                @click="GoEmployerHome" />
                         </IonCol>
                     </IonRow>
                 </IonGrid>
@@ -40,7 +40,7 @@
         </IonGrid>
     </IonPage>
 
-    <IonMenu content-id="main-content">
+    <IonMenu content-id="main-content-message">
         <IonContent>
             <IonMenuToggle>
                 <SideBar />
@@ -49,23 +49,30 @@
     </IonMenu>
 </template>
 <script lang="ts">
-import { IonPage, IonHeader, IonGrid, IonRow, IonCol, IonSearchbar, IonMenuToggle, IonMenu, IonContent } from '@ionic/vue';
+import { IonPage, IonHeader, IonGrid, IonRow, IonCol, IonSearchbar, IonMenuToggle, IonMenu, IonContent, IonIcon } from '@ionic/vue';
 import { GoEmployerMessage, GoEmployerHome } from '@/Dashboard/Employer-Dashboard-Controller';
 import ChatBar from './Employer-Chatbar.vue'
 import SideBar from '@/Dashboard/Employer-Sidebar.vue'
 import "../Dashboard/Employer-Dashboard.css"
 import "./Seeker-Message.css"
+import { chatboxEllipsesOutline } from 'ionicons/icons'
+
 export default {
-    components: { IonPage, IonHeader, IonGrid, IonRow, IonCol, IonSearchbar, IonMenuToggle, IonMenu, IonContent, SideBar, ChatBar },
+    components: { IonPage, IonHeader, IonGrid, IonRow, IonCol, IonSearchbar, IonMenuToggle, IonMenu, IonContent, SideBar, ChatBar, IonIcon },
     methods: {
         GoEmployerMessage,
         GoEmployerHome,
+    },
+    setup() {
+        return {
+            chatboxEllipsesOutline
+        }
     }
 }
 </script>
 
 <style>
-ion-col {
+/* ion-col {
     border: 1px solid black;
-}
+} */
 </style>

@@ -1,10 +1,22 @@
 <template>
   <IonPage>
+    <IonHeader class="Swipe-Header">
+      <IonGrid style="height: 100%; padding: 0;">
+        <IonRow style="height: 100%;">
+          <IonCol class="Swipe-FlexCenter" size="1.5">
+
+          </IonCol>
+          <IonCol class="Swipe-FlexCenter">
+
+          </IonCol>
+          <IonCol class="Swipe-FlexCenter" size="1.5">
+            <IonIcon :icon="settingsOutline"></IonIcon>
+          </IonCol>
+        </IonRow>
+      </IonGrid>
+    </IonHeader>
     <IonGrid style="height: 100%; width: 100%; background-color: #f3f2ee">
-      <IonRow style="height: 8%">
-        <IonCol> </IonCol>
-      </IonRow>
-      <IonRow style="height: 81%">
+      <IonRow style="height: 100%">
         <IonCol>
           <div class="Swipe-Background">
             <SwipeableCard
@@ -12,32 +24,47 @@
               :item="cards[currentCardIndex]"
               @swipeLeft="handleSwipeLeft"
               @swipeRight="handleSwipeRight"
-              style="z-index: 2;"
+              style="z-index: 2"
             />
             <div v-else class="Swipe-NoMore">No more jobs</div>
-            <IonCard style="position: absolute; z-index: 1; height: 95%; width: 80%;">
+            <!-- <IonCard
+              style="position: absolute; z-index: 1; height: 95%; width: 80%"
+            >
               asd
-            </IonCard>
+            </IonCard> -->
           </div>
         </IonCol>
       </IonRow>
-      <IonRow style="height: 10%;">
-        <IonCol style="padding: 0;">
-          <NavBar />
-        </IonCol>
-      </IonRow>
     </IonGrid>
+    <!-- <FloatingButtons style="z-index: 3;"/> -->
   </IonPage>
 </template>
 
 <script lang="ts">
 import SwipeableCard from "./Swipe-Tinder.vue";
+import FloatingButtons from "./Swipe-FloatingButtons.vue"
 import NavBar from "../NavBar/NavBar.vue";
 import "./Swipe.css";
-import { IonCard, IonCol, IonContent, IonGrid, IonPage, IonRow } from "@ionic/vue";
+import { settingsOutline } from "ionicons/icons";
+import {
+  IonCard,
+  IonCol,
+  IonContent,
+  IonGrid,
+  IonHeader,
+  IonIcon,
+  IonLabel,
+  IonPage,
+  IonRouterOutlet,
+  IonRow,
+  IonTabBar,
+  IonTabButton,
+  IonTabs,
+} from "@ionic/vue";
 
 export default {
   components: {
+    FloatingButtons,
     SwipeableCard,
     NavBar,
     IonGrid,
@@ -45,8 +72,18 @@ export default {
     IonCol,
     IonPage,
     IonContent,
-    IonCard
+    IonCard,
+    IonHeader,
+    IonTabBar,
+    IonTabs,
+    IonTabButton,
+    IonIcon,
+    IonRouterOutlet,
+    IonLabel
 },
+  setup() {
+    return { settingsOutline };
+  },
   data() {
     return {
       currentCardIndex: 0,

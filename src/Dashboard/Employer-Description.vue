@@ -1,19 +1,17 @@
 <template>
     <IonCard class="Dashboard-Card-Description">
         <IonGrid style="height: 100%;">
-            <IonRow style="height: 10%;">
+            <IonRow style="height: 12%;">
                 <IonCol class="Dashboard-FlexCenter">
                     <IonText style="color: black; padding-left: 2vw;">
                         Title
                     </IonText>
                 </IonCol>
-                <IonCol size=".5" class="Dashboard-FlexCenter">
-                    <IonText style="color: black; cursor: pointer;" id="open-modal-editdescription">
-                        edit
-                    </IonText>
+                <IonCol size="1" class="Dashboard-FlexCenter Dashboard-Icons">
+                    <IonIcon id="open-modal-editdescription" :icon="createOutline"></IonIcon>
                 </IonCol>
             </IonRow>
-            <IonRow style="height: 90%; overflow-y: auto ;" class="noscroll">
+            <IonRow style="height: 88%; overflow-y: auto ;" class="noscroll">
                 <IonCol>
                     <IonContent class="no-scroll" style="text-align: justify;">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed malesuada accumsan urna, eget eleifend
@@ -55,17 +53,22 @@
 
     <IonModal ref="modal" trigger="open-modal-editdescription" style="--height: 60%; --width: 40%; --border-radius: 20px;">
         <IonContent>
-            <EditModal/>
+            <EditModal />
         </IonContent>
     </IonModal>
 </template>
 <script lang="ts">
-import { IonCol, IonGrid, IonRow, IonText, IonCard, IonContent, IonModal } from '@ionic/vue';
+import { IonCol, IonGrid, IonRow, IonText, IonCard, IonContent, IonModal, IonIcon } from '@ionic/vue';
 import "./Employer-Dashboard.css"
 import EditModal from "./Employer-Dashboard-Modal-EditDescription.vue"
+import { createOutline } from 'ionicons/icons'
 export default {
-    components: { IonGrid, IonRow, IonCol, IonText, IonCard, IonContent, IonModal, EditModal }
+    components: { IonGrid, IonRow, IonCol, IonText, IonCard, IonContent, IonModal, EditModal, IonIcon },
+    setup() {
+        return { createOutline }
+    }
 }
+
 </script>
 
 <style>

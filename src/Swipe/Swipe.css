@@ -13,10 +13,10 @@
 }
 
 .Swipe-Swipeable {
-  width: 100%;
-  height: 100%;
+  width: 90%;
+  height: 80%;
   margin: 10px;
-  background-color: #1d1d1d;
+  background-color: white;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -29,10 +29,61 @@
 .Swipe-CardContent {
   padding: 16px;
   text-align: center;
-  color: white;
+  color: black;
   height: 100%;
   width: 100%;
 }
 
 .Swipe- {
+}
+
+.Swipe-FlexCenter {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.Swipe-FloatingButtons-Like {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+
+.Swipe-FloatingButtons-Dislike {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.Swipe-FloatingButtons-Bookmark {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+
+.Swipe-Buttons {
+  position: fixed;
+  width: 100%;
+  top: 65%;
+}
+
+.Swipe-IonButton {
+  padding: 0 !important;
+  margin: 0 !important;
+  --border-radius: 100%;
+  height: 50px;
+  width: 50px;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  --background: white;
+  --border-color: black;
+  --background-activated: rgb(242, 239, 239);
+}
+
+.Swipe-Header {
+  height: 50px;
+  background-color: white;
+  color: black;
 }
