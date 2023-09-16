@@ -1,14 +1,10 @@
 <template>
   <IonPage>
     <IonHeader class="Swipe-Header">
-      <IonGrid style="height: 100%; padding: 0;">
-        <IonRow style="height: 100%;">
-          <IonCol class="Swipe-FlexCenter" size="1.5">
-
-          </IonCol>
-          <IonCol class="Swipe-FlexCenter">
-
-          </IonCol>
+      <IonGrid style="height: 100%; padding: 0">
+        <IonRow style="height: 100%">
+          <IonCol class="Swipe-FlexCenter" size="1.5"> </IonCol>
+          <IonCol class="Swipe-FlexCenter"> </IonCol>
           <IonCol class="Swipe-FlexCenter" size="1.5">
             <IonIcon :icon="settingsOutline"></IonIcon>
           </IonCol>
@@ -18,20 +14,16 @@
     <IonGrid style="height: 100%; width: 100%; background-color: #f3f2ee">
       <IonRow style="height: 100%">
         <IonCol>
-          <div class="Swipe-Background">
+          <div class="Swipe-Background" >
             <SwipeableCard
-              v-if="currentCardIndex < cards.length"
               :item="cards[currentCardIndex]"
               @swipeLeft="handleSwipeLeft"
               @swipeRight="handleSwipeRight"
               style="z-index: 2"
+              id="mainswiper"
+              class="asd"
             />
-            <div v-else class="Swipe-NoMore">No more jobs</div>
-            <!-- <IonCard
-              style="position: absolute; z-index: 1; height: 95%; width: 80%"
-            >
-              asd
-            </IonCard> -->
+            <SwipeableCard :item="cards[1]" />
           </div>
         </IonCol>
       </IonRow>
@@ -42,7 +34,7 @@
 
 <script lang="ts">
 import SwipeableCard from "./Swipe-Tinder.vue";
-import FloatingButtons from "./Swipe-FloatingButtons.vue"
+import FloatingButtons from "./Swipe-FloatingButtons.vue";
 import NavBar from "../NavBar/NavBar.vue";
 import "./Swipe.css";
 import { settingsOutline } from "ionicons/icons";
@@ -79,13 +71,14 @@ export default {
     IonTabButton,
     IonIcon,
     IonRouterOutlet,
-    IonLabel
-},
+    IonLabel,
+  },
   setup() {
     return { settingsOutline };
   },
   data() {
     return {
+      nextCardIndex: 0,
       currentCardIndex: 0,
       cards: [
         { id: 1, content: "Card 1" },
@@ -97,21 +90,35 @@ export default {
   },
   methods: {
     handleSwipeLeft() {
-      this.cards = this.cards.filter((card) => card.id);
-      this.showNextCard();
-
+      // this.cards = this.cards.filter((card) => card.id);
+      const swiper = document.getElementById("mainswiper")
+      setTimeout(() => {
+        swiper.style.display= "none";
+      }, 500);
+      setTimeout(() => {
+        swiper.style.display= "inline";
+      }, 500);
+      setTimeout(() => {
+        this.cards.shift();
+      }, 500);
       console.log("swipeLeft");
+      this.showNextCard();
     },
     handleSwipeRight() {
-      this.cards = this.cards.filter((card) => card.id);
-      this.showNextCard();
-
+      // this.cards = this.cards.filter((card) => card.id);
+      setTimeout(() => {
+        this.cards.shift();
+      }, 500);
       console.log("swipeRight");
+      this.showNextCard();
     },
     showNextCard() {
-      this.currentCardIndex++;
+      this.currentCardIndex + 1;
     },
   },
+  // mounted() {
+  //   this.showNextCard();
+  // },
 };
 </script>
 

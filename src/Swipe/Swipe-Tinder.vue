@@ -1,6 +1,7 @@
 <template>
   <div
     class="Swipe-Swipeable"
+    :class="{ 'Swipe-Swipeable--animated': position !== 0 }"
     :style="{ transform: `translateX(${position}px)` }"
     @mousedown="startSwipe"
     @mousemove="swipe"
@@ -32,7 +33,7 @@
 </template>
 
 <script lang="ts">
-import { IonCol, IonGrid, IonRow } from "@ionic/vue";
+import { IonCard, IonCol, IonGrid, IonRow } from "@ionic/vue";
 import "./Swipe.css";
 
 export default {
@@ -62,18 +63,27 @@ export default {
     endSwipe() {
       if (!this.isSwiping) return;
       this.isSwiping = false;
-      const swipeThreshold = 200;
+      const swipeThreshold = 100;
 
       if (this.position > swipeThreshold) {
+        this.position = 300;
         this.$emit("swipeRight", this.item);
 
+        setTimeout(() => {
+          this.position = 0;
+        }, 500);
       } else if (this.position < -swipeThreshold) {
+        this.position = -300;
         this.$emit("swipeLeft", this.item);
+        setTimeout(() => {
+          this.position = 0;
+        }, 500);
+      } else {
+        this.position = 0;
       }
-      this.position = this.currentPosition;
     },
   },
-  components: { IonGrid, IonRow, IonCol },
+  components: { IonGrid, IonRow, IonCol, IonCard },
 };
 </script>
 

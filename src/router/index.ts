@@ -96,6 +96,11 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Seeker-Message2',
     component: () => import('../Message/Seeker-Chatbox.vue'),
   },
+  {
+    path: '/Swipe2',
+    name: 'Swipe2',
+    component: () => import('../Swipe/Swipe-NewSwipe.vue'),
+  },
 ]
 
 const router = createRouter({
