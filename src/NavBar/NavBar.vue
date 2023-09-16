@@ -5,7 +5,7 @@
       <IonTabBar slot="bottom">
 
         <!-- change this button later -->
-        <IonTabButton class="NavBar-Buttons" tab="Logout" href="/home">
+        <IonTabButton class="NavBar-Buttons" tab="Logout" @click="handleSignout">
           <IonIcon :icon="logOutOutline"></IonIcon>
           <IonLabel>Logout</IonLabel>
         </IonTabButton>
@@ -53,9 +53,14 @@ import {
   IonIcon,
   IonLabel,
 } from "@ionic/vue";
-import { GoSwipe, GoMessage, GoProfile } from "./NavBar-Controller";
+import { GoSwipe, GoMessage, GoProfile, GoHome } from "./NavBar-Controller";
 import "./NavBar.css";
 import { chatbubblesOutline, homeOutline, notificationsOutline, logOutOutline, personOutline } from "ionicons/icons";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { auth } from "@/firebaseDB";
+import { ref, onMounted } from "vue";
+
+const isLoggedIn = ref(false);
 
 export default {
   components: {
@@ -76,7 +81,25 @@ export default {
     IonLabel,
   },
   setup() {
+    onMounted(() => {
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          isLoggedIn.value = true;
+        } else {
+          isLoggedIn.value = false;
+        }
+      });
+    });
     return { chatbubblesOutline, homeOutline, notificationsOutline, logOutOutline, personOutline };
+  },
+  methods: {
+    handleSignout() {
+      signOut(auth).then(() => {
+        localStorage.removeItem("email");
+        localStorage.removeItem("password");
+        GoHome();
+      });
+    }
   },
 };
 </script>

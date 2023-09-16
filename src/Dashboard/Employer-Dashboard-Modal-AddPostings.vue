@@ -88,7 +88,7 @@ import {
 } from "@ionic/vue";
 import ChoiceModal from "@/SignUp/Seeker-InterestModal.vue";
 import { useJobStore } from "@/stores/jobstore";
-import { ref as asd, uploadBytes } from "firebase/storage"
+import { ref as asd, uploadBytes, getDownloadURL } from "firebase/storage"
 import { dbImage, db } from '@/firebaseDB';
 import { getDashboardProfile } from "./Dashboard-Model"
 import { ref, onMounted, computed } from "vue";
@@ -187,6 +187,7 @@ export default {
     async handleSubmit(event) {
       const requiredFields = ['jobname', 'jobtype', 'jobdes', 'additioninfo'];
       let isFormValid = true;
+      let isImageSelected = false;
 
       for (const field of requiredFields) {
         if (!this.formData[field]) {
@@ -195,7 +196,29 @@ export default {
         }
       }
 
-      if (isFormValid && this.chosenChoices.length > 0) {
+      if (this.selectedFile) {
+        isImageSelected = true;
+      }
+
+      if (isFormValid && this.chosenChoices.length > 0 && isImageSelected) {
+
+        if (this.selectedFile) {
+          // Upload the selected image to Firebase Storage
+          const storageRef = asd(dbImage, 'jobpostingpictures/' + this.selectedFile.name);
+          try {
+            await uploadBytes(storageRef, this.selectedFile);
+            // Get the download URL of the uploaded image
+            const downloadURL = await getDownloadURL(storageRef);
+
+            // Update the formData with the image URL
+            this.formData.pic = downloadURL;
+          } catch (error) {
+            console.error("Error uploading image:", error);
+            alert("Error uploading image. Please try again.");
+            return;
+          }
+        }
+
         // All required fields are filled out, proceed with submission
         const jobstore = useJobStore();
         jobstore.setFormData(this.formData);
@@ -207,15 +230,6 @@ export default {
         // Handle the case where a required field is empty
         console.error("Please fill in all required fields.");
         alert("Please fill in all required fields");
-      }
-
-      if (event && event.target && event.target.files && event.target.files.length > 0) {
-        const file = event.target.files[0];
-        const storageRef = asd(dbImage, 'images/myfile.gif');
-        await uploadBytes(storageRef, file);
-        console.log("File uploaded successfully");
-      } else {
-        console.error("No valid file selected for uploading.");
       }
     },
   },

@@ -10,7 +10,7 @@
                 <IonRow style="height: 25%;" id="picture">
                     <IonCol class="Dashboard-AddJobPostings-Card-Container">
                         <IonCard style="height: 100%; width: 100%;">
-                            <img class="Dashboard-AddJobPostings-Card-Picture" src="../assets/companybackground.jpg" alt="">
+                            <img class="Dashboard-AddJobPostings-Card-Picture" :src="job ? job.pic : ''" alt="">
                         </IonCard>
                     </IonCol>
                 </IonRow>

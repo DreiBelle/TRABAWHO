@@ -4,7 +4,10 @@ export interface SignupModel {
     firstName: string;
     middleName: string;
     lastName: string;
+    suffix: string;
     email: string;
+    password: string;
+    acceptTerms: boolean;
     elementary: string;
     juniorhigh: string;
     seniorhigh: string;
@@ -12,7 +15,7 @@ export interface SignupModel {
     othereduc: string;
     workexp: string;
     dateCreated: string;
-    chosenInterest: any[];
+    // chosenInterest: any[];
     type: string;
   }
   

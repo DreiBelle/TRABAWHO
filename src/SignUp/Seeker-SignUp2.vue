@@ -6,11 +6,7 @@
           <IonGrid>
             <IonRow>
               <IonCol size="3">
-                <IonButton
-                  class="SignUpJobSeeker-Back"
-                  @click="goBack"
-                  fill="clear"
-                >
+                <IonButton class="SignUpJobSeeker-Back" @click="goBack" fill="clear">
                   back
                 </IonButton>
               </IonCol>
@@ -22,66 +18,36 @@
 
             <IonRow>
               <IonCol>
-                <IonInput
-                  class="SignUpJobSeeker-input"
-                  label="Elementary"
-                  labelPlacement="floating"
-                  placeholder="Enter Elementary School"
-                  v-model="formData.elementary"
-                  required
-                >
+                <IonInput class="SignUpJobSeeker-input" label="Elementary" labelPlacement="floating"
+                  placeholder="Enter Elementary School" v-model="formData.elementary" required>
                 </IonInput>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol>
-                <IonInput
-                  class="SignUpJobSeeker-input"
-                  label="Junior High"
-                  labelPlacement="floating"
-                  placeholder="Enter Junior High School "
-                  v-model="formData.juniorhigh"
-                  required
-                >
+                <IonInput class="SignUpJobSeeker-input" label="Junior High" labelPlacement="floating"
+                  placeholder="Enter Junior High School " v-model="formData.juniorhigh" required>
                 </IonInput>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol>
-                <IonInput
-                  class="SignUpJobSeeker-input"
-                  label="Senior High"
-                  labelPlacement="floating"
-                  placeholder="Enter Senior High School"
-                  v-model="formData.seniorhigh"
-                  required
-                >
+                <IonInput class="SignUpJobSeeker-input" label="Senior High" labelPlacement="floating"
+                  placeholder="Enter Senior High School" v-model="formData.seniorhigh" required>
                 </IonInput>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol>
-                <IonInput
-                  class="SignUpJobSeeker-input"
-                  label="College"
-                  labelPlacement="floating"
-                  placeholder="Enter College School"
-                  v-model="formData.college"
-                  required
-                >
+                <IonInput class="SignUpJobSeeker-input" label="College" labelPlacement="floating"
+                  placeholder="Enter College School" v-model="formData.college" required>
                 </IonInput>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol>
-                <IonInput
-                  class="SignUpJobSeeker-input"
-                  label="Other"
-                  labelPlacement="floating"
-                  placeholder="Enter other education attainment"
-                  v-model="formData.othereduc"
-                  required
-                >
+                <IonInput class="SignUpJobSeeker-input" label="Other" labelPlacement="floating"
+                  placeholder="Enter other education attainment" v-model="formData.othereduc" required>
                 </IonInput>
               </IonCol>
             </IonRow>
@@ -92,25 +58,14 @@
             </IonRow>
             <IonRow>
               <IonCol>
-                <IonInput
-                  class="SignUpJobSeeker-input"
-                  label="Work Experience"
-                  labelPlacement="floating"
-                  placeholder="Enter Work Experience"
-                  v-model="formData.workexp"
-                  required
-                >
+                <IonInput class="SignUpJobSeeker-input" label="Work Experience" labelPlacement="floating"
+                  placeholder="Enter Work Experience" v-model="formData.workexp" required>
                 </IonInput>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol>
-                <IonButton
-                  class="SignUpButtonActions"
-                  expand="block"
-                  fill="outline"
-                  @click="submitForm"
-                >
+                <IonButton class="SignUpButtonActions" expand="block" fill="outline" @click="submitForm">
                   Continue
                 </IonButton>
               </IonCol>
@@ -150,16 +105,38 @@ const formData = {
   othereduc: "",
   workexp: "",
 };
+
 const submitForm = async () => {
-  signupStore.setFormData({
-    ...sharedFormData,
-    elementary: formData.elementary,
-    juniorhigh: formData.juniorhigh,
-    seniorhigh: formData.seniorhigh,
-    college: formData.college,
-    othereduc: formData.othereduc,
-    workexp: formData.workexp,
-  });
+  const requiredFields = ['elementary', 'juniorhigh', 'seniorhigh', 'college', 'othereduc', 'workexp'];
+  let isFormValid = true;
+
+  for (const field of requiredFields) {
+    if (!formData[field]) {
+      isFormValid = false;
+      break; // Exit the loop if any required field is empty
+    }
+  }
+
+  if (isFormValid) {
+    signupStore.setFormData({
+      ...sharedFormData,
+      elementary: formData.elementary,
+      juniorhigh: formData.juniorhigh,
+      seniorhigh: formData.seniorhigh,
+      college: formData.college,
+      othereduc: formData.othereduc,
+      workexp: formData.workexp,
+      dateCreated: "",
+      // chosenInterest: [],
+      type: "",
+
+    });
+
+    GoRegister3()
+  }
+  else {
+    alert("Fill all the Field to continue")
+  }
 
   // await signupStore.registerUser();
 
@@ -171,17 +148,18 @@ const submitForm = async () => {
   console.log(formData.othereduc);
   console.log(formData.workexp);
 
-  GoRegister3()
 }
 
+
 const sharedFormData = signupStore.formData;
-  console.log(sharedFormData.firstName);
-  console.log(sharedFormData.middleName);
-  console.log(sharedFormData.lastName);
-  console.log(sharedFormData.suffix);
-  console.log(sharedFormData.email);
-  console.log(sharedFormData.password);
+console.log(sharedFormData.firstName);
+console.log(sharedFormData.middleName);
+console.log(sharedFormData.lastName);
+console.log(sharedFormData.suffix);
+console.log(sharedFormData.email);
+console.log(sharedFormData.password);
 
 </script>
 
-<script lang="ts"></script>
+<script lang="ts">
+</script>

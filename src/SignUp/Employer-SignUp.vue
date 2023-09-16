@@ -6,11 +6,7 @@
           <IonGrid>
             <IonRow>
               <IonCol>
-                <IonButton
-                  class="SignUpJobSeeker-Back"
-                  @click="goBack"
-                  fill="clear"
-                >
+                <IonButton class="SignUpJobSeeker-Back" @click="goBack" fill="clear">
                   back
                 </IonButton>
               </IonCol>
@@ -22,93 +18,55 @@
 
             <IonRow>
               <IonCol>
-                <IonInput
-                  class="SignUpJobSeeker-input"
-                  label="Email"
-                  labelPlacement="floating"
-                  placeholder="Enter valid email address"
-                  v-model="formData.email"
-                  required
-                >
+                <IonInput class="SignUpJobSeeker-input" label="Email" labelPlacement="floating"
+                  placeholder="Enter valid email address" type="email" v-model="formData.email" required>
                 </IonInput>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol>
-                <IonInput
-                  class="SignUpJobSeeker-input"
-                  label="Contact Person Name"
-                  labelPlacement="floating"
-                  placeholder="Enter Full Name"
-                  v-model="formData.contactpn"
-                  required
-                >
+                <IonInput class="SignUpJobSeeker-input" label="Contact Person Name" labelPlacement="floating"
+                  placeholder="Enter Full Name" v-model="formData.contactpn" required>
                 </IonInput>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol>
-                <IonInput
-                  class="SignUpJobSeeker-input"
-                  label="Contact Number"
-                  labelPlacement="floating"
-                  placeholder="Enter Contact Number"
-                  v-model="formData.number"
-                  required
-                >
+                <IonInput class="SignUpJobSeeker-input" label="Contact Number" labelPlacement="floating"
+                  placeholder="Enter Contact Number" v-model="formData.number" required>
                 </IonInput>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol>
-                <IonInput
-                  class="SignUpJobSeeker-input"
-                  s
-                  label="Registered Business Name"
-                  labelPlacement="floating"
-                  placeholder="Enter Business Name"
-                  v-model="formData.businessname"
-                  required
-                >
+                <IonInput class="SignUpJobSeeker-input" label="Registered Business Name" labelPlacement="floating"
+                  placeholder="Enter Business Name" v-model="formData.businessname" required>
                 </IonInput>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol>
-                <IonInput
-                  class="SignUpJobSeeker-input"
-                  s
-                  label="Password"
-                  labelPlacement="floating"
-                  placeholder="Enter Password"
-                  v-model="formData.password"
-                  required
-                >
+                <IonInput class="SignUpJobSeeker-input" label="Password" labelPlacement="floating"
+                  placeholder="Enter Password" type="password" v-model="formData.password" required>
                 </IonInput>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol style="text-align: right" size="2">
-                <IonCheckbox></IonCheckbox>
+                <IonCheckbox v-model="formData.acceptTerms"></IonCheckbox>
               </IonCol>
               <IonCol style="text-align: left" size="10">
                 <IonText>
                   I have read and accept the
                   <a href="/TermsandConditionsEmployer">
-                    terms and conditions</a
-                  >
+                    terms and conditions</a>
                 </IonText>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol>
-                <IonButton
-                  class="SignUpButtonActions"
-                  expand="block"
-                  fill="outline"
-                  @click="submitForm"
-                  style="color: black; --border-color: black"
-                >
+                <IonButton class="SignUpButtonActions" expand="block" fill="outline" @click="submitForm"
+                  style="color: black; --border-color: black">
                   Continue
                 </IonButton>
               </IonCol>
@@ -139,6 +97,8 @@ import { GoRegister2, goBack, goTermsandCondition } from "./SignUp-Controller";
 import { useSignupStore2 } from "@/stores/signupstore2";
 import { Firestore } from "firebase/firestore";
 import router from "../router";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from '../firebaseDB';
 const signupStore2 = useSignupStore2();
 const formData = {
   email: "",
@@ -148,20 +108,49 @@ const formData = {
   password: "",
   dateCreated: "",
   type: "",
+  acceptTerms: false,
 };
 const submitForm = async () => {
-  // Submit logic, then update the store with the form data
-  signupStore2.setFormData(formData);
+  const requiredFields = ['email', 'contactpn', 'number', 'businessname', 'password', 'dateCreated'];
+  let isFormValid = true;
 
-  await signupStore2.registerUser();
 
-  router.push("/LoginComputer")
+
+
+
+  for (const field of requiredFields) {
+    if (!formData[field]) {
+      isFormValid = false;
+      break; // Exit the loop if any required field is empty
+    }
+  }
+  if (formData.acceptTerms) {
+    isFormValid = true;
+  }
+  else {
+    isFormValid = false;
+    alert("Accept terms and conditions")
+  }
+
+  if (isFormValid) {
+    try {
+      const credential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+      console.log(credential.user);
+      signupStore2.setFormData(formData);
+      await signupStore2.registerUser();
+      router.push("/LoginComputer");
+      alert("Succesfully Registered");
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+  else {
+    alert("Fill all the Field to continue")
+  }
 };
 
 </script>
 
 <script lang="ts"></script>
 
-<style>
-
-</style>
+<style></style>

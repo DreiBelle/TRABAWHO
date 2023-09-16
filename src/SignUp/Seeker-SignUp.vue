@@ -6,11 +6,7 @@
           <IonGrid>
             <IonRow>
               <IonCol>
-                <IonButton
-                  class="SignUpJobSeeker-Back"
-                  @click="goBack"
-                  fill="clear"
-                >
+                <IonButton class="SignUpJobSeeker-Back" @click="goBack" fill="clear">
                   back
                 </IonButton>
               </IonCol>
@@ -22,54 +18,29 @@
 
             <IonRow>
               <IonCol>
-                <IonInput
-                  class="SignUpJobSeeker-input"
-                  label="First Name"
-                  labelPlacement="floating"
-                  placeholder="Enter First Name"
-                  v-model="formData.firstName"
-                  required
-                >
+                <IonInput class="SignUpJobSeeker-input" label="First Name" labelPlacement="floating"
+                  placeholder="Enter First Name" v-model="formData.firstName" required>
                 </IonInput>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol>
-                <IonInput
-                  class="SignUpJobSeeker-input"
-                  label="Middle Name"
-                  labelPlacement="floating"
-                  placeholder="Enter Middle Name"
-                  v-model="formData.middleName"
-                  required
-                >
+                <IonInput class="SignUpJobSeeker-input" label="Middle Name" labelPlacement="floating"
+                  placeholder="Enter Middle Name" v-model="formData.middleName" required>
                 </IonInput>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol>
-                <IonInput
-                  class="SignUpJobSeeker-input"
-                  label="Last Name"
-                  labelPlacement="floating"
-                  placeholder="Enter Last Name"
-                  v-model="formData.lastName"
-                  required
-                >
+                <IonInput class="SignUpJobSeeker-input" label="Last Name" labelPlacement="floating"
+                  placeholder="Enter Last Name" v-model="formData.lastName" required>
                 </IonInput>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol>
-                <IonInput
-                  class="SignUpJobSeeker-input"
-                  s
-                  label="Suffix"
-                  labelPlacement="floating"
-                  placeholder="Enter Suffix"
-                  v-model="formData.suffix"
-                  required
-                >
+                <IonInput class="SignUpJobSeeker-input" label="Suffix" labelPlacement="floating"
+                  placeholder="Enter Suffix" v-model="formData.suffix" required>
                 </IonInput>
               </IonCol>
             </IonRow>
@@ -80,33 +51,22 @@
             </IonRow>
             <IonRow>
               <IonCol>
-                <IonInput
-                  class="SignUpJobSeeker-input"
-                  label="Email"
-                  labelPlacement="floating"
-                  placeholder="Enter Email"
-                  v-model="formData.email"
-                  required
-                >
+                <IonInput class="SignUpJobSeeker-input" label="Email" labelPlacement="floating" placeholder="Enter Email"
+                  type="email" v-model="formData.email" required>
                 </IonInput>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol>
-                <IonInput
-                  class="SignUpJobSeeker-input"
-                  label="Password"
-                  labelPlacement="floating"
-                  placeholder="Enter Password"
-                  v-model="formData.password"
-                  required
-                >
+                <IonInput class="SignUpJobSeeker-input" label="Password" labelPlacement="floating"
+                  placeholder="Enter Password" type="password" v-model="formData.password" required>
                 </IonInput>
               </IonCol>
             </IonRow>
+
             <IonRow>
               <IonCol style="text-align: right" size="2">
-                <IonCheckbox></IonCheckbox>
+                <IonCheckbox v-model="formData.acceptTerms"></IonCheckbox>
               </IonCol>
               <IonCol style="text-align: left" size="10">
                 <IonText>
@@ -117,13 +77,8 @@
             </IonRow>
             <IonRow>
               <IonCol>
-                <IonButton
-                  class="SignUpButtonActions"
-                  expand="block"
-                  fill="outline"
-                  @click="submitForm"
-                  style="color: black; --border-color: black"
-                >
+                <IonButton class="SignUpButtonActions" expand="block" fill="outline" @click="submitForm"
+                  style="color: black; --border-color: black">
                   Continue
                 </IonButton>
               </IonCol>
@@ -153,6 +108,9 @@ import "./SignUp.css";
 import { GoRegister2, goBack, goTermsandCondition } from "./SignUp-Controller";
 import { useSignupStore } from "@/stores/signupstore";
 import { Firestore } from "firebase/firestore";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from '../firebaseDB';
+
 const signupStore = useSignupStore();
 const formData = {
   firstName: "",
@@ -161,13 +119,52 @@ const formData = {
   suffix: "",
   email: "",
   password: "",
-};
-const submitForm = async () => {
-  // Submit logic, then update the store with the form data
-  signupStore.setFormData(formData);
+  acceptTerms: false,
+  elementary: "",
+  juniorhigh: "",
+  seniorhigh: "",
+  college: "",
+  othereduc: "",
+  workexp: "",
+  dateCreated: "",
+  // chosenInterest: [],
+  type: "",
 
-  GoRegister2();
 };
+
+const submitForm = async () => {
+  const requiredFields = ['firstName', 'middleName', 'lastName', 'suffix', 'email', 'password'];
+  let isFormValid = true;
+
+  for (const field of requiredFields) {
+    if (!formData[field]) {
+      isFormValid = false;
+      break; // Exit the loop if any required field is empty
+    }
+  }
+  if (formData.acceptTerms) {
+    isFormValid = true;
+  }
+  else {
+    isFormValid = false;
+    alert("Accept terms and conditions")
+  }
+
+  if (isFormValid) {
+    try {
+      const credential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+      console.log(credential.user);
+      signupStore.setFormData(formData);
+      GoRegister2();
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+  else {
+    alert("Fill all the Field to continue")
+  }
+}
+
 </script>
 
 <script lang="ts"></script>

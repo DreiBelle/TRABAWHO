@@ -14,6 +14,7 @@ export const useSignupStore = defineStore("signup", {
       suffix: "",
       email: "",
       password: "",
+      acceptTerms: false,
       elementary: "",
       juniorhigh: "",
       seniorhigh: "",

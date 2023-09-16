@@ -1,6 +1,6 @@
 import router from "../router"
 
-function GoRegister2_(userId){
+function GoRegister2_(){
     router.push("/SignUp2")
 }
 
