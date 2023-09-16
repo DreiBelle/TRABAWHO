@@ -21,12 +21,17 @@ export const useSignupStore2 = defineStore("signup2", {
     setFormData(data: SignupModel) {
       this.formData = { ...data };
     },
+    setGoogle(email, contactpn) {
+      this.formData.email = email;
+      this.formData.contactpn = contactpn;
+    },
     
     async registerUser() {
 
       // Set the current date as the dateCreated
       this.formData.dateCreated = new Date().toISOString();
       this.formData.type = "employer";
+      this.formData.acceptTerms = true;
 
       try {
         const usersCollection = collection(db, "users"); // "users" is the name of the Firestore collection

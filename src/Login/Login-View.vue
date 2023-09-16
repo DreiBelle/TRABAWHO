@@ -30,6 +30,14 @@
               </IonButton>
             </IonCol>
           </IonRow>
+          Or
+          <IonRow>
+            <IonCol class="LogIn-FlexCenter">
+              <IonButton class="LogInButtonActions" expand="block" @click="signInWithGoogle">
+                Continue With Google
+              </IonButton>
+            </IonCol>
+          </IonRow>
           <IonRow>
             <IonCol style="text-align: center">
               <IonText class="LogIn-SignUpCancel">Don't have an account?</IonText>
@@ -59,7 +67,8 @@ import {
 import "./Login.css";
 import { GoRegister, GoHome, GoHomeSwipeJobSeekers } from "./Login-Controller";
 import { UserLogin } from "./Login-Model";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { checkgoogle } from "./Login-Model";
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "@/firebaseDB";
 </script>
 
@@ -71,6 +80,22 @@ const showPassword = ref(false);
 
 const togglePasswordVisibility = () => {
   showPassword.value = !showPassword.value;
+};
+
+const signInWithGoogle = async () => {
+  const provider = new GoogleAuthProvider();
+  try {
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
+
+    // Now, you can access user information, including email and name
+    const email = user.email;
+    const name = user.displayName;
+    checkgoogle(email);
+  } catch (error) {
+    console.error('Google Sign-In Error:', error);
+    alert(error);
+  }
 };
 
 const handleUserLogin = () => {

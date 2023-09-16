@@ -83,6 +83,14 @@
                 </IonButton>
               </IonCol>
             </IonRow>
+            <IonRow>
+              <IonCol>
+                <IonButton class="SignUpButtonActions" expand="block" fill="outline" @click="signInWithGoogle"
+                  style="color: black; --border-color: black">
+                  Or Sign in With Google
+                </IonButton>
+              </IonCol>
+            </IonRow>
           </IonGrid>
         </IonCard>
       </div>
@@ -108,8 +116,10 @@ import "./SignUp.css";
 import { GoRegister2, goBack, goTermsandCondition } from "./SignUp-Controller";
 import { useSignupStore } from "@/stores/signupstore";
 import { Firestore } from "firebase/firestore";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { checkifregisteredgoogle } from "./Seeker-Model";
+import { createUserWithEmailAndPassword,  GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from '../firebaseDB';
+import { GoSwipe } from "@/NavBar/NavBar-Controller";
 
 const signupStore = useSignupStore();
 const formData = {
@@ -130,6 +140,29 @@ const formData = {
   // chosenInterest: [],
   type: "",
 
+};
+
+const signInWithGoogle = async() => {
+  const provider = new GoogleAuthProvider();
+  try {
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
+    const email = user.email;
+    const name = user.displayName;
+    const isRegistered = await checkifregisteredgoogle(email);
+    
+    if (isRegistered) { // checks if google already signed in
+      // Email is already registered, show a message or handle it as needed.
+      GoSwipe();
+    } else {
+      // Email is not registered, proceed with registration.
+      signupStore.setGoogle(email, name);
+    await signupStore.registerUser();
+    }
+  } catch (error) {
+    console.error('Google Sign-In Error:', error);
+    alert(error);
+  }
 };
 
 const submitForm = async () => {

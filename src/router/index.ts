@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
-import { RouteRecordRaw, NavigationGuardNext, RouteLocationNormalized  } from 'vue-router';
+import { RouteRecordRaw, NavigationGuardNext, RouteLocationNormalized } from 'vue-router';
 import { auth } from '@/firebaseDB';
 import { onAuthStateChanged } from 'firebase/auth';
 import NavBar from '../NavBar/NavBar.vue'
@@ -10,7 +10,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     redirect: '/Home'
-  },  
+  },
   {
     path: '/Home',
     name: 'Home',
@@ -139,12 +139,18 @@ const getCurrentUser = () => {
 
 router.beforeEach(async (to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (await getCurrentUser()){
+    if (await getCurrentUser()) {
       next();
     }
     else {
-      alert("You do not have access, Sign in first!");
-      next("/Login");
+      if (window.innerWidth <= 768) {
+        alert("You do not have access, Sign in first!");
+        next("/Login");
+      }
+      else {
+        alert("You do not have access, Sign in first!");
+        next("/LoginComputer");
+      }
     }
   } else {
     next()
@@ -152,5 +158,5 @@ router.beforeEach(async (to, from, next) => {
 });
 
 
-export default router 
+export default router
 

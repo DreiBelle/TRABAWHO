@@ -65,6 +65,14 @@
             </IonRow>
             <IonRow>
               <IonCol>
+                <IonButton class="SignUpButtonActions" expand="block" fill="outline" @click="signInWithGoogle"
+                  style="color: black; --border-color: black">
+                  Or Signin With Google?
+                </IonButton>
+              </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol>
                 <IonButton class="SignUpButtonActions" expand="block" fill="outline" @click="submitForm"
                   style="color: black; --border-color: black">
                   Continue
@@ -96,9 +104,11 @@ import "./SignUp.css";
 import { GoRegister2, goBack, goTermsandCondition } from "./SignUp-Controller";
 import { useSignupStore2 } from "@/stores/signupstore2";
 import { Firestore } from "firebase/firestore";
+import { checkifregisteredgoogle } from "./Employer-Model";
 import router from "../router";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from '../firebaseDB';
+import { GoEmployerDashboard } from "@/Login/Login-Controller";
 const signupStore2 = useSignupStore2();
 const formData = {
   email: "",
@@ -110,13 +120,31 @@ const formData = {
   type: "",
   acceptTerms: false,
 };
+const signInWithGoogle = async() => {
+  const provider = new GoogleAuthProvider();
+  try {
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
+
+    const email = user.email;
+    const name = user.displayName;
+    const isRegistered = await checkifregisteredgoogle(email);
+    if (isRegistered) { // checks if google already signed in
+      // Email is already registered, show a message or handle it as needed.
+      GoEmployerDashboard();
+    } else {
+      // Email is not registered, proceed with registration.
+      signupStore2.setGoogle(email, name);
+      await signupStore2.registerUser();
+    }
+  } catch (error) {
+    console.error('Google Sign-In Error:', error);
+    alert(error);
+  }
+};
 const submitForm = async () => {
   const requiredFields = ['email', 'contactpn', 'number', 'businessname', 'password', 'dateCreated'];
   let isFormValid = true;
-
-
-
-
 
   for (const field of requiredFields) {
     if (!formData[field]) {

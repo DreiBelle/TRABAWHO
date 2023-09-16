@@ -36,12 +36,17 @@ export const useSignupStore = defineStore("signup", {
     getChosenInterests() {
       return this.formData.chosenInterests;
     },
+    setGoogle(email, firstName) {
+      this.formData.email = email;
+      this.formData.firstName = firstName;
+    },
     
     async registerUser() {
 
       // Set the current date as the dateCreated
       this.formData.dateCreated = new Date().toISOString();
       this.formData.type = "jobseeker";
+      this.formData.acceptTerms = true;
 
       try {
         const usersCollection = collection(db, "users"); // "users" is the name of the Firestore collection
