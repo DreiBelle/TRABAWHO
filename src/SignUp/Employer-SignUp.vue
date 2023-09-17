@@ -130,12 +130,14 @@ const signInWithGoogle = async() => {
     const name = user.displayName;
     const isRegistered = await checkifregisteredgoogle(email);
     if (isRegistered) { // checks if google already signed in
-      // Email is already registered, show a message or handle it as needed.
+      localStorage.setItem("email", email);
       GoEmployerDashboard();
     } else {
       // Email is not registered, proceed with registration.
       signupStore2.setGoogle(email, name);
       await signupStore2.registerUser();
+      localStorage.setItem("email", email);
+      GoEmployerDashboard();
     }
   } catch (error) {
     console.error('Google Sign-In Error:', error);

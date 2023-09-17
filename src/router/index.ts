@@ -2,8 +2,13 @@ import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw, NavigationGuardNext, RouteLocationNormalized } from 'vue-router';
 import { auth } from '@/firebaseDB';
 import { onAuthStateChanged } from 'firebase/auth';
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { db } from "../firebaseDB";
 import NavBar from '../NavBar/NavBar.vue'
+import { ref } from "vue"
+import { getuser } from '../Login/Login-Model';
 
+const user = ref(null);
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -119,6 +124,16 @@ const routes: Array<RouteRecordRaw> = [
   },
 ]
 
+const getUserType = async () => {
+  const userEmail = localStorage.getItem("email");
+  const userData = await getuser(userEmail);
+  if (userData) {
+    user.value = userData;
+    return userData.type;
+  }
+};
+
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes
@@ -139,23 +154,42 @@ const getCurrentUser = () => {
 
 router.beforeEach(async (to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (await getCurrentUser()) {
-      next();
-    }
-    else {
-      if (window.innerWidth <= 768) {
-        alert("You do not have access, Sign in first!");
-        next("/Login");
+    const currentUser = await getCurrentUser();
+    if (currentUser) {
+      const userType = await getUserType();
+
+      // Check the user's type and restrict access accordingly
+      if (userType === 'jobseeker' && (to.path.includes('/Swipe') || to.path.includes('/Seeker-Profile'))) {
+        next();
+      } else if (userType === 'employer' && (to.path.includes('/Employer-Dashboard') || to.path.includes('/Employer-Message'))) {
+        next();
+      } else {
+        // Handle unauthorized access for other user types or show an error message
+        if (window.innerWidth <= 768) {
+          alert('You do not have access because you are jobseeker, Sign in first!');
+          next('/Swipe');
+        } else {
+          alert('You do not have access because you are employer, Sign in first!');
+          next('/Employer-Dashboard');
+        }
       }
-      else {
-        alert("You do not have access, Sign in first!");
-        next("/LoginComputer");
+    } else {
+      // Handle the case where the user is not authenticated
+      if (window.innerWidth <= 768) {
+        alert('You do not have access, Sign in first!');
+        next('/Login');
+      } else {
+        alert('You do not have access, Sign in first!');
+        next('/LoginComputer');
       }
     }
   } else {
-    next()
+    // Allow access to routes that do not require authentication
+    next();
   }
 });
+
+
 
 
 export default router

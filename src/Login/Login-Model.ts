@@ -75,6 +75,24 @@ async function checkgoogle_(email) {
   }
 }
 
+async function getuser_(Username) {
+  const usersRef = collection(db, "users");
+
+  const q = query(usersRef, where("email", "==", Username));
+  const querySnapshot = await getDocs(q);
+
+  if (!querySnapshot.empty) {
+      const docSnap = querySnapshot.docs[0];
+      const userDoc = docSnap.data();
+      return userDoc;
+
+  } else {
+      console.log("Username not found");
+  }
+}
+
+
 
 export const UserLogin = UserLogin_;
 export const checkgoogle = checkgoogle_;
+export const getuser = getuser_;

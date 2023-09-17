@@ -88,10 +88,13 @@ const signInWithGoogle = async () => {
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
 
-    // Now, you can access user information, including email and name
     const email = user.email;
     const name = user.displayName;
+
     checkgoogle(email);
+
+    localStorage.setItem("email", email);
+
   } catch (error) {
     console.error('Google Sign-In Error:', error);
     alert(error);
