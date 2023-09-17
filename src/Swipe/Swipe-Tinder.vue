@@ -1,15 +1,7 @@
 <template>
-  <div
-    class="Swipe-Swipeable"
-    :class="{ 'Swipe-Swipeable--animated': position !== 0 }"
-    :style="{ transform: `translateX(${position}px)` }"
-    @mousedown="startSwipe"
-    @mousemove="swipe"
-    @mouseup="endSwipe"
-    @touchstart="startSwipe"
-    @touchmove="swipe"
-    @touchend="endSwipe"
-  >
+  <div class="Swipe-Swipeable" :class="{ 'Swipe-Swipeable--animated': position !== 0 }"
+    :style="{ transform: `translateX(${position}px)` }" @mousedown="startSwipe" @mousemove="swipe" @mouseup="endSwipe"
+    @touchstart="startSwipe" @touchmove="swipe" @touchend="endSwipe">
     <div class="Swipe-CardContent" id="card">
       <IonGrid style="height: 100%">
         <IonRow style="height: 10%">
@@ -63,7 +55,7 @@ export default {
     endSwipe() {
       if (!this.isSwiping) return;
       this.isSwiping = false;
-      const swipeThreshold = 100;
+      const swipeThreshold = 50;
 
       if (this.position > swipeThreshold) {
         this.position = 300;
@@ -82,6 +74,7 @@ export default {
         this.position = 0;
       }
     },
+
   },
   components: { IonGrid, IonRow, IonCol, IonCard },
 };

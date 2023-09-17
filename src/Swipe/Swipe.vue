@@ -14,16 +14,22 @@
     <IonGrid style="height: 100%; width: 100%; background-color: #f3f2ee">
       <IonRow style="height: 100%">
         <IonCol>
-          <div class="Swipe-Background" >
-            <SwipeableCard
-              :item="cards[currentCardIndex]"
-              @swipeLeft="handleSwipeLeft"
-              @swipeRight="handleSwipeRight"
-              style="z-index: 2"
-              id="mainswiper"
-              class="asd"
-            />
-            <SwipeableCard :item="cards[1]" />
+          <div class="Swipe-Background" v-if="nextCardIndex < cards.length">
+            <SwipeableCard :item="cards[currentCardIndex]" @swipeLeft="handleSwipeLeft" @swipeRight="handleSwipeRight"
+              style="z-index: 2" id="mainswiper" class="asd" />
+            <FakeSwipeableCard :item="cards[nextCardIndex]" />
+          </div>
+          <div class="Swipe-Background" v-else-if="currentCardIndex < cards.length">
+            <SwipeableCard :item="cards[currentCardIndex]" @swipeLeft="handleSwipeLeft" @swipeRight="handleSwipeRight"
+              style="z-index: 2" id="mainswiper" class="asd" />
+            <IonCard class="Swipe-Swipeable">
+              no more available jobs
+            </IonCard>
+          </div>
+          <div class="Swipe-Background" v-else>
+            <IonCard class="Swipe-Swipeable">
+              no more available jobs
+            </IonCard>
           </div>
         </IonCol>
       </IonRow>
@@ -34,10 +40,11 @@
 
 <script lang="ts">
 import SwipeableCard from "./Swipe-Tinder.vue";
+import FakeSwipeableCard from "./FakeSwipe-Tinder.vue";
 import FloatingButtons from "./Swipe-FloatingButtons.vue";
 import NavBar from "../NavBar/NavBar.vue";
 import "./Swipe.css";
-import { settingsOutline } from "ionicons/icons";
+import { car, settingsOutline } from "ionicons/icons";
 import {
   IonCard,
   IonCol,
@@ -56,6 +63,7 @@ import {
 
 export default {
   components: {
+    FakeSwipeableCard,
     FloatingButtons,
     SwipeableCard,
     NavBar,
@@ -78,7 +86,7 @@ export default {
   },
   data() {
     return {
-      nextCardIndex: 0,
+      nextCardIndex: 1,
       currentCardIndex: 0,
       cards: [
         { id: 1, content: "Card 1" },
@@ -90,30 +98,40 @@ export default {
   },
   methods: {
     handleSwipeLeft() {
-      // this.cards = this.cards.filter((card) => card.id);
       const swiper = document.getElementById("mainswiper")
+
       setTimeout(() => {
-        swiper.style.display= "none";
-      }, 500);
+        swiper.style.display = 'none';
+      }, 100);
+
       setTimeout(() => {
-        swiper.style.display= "inline";
+        swiper.style.display = 'inline';
       }, 500);
-      setTimeout(() => {
-        this.cards.shift();
-      }, 500);
-      console.log("swipeLeft");
+
+      console.log("swipe left");
       this.showNextCard();
     },
+
     handleSwipeRight() {
-      // this.cards = this.cards.filter((card) => card.id);
+      const swiper = document.getElementById("mainswiper")
+
       setTimeout(() => {
-        this.cards.shift();
+        swiper.style.display = 'none';
+      }, 100);
+
+      setTimeout(() => {
+        swiper.style.display = 'inline';
       }, 500);
-      console.log("swipeRight");
+
+      console.log("swipe right");
       this.showNextCard();
     },
+
     showNextCard() {
-      this.currentCardIndex + 1;
+      this.currentCardIndex++;
+      setTimeout(() => {
+        this.nextCardIndex++;
+      }, 501);
     },
   },
   // mounted() {
