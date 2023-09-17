@@ -1,4 +1,4 @@
-.Dashboard- {
+/* .Dashboard- {
 }
 
 .Dashboard-Header {
@@ -281,9 +281,9 @@
 }
 
 .image-preview {
-  max-width: 200px; /* Adjust the maximum width as needed */
-  max-height: 200px; /* Adjust the maximum height as needed */
-  object-fit: cover; /* This property ensures the image retains its aspect ratio and covers the specified dimensions */
+  max-width: 200px; 
+  max-height: 200px; 
+  object-fit: cover; 
 }
 
 .file-input-text {
@@ -304,7 +304,7 @@
   object-fit: cover;
 }
 
-/* .no-scroll {
+.no-scroll {
   --offset-bottom: auto !important;
   --overflow: hidden;
   overflow: auto;
@@ -312,7 +312,7 @@
   &::-webkit-scrollbar {
     display: none;
   }
-} */
+}
 
 .Dashboard-Container-EmployerPosting {
   display: block;
@@ -367,10 +367,67 @@
   font-size: 50px;
   transition: color 0.3s ease, font-size 0.3s ease;
 }
-
+IonRouterOutlet
 .Dashboard-Icon-Message:hover {
   color: lightskyblue;
   cursor: pointer;
   font-size: 55px;
   transition: color 0.3s ease, font-size 0.3s ease;
+} */
+
+/* navbar */
+.dashboard-navbar- {
+}
+
+.dashboard-navbar-container {
+  background-color: #262c5c;
+  color: white;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 250px;
+  height: 100%;
+  padding: 0;
+}
+
+.dashboard-navbar-flexcenter {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.dashboard-navbar-cols {
+  margin-top: 10px;
+  padding: 12px;
+}
+
+.dashboard-navbar-cols:hover {
+  background-color: #20254e;
+  margin-top: 10px;
+  padding: 12px;
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+}
+
+.dashboard-navbar-navigations {
+  padding-left: 10px;
+  padding-top: 7px;
+}
+
+.dashboard-navbar-icons {
+  font-size: 20px;
+}
+
+.dashboard-navbar-logo {
+  padding-bottom: 50px;
+}
+
+/* home */
+
+.dashboard-home- {
+}
+
+.dashboard-home-Container {
+  background-color: white;
+  color: black;
 }

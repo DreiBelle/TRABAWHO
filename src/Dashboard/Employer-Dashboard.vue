@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <IonPage class="Dashboard-Page" id="main-content">
     <IonHeader class="Dashboard-Header">
       <div name="header">
@@ -93,7 +93,28 @@
       <AddModal />
     </IonContent>
   </IonModal>
+</template> -->
+
+<template>
+  <IonPage class="dashboard-home-Container">
+    <IonGrid style="height: 100%; width: 100%; padding-left: 255px;">
+      <IonRow>
+        <IonCol>
+          helloooooooooooooooooooo
+        </IonCol>
+      </IonRow>
+      <IonRow>
+        <IonCol>
+          helloooooooooooooooooooo
+        </IonCol>
+        <IonCol>
+          helloooooooooooooooooooo
+        </IonCol>
+      </IonRow>
+    </IonGrid>
+  </IonPage>
 </template>
+
 <script lang="ts">
 import {
   IonButton,
@@ -120,7 +141,7 @@ import SideBar from "./Employer-Sidebar.vue";
 import AddModal from "./Employer-Dashboard-Modal-AddPostings.vue";
 import { getDashboardProfile } from "./Dashboard-Model"
 import { ref, onMounted, computed } from "vue";
-import { addCircleOutline, chatboxEllipsesOutline  } from 'ionicons/icons'
+import { addCircleOutline, chatboxEllipsesOutline } from 'ionicons/icons'
 import { GoEmployerMessage, GoEmployerHome } from "./Employer-Dashboard-Controller"
 
 export default {

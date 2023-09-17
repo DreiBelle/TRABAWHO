@@ -1,9 +1,7 @@
 <template>
   <ion-app>
-      <router-view v-if="isMobile == false"></router-view>
-      <IonRouterOutlet v-if="isMobile == true"></IonRouterOutlet>
-    <!-- <IonRouterOutlet></IonRouterOutlet> -->
-    <!-- <router-view></router-view> -->
+    <router-view v-if="isMobile == false"></router-view>
+    <IonRouterOutlet v-if="isMobile == true"></IonRouterOutlet>
   </ion-app>
 </template>
 
@@ -23,10 +21,10 @@ export default {
   methods: {
     check() {
       if (window.innerWidth <= 768) {
-       this.isMobile= true
-       console.log("mobile")
+        this.isMobile = true
+        console.log("mobile")
       } else {
-        this.isMobile= false
+        this.isMobile = false
         console.log("computer")
 
       }
