@@ -1,60 +1,61 @@
 <template>
-  <IonPage>
-    <IonContent>
-      <div class="LoginBackground" name="centercontents">
-        <IonGrid>
-          <IonRow>
-            <IonCol class="LogIn-FlexCenter">
-              <img class="LogIn-Logo" src="../assets/logosample.jpg" alt="logo" />
-            </IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol class="LogIn-FlexCenter">
-              <IonInput label="Username" labelPlacement="floating" placeholder="Enter Username" class="LogIn-Input"
-                v-model="Username" required style="margin-top: 50px">
-              </IonInput>
-            </IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol class="LogIn-FlexCenter">
-              <IonInput class="LogIn-Input" label="Password" labelPlacement="floating" 
-                :type="showPassword ? 'text' : 'password'" placeholder="Enter Password" required v-model="Password">
-              </IonInput>
-              <!-- <IonButton class="TogglePasswordButton" @click="togglePasswordVisibility"></IonButton> -->
-            </IonCol>
-          </IonRow>
-          <a class="LogIn-SignUpCancel" style="color: rgb(5, 94, 248)" @click="resetPassword">Forgot Password</a>
-          <IonRow>
-            <IonCol class="LogIn-FlexCenter">
-              <IonButton class="LogInButtonActions" expand="block" @click="handleUserLogin">
-                Login
-              </IonButton>
-            </IonCol>
-          </IonRow>
-          Or
-          <IonRow>
-            <IonCol class="LogIn-FlexCenter">
-              <IonButton class="LogInButtonActions" expand="block" @click="signInWithGoogle">
-                Continue With Google
-              </IonButton>
-            </IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol style="text-align: center">
-              <IonText class="LogIn-SignUpCancel">Don't have an account?</IonText>
-              <a class="LogIn-SignUpCancel" style="color: lightblue" @click="GoRegister">Sign Up</a>
-              <IonText>|</IonText>
-              <a class="LogIn-SignUpCancel" style="color: red" @click="GoHome">Cancel</a>
-            </IonCol>
-          </IonRow>
-        </IonGrid>
-      </div>
-    </IonContent>
+  <IonPage style="background: white; color: black;">
+    <div class="LoginBackground" name="centercontents">
+      <IonGrid class="login-table-maincontainer">
+        <IonRow>
+          <IonCol class="LogIn-FlexCenter">
+            <img class="LogIn-Logo" src="../assets/logosample.jpg" alt="logo" />
+          </IonCol>
+        </IonRow>
+        <IonRow>
+          <IonCol class="LogIn-FlexCenter">
+            <IonInput label="Email" labelPlacement="floating" placeholder="Enter Email" class="LogIn-Input"
+              v-model="Username" required style="margin-top: 50px">
+            </IonInput>
+          </IonCol>
+        </IonRow>
+        <IonRow>
+          <IonCol class="LogIn-FlexCenter">
+            <IonInput class="LogIn-Input" label="Password" labelPlacement="floating" type="password"
+              placeholder="Enter Password" required v-model="Password">
+            </IonInput>
+          </IonCol>
+        </IonRow>
+        <IonRow>
+          <IonCol class="login-nopadding">
+            <a class="login-button-forgotpassword" style="color: rgb(5, 94, 248)" @click="resetPassword">Forgot
+              Password</a>
+          </IonCol>
+        </IonRow>
+        <IonRow>
+          <IonCol class="LogIn-FlexCenter">
+            <IonButton class="LogInButtonActions" expand="block" @click="handleUserLogin">
+              Login
+            </IonButton>
+          </IonCol>
+          <IonCol size=".5" class="LogIn-FlexCenter" style="padding-top: 50px;">
+            or
+          </IonCol>
+          <IonCol class="LogIn-FlexCenter">
+            <IonButton class="LogInButtonActions" expand="block" @click="signInWithGoogle">
+              Google Signin
+            </IonButton>
+          </IonCol>
+        </IonRow>
+        <IonRow>
+          <IonCol style="text-align: center">
+            <IonText class="LogIn-SignUpCancel">Don't have an account?</IonText>
+            <a class="LogIn-SignUpCancel" style="color: lightblue" @click="GoRegister">Sign Up</a>
+            <IonText>|</IonText>
+            <a class="LogIn-SignUpCancel" style="color: red" @click="GoHome">Cancel</a>
+          </IonCol>
+        </IonRow>
+      </IonGrid>
+    </div>
   </IonPage>
 </template>
 
 <script setup lang="ts">
-
 import {
   IonButton,
   IonPage,
@@ -64,11 +65,12 @@ import {
   IonCol,
   IonInput,
   IonText,
+  IonCard,
 } from "@ionic/vue";
 import "./Login.css";
-import { GoRegister, GoHome, GoHomeSwipeJobSeekers } from "./Login-Controller";
-import { UserLogin, checkgoogle,  updatePassword } from "./Login-Model";
-import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { GoRegister, GoHome, GoEmployer, GoEmployerDashboard } from "./Login-Controller";
+import { checkgoogle, UserLogin, updatePassword } from "./Login-Model";
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "@/firebaseDB";
 </script>
 
@@ -76,11 +78,6 @@ import { auth } from "@/firebaseDB";
 import { ref } from "vue";
 const Username = ref("");
 const Password = ref("");
-const showPassword = ref(false);
-
-const togglePasswordVisibility = () => {
-  showPassword.value = !showPassword.value;
-};
 
 const signInWithGoogle = async () => {
   const provider = new GoogleAuthProvider();
@@ -92,7 +89,6 @@ const signInWithGoogle = async () => {
     const name = user.displayName;
 
     checkgoogle(email);
-
     localStorage.setItem("email", email);
 
   } catch (error) {
@@ -116,7 +112,14 @@ const handleUserLogin = () => {
       alert(error);
     });
 };
+
 const resetPassword = async () => {
   updatePassword(Username.value);
 };
 </script>
+
+<style>
+/* ion-col{
+  border: 1px solid black;
+} */
+</style>

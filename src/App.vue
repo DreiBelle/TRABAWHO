@@ -2,8 +2,6 @@
   <ion-app>
       <router-view v-if="isMobile == false"></router-view>
       <IonRouterOutlet v-if="isMobile == true"></IonRouterOutlet>
-    <!-- <IonRouterOutlet></IonRouterOutlet> -->
-    <!-- <router-view></router-view> -->
   </ion-app>
 </template>
 

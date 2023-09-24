@@ -23,19 +23,23 @@
                 </IonInput>
               </IonCol>
             </IonRow>
-            <a class="LogIn-SignUpCancel" style="color: rgb(5, 94, 248)" @click="resetPassword">Forgot Password</a>
+            <IonRow>
+              <IonCol class="login-nopadding">
+                <a class="login-button-forgotpassword" style="color: rgb(5, 94, 248)" @click="resetPassword">Forgot Password</a>
+              </IonCol>
+            </IonRow>
             <IonRow>
               <IonCol class="LogIn-FlexCenter">
                 <IonButton class="LogInButtonActions" expand="block" @click="handleUserLogin">
                   Login
                 </IonButton>
               </IonCol>
-            </IonRow>
-            Or
-            <IonRow>
+              <IonCol size=".5" class="LogIn-FlexCenter" style="padding-top: 50px;">
+                or
+              </IonCol>
               <IonCol class="LogIn-FlexCenter">
                 <IonButton class="LogInButtonActions" expand="block" @click="signInWithGoogle">
-                  Continue With Google
+                  Google Signin
                 </IonButton>
               </IonCol>
             </IonRow>
@@ -116,3 +120,9 @@ const resetPassword = async () => {
   updatePassword(Username.value);
 };
 </script>
+
+<style>
+ion-col{
+  border: 1px solid black;
+}
+</style>

@@ -1,19 +1,23 @@
 <template>
-  <div class="Swipe-Swipeable" :style="{ transform: `translateX(${position}px)` }" @mousedown="startSwipe"
-    @mousemove="swipe" @mouseup="endSwipe" @touchstart="startSwipe" @touchmove="swipe" @touchend="endSwipe">
+  <div class="Swipe-Swipeable" :class="{ 'Swipe-Swipeable--animated': position !== 0 }"
+    :style="{ transform: `translateX(${position}px)` }" @mousedown="startSwipe" @mousemove="swipe" @mouseup="endSwipe"
+    @touchstart="startSwipe" @touchmove="swipe" @touchend="endSwipe">
     <div class="Swipe-CardContent" id="card">
       <IonGrid style="height: 100%">
         <IonRow style="height: 10%">
-          <IonCol> {{ item.content }} </IonCol>
+          <IonCol>
+            Job Name
+            {{ item.content }}
+          </IonCol>
         </IonRow>
         <IonRow style="height: 30%">
-          <IonCol> {{ item.picture }}</IonCol>
+          <IonCol> Picture </IonCol>
         </IonRow>
         <IonRow style="height: 10%">
-          <IonCol> {{ item.JobType }} </IonCol>
+          <IonCol> Job Type </IonCol>
         </IonRow>
         <IonRow style="height: 50%">
-          <IonCol> {{ item.JobDescription }} </IonCol>
+          <IonCol> Job Description </IonCol>
         </IonRow>
       </IonGrid>
     </div>
@@ -21,9 +25,8 @@
 </template>
 
 <script lang="ts">
-import { IonCol, IonGrid, IonRow } from "@ionic/vue";
+import { IonCard, IonCol, IonGrid, IonRow } from "@ionic/vue";
 import "./Swipe.css";
-import { getJobs } from "./Swipe-Model";
 
 export default {
   props: {
@@ -42,7 +45,6 @@ export default {
       this.isSwiping = true;
       this.startX = event.clientX || event.touches[0].clientX;
       this.currentPosition = this.position;
-      getJobs();
     },
     swipe(event) {
       if (!this.isSwiping) return;
@@ -53,18 +55,28 @@ export default {
     endSwipe() {
       if (!this.isSwiping) return;
       this.isSwiping = false;
-      const swipeThreshold = 200;
+      const swipeThreshold = 50;
 
       if (this.position > swipeThreshold) {
+        this.position = 300;
         this.$emit("swipeRight", this.item);
 
+        setTimeout(() => {
+          this.position = 0;
+        }, 500);
       } else if (this.position < -swipeThreshold) {
+        this.position = -300;
         this.$emit("swipeLeft", this.item);
+        setTimeout(() => {
+          this.position = 0;
+        }, 500);
+      } else {
+        this.position = 0;
       }
-      this.position = this.currentPosition;
     },
+
   },
-  components: { IonGrid, IonRow, IonCol },
+  components: { IonGrid, IonRow, IonCol, IonCard },
 };
 </script>
 

@@ -5,6 +5,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../firebaseDB";
 import NavBar from '../NavBar/NavBar.vue'
+import SideBar from "../Dashboard/Employer-Sidebar.vue";
 import { ref } from "vue"
 import { getuser } from '../Login/Login-Model';
 
@@ -79,6 +80,22 @@ const routes: Array<RouteRecordRaw> = [
     ]
   },
   {
+    path: "/Employer-Dashboard",
+    component: SideBar,
+    children: [
+      {
+        path: "/Employer-Dashboard",
+        name: "Employer-Dashboard",
+        component: () => import("../Dashboard/Employer-Dashboard.vue"),
+      },
+      {
+        path: "/Employer-Message",
+        name: "Employer-Message",
+        component: () => import("../Message/Employer-Message.vue"),
+      },
+    ],
+  },
+  {
     path: '/TermsandConditions',
     name: 'TermsandConditions',
     component: () => import('../SignUp/Seeker-Terms.vue')
@@ -97,22 +114,6 @@ const routes: Array<RouteRecordRaw> = [
     path: '/LoginComputer',
     name: 'LoginComputer',
     component: () => import('../Login/LoginComputer-View.vue')
-  },
-  {
-    path: '/Employer-Dashboard',
-    name: 'Employer-Dashboard',
-    component: () => import('../Dashboard/Employer-Dashboard.vue'),
-    meta: {
-      requiresAuth: true,
-    }
-  },
-  {
-    path: '/Employer-Message',
-    name: 'Employer-Message',
-    component: () => import('../Message/Employer-Message.vue'),
-    meta: {
-      requiresAuth: true,
-    }
   },
   {
     path: '/Seeker-Message2',

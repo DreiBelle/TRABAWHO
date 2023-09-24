@@ -1,46 +1,64 @@
 <template>
-    <IonGrid>
+    <RouterView></RouterView>
+    <IonGrid class="dashboard-navbar-container">
         <IonRow>
-            <IonCol>
-                <IonButton @click="handleSignout()">
-                    Logout
-                </IonButton>
+            <IonCol class="dashboard-navbar-logo">
+                logo
+            </IonCol>
+        </IonRow>
+        <IonRow>
+            <IonCol class="dashboard-navbar-flexcenter dashboard-navbar-cols">
+                <IonIcon class="dashboard-navbar-icons" :icon="home"></IonIcon>
+                <IonText class="dashboard-navbar-navigations">Home</IonText>
+            </IonCol>
+        </IonRow>
+        <IonRow>
+            <IonCol class="dashboard-navbar-flexcenter dashboard-navbar-cols">
+                <IonIcon class="dashboard-navbar-icons" :icon="home"></IonIcon>
+                <IonText class="dashboard-navbar-navigations">Profile</IonText>
+            </IonCol>
+        </IonRow>
+        <IonRow>
+            <IonCol class="dashboard-navbar-flexcenter dashboard-navbar-cols">
+                <IonIcon class="dashboard-navbar-icons" :icon="home"></IonIcon>
+                <IonText class="dashboard-navbar-navigations">Job Postings</IonText>
+            </IonCol>
+        </IonRow>
+        <IonRow>
+            <IonCol class="dashboard-navbar-flexcenter dashboard-navbar-cols">
+                <IonIcon class="dashboard-navbar-icons" :icon="home"></IonIcon>
+                <IonText class="dashboard-navbar-navigations">Data Analytics</IonText>
+            </IonCol>
+        </IonRow>
+        <IonRow>
+            <IonCol class="dashboard-navbar-flexcenter dashboard-navbar-cols">
+                <IonIcon class="dashboard-navbar-icons" :icon="home"></IonIcon>
+                <IonText class="dashboard-navbar-navigations">Notification</IonText>
+            </IonCol>
+        </IonRow>
+        <IonRow>
+            <IonCol class="dashboard-navbar-flexcenter dashboard-navbar-cols" style="position: absolute; bottom: 10px;">
+                <IonIcon class="dashboard-navbar-icons" :icon="home"></IonIcon>
+                <IonText class="dashboard-navbar-navigations">Logout</IonText>
             </IonCol>
         </IonRow>
     </IonGrid>
 </template>
 <script lang="ts">
-import { IonButton, IonCol, IonGrid, IonRow } from '@ionic/vue';
-import router from "../router"
-import { GoHome } from './Employer-Dashboard-Controller';
-import { onAuthStateChanged, signOut } from "firebase/auth";
-import { auth } from "@/firebaseDB";
-import { ref, onMounted } from "vue";
-const isLoggedIn = ref(false);
+import { IonButton, IonCol, IonGrid, IonPage, IonRow, IonRouterOutlet, IonIcon, IonText } from '@ionic/vue';
+import { home } from "ionicons/icons"
+import "./Employer-Dashboard.css"
 export default {
-    components: { IonGrid, IonRow, IonCol, IonButton },
+    components: { IonCol, IonGrid, IonPage, IonRow, IonRouterOutlet, IonIcon, IonText },
     setup() {
-        onMounted(() => {
-            onAuthStateChanged(auth, (user) => {
-                if (user) {
-                    isLoggedIn.value = true;
-                } else {
-                    isLoggedIn.value = false;
-                }
-            });
-        });
-    },
-    methods: {
-        handleSignout() {
-            signOut(auth).then(() => {
-                localStorage.removeItem("email");
-                localStorage.removeItem("password");
-                GoHome();
-            })
-        },
+        return {
+            home
+        }
     }
 }
 </script>
-<style lang="">
-    
+<style>
+ion-col {
+    border: 1px solid black;
+}
 </style>

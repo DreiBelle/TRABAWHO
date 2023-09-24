@@ -19,9 +19,8 @@
   --background-activated: snow;
   color: white;
   --border-color: black;
-  margin-top: 40px !important;
-  max-width: 450px !important;
-  width: 90vw !important;
+  margin-top: 50px;
+  width: 100%;
 }
 
 .LogIn-FlexCenter {
@@ -53,11 +52,26 @@
   font-size: 14px;
   padding-left: 5px;
   padding-right: 5px;
+  cursor: pointer;
 }
 .LogIn-Card {
   padding: 20px;
-  max-width: 350px;
+  max-width: 500px;
   border-radius: 20px;
+  color: black;
+}
+
+.login-nopadding{
+  padding: 0;
+}
+
+.login-button-forgotpassword{
+  cursor: pointer;
+  padding-left: 3%;
+}
+
+.login-table-maincontainer{
+  max-width: 450px;
 }
 
 .LogIn- {
