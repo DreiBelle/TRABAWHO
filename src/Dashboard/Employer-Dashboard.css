@@ -58,22 +58,6 @@
   text-align: justify;
 }
 
-.Dashboard-Card-JobPosting {
-  height: 85%;
-  width: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 30px;
-  color: #1d1d1d;
-  background-color: white;
-  transition: background-color 0.5s ease, width 0.5s ease, font-size 0.5s ease,
-    color 0.5s ease;
-  padding: 0;
-  margin-left: 0;
-  margin-right: 20px;
-}
-
 .Dashboard-Card-JobPosting:hover {
   height: 85%;
   width: 400px;
@@ -375,6 +359,12 @@ IonRouterOutlet
   transition: color 0.3s ease, font-size 0.3s ease;
 } */
 
+.flexcenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* navbar */
 .dashboard-navbar- {
 }
@@ -386,7 +376,8 @@ IonRouterOutlet
   left: 0;
   top: 0;
   width: 250px;
-  height: 100%;
+  height: calc(100% - 50px);
+  margin-top: 50px;
   padding: 0;
 }
 
@@ -399,14 +390,16 @@ IonRouterOutlet
 .dashboard-navbar-cols {
   margin-top: 10px;
   padding: 12px;
+  cursor: pointer;
+  transition: background-color 0.5s ease, font-size 0.5s ease;
 }
 
 .dashboard-navbar-cols:hover {
-  background-color: #20254e;
+  background-color: #1e234a;
   margin-top: 10px;
   padding: 12px;
-  cursor: pointer;
-  transition: background-color 0.5s ease;
+  transition: background-color 0.5s ease, font-size 0.5s ease;
+  font-size: 17px;
 }
 
 .dashboard-navbar-navigations {
@@ -419,7 +412,41 @@ IonRouterOutlet
 }
 
 .dashboard-navbar-logo {
-  padding-bottom: 50px;
+  padding-bottom: 25px;
+}
+
+.dashboard-navbar-topbar {
+  /* margin-left: 250px; */
+  padding: 0;
+  color: white;
+  height: 50px;
+  width: 100%;
+}
+
+.dashboard-navbar-topbar-profile {
+  background-color: #1e234a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dashboard-navbar-topbar-searchbar {
+  --placeholder-opacity: 50%;
+  height: 10% !important;
+  /* margin: auto;
+  flex-basis: 50px; */
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.dashboard-navbar-topbar-searchbar .searchbar-input.sc-ion-searchbar-md {
+  height: 30px;
+  font-size: 15px;
+}
+
+.searchbar-search-icon.sc-ion-searchbar-md,
+.searchbar-cancel-button.sc-ion-searchbar-md {
+  margin-top: -7px;
 }
 
 /* home */
@@ -431,3 +458,69 @@ IonRouterOutlet
   background-color: white;
   color: black;
 }
+
+.dashboard-home-contents-container {
+  height: 100%;
+  width: 100%;
+  padding-left: 250px;
+  padding-top: 50px;
+  background-color: rgb(250, 241, 241);
+}
+
+/* .no-scroll {
+  --offset-bottom: auto !important;
+  --overflow: hidden;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+} */
+/* Data analytics */
+
+.dashboard-minidataanyltics- {
+}
+
+.dashboard-minidataanalytics-card {
+  height: 100%;
+  width: 100%;
+  padding: 10px;
+}
+
+/* listofjobposting */
+.dashboard-listofjobposting- {
+}
+
+.dashboard-listofjobposting-card {
+  height: 100%;
+  width: 100%;
+  padding: 10px;
+}
+
+/* job posting page */
+
+.Dashboard-Card-JobPosting {
+ position: fixed;
+ bottom: 5px;
+ right: 20px;
+ font-size: 70px;
+ color: #262c5c;
+ transition: font-size 0.5s ease, color 0.5s ease;
+}
+
+.Dashboard-Card-JobPosting:hover {
+ position: fixed;
+ bottom: 5px;
+ right: 20px;
+ font-size: 75px;
+ color: #1e234a;
+ transition: font-size 0.5s ease, color 0.5s ease;
+}
+
+.Dashboard-AddJobPostings-Card-Picture {
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+}
+

@@ -5,9 +5,10 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../firebaseDB";
 import NavBar from '../NavBar/NavBar.vue'
-import SideBar from "../Dashboard/Employer-Sidebar.vue";
 import { ref } from "vue"
 import { getuser } from '../Login/Login-Model';
+import SideBar from "../Dashboard/Employer-Sidebar.vue";
+
 
 const user = ref(null);
 
@@ -86,12 +87,50 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "/Employer-Dashboard",
         name: "Employer-Dashboard",
-        component: () => import("../Dashboard/Employer-Dashboard.vue"),
+        component: () => import("../Dashboard/Employer-Page-Dashboard.vue"),
+        meta: {
+          requiresAuth: true,
+        },
       },
       {
-        path: "/Employer-Message",
-        name: "Employer-Message",
-        component: () => import("../Message/Employer-Message.vue"),
+        path: "/Employer-Profile",
+        name: "Employer-Profile",
+        component: () => import("../Dashboard/Employer-Profile.vue"),
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: "/Employer-DataAnalytics",
+        name: "Employer-DataAnalytics",
+        component: () => import("../Dashboard/Employer-Page-DataAnalytics.vue"),
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: "/Employer-JobPostings",
+        name: "Employer-JobPostings",
+        component: () => import("../Dashboard/Employer-Page-JobPosting.vue"),
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: "/Employer-Notifications",
+        name: "Employer-Notifications",
+        component: () => import("../Dashboard/Employer-Page-Notification.vue"),
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: "/Employer-Messages",
+        name: "Employer-Messages",
+        component: () => import("../Dashboard/Employer-Page-Message.vue"),
+        meta: {
+          requiresAuth: true,
+        },
       },
     ],
   },
@@ -162,7 +201,7 @@ router.beforeEach(async (to, from, next) => {
       // Check the user's type and restrict access accordingly
       if (userType === 'jobseeker' && (to.path.includes('/Swipe') || to.path.includes('/Seeker-Profile'))) {
         next();
-      } else if (userType === 'employer' && (to.path.includes('/Employer-Dashboard') || to.path.includes('/Employer-Message'))) {
+      } else if (userType === 'employer' && (to.path.includes('/Employer-Dashboard') || to.path.includes('/Employer-Message') || to.path.includes('/Employer-Profile') || to.path.includes('/Employer-DataAnalytics') || to.path.includes('/Employer-JobPostings') || to.path.includes('/Employer-Notifications') || to.path.includes('/Employer-Messages'))) {
         next();
       } else {
         // Handle unauthorized access for other user types or show an error message

@@ -97,21 +97,36 @@
 
 <template>
   <IonPage class="dashboard-home-Container">
-    <IonGrid style="height: 100%; width: 100%; padding-left: 255px;">
-      <IonRow>
-        <IonCol>
-          helloooooooooooooooooooo
-        </IonCol>
-      </IonRow>
-      <IonRow>
-        <IonCol>
-          helloooooooooooooooooooo
-        </IonCol>
-        <IonCol>
-          helloooooooooooooooooooo
-        </IonCol>
-      </IonRow>
-    </IonGrid>
+    <div class="dashboard-home-contents-container">
+      <IonGrid style="height: 100%; width: 100%;">
+        <IonRow style="height: 100%;">
+          <IonCol size="9" style="margin: 0; padding: 0;">
+            <IonRow style="height: 20%; ">
+              <IonCol>
+                <DataAnalytics />
+              </IonCol>
+            </IonRow>
+            <IonRow style="height: 80%; width: 100%;">
+              <IonCol>
+                <JobPostings />
+              </IonCol>
+            </IonRow>
+          </IonCol>
+          <IonCol size="3">
+            <IonRow style="height: 20%;">
+              <IonCol>
+                profile
+              </IonCol>
+            </IonRow>
+            <IonRow style="height: 80%;">
+              <IonCol>
+                description
+              </IonCol>
+            </IonRow>
+          </IonCol>
+        </IonRow>
+      </IonGrid>
+    </div>
   </IonPage>
 </template>
 
@@ -137,15 +152,17 @@ import "./Employer-Dashboard.css";
 import Postings from "./Employer-Postings.vue";
 import Description from "./Employer-Description.vue";
 import DataAnalytics from "./Employer-DataAnalytics.vue";
+import JobPostings from "./Employer-List-JobPosting.vue"
 import SideBar from "./Employer-Sidebar.vue";
 import AddModal from "./Employer-Dashboard-Modal-AddPostings.vue";
 import { getDashboardProfile } from "./Dashboard-Model"
 import { ref, onMounted, computed } from "vue";
 import { addCircleOutline, chatboxEllipsesOutline } from 'ionicons/icons'
-import { GoEmployerMessage, GoEmployerHome } from "./Employer-Dashboard-Controller"
+import { GoEmployerMessage, GoEmployerHome, } from "./Employer-Dashboard-Controller"
 
 export default {
   components: {
+    JobPostings,
     SideBar,
     DataAnalytics,
     Description,

@@ -3,33 +3,41 @@
         <IonCard class="Dashboard-Card-Postings" v-for="(job, index) in jobPostings" :key="index">
             <IonGrid style="height: 100%;">
                 <IonRow style="height: 12%;">
-                    <IonCol class="Dashboard-Card-Postings-Title">
-                        {{ job ? job.jobname : "Loading..." }}
+                    <IonCol size="2.5" class="Dashboard-AddJobPostings-Card-Container flexcenter">
+                        <img class="Dashboard-AddJobPostings-Card-Picture" :src="job ? job.pic : ''" alt="">
                     </IonCol>
-                </IonRow>
-                <IonRow style="height: 25%;" id="picture">
-                    <IonCol class="Dashboard-AddJobPostings-Card-Container">
-                        <IonCard style="height: 100%; width: 100%;">
-                            <img class="Dashboard-AddJobPostings-Card-Picture" :src="job ? job.pic : ''" alt="">
-                        </IonCard>
-                    </IonCol>
-                </IonRow>
-                <IonRow style="height: 51%;">
-                    <IonCol class="Dashboard-Card-Postings-Description">
-                        <IonContent class="no-scroll job-description">
-                            {{ job ? job.jobdes : "Loading..." }}
-                        </IonContent>
-                    </IonCol>
-                </IonRow>
-                <IonRow style="height: 12%;">
-                    <IonCol>
-                        like
-                    </IonCol>
-                    <IonCol>
-                        bookmarks
-                    </IonCol>
-                    <IonCol>
-
+                    <IonCol style="padding: 0;">
+                        <IonRow style="height: 100%;">
+                            <IonCol size="10.5">
+                                <IonRow style="height: 20%;">
+                                    <IonCol>
+                                        {{ job ? job.jobname : "Loading..." }}
+                                    </IonCol>
+                                </IonRow>
+                                <IonRow style="height: 80%;">
+                                    <IonCol>
+                                        {{ job ? job.jobdes : "Loading..." }}
+                                    </IonCol>
+                                </IonRow>
+                            </IonCol>
+                            <IonCol>
+                                <IonRow style="height: 33%;">
+                                    <IonCol>
+                                        views
+                                    </IonCol>
+                                </IonRow>
+                                <IonRow style="height: 33%;">
+                                    <IonCol>
+                                        likes
+                                    </IonCol>
+                                </IonRow>
+                                <IonRow style="height: 33%;">
+                                    <IonCol>
+                                        bookmark
+                                    </IonCol>
+                                </IonRow>
+                            </IonCol>
+                        </IonRow>
                     </IonCol>
                 </IonRow>
             </IonGrid>

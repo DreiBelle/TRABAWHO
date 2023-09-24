@@ -1,64 +1,95 @@
 <template>
     <RouterView></RouterView>
-    <IonGrid class="dashboard-navbar-container">
-        <IonRow>
-            <IonCol class="dashboard-navbar-logo">
-                logo
-            </IonCol>
-        </IonRow>
-        <IonRow>
-            <IonCol class="dashboard-navbar-flexcenter dashboard-navbar-cols">
-                <IonIcon class="dashboard-navbar-icons" :icon="home"></IonIcon>
-                <IonText class="dashboard-navbar-navigations">Home</IonText>
-            </IonCol>
-        </IonRow>
-        <IonRow>
-            <IonCol class="dashboard-navbar-flexcenter dashboard-navbar-cols">
-                <IonIcon class="dashboard-navbar-icons" :icon="home"></IonIcon>
-                <IonText class="dashboard-navbar-navigations">Profile</IonText>
-            </IonCol>
-        </IonRow>
-        <IonRow>
-            <IonCol class="dashboard-navbar-flexcenter dashboard-navbar-cols">
-                <IonIcon class="dashboard-navbar-icons" :icon="home"></IonIcon>
-                <IonText class="dashboard-navbar-navigations">Job Postings</IonText>
-            </IonCol>
-        </IonRow>
-        <IonRow>
-            <IonCol class="dashboard-navbar-flexcenter dashboard-navbar-cols">
-                <IonIcon class="dashboard-navbar-icons" :icon="home"></IonIcon>
-                <IonText class="dashboard-navbar-navigations">Data Analytics</IonText>
-            </IonCol>
-        </IonRow>
-        <IonRow>
-            <IonCol class="dashboard-navbar-flexcenter dashboard-navbar-cols">
-                <IonIcon class="dashboard-navbar-icons" :icon="home"></IonIcon>
-                <IonText class="dashboard-navbar-navigations">Notification</IonText>
-            </IonCol>
-        </IonRow>
-        <IonRow>
-            <IonCol class="dashboard-navbar-flexcenter dashboard-navbar-cols" style="position: absolute; bottom: 10px;">
-                <IonIcon class="dashboard-navbar-icons" :icon="home"></IonIcon>
-                <IonText class="dashboard-navbar-navigations">Logout</IonText>
-            </IonCol>
-        </IonRow>
-    </IonGrid>
+        <IonGrid class="dashboard-navbar-topbar">
+            <IonRow style="height: 50px;">
+                <IonCol size="4.5" class="dashboard-navbar-topbar-profile">
+
+                </IonCol>
+                <IonCol size="4" class="dashboard-navbar-topbar-profile">
+                    <IonSearchbar class="dashboard-navbar-topbar-searchbar"></IonSearchbar>
+                </IonCol>
+                <IonCol size="3" class="dashboard-navbar-topbar-profile">
+
+                </IonCol>
+                <IonCol size=".5" class="dashboard-navbar-topbar-profile">
+
+                </IonCol>
+            </IonRow>
+        </IonGrid>
+        <IonGrid class="dashboard-navbar-container">
+            <IonRow>
+                <IonCol @click="GoEmployerHome" class="dashboard-navbar-flexcenter dashboard-navbar-cols">
+                    <IonIcon class="dashboard-navbar-icons" :icon="homeOutline"></IonIcon>
+                    <IonText class="dashboard-navbar-navigations">Home</IonText>
+                </IonCol>
+            </IonRow>
+            <IonRow>
+                <IonCol @click="GoEmployerProfile" class="dashboard-navbar-flexcenter dashboard-navbar-cols">
+                    <IonIcon class="dashboard-navbar-icons" :icon="personOutline"></IonIcon>
+                    <IonText class="dashboard-navbar-navigations">Profile</IonText>
+                </IonCol>
+            </IonRow>
+            <IonRow>
+                <IonCol @click="GoEmployerJobPostings" class="dashboard-navbar-flexcenter dashboard-navbar-cols">
+                    <IonIcon class="dashboard-navbar-icons" :icon="documentOutline"></IonIcon>
+                    <IonText class="dashboard-navbar-navigations">Job Postings</IonText>
+                </IonCol>
+            </IonRow>
+            <IonRow>
+                <IonCol @click="GoEmployerDataAnalytics" class="dashboard-navbar-flexcenter dashboard-navbar-cols">
+                    <IonIcon class="dashboard-navbar-icons" :icon="analyticsOutline"></IonIcon>
+                    <IonText class="dashboard-navbar-navigations">Data Analytics</IonText>
+                </IonCol>
+            </IonRow>
+            <IonRow>
+                <IonCol @click="GoEmployerNotification" class="dashboard-navbar-flexcenter dashboard-navbar-cols">
+                    <IonIcon class="dashboard-navbar-icons" :icon="notificationsOutline"></IonIcon>
+                    <IonText class="dashboard-navbar-navigations">Notification</IonText>
+                </IonCol>
+            </IonRow>
+            <IonRow>
+                <IonCol @click="GoEmployerMessage" class="dashboard-navbar-flexcenter dashboard-navbar-cols">
+                    <IonIcon class="dashboard-navbar-icons" :icon="chatboxEllipsesOutline"></IonIcon>
+                    <IonText class="dashboard-navbar-navigations">Messages</IonText>
+                </IonCol>
+            </IonRow>
+            <IonRow>
+                <IonCol @click="GoHome" class="dashboard-navbar-flexcenter dashboard-navbar-cols" style="position: absolute; bottom: 10px;">
+                    <IonIcon class="dashboard-navbar-icons" :icon="logOutOutline"></IonIcon>
+                    <IonText class="dashboard-navbar-navigations">Logout</IonText>
+                </IonCol>
+            </IonRow>
+        </IonGrid>
 </template>
 <script lang="ts">
-import { IonButton, IonCol, IonGrid, IonPage, IonRow, IonRouterOutlet, IonIcon, IonText } from '@ionic/vue';
-import { home } from "ionicons/icons"
+import { IonButton, IonCol, IonGrid, IonPage, IonRow, IonRouterOutlet, IonIcon, IonText, IonSearchbar } from '@ionic/vue';
+import { homeOutline, personOutline, documentOutline, analyticsOutline, notificationsOutline, logOutOutline, chatboxEllipsesOutline} from "ionicons/icons"
 import "./Employer-Dashboard.css"
+import {GoEmployerProfile, GoEmployerDataAnalytics, GoEmployerHome, GoEmployerJobPostings, GoEmployerNotification, GoEmployerMessage, GoHome} from "./Employer-Dashboard-Controller"
 export default {
-    components: { IonCol, IonGrid, IonPage, IonRow, IonRouterOutlet, IonIcon, IonText },
+    components: { IonCol, IonGrid, IonPage, IonRow, IonRouterOutlet, IonIcon, IonText, IonSearchbar },
     setup() {
         return {
-            home
+            homeOutline,
+            personOutline,
+            documentOutline,
+            analyticsOutline,
+            notificationsOutline,
+            logOutOutline,
+            chatboxEllipsesOutline,
+            GoEmployerProfile,
+            GoEmployerDataAnalytics,
+            GoEmployerHome,
+            GoEmployerJobPostings,
+            GoEmployerNotification,
+            GoEmployerMessage,
+            GoHome,
         }
     }
 }
 </script>
 <style>
-ion-col {
+/* ion-col {
     border: 1px solid black;
-}
+} */
 </style>
