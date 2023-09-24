@@ -23,6 +23,7 @@
                 </IonInput>
               </IonCol>
             </IonRow>
+            <a class="LogIn-SignUpCancel" style="color: rgb(5, 94, 248)" @click="resetPassword">Forgot Password</a>
             <IonRow>
               <IonCol class="LogIn-FlexCenter">
                 <IonButton class="LogInButtonActions" expand="block" @click="handleUserLogin">
@@ -67,9 +68,8 @@ import {
 } from "@ionic/vue";
 import "./Login.css";
 import { GoRegister, GoHome, GoEmployer, GoEmployerDashboard } from "./Login-Controller";
-import { UserLogin } from "./Login-Model";
-import { checkgoogle } from "./Login-Model";
-import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { checkgoogle, UserLogin, updatePassword } from "./Login-Model";
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "@/firebaseDB";
 </script>
 
@@ -83,7 +83,7 @@ const signInWithGoogle = async () => {
   try {
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
-    
+
     const email = user.email;
     const name = user.displayName;
 
@@ -110,5 +110,9 @@ const handleUserLogin = () => {
       console.error(error);
       alert(error);
     });
+};
+
+const resetPassword = async () => {
+  updatePassword(Username.value);
 };
 </script>

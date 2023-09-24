@@ -1,7 +1,7 @@
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../firebaseDB";
 import { GoHomeSwipeJobSeekers, GoEmployerDashboard } from "./Login-Controller";
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut, sendPasswordResetEmail  } from "firebase/auth";
 import { auth } from "@/firebaseDB";
 import { ref, onMounted } from "vue";
 
@@ -91,8 +91,39 @@ async function getuser_(Username) {
   }
 }
 
+async function updatePassword_(Username) {
+  const usersRef = collection(db, "users");
+
+  const q = query(usersRef, where("email", "==", Username));
+  const querySnapshot = await getDocs(q);
+
+  if (!querySnapshot.empty) {
+    const docSnap = querySnapshot.docs[0];
+    const userDoc = docSnap.data();
+
+    try {
+      // Send a password reset email to the user
+      await sendPasswordResetEmail(auth, Username);
+
+      console.log("Password reset email sent successfully");
+      alert("Password reset email sent successfully");
+      return userDoc;
+    } catch (error) {
+      console.error("Error sending password reset email:", error);
+      alert(error);
+      throw error;
+    }
+  } else {
+    console.log("Username not found");
+    alert("Username not found");
+    return null;
+  }
+}
+
+
 
 
 export const UserLogin = UserLogin_;
 export const checkgoogle = checkgoogle_;
 export const getuser = getuser_;
+export const updatePassword = updatePassword_;

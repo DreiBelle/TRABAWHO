@@ -29,6 +29,7 @@ export const useSignupStore = defineStore("signup", {
   actions: {
     setFormData(data: SignupModel) {
       this.formData = { ...data };
+      delete this.formData.password;
     },
     setChosenInterests(interests) {
       this.formData.chosenInterests = interests;

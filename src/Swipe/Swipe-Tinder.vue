@@ -1,30 +1,19 @@
 <template>
-  <div
-    class="Swipe-Swipeable"
-    :style="{ transform: `translateX(${position}px)` }"
-    @mousedown="startSwipe"
-    @mousemove="swipe"
-    @mouseup="endSwipe"
-    @touchstart="startSwipe"
-    @touchmove="swipe"
-    @touchend="endSwipe"
-  >
+  <div class="Swipe-Swipeable" :style="{ transform: `translateX(${position}px)` }" @mousedown="startSwipe"
+    @mousemove="swipe" @mouseup="endSwipe" @touchstart="startSwipe" @touchmove="swipe" @touchend="endSwipe">
     <div class="Swipe-CardContent" id="card">
       <IonGrid style="height: 100%">
         <IonRow style="height: 10%">
-          <IonCol>
-            Job Name
-            {{ item.content }}
-          </IonCol>
+          <IonCol> {{ item.content }} </IonCol>
         </IonRow>
         <IonRow style="height: 30%">
-          <IonCol> Picture </IonCol>
+          <IonCol> {{ item.picture }}</IonCol>
         </IonRow>
         <IonRow style="height: 10%">
-          <IonCol> Job Type </IonCol>
+          <IonCol> {{ item.JobType }} </IonCol>
         </IonRow>
         <IonRow style="height: 50%">
-          <IonCol> Job Description </IonCol>
+          <IonCol> {{ item.JobDescription }} </IonCol>
         </IonRow>
       </IonGrid>
     </div>
@@ -34,6 +23,7 @@
 <script lang="ts">
 import { IonCol, IonGrid, IonRow } from "@ionic/vue";
 import "./Swipe.css";
+import { getJobs } from "./Swipe-Model";
 
 export default {
   props: {
@@ -52,6 +42,7 @@ export default {
       this.isSwiping = true;
       this.startX = event.clientX || event.touches[0].clientX;
       this.currentPosition = this.position;
+      getJobs();
     },
     swipe(event) {
       if (!this.isSwiping) return;

@@ -46,6 +46,7 @@ import FloatingButtons from "./Swipe-FloatingButtons.vue"
 import NavBar from "../NavBar/NavBar.vue";
 import "./Swipe.css";
 import { settingsOutline } from "ionicons/icons";
+import { getJobs } from "./Swipe-Model";
 import {
   IonCard,
   IonCol,
@@ -88,10 +89,10 @@ export default {
     return {
       currentCardIndex: 0,
       cards: [
-        { id: 1, content: "Card 1" },
-        { id: 2, content: "Card 2" },
-        { id: 3, content: "Card 3" },
-        { id: 4, content: "Card 4" },
+        { id: 1, content: "Card 1", picture: "picture1", JobType: "JobType1", JobDescription: "JobDescription1" },
+        { id: 2, content: "Card 2", picture: "picture2", JobType: "JobType2", JobDescription: "JobDescription2" },
+        { id: 3, content: "Card 3", picture: "picture3", JobType: "JobType3", JobDescription: "JobDescription3" },
+        { id: 4, content: "Card 4", picture: "picture4", JobType: "JobType4", JobDescription: "JobDescription4" },
       ],
     };
   },
@@ -111,6 +112,14 @@ export default {
     showNextCard() {
       this.currentCardIndex++;
     },
+  },
+  async onMounted() {
+    try {
+      // Call the getJobs function to fetch job posts from Firebase Firestore
+      this.jobPosts = await getJobs();
+    } catch (error) {
+      console.error("Error fetching job posts: ", error);
+    }
   },
 };
 </script>

@@ -20,6 +20,7 @@ export const useSignupStore2 = defineStore("signup2", {
   actions: {
     setFormData(data: SignupModel) {
       this.formData = { ...data };
+      delete this.formData.password;
     },
     setGoogle(email, contactpn) {
       this.formData.email = email;
