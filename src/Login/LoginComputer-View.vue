@@ -11,7 +11,7 @@
             </IonRow>
             <IonRow>
               <IonCol class="LogIn-FlexCenter">
-                <IonInput label="Username" labelPlacement="floating" placeholder="Enter Username" class="LogIn-Input"
+                <IonInput label="Email" labelPlacement="floating" placeholder="Enter Email" class="LogIn-Input"
                   v-model="Username" required style="margin-top: 50px">
                 </IonInput>
               </IonCol>
@@ -122,7 +122,7 @@ const resetPassword = async () => {
 </script>
 
 <style>
-ion-col{
+/* ion-col{
   border: 1px solid black;
-}
+} */
 </style>
