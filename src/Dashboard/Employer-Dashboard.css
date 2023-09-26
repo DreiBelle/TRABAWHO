@@ -376,8 +376,8 @@ IonRouterOutlet
   left: 0;
   top: 0;
   width: 250px;
-  height: calc(100% - 50px);
-  margin-top: 50px;
+  max-width: 250px;
+  height: 100%;
   padding: 0;
 }
 
@@ -432,21 +432,16 @@ IonRouterOutlet
 
 .dashboard-navbar-topbar-searchbar {
   --placeholder-opacity: 50%;
-  height: 10% !important;
-  /* margin: auto;
-  flex-basis: 50px; */
-  padding-top: 0;
-  padding-bottom: 0;
 }
 
 .dashboard-navbar-topbar-searchbar .searchbar-input.sc-ion-searchbar-md {
-  height: 30px;
+  height: 35px;
   font-size: 15px;
 }
 
 .searchbar-search-icon.sc-ion-searchbar-md,
 .searchbar-cancel-button.sc-ion-searchbar-md {
-  margin-top: -7px;
+  margin-top: -5px;
 }
 
 /* home */
@@ -463,7 +458,7 @@ IonRouterOutlet
   height: 100%;
   width: 100%;
   padding-left: 250px;
-  padding-top: 50px;
+  padding-top: 10%;
   background-color: rgb(250, 241, 241);
 }
 
@@ -497,30 +492,118 @@ IonRouterOutlet
   padding: 10px;
 }
 
-/* job posting page */
-
-.Dashboard-Card-JobPosting {
- position: fixed;
- bottom: 5px;
- right: 20px;
- font-size: 70px;
- color: #262c5c;
- transition: font-size 0.5s ease, color 0.5s ease;
+.dashboard-home-title {
+  font-size: 20px;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.Dashboard-Card-JobPosting:hover {
- position: fixed;
- bottom: 5px;
- right: 20px;
- font-size: 75px;
- color: #1e234a;
- transition: font-size 0.5s ease, color 0.5s ease;
+/* job posting */
+
+.Dashboard-Card-JobPosting {
+  color: #262c5c;
+  transition: font-size 0.5s ease, color 0.5s ease;
+  justify-content: right;
 }
 
 .Dashboard-AddJobPostings-Card-Picture {
-  height: 200px;
+  height: 50px;
   width: 100%;
   object-fit: cover;
-  border-radius: 20px;
 }
 
+.dashboard-content-jobposting {
+  height: 100%;
+  width: 100%;
+}
+
+.dashboard-search-jobposting {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: white;
+}
+
+.dashboard-postedjobs-jobposting {
+  cursor: pointer;
+  color: black;
+  height: 50px;
+}
+
+.dashboard-postedjobs-jobposting:hover {
+  cursor: pointer;
+  background-color: rgb(243, 243, 243);
+  color: black;
+  height: 50px;
+  transition: background-color 0.1s ease;
+}
+
+/* add modal */
+
+.modal-addjobpost-title {
+}
+
+.modal-addjobpost-image {
+  height: 100px;
+  width: 100px;
+  max-height: 100px;
+  max-width: 100px;
+  border-radius: 10px;
+  border: 1px solid black;
+}
+
+.modal-addjobpost-button-addimage {
+  display: flex;
+  justify-content: left;
+  align-items: end;
+  padding-bottom: 10px;
+}
+
+.modal-addjobpost-input {
+  width: 100% !important;
+  height: 50px;
+  min-height: 10px !important;
+  color: black;
+  --highlight-color-focused: navy;
+  --border-color: black !important;
+}
+
+.modal-addjobpost-button {
+  --background: navy;
+  --color: white;
+}
+
+.modal-addjobpost-button-button-tags {
+  --border-width: 1px;
+  --border-color: black;
+  color: black;
+  font-size: 10px;
+}
+
+.modal-addjobpost-addicon {
+  font-size: 25px;
+  transition: color 1s ease ,transform 0.5s ease;
+  padding: 5px;
+  color: black;
+}
+
+.modal-addjobpost-addicon:hover {
+  color: navy;
+  transform: scale(1.1);
+  transition: color 1s ease ,transform 0.5s ease;
+  padding: 5px;
+}
+
+.modal-addjobpost-icon{
+  font-size: 15px;
+  color: black;
+  transition: transform 0.3s ease;
+}
+
+.modal-addjobpost-icon:hover{
+  transform: scale(1.2);
+  color: darkred;
+  transition: transform 0.3s ease;
+}

@@ -96,38 +96,111 @@
 </template> -->
 
 <template>
-  <IonPage class="dashboard-home-Container">
-    <div class="dashboard-home-contents-container">
-      <IonGrid style="height: 100%; width: 100%;">
-        <IonRow style="height: 100%;">
-          <IonCol size="9" style="margin: 0; padding: 0;">
-            <IonRow style="height: 20%; ">
-              <IonCol>
-                <DataAnalytics />
-              </IonCol>
-            </IonRow>
-            <IonRow style="height: 80%; width: 100%;">
-              <IonCol>
-                <JobPostings />
-              </IonCol>
-            </IonRow>
-          </IonCol>
-          <IonCol size="3">
-            <IonRow style="height: 20%;">
-              <IonCol>
-                profile
-              </IonCol>
-            </IonRow>
-            <IonRow style="height: 80%;">
-              <IonCol>
-                description
-              </IonCol>
-            </IonRow>
-          </IonCol>
-        </IonRow>
-      </IonGrid>
-    </div>
-  </IonPage>
+  <IonGrid style="height: 10%; width: 100%; padding-left: 255px">
+    <IonRow style="height: 20%">
+      <IonCol class="flexcenter">
+        <IonCard class="dashboard-minidataanalytics-card"> likes </IonCard>
+      </IonCol>
+      <IonCol class="flexcenter">
+        <IonCard class="dashboard-minidataanalytics-card"> views </IonCard>
+      </IonCol>
+      <IonCol class="flexcenter">
+        <IonCard class="dashboard-minidataanalytics-card"> bookmarks </IonCard>
+      </IonCol>
+      <IonCol class="flexcenter">
+        <IonCard class="dashboard-minidataanalytics-card"> bookmarks </IonCard>
+      </IonCol>
+    </IonRow>
+    <IonRow style="height: 80%">
+      <IonCol class="flexcenter">
+        <IonCard style="height: 100%; width: 100%">
+          <IonContent>
+            <component :is="ShowView" />
+          </IonContent>
+        </IonCard>
+      </IonCol>
+    </IonRow>
+  </IonGrid>
+
+  <!-- navbar to -->
+  <IonGrid class="dashboard-navbar-container">
+    <IonRow>
+      <IonCol class="dashboard-navbar-flexcenter dashboard-navbar-cols" style="height: 70px;">
+      </IonCol>
+    </IonRow>
+    <IonRow>
+      <IonCol class="dashboard-navbar-flexcenter dashboard-navbar-cols">
+        <IonIcon class="dashboard-navbar-icons" :icon="homeOutline"></IonIcon>
+        <IonText class="dashboard-navbar-navigations">Home</IonText>
+      </IonCol>
+    </IonRow>
+    <IonRow>
+      <IonCol
+        @click="ShowTabs('Profile')"
+        class="dashboard-navbar-flexcenter dashboard-navbar-cols"
+      >
+        <IonIcon class="dashboard-navbar-icons" :icon="personOutline"></IonIcon>
+        <IonText class="dashboard-navbar-navigations">Profile</IonText>
+      </IonCol>
+    </IonRow>
+    <IonRow>
+      <IonCol
+        @click="ShowTabs('JobPostings')"
+        class="dashboard-navbar-flexcenter dashboard-navbar-cols"
+      >
+        <IonIcon
+          class="dashboard-navbar-icons"
+          :icon="documentOutline"
+        ></IonIcon>
+        <IonText class="dashboard-navbar-navigations">Job Postings</IonText>
+      </IonCol>
+    </IonRow>
+    <IonRow>
+      <IonCol
+        @click="ShowTabs('DataAnalytics')"
+        class="dashboard-navbar-flexcenter dashboard-navbar-cols"
+      >
+        <IonIcon
+          class="dashboard-navbar-icons"
+          :icon="analyticsOutline"
+        ></IonIcon>
+        <IonText class="dashboard-navbar-navigations">Data Analytics</IonText>
+      </IonCol>
+    </IonRow>
+    <IonRow>
+      <IonCol
+        @click="ShowTabs('Notifications')"
+        class="dashboard-navbar-flexcenter dashboard-navbar-cols"
+      >
+        <IonIcon
+          class="dashboard-navbar-icons"
+          :icon="notificationsOutline"
+        ></IonIcon>
+        <IonText class="dashboard-navbar-navigations">Notification</IonText>
+      </IonCol>
+    </IonRow>
+    <IonRow>
+      <IonCol
+        @click="ShowTabs('Messages')"
+        class="dashboard-navbar-flexcenter dashboard-navbar-cols"
+      >
+        <IonIcon
+          class="dashboard-navbar-icons"
+          :icon="chatboxEllipsesOutline"
+        ></IonIcon>
+        <IonText class="dashboard-navbar-navigations">Messages</IonText>
+      </IonCol>
+    </IonRow>
+    <IonRow>
+      <IonCol
+        class="dashboard-navbar-flexcenter dashboard-navbar-cols"
+        style="position: absolute; bottom: 10px"
+      >
+        <IonIcon class="dashboard-navbar-icons" :icon="logOutOutline"></IonIcon>
+        <IonText class="dashboard-navbar-navigations">Logout</IonText>
+      </IonCol>
+    </IonRow>
+  </IonGrid>
 </template>
 
 <script lang="ts">
@@ -148,24 +221,34 @@ import {
   IonText,
   IonIcon,
 } from "@ionic/vue";
+import {
+  homeOutline,
+  personOutline,
+  documentOutline,
+  analyticsOutline,
+  notificationsOutline,
+  logOutOutline,
+  chatboxEllipsesOutline,
+} from "ionicons/icons";
 import "./Employer-Dashboard.css";
-import Postings from "./Employer-Postings.vue";
-import Description from "./Employer-Description.vue";
-import DataAnalytics from "./Employer-DataAnalytics.vue";
-import JobPostings from "./Employer-List-JobPosting.vue"
 import SideBar from "./Employer-Sidebar.vue";
+import JobPostings from "./Employer-JobPosting.vue";
+import DataAnalytics from "./Employer-DataAnalytics.vue";
+import Messages from "./Employer-Message.vue";
+import Profile from "./Employer-Profile.vue";
+import Notifications from "./Employer-Notification.vue";
 import AddModal from "./Employer-Dashboard-Modal-AddPostings.vue";
-import { getDashboardProfile } from "./Dashboard-Model"
-import { ref, onMounted, computed } from "vue";
-import { addCircleOutline, chatboxEllipsesOutline } from 'ionicons/icons'
-import { GoEmployerMessage, GoEmployerHome, } from "./Employer-Dashboard-Controller"
+import { getDashboardProfile } from "./Dashboard-Model";
+import { ref, onMounted } from "vue";
 
 export default {
   components: {
+    Profile,
+    Notifications,
+    Messages,
+    DataAnalytics,
     JobPostings,
     SideBar,
-    DataAnalytics,
-    Description,
     IonContent,
     IonPage,
     IonHeader,
@@ -176,7 +259,6 @@ export default {
     IonButton,
     IonCard,
     IonText,
-    Postings,
     IonMenu,
     IonMenuToggle,
     IonModal,
@@ -184,7 +266,6 @@ export default {
     IonIcon,
   },
   setup() {
-
     const user = ref(null);
 
     onMounted(async () => {
@@ -194,15 +275,42 @@ export default {
     });
 
     return {
-      user, addCircleOutline, chatboxEllipsesOutline
+      homeOutline,
+      personOutline,
+      documentOutline,
+      analyticsOutline,
+      notificationsOutline,
+      logOutOutline,
+      chatboxEllipsesOutline,
+    };
+  },
+  data() {
+    return {
+      Views: "JobPostings",
     };
   },
   methods: {
     closeModal() {
       modalController.dismiss();
     },
-    GoEmployerMessage,
-    GoEmployerHome,
+    ShowTabs(View) {
+      this.Views = View;
+    },
+  },
+  computed: {
+    ShowView() {
+      if (this.Views === "DataAnalytics") {
+        return "DataAnalytics";
+      } else if (this.Views === "JobPostings") {
+        return "JobPostings";
+      } else if (this.Views === "Notifications") {
+        return "Notifications";
+      } else if (this.Views === "Messages") {
+        return "Messages";
+      } else if (this.Views === "Profile") {
+        return "Profile";
+      }
+    },
   },
 };
 </script>

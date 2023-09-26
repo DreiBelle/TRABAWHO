@@ -1,6 +1,6 @@
 <template>
     <div>
-        data analytics
+        Message
     </div>
 </template>
 <script lang="ts">

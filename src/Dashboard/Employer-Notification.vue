@@ -1,6 +1,6 @@
 <template>
     <div>
-        data analytics
+        notification
     </div>
 </template>
 <script lang="ts">

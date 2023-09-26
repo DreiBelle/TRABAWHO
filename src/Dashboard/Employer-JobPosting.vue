@@ -1,0 +1,83 @@
+<template>
+  <div class="dashboard-content-jobposting">
+    <IonGrid style="height: 100%; width: 100%; padding: 0">
+      <IonRow class="dashboard-search-jobposting">
+        <IonCol size="10" class="flexcenter">
+          <IonSearchbar
+            class="dashboard-navbar-topbar-searchbar"
+          ></IonSearchbar>
+        </IonCol>
+        <IonCol
+          size="2"
+          id="open-modal"
+          class="Dashboard-Card-JobPosting flexcenter"
+          style="justify-content: right"
+        >
+          <IonButton style="width: 100%">
+            <IonIcon :icon="addCircleOutline"></IonIcon>Add
+          </IonButton>
+        </IonCol>
+      </IonRow>
+      <IonRow>
+        <IonCol>
+          <JobPostings />
+        </IonCol>
+      </IonRow>
+    </IonGrid>
+  </div>
+
+  <IonModal
+    ref="modal"
+    trigger="open-modal"
+    style="--height: 540px; --width: 70%; --border-radius: 20px"
+  >
+    <IonContent>
+      <AddModal />
+    </IonContent>
+  </IonModal>
+</template>
+<script lang="ts">
+import {
+  IonModal,
+  IonPage,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonContent,
+  IonCard,
+  IonIcon,
+  IonButton,
+  IonSearchbar,
+} from "@ionic/vue";
+import { addCircleOutline } from "ionicons/icons";
+import JobPostings from "./Employer-Postings.vue";
+import AddModal from "./Employer-Dashboard-Modal-AddPostings.vue";
+
+export default {
+  components: {
+    IonPage,
+    IonGrid,
+    IonRow,
+    IonCol,
+    IonContent,
+    JobPostings,
+    IonCard,
+    IonIcon,
+    IonModal,
+    AddModal,
+    IonButton,
+    IonSearchbar,
+  },
+  setup() {
+    return {
+      addCircleOutline,
+    };
+  },
+  methods: {},
+};
+</script>
+<style>
+/* ion-col {
+  border: 1px solid black;
+} */
+</style>
