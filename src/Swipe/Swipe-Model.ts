@@ -1,12 +1,13 @@
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../firebaseDB";
 
-async function getJobs_() {
+async function getJobs_(chosenInterest) {
     try {
-        const jobpostCollection = collection(db, "jobpost"); // Replace "jobpost" with your actual collection name
+        const jobpostCollection = collection(db, "jobpost"); 
 
-        // Create a query to get all documents in the "jobpost" collection
-        const q = query(jobpostCollection);
+        const q = query(jobpostCollection, where("chosenInterests", "==", chosenInterest));
+
+        // const q = query(jobpostCollection);
 
         // Retrieve the documents that match the query
         const querySnapshot = await getDocs(q);
@@ -20,6 +21,8 @@ async function getJobs_() {
                 jobs.push(data);
             }
         });
+
+        console.log(jobs);
 
         return jobs;
     } catch (error) {

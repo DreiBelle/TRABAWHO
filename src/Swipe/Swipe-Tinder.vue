@@ -6,18 +6,19 @@
       <IonGrid style="height: 100%">
         <IonRow style="height: 10%">
           <IonCol>
-            Job Name
             {{ item.content }}
           </IonCol>
         </IonRow>
-        <IonRow style="height: 30%">
-          <IonCol> Picture </IonCol>
+        <IonRow style="height: 50%">
+          <IonCol>
+            <img class="Dashboard-AddJobPostings-Card-Picture" :src="item.picture" alt="">
+          </IonCol>
         </IonRow>
         <IonRow style="height: 10%">
-          <IonCol> Job Type </IonCol>
+          <IonCol> {{ item.jobtype }} </IonCol>
         </IonRow>
         <IonRow style="height: 50%">
-          <IonCol> Job Description </IonCol>
+          <IonCol> {{ item.jobdescription }} </IonCol>
         </IonRow>
       </IonGrid>
     </div>

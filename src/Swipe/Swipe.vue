@@ -15,7 +15,7 @@
       <IonRow style="height: 100%">
         <IonCol>
           <div class="Swipe-Background" v-if="nextCardIndex < cards.length">
-            <SwipeableCard :item="cards[currentCardIndex]" @swipeLeft="handleSwipeLeft" @swipeRight="handleSwipeRight"
+            <SwipeableCard :item="cards[nextCardIndex]" @swipeLeft="handleSwipeLeft" @swipeRight="handleSwipeRight"
               style="z-index: 2" id="mainswiper" class="asd" />
             <FakeSwipeableCard :item="cards[nextCardIndex]" />
           </div>
@@ -45,6 +45,7 @@ import FloatingButtons from "./Swipe-FloatingButtons.vue";
 import NavBar from "../NavBar/NavBar.vue";
 import "./Swipe.css";
 import { car, settingsOutline } from "ionicons/icons";
+import { getJobs } from "./Swipe-Model";
 import {
   IonCard,
   IonCol,
@@ -60,7 +61,10 @@ import {
   IonTabButton,
   IonTabs,
 } from "@ionic/vue";
-
+import { dbImage } from "@/firebaseDB";
+import { getDownloadURL, ref } from "firebase/storage";
+import { ref as asd, onMounted } from "vue";
+import { getUserProfile } from "../Profile/Profile-Model";
 export default {
   components: {
     FakeSwipeableCard,
@@ -86,14 +90,9 @@ export default {
   },
   data() {
     return {
-      nextCardIndex: 1,
+      nextCardIndex: 0,
       currentCardIndex: 0,
-      cards: [
-        { id: 1, content: "Card 1" },
-        { id: 2, content: "Card 2" },
-        { id: 3, content: "Card 3" },
-        { id: 4, content: "Card 4" },
-      ],
+      cards: [],
     };
   },
   methods: {
@@ -134,6 +133,39 @@ export default {
       }, 501);
     },
   },
+
+  async mounted() {
+  try {
+    const user = asd(null);
+    const userEmail = localStorage.getItem("email");
+      // const userPassword = localStorage.getItem("password");
+    user.value = await getUserProfile(userEmail);
+
+    const chosenInterest = Array.from(user.value.chosenInterests);
+    console.log(chosenInterest);
+
+    const jobs = await getJobs(chosenInterest); // this function fetches jobs from Firestore
+
+    // Fetch image URLs from Firebase Storage for each job
+    const jobsWithImages = await Promise.all(
+      jobs.map(async (job) => {
+        const imageUrl = await getDownloadURL(ref(dbImage, job.pic)); 
+        return {
+          content: job.jobname,
+          picture: imageUrl, // Now `picture` contains the image URL
+          jobtype: job.jobtype,
+          jobdescription: job.jobdes,
+        };
+      })
+    );
+
+    this.cards = jobsWithImages;
+    this.showNextCard();
+  } catch (error) {
+    console.error("Error fetching jobs: ", error);
+  }
+},
+
   // mounted() {
   //   this.showNextCard();
   // },

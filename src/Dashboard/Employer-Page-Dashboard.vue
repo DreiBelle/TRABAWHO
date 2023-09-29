@@ -135,67 +135,38 @@
       </IonCol>
     </IonRow>
     <IonRow>
-      <IonCol
-        @click="ShowTabs('Profile')"
-        class="dashboard-navbar-flexcenter dashboard-navbar-cols"
-      >
+      <IonCol @click="ShowTabs('Profile')" class="dashboard-navbar-flexcenter dashboard-navbar-cols">
         <IonIcon class="dashboard-navbar-icons" :icon="personOutline"></IonIcon>
         <IonText class="dashboard-navbar-navigations">Profile</IonText>
       </IonCol>
     </IonRow>
     <IonRow>
-      <IonCol
-        @click="ShowTabs('JobPostings')"
-        class="dashboard-navbar-flexcenter dashboard-navbar-cols"
-      >
-        <IonIcon
-          class="dashboard-navbar-icons"
-          :icon="documentOutline"
-        ></IonIcon>
+      <IonCol @click="ShowTabs('JobPostings')" class="dashboard-navbar-flexcenter dashboard-navbar-cols">
+        <IonIcon class="dashboard-navbar-icons" :icon="documentOutline"></IonIcon>
         <IonText class="dashboard-navbar-navigations">Job Postings</IonText>
       </IonCol>
     </IonRow>
     <IonRow>
-      <IonCol
-        @click="ShowTabs('DataAnalytics')"
-        class="dashboard-navbar-flexcenter dashboard-navbar-cols"
-      >
-        <IonIcon
-          class="dashboard-navbar-icons"
-          :icon="analyticsOutline"
-        ></IonIcon>
+      <IonCol @click="ShowTabs('DataAnalytics')" class="dashboard-navbar-flexcenter dashboard-navbar-cols">
+        <IonIcon class="dashboard-navbar-icons" :icon="analyticsOutline"></IonIcon>
         <IonText class="dashboard-navbar-navigations">Data Analytics</IonText>
       </IonCol>
     </IonRow>
     <IonRow>
-      <IonCol
-        @click="ShowTabs('Notifications')"
-        class="dashboard-navbar-flexcenter dashboard-navbar-cols"
-      >
-        <IonIcon
-          class="dashboard-navbar-icons"
-          :icon="notificationsOutline"
-        ></IonIcon>
+      <IonCol @click="ShowTabs('Notifications')" class="dashboard-navbar-flexcenter dashboard-navbar-cols">
+        <IonIcon class="dashboard-navbar-icons" :icon="notificationsOutline"></IonIcon>
         <IonText class="dashboard-navbar-navigations">Notification</IonText>
       </IonCol>
     </IonRow>
     <IonRow>
-      <IonCol
-        @click="ShowTabs('Messages')"
-        class="dashboard-navbar-flexcenter dashboard-navbar-cols"
-      >
-        <IonIcon
-          class="dashboard-navbar-icons"
-          :icon="chatboxEllipsesOutline"
-        ></IonIcon>
+      <IonCol @click="ShowTabs('Messages')" class="dashboard-navbar-flexcenter dashboard-navbar-cols">
+        <IonIcon class="dashboard-navbar-icons" :icon="chatboxEllipsesOutline"></IonIcon>
         <IonText class="dashboard-navbar-navigations">Messages</IonText>
       </IonCol>
     </IonRow>
     <IonRow>
-      <IonCol
-        class="dashboard-navbar-flexcenter dashboard-navbar-cols"
-        style="position: absolute; bottom: 10px"
-      >
+      <IonCol @click="handleSignout" class="dashboard-navbar-flexcenter dashboard-navbar-cols"
+        style="position: absolute; bottom: 10px">
         <IonIcon class="dashboard-navbar-icons" :icon="logOutOutline"></IonIcon>
         <IonText class="dashboard-navbar-navigations">Logout</IonText>
       </IonCol>
@@ -240,6 +211,10 @@ import Notifications from "./Employer-Notification.vue";
 import AddModal from "./Employer-Dashboard-Modal-AddPostings.vue";
 import { getDashboardProfile } from "./Dashboard-Model";
 import { ref, onMounted } from "vue";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { auth } from "@/firebaseDB";
+import { GoHome } from "./Employer-Dashboard-Controller";
+const isLoggedIn = ref(false);
 
 export default {
   components: {
@@ -272,6 +247,14 @@ export default {
       const userEmail = localStorage.getItem("email");
       // const userPassword = localStorage.getItem("password");
       user.value = await getDashboardProfile(userEmail);
+
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          isLoggedIn.value = true;
+        } else {
+          isLoggedIn.value = false;
+        }
+      });
     });
 
     return {
@@ -295,6 +278,13 @@ export default {
     },
     ShowTabs(View) {
       this.Views = View;
+    },
+    handleSignout() {
+      signOut(auth).then(() => {
+        localStorage.removeItem("email");
+        localStorage.removeItem("password");
+        GoHome();
+      });
     },
   },
   computed: {
