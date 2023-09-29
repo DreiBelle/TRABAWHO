@@ -79,7 +79,7 @@
         class="dashboard-postedjobs-jobposting"
         v-for="(job, index) in jobPostings"
         :key="index"
-        @click="OpenEditModal(index)"
+        @click="OpenViewModal(index)"
       >
         <IonGrid style="height: 100%; padding: 0">
           <IonRow style="height: 100%">
@@ -109,16 +109,18 @@
     <div v-else>No job postings available for your company.</div>
   </div>
 
-  <IonModal
+  <ViewModal :is-viewmodal="isViewmodal" @close-view-modal="CloseViewModal" @open-view-modal="OpenViewModal" :is-open="isViewmodal"/>
+
+  <!-- <IonModal
     ref="modal"
     :is-open="Editmodal"
     @close="CloseEditModal"
-    style="--height: 540px; --width: 70%; --border-radius: 20px"
+    style="--height: 600px; --width: 500px; --border-radius: 20px"
   >
     <IonContent>
-      <EditModal />
+      <ViewModal />
     </IonContent>
-  </IonModal>
+  </IonModal> -->
 </template>
 
 <script lang="ts">
@@ -141,6 +143,8 @@ import { getJobPostings } from "@/Dashboard/Dashboard-Model";
 import { getDashboardProfile } from "./Dashboard-Model";
 import { ref, onMounted, onUnmounted } from "vue";
 import EditModal from "./Dashboard-Modals/Dashboard-EditJobPosting.vue";
+import ViewModal from "./Dashboard-Modals/Dashboard-ViewJobPosting.vue";
+
 import {
   collection,
   onSnapshot,
@@ -152,6 +156,7 @@ import { db } from "../firebaseDB";
 
 export default {
   components: {
+    ViewModal,
     EditModal,
     IonSkeletonText,
     IonCard,
@@ -212,23 +217,23 @@ export default {
   data() {
     return {
       isLoading: true,
-      Editmodal: false,
+      isViewmodal: false,
     };
   },
   methods: {
-    OpenEditModal(index) {
-      this.Editmodal = true;
+    OpenViewModal(index) {
+      this.isViewmodal = true;
       console.log(index);
-      document.addEventListener("click", this.handleClickOutside);
+      // document.addEventListener("click", this.handleClickOutside);
     },
-    CloseEditModal() {
-      this.Editmodal = false;
-      document.removeEventListener("click", this.handleClickOutside);
+    CloseViewModal() {
+      this.isViewmodal = false;
+      // document.removeEventListener("click", this.handleClickOutside);
     },
     handleClickOutside(event) {
       const modal = this.$refs.modal.$el;
       if (modal && !modal.contains(event.target)) {
-        this.CloseEditModal();
+        this.CloseViewModal();
       }
     },
   },

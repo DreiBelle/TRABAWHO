@@ -26,15 +26,17 @@
     </IonGrid>
   </div>
 
-  <IonModal
+  <AddModal trigger="open-modal"></AddModal>
+
+  <!-- <IonModal
     ref="modal"
     trigger="open-modal"
-    style="--height: 540px; --width: 70%; --border-radius: 20px"
+    class="modal-addjobpost"
   >
     <IonContent>
       <AddModal />
     </IonContent>
-  </IonModal>
+  </IonModal> -->
 </template>
 <script lang="ts">
 import {

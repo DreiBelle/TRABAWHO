@@ -1,9 +1,10 @@
 <template>
-    <IonGrid style="height: 100%; padding: 10px">
+  <IonModal class="modal-addjobpost" :is-open="isEditmodal" @did-dismiss="closeOther" style="background-color: rgba(0, 0, 0, 0.4);">
+    <IonGrid style="height: 100%; padding: 10px" >
       <IonRow style="height: 6%">
         <IonCol class="flexcenter"> EDIT JOB POSTING </IonCol>
       </IonRow>
-      <IonRow style="height: 24.5%; max-height: 123px;">
+      <IonRow style="height: 24.5%; max-height: 123px">
         <IonCol size="2" class="flexcenter">
           <div v-if="!thereisImage">
             <div class="modal-addjobpost-image"></div>
@@ -162,7 +163,7 @@
                 required
               >
                 <IonSelectOption value="none">none</IonSelectOption>
-  
+
                 <IonSelectOption value="Junior High School Graduate and above"
                   >Junior High School Graduate and above</IonSelectOption
                 >
@@ -197,15 +198,14 @@
       </IonRow>
       <IonRow style="height: 9%">
         <IonCol class="flexcenter" style="justify-content: left; padding: 0">
-          <IonChip
-            v-for="choice in chosenChoices"
-            :key="choice.id"
-           
-          >
-            {{ choice.label }} 
-            <IonIcon class="modal-addjobpost-icon" @click="removeChoice(choice.id)" :icon="close"></IonIcon>
-            </IonChip
-          >
+          <IonChip v-for="choice in chosenChoices" :key="choice.id">
+            {{ choice.label }}
+            <IonIcon
+              class="modal-addjobpost-icon"
+              @click="removeChoice(choice.id)"
+              :icon="close"
+            ></IonIcon>
+          </IonChip>
           <div v-if="chosenChoices.length > 0" class="flexcenter">
             <IonIcon
               @click="openModal"
@@ -248,7 +248,7 @@
         </IonCol>
       </IonRow>
     </IonGrid>
-  
+
     <IonModal :is-open="modalOpen" @did-dismiss="closeModal">
       <ChoiceModal
         style="border: 1px solid black"
@@ -256,194 +256,200 @@
         @choice-selected="handleChoiceSelected"
       />
     </IonModal>
-  </template>
-  
-  <script lang="ts">
-  import {
-    IonButton,
-    IonCard,
-    IonCol,
+  </IonModal>
+</template>
+
+<script lang="ts">
+import {
+  IonButton,
+  IonCard,
+  IonCol,
+  IonGrid,
+  IonInput,
+  IonRow,
+  modalController,
+  IonPage,
+  IonContent,
+  IonModal,
+  IonList,
+  IonItem,
+  IonSelect,
+  IonSelectOption,
+  IonTextarea,
+  IonChip,
+  IonIcon,
+} from "@ionic/vue";
+import ChoiceModal from "@/SignUp/Seeker-InterestModal.vue";
+import { useJobStore } from "@/stores/jobstore";
+import { ref as asd, uploadBytes, getDownloadURL } from "firebase/storage";
+import { dbImage, db } from "@/firebaseDB";
+import { getDashboardProfile } from "../Dashboard-Model";
+import { ref, onMounted, computed } from "vue";
+import { addCircleOutline, close } from "ionicons/icons";
+export default {
+  components: {
+    IonIcon,
+    IonTextarea,
     IonGrid,
-    IonInput,
     IonRow,
-    modalController,
+    IonCol,
+    IonCard,
+    IonInput,
+    IonButton,
     IonPage,
     IonContent,
     IonModal,
+    ChoiceModal,
     IonList,
     IonItem,
     IonSelect,
     IonSelectOption,
-    IonTextarea,
     IonChip,
-    IonIcon,
-  } from "@ionic/vue";
-  import ChoiceModal from "@/SignUp/Seeker-InterestModal.vue";
-  import { useJobStore } from "@/stores/jobstore";
-  import { ref as asd, uploadBytes, getDownloadURL } from "firebase/storage";
-  import { dbImage, db } from "@/firebaseDB";
-  import { getDashboardProfile } from "../Dashboard-Model";
-  import { ref, onMounted, computed } from "vue";
-  import { addCircleOutline,close } from "ionicons/icons";
-  export default {
-    components: {
-      IonIcon,
-      IonTextarea,
-      IonGrid,
-      IonRow,
-      IonCol,
-      IonCard,
-      IonInput,
-      IonButton,
-      IonPage,
-      IonContent,
-      IonModal,
-      ChoiceModal,
-      IonList,
-      IonItem,
-      IonSelect,
-      IonSelectOption,
-      IonChip,
+  },
+  setup() {
+    const user = ref(null);
+    const companyname = ref("Loading..."); // Initialize as "Loading..."
+
+    onMounted(async () => {
+      const userEmail = localStorage.getItem("email");
+      // const userPassword = localStorage.getItem("password");
+      user.value = await getDashboardProfile(userEmail);
+
+      // Once you have user data, set companyname
+      if (user.value) {
+        companyname.value = user.value.businessname;
+      }
+    });
+
+    const formData = computed(() => ({
+      pic: "",
+      jobname: "",
+      jobtype: "",
+      jobdes: "",
+      company: companyname.value, // Access the value of companyname
+    }));
+
+    return {
+      user, // Expose user ref to the template
+      companyname, // Expose companyname ref to the template
+      formData,
+      addCircleOutline,
+      close,
+    };
+  },
+  props:{
+    isEditmodal: {
+      type: Boolean,
+      required: true,
+    }
+  },
+  data() {
+    return {
+      imageUrl: null,
+      modalOpen: false,
+      modalChoices: [],
+      chosenChoices: [],
+      selectedImage: null,
+      thereisImage: false,
+    };
+  },
+  methods: {
+    closeOther() {
+      this.$emit("close-edit-modal");
     },
-    setup() {
-      const user = ref(null);
-      const companyname = ref("Loading..."); // Initialize as "Loading..."
-  
-      onMounted(async () => {
-        const userEmail = localStorage.getItem("email");
-        // const userPassword = localStorage.getItem("password");
-        user.value = await getDashboardProfile(userEmail);
-  
-        // Once you have user data, set companyname
-        if (user.value) {
-          companyname.value = user.value.businessname;
-        }
-      });
-  
-      const formData = computed(() => ({
-        pic: "",
-        jobname: "",
-        jobtype: "",
-        jobdes: "",
-        company: companyname.value, // Access the value of companyname
-      }));
-  
-      return {
-        user, // Expose user ref to the template
-        companyname, // Expose companyname ref to the template
-        formData,
-        addCircleOutline,
-        close,
-      };
+    checkifthereisImage(x) {
+      this.thereisImage = x;
     },
-    data() {
-      return {
-        imageUrl: null,
-        modalOpen: false,
-        modalChoices: [],
-        chosenChoices: [],
-        selectedImage: null,
-        thereisImage: false,
-      };
+    removeChoice(choiceId) {
+      this.chosenChoices = this.chosenChoices.filter(
+        (choice) => choice.id !== choiceId
+      );
     },
-    methods: {
-      closeOther() {
-        modalController.dismiss();
-      },
-      checkifthereisImage(x) {
-        this.thereisImage = x;
-      },
-      removeChoice(choiceId) {
-        this.chosenChoices = this.chosenChoices.filter(
-          (choice) => choice.id !== choiceId
-        );
-      },
-      openModal() {
-        this.modalOpen = true;
-      },
-      closeModal() {
-        this.modalOpen = false;
-      },
-      handleChoiceSelected(choice) {
-        this.chosenChoices.push(choice);
-        this.modalOpen = false;
-      },
-      async handleFileChange(event) {
-        const files = event.target.files;
-        console.log(files); // Check if files array is populated
-  
-        if (files && files.length > 0) {
-          const file = files[0];
-          console.log("Selected file:", file); // Check the selected file
-          const reader = new FileReader();
-          reader.onload = (e) => {
-            this.imageUrl = e.target.result;
-          };
-          reader.readAsDataURL(file);
-          this.selectedFile = file;
-          this.thereisImage = true;
-          console.log(file);
-        } else {
-          // Handle the case when no files are selected or an error occurred.
-          console.error("No files selected or an error occurred.");
+    openModal() {
+      this.modalOpen = true;
+    },
+    closeModal() {
+      this.modalOpen = false;
+    },
+    handleChoiceSelected(choice) {
+      this.chosenChoices.push(choice);
+      this.modalOpen = false;
+    },
+    async handleFileChange(event) {
+      const files = event.target.files;
+      console.log(files); // Check if files array is populated
+
+      if (files && files.length > 0) {
+        const file = files[0];
+        console.log("Selected file:", file); // Check the selected file
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.imageUrl = e.target.result;
+        };
+        reader.readAsDataURL(file);
+        this.selectedFile = file;
+        this.thereisImage = true;
+        console.log(file);
+      } else {
+        // Handle the case when no files are selected or an error occurred.
+        console.error("No files selected or an error occurred.");
+      }
+    },
+
+    async handleSubmit(event) {
+      const requiredFields = ["jobname", "jobtype", "jobdes"];
+      let isFormValid = true;
+      let isImageSelected = false;
+
+      for (const field of requiredFields) {
+        if (!this.formData[field]) {
+          isFormValid = false;
+          break; // Exit the loop if any required field is empty
         }
-      },
-  
-      async handleSubmit(event) {
-        const requiredFields = ["jobname", "jobtype", "jobdes"];
-        let isFormValid = true;
-        let isImageSelected = false;
-  
-        for (const field of requiredFields) {
-          if (!this.formData[field]) {
-            isFormValid = false;
-            break; // Exit the loop if any required field is empty
-          }
-        }
-  
+      }
+
+      if (this.selectedFile) {
+        isImageSelected = true;
+      }
+
+      if (isFormValid && this.chosenChoices.length > 0 && isImageSelected) {
         if (this.selectedFile) {
-          isImageSelected = true;
-        }
-  
-        if (isFormValid && this.chosenChoices.length > 0 && isImageSelected) {
-          if (this.selectedFile) {
-            // Upload the selected image to Firebase Storage
-            const storageRef = asd(
-              dbImage,
-              "jobpostingpictures/" + this.selectedFile.name
-            );
-            try {
-              await uploadBytes(storageRef, this.selectedFile);
-              // Get the download URL of the uploaded image
-              const downloadURL = await getDownloadURL(storageRef);
-  
-              // Update the formData with the image URL
-              this.formData.pic = downloadURL;
-            } catch (error) {
-              console.error("Error uploading image:", error);
-              alert("Error uploading image. Please try again.");
-              return;
-            }
+          // Upload the selected image to Firebase Storage
+          const storageRef = asd(
+            dbImage,
+            "jobpostingpictures/" + this.selectedFile.name
+          );
+          try {
+            await uploadBytes(storageRef, this.selectedFile);
+            // Get the download URL of the uploaded image
+            const downloadURL = await getDownloadURL(storageRef);
+
+            // Update the formData with the image URL
+            this.formData.pic = downloadURL;
+          } catch (error) {
+            console.error("Error uploading image:", error);
+            alert("Error uploading image. Please try again.");
+            return;
           }
-  
-          // All required fields are filled out, proceed with submission
-          const jobstore = useJobStore();
-          jobstore.setFormData(this.formData);
-          jobstore.setChosenInterests(this.chosenChoices);
-          await jobstore.postjob();
-          modalController.dismiss();
-        } else {
-          // Handle the case where a required field is empty
-          console.error("Please fill in all required fields.");
-          alert("Please fill in all required fields");
         }
-      },
+
+        // All required fields are filled out, proceed with submission
+        const jobstore = useJobStore();
+        jobstore.setFormData(this.formData);
+        jobstore.setChosenInterests(this.chosenChoices);
+        await jobstore.postjob();
+        modalController.dismiss();
+      } else {
+        // Handle the case where a required field is empty
+        console.error("Please fill in all required fields.");
+        alert("Please fill in all required fields");
+      }
     },
-  };
-  </script>
-  <style>
-  /* ion-col {
+  },
+};
+</script>
+<style>
+/* ion-col {
     border: 1px solid black;
   } */
-  </style>
-  
+</style>

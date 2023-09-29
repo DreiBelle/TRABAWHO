@@ -584,7 +584,7 @@ IonRouterOutlet
 
 .modal-addjobpost-addicon {
   font-size: 25px;
-  transition: color 1s ease ,transform 0.5s ease;
+  transition: color 1s ease, transform 0.5s ease;
   padding: 5px;
   color: black;
 }
@@ -592,18 +592,63 @@ IonRouterOutlet
 .modal-addjobpost-addicon:hover {
   color: navy;
   transform: scale(1.1);
-  transition: color 1s ease ,transform 0.5s ease;
+  transition: color 1s ease, transform 0.5s ease;
   padding: 5px;
 }
 
-.modal-addjobpost-icon{
+.modal-addjobpost-icon {
   font-size: 15px;
   color: black;
   transition: transform 0.3s ease;
 }
 
-.modal-addjobpost-icon:hover{
+.modal-addjobpost-icon:hover {
   transform: scale(1.2);
   color: darkred;
   transition: transform 0.3s ease;
+}
+
+.modal-addjobpost {
+  --height: 540px;
+  --width: 100%;
+  --max-width: 700px;
+  --border-radius: 20px;
+}
+
+/* view modal */
+
+.modal-viewjobpost-card-statistics {
+  height: 50px;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-viewjobpost-cards {
+  width: 100%;
+  margin: 0;
+  overflow-y: auto;
+}
+
+.modal-viewjobpost-image {
+  height: 100px;
+  max-width: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  border: 1px solid black;
+}
+
+.modal-viewjobpost-icon {
+  color: black;
+}
+
+.modal-viewjobpost {
+  --height: 600px;
+  --width: 500px;
+  --border-radius: 20px;
 }
