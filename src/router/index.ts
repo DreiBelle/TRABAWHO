@@ -149,6 +149,11 @@ const routes: Array<RouteRecordRaw> = [
       requiresAuth: true,
     },
   },
+  {
+    path: "/LandingPage",
+    name: "LandingPage",
+    component: () => import("../Home/Home-LandingPage.vue"),
+  },
 ];
 
 const getUserType = async () => {

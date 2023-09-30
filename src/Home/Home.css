@@ -15,14 +15,13 @@
   align-items: center;
   display: flex;
   height: 100vh;
-  color:snow;
+  color: snow;
 }
 
 .Home-FlexCenter {
   align-items: center;
   justify-content: center;
   display: flex;
-  
 }
 .Home-Logo {
   border-radius: 50px;
@@ -30,5 +29,51 @@
   width: 150px;
   border: 2px solid black;
 }
-.Home- {
+
+/* landingpage */
+
+.landingpage-mininavbar {
+  background-color: #262c5c;
+  color: white;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 60px;
+  max-width: 60px;
+  height: 100%;
+  padding: 0;
+}
+
+.landingpage-contents {
+  border: 1px solid black;
+  height: 100%;
+  width: calc(100% - 60px);
+  margin-left: 60px;
+  padding: 0;
+}
+
+.landingpage-icons {
+  font-size: 20px;
+}
+
+.flexcenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.landingpage-text-title {
+  font-size: 100px;
+  transition: font-size 0.5s ease; 
+  height: 80px;
+}
+
+@media (max-width: 768px) {
+  .landingpage-text-title {
+    font-size: 50px;
+    transition: font-size 0.5s ease;
+  }
+}
+.landingpage-text-description {
+  font-size: 15px;
 }

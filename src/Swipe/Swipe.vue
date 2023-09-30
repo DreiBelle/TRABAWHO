@@ -15,7 +15,7 @@
       <IonRow style="height: 100%">
         <IonCol>
           <div class="Swipe-Background" v-if="nextCardIndex < cards.length">
-            <SwipeableCard :item="cards[nextCardIndex]" @swipeLeft="handleSwipeLeft" @swipeRight="handleSwipeRight"
+            <SwipeableCard :item="cards[currentCardIndex]" @swipeLeft="handleSwipeLeft" @swipeRight="handleSwipeRight"
               style="z-index: 2" id="mainswiper" class="asd" />
             <FakeSwipeableCard :item="cards[nextCardIndex]" />
           </div>
@@ -90,8 +90,8 @@ export default {
   },
   data() {
     return {
-      nextCardIndex: 0,
-      currentCardIndex: 0,
+      nextCardIndex: 1,
+      currentCardIndex: 0 ,
       cards: [],
     };
   },
@@ -173,7 +173,7 @@ export default {
 </script>
 
 <style>
-/* ion-col {
+ion-col {
   border: 1px solid black;
-} */
+}
 </style>
