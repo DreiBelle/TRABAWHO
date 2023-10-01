@@ -2,54 +2,79 @@
   <IonGrid class="landingpage-contents">
     <IonRow style="height: 100%">
       <IonCol class="flexcenter" style="margin: 0">
-        <IonRow>
-          <IonCol class="flexcenter landingpage-text-title">
-             TRABAWHO
-          </IonCol>
-          <IonCol class="flexcenter landingpage-text-description">
-              Effortlessly discover a diverse pool of talented candidates and
-              find your next ideal hire with ease.
-          </IonCol>
-        </IonRow>
+        <div>
+          <IonText>
+            <h1 class="landingpage-text-title">TRABAWHO</h1>
+            <p class="landingpage-text-description">Effortlessly discover a diverse pool of talented candidates and
+              find your next ideal hire with ease.</p>
+          </IonText>
+          <IonButton expand="block" fill="outline" class="landingpage-buttons-Getstarted">
+            GET STARTED
+          </IonButton>
+        </div>
       </IonCol>
       <IonCol>
-        <IonButton>
-          Login
-        </IonButton>
+        <IonGrid style="height: 100%;">
+          <IonRow style="height: 6%;">
+            <IonCol size="8">
+
+            </IonCol>
+            <IonCol size="2">
+              <IonButton expand="block">
+                LOG IN
+              </IonButton>
+            </IonCol>
+            <IonCol size="2">
+              <IonButton expand="block" fill="outline">
+                GET STARTED
+              </IonButton>
+            </IonCol>
+          </IonRow>
+          <IonRow style="height: 94%;">
+            <IonCol class="flexcenter" style="justify-content: left;">
+              <div class="landingpage-square landingpage-square-first">
+
+              </div>
+              <div class="landingpage-square landingpage-square-second">
+
+              </div>
+            </IonCol>
+          </IonRow>
+        </IonGrid>
       </IonCol>
     </IonRow>
   </IonGrid>
 
   <IonGrid class="landingpage-mininavbar">
-    <IonRow style="height: 10%">
-      <IonCol> logo </IonCol>
+    <IonRow style="height: 60px">
+      <IonCol class="flexcenter">
+        <img class="landingpage-logo" alt="logo" src="../assets/logo/whitefilllogo.png">
+      </IonCol>
     </IonRow>
-    <IonRow style="height: 60%">
+    <IonRow style="height: calc(85% - 60px)">
       <IonCol> </IonCol>
     </IonRow>
-    <IonRow style="height: 10%">
+    <IonRow style="height: 5%">
       <IonCol class="flexcenter">
         <IonIcon class="landingpage-icons" :icon="logoFacebook"></IonIcon>
       </IonCol>
     </IonRow>
-    <IonRow style="height: 10%">
+    <IonRow style="height: 5%">
       <IonCol class="flexcenter">
         <IonIcon class="landingpage-icons" :icon="logoTwitter"></IonIcon>
       </IonCol>
     </IonRow>
-    <IonRow style="height: 10%">
+    <IonRow style="height: 5%">
       <IonCol class="flexcenter">
-        <IonIcon
-          class="landingpage-icons"
-          :icon="informationCircleOutline"
-        ></IonIcon>
+        <IonIcon class="landingpage-icons" :icon="informationCircleOutline"></IonIcon>
       </IonCol>
     </IonRow>
   </IonGrid>
 </template>
 <script lang="ts">
 import {
-IonButton,
+  IonAvatar,
+  IonButton,
   IonCol,
   IonContent,
   IonGrid,
@@ -73,8 +98,9 @@ export default {
     IonContent,
     IonIcon,
     IonText,
-    IonButton
-},
+    IonButton,
+    IonAvatar
+  },
   setup() {
     return {
       logoFacebook,
@@ -85,7 +111,7 @@ export default {
 };
 </script>
 <style>
-ion-col {
+/* ion-col {
   border: 1px solid black;
-}
+} */
 </style>
