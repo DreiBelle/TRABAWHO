@@ -137,7 +137,7 @@
     <IonRow>
       <IonCol @click="ShowTabs('Profile')" class="dashboard-navbar-flexcenter dashboard-navbar-cols">
         <IonIcon class="dashboard-navbar-icons" :icon="personOutline"></IonIcon>
-        <IonText class="dashboard-navbar-navigations">Profile</IonText>
+        <IonText class="dashboard-navbar-navigations">{{ user ? `${user.businessname}`: "Loading..." }}</IonText>
       </IonCol>
     </IonRow>
     <IonRow>
@@ -265,6 +265,7 @@ export default {
       notificationsOutline,
       logOutOutline,
       chatboxEllipsesOutline,
+      user,
     };
   },
   data() {
