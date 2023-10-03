@@ -50,8 +50,13 @@ async function getDashboardProfile_(Username) {
     jobname: string;
     jobtype: string;
     jobdes: string;
-    aditionalinfo: string;
     dateCreated: "",
     chosenInterests: any[];
     company: string;
+    positionlvl: string,
+    salary: string,
+    hours: string,
+    yearsofexp: string,
+    reqeduc: string,
+    loc: string,
   }

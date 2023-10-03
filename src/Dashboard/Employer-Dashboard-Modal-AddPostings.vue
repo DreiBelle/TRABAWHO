@@ -38,6 +38,7 @@
                 labelPlacement="stacked"
                 fill="outline"
                 placeholder="Salary"
+                v-model="formData.salary"
                 required
               >
               </IonInput>
@@ -51,6 +52,7 @@
                 labelPlacement="stacked"
                 fill="outline"
                 placeholder="Hours"
+                v-model="formData.hours"
                 required
               >
               </IonInput>
@@ -98,6 +100,7 @@
             label-placement="stacked"
             interface="popover"
             fill="outline"
+            v-model="formData.positionlvl"
             placeholder="Select Position Level"
             required
           >
@@ -125,6 +128,7 @@
             label-placement="stacked"
             interface="popover"
             fill="outline"
+            v-model="formData.yearsofexp"
             placeholder="Select Mininimun Working Experience"
             required
           >
@@ -159,6 +163,7 @@
                 label-placement="stacked"
                 interface="popover"
                 fill="outline"
+                v-model="formData.reqeduc"
                 placeholder="Select Required Educational Attainment"
                 required
               >
@@ -184,6 +189,7 @@
                 labelPlacement="stacked"
                 fill="outline"
                 placeholder="Location"
+                v-model="formData.loc"
                 required
               >
               </IonInput>
@@ -326,6 +332,12 @@ export default {
       jobname: "",
       jobtype: "",
       jobdes: "",
+      positionlvl: "",
+      salary: "",
+      hours: "",
+      yearsofexp: "",
+      reqeduc: "",
+      loc: "",
       company: companyname.value, // Access the value of companyname
     }));
 
@@ -391,7 +403,7 @@ export default {
     },
 
     async handleSubmit(event) {
-      const requiredFields = ["jobname", "jobtype", "jobdes"];
+      const requiredFields = ["jobname", "jobtype", "jobdes", "positionlvl", "salary", "hours", "yearsofexp", "reqeduc", "loc" ];
       let isFormValid = true;
       let isImageSelected = false;
 

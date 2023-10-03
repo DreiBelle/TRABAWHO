@@ -1,25 +1,18 @@
 <template>
-  <IonModal
-    class="modal-viewjobpost"
-    @did-dismiss="closeViewmodal"
-    id="modalView"
-  >
+  <IonModal class="modal-viewjobpost" @did-dismiss="closeViewmodal" id="modalView">
     <IonHeader style="background: #262c5c; color: white;">
       <IonGrid>
         <IonRow style="height: 5%">
           <IonCol size="1"> </IonCol>
           <IonCol size="1"> </IonCol>
           <IonCol size="1"> </IonCol>
-          <IonCol class="flexcenter" size="6"> TITLE </IonCol>
+          <IonCol class="flexcenter" size="6"> {{ jobPosting ? jobPosting.jobname : "Loading..." }} </IonCol>
           <IonCol size="1">
-            <IonIcon
-              @click="OpenEditModal"
-              :icon="pencilOutline"
-            >
+            <IonIcon @click="OpenEditModal" :icon="pencilOutline">
             </IonIcon>
           </IonCol>
           <IonCol size="1">
-            <IonIcon :icon="trashOutline"></IonIcon>
+            <IonIcon @click="deletejob" :icon="trashOutline"></IonIcon>
           </IonCol>
           <IonCol size="1">
             <IonIcon @click="closeViewmodal" :icon="close"></IonIcon>
@@ -34,7 +27,9 @@
       </IonRow> -->
       <IonRow style="height: 20%">
         <IonCol class="flexcenter">
-          <div class="modal-viewjobpost-image">IMAGE</div>
+          <div class="modal-viewjobpost-image">
+            <img class="modal-image" :src="jobPosting ? jobPosting.pic : ''" alt="" />
+          </div>
         </IonCol>
       </IonRow>
       <IonRow style="height: 69%">
@@ -44,28 +39,19 @@
               <IonRow>
                 <IonCol class="flexcenter" size="4">
                   <IonCard class="modal-viewjobpost-card-statistics">
-                    <IonIcon
-                      class="modal-viewjobpost-icon"
-                      :icon="eyeSharp"
-                    ></IonIcon>
+                    <IonIcon class="modal-viewjobpost-icon" :icon="eyeSharp"></IonIcon>
                     <IonText style="padding-left: 5px"> 0 </IonText>
                   </IonCard>
                 </IonCol>
                 <IonCol class="flexcenter" size="4">
                   <IonCard class="modal-viewjobpost-card-statistics">
-                    <IonIcon
-                      class="modal-viewjobpost-icon"
-                      :icon="thumbsUp"
-                    ></IonIcon>
+                    <IonIcon class="modal-viewjobpost-icon" :icon="thumbsUp"></IonIcon>
                     <IonText style="padding-left: 5px"> 0 </IonText>
                   </IonCard>
                 </IonCol>
                 <IonCol class="flexcenter" size="4">
                   <IonCard class="modal-viewjobpost-card-statistics">
-                    <IonIcon
-                      class="modal-viewjobpost-icon"
-                      :icon="bookmark"
-                    ></IonIcon>
+                    <IonIcon class="modal-viewjobpost-icon" :icon="bookmark"></IonIcon>
                     <IonText style="padding-left: 5px"> 0 </IonText>
                   </IonCard>
                 </IonCol>
@@ -77,25 +63,25 @@
               <IonCard class="modal-viewjobpost-cards" style="height: 300px">
                 <IonGrid>
                   <IonRow>
-                    <IonCol> Job Type: </IonCol>
+                    <IonCol> Job Type: {{ jobPosting ? jobPosting.jobtype : "Loading..." }} </IonCol>
                   </IonRow>
                   <IonRow>
-                    <IonCol> Job Type: </IonCol>
+                    <IonCol> Position level: {{ jobPosting ? jobPosting.positionlvl : "Loading..." }} </IonCol>
                   </IonRow>
                   <IonRow>
-                    <IonCol> Position level: </IonCol>
+                    <IonCol> Salary: {{ jobPosting ? jobPosting.salary : "Loading..." }} </IonCol>
                   </IonRow>
                   <IonRow>
-                    <IonCol> Salary: </IonCol>
+                    <IonCol> Hours of Work: {{ jobPosting ? jobPosting.hours : "Loading..." }} </IonCol>
                   </IonRow>
                   <IonRow>
-                    <IonCol> Hours of Work: </IonCol>
+                    <IonCol> Years of Experience: {{ jobPosting ? jobPosting.yearsofexp : "Loading..." }} </IonCol>
                   </IonRow>
                   <IonRow>
-                    <IonCol> Years of Experience: </IonCol>
+                    <IonCol> Educational Attainment: {{ jobPosting ? jobPosting.reqeduc : "Loading..." }} </IonCol>
                   </IonRow>
                   <IonRow>
-                    <IonCol> Educational Attainment: </IonCol>
+                    <IonCol> Tags: {{ jobPosting ? jobPosting.chosenInterests : "Loading..." }} </IonCol>
                   </IonRow>
                 </IonGrid>
               </IonCard>
@@ -108,7 +94,7 @@
               <IonCard class="modal-viewjobpost-cards" style="height: 175px">
                 <IonGrid style="height: 100%">
                   <IonRow style="height: 100%">
-                    <IonCol> Description: </IonCol>
+                    <IonCol> Description: {{ jobPosting ? jobPosting.jobdes : "Loading..." }} </IonCol>
                   </IonRow>
                 </IonGrid>
               </IonCard>
@@ -119,7 +105,7 @@
               <IonCard class="modal-viewjobpost-cards" style="height: 175px">
                 <IonGrid style="height: 100%">
                   <IonRow style="height: 100%">
-                    <IonCol>Location:</IonCol>
+                    <IonCol>Location: {{ jobPosting ? jobPosting.loc : "Loading..." }} </IonCol>
                   </IonRow>
                 </IonGrid>
               </IonCard>
@@ -134,11 +120,8 @@
       </IonRow>
     </IonGrid>
 
-    <EditModal
-      :is-editmodal="Editmodal"
-      :is-open="Editmodal"
-      @close-edit-modal="CloseEditModal"
-    />
+    <EditModal :is-editmodal="Editmodal" :is-open="Editmodal" :job-posting="jobPosting"
+      @close-edit-modal="CloseEditModal" />
 
     <!-- <IonModal
       ref="modal"
@@ -174,6 +157,7 @@ import {
   trashOutline,
 } from "ionicons/icons";
 import EditModal from "../Dashboard-Modals/Dashboard-EditJobPosting.vue";
+import { useJobStore } from "@/stores/deletejobstore";
 export default {
   components: {
     IonModal,
@@ -192,6 +176,10 @@ export default {
     isViewmodal: {
       type: Boolean,
       required: true,
+    },
+    jobPosting: {
+      type: Object,
+      default: null,
     },
   },
   data() {
@@ -235,6 +223,11 @@ export default {
         this.CloseEditModal();
       }
     },
+    async deletejob(){
+      const jobstore = useJobStore();
+      await jobstore.deleteData(this.jobPosting.documentID);
+      this.closeViewmodal();
+    }
   },
 };
 </script>

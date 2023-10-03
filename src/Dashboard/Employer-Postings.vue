@@ -75,20 +75,12 @@
   </div>
   <div v-else>
     <div id="myElement" v-if="jobPostings.length > 0">
-      <IonCard
-        class="dashboard-postedjobs-jobposting"
-        v-for="(job, index) in jobPostings"
-        :key="index"
-        @click="OpenViewModal(index)"
-      >
+      <IonCard class="dashboard-postedjobs-jobposting" v-for="(job, index) in jobPostings" :key="index"
+        @click="OpenViewModal(index)">
         <IonGrid style="height: 100%; padding: 0">
           <IonRow style="height: 100%">
-            <IonCol class="flexcenter" style="padding: 0; justify-content: left"
-              ><img
-                class="Dashboard-AddJobPostings-Card-Picture"
-                :src="job ? job.pic : ''"
-                alt=""
-              />
+            <IonCol class="flexcenter" style="padding: 0; justify-content: left">
+              <img class="Dashboard-AddJobPostings-Card-Picture" :src="job ? job.pic : ''" alt="" />
             </IonCol>
             <IonCol class="flexcenter" style="justify-content: left" size="8">
               {{ job ? job.jobname : "Loading..." }}
@@ -109,7 +101,8 @@
     <div v-else>No job postings available for your company.</div>
   </div>
 
-  <ViewModal :is-viewmodal="isViewmodal" @close-view-modal="CloseViewModal" @open-view-modal="OpenViewModal" :is-open="isViewmodal"/>
+  <ViewModal :is-viewmodal="isViewmodal" @close-view-modal="CloseViewModal" @open-view-modal="OpenViewModal"
+    :is-open="isViewmodal" :job-posting="selectedJobPosting" />
 
   <!-- <IonModal
     ref="modal"
@@ -198,6 +191,10 @@ export default {
       // Set up a real-time listener for job postings
       const unsubscribe = onSnapshot(q, (snapshot) => {
         updateJobPostings(snapshot);
+        jobPostings.value = snapshot.docs.map((doc) => ({
+          documentID: doc.id, // Add the document ID to each job posting
+          ...doc.data(), // Include other document data
+        }));
       });
 
       // Remember to unsubscribe when the component is unmounted
@@ -218,12 +215,15 @@ export default {
     return {
       isLoading: true,
       isViewmodal: false,
+      selectedJobPosting: null,
     };
   },
   methods: {
     OpenViewModal(index) {
       this.isViewmodal = true;
       console.log(index);
+      this.selectedJobPosting = this.jobPostings[index];
+      console.log("Document ID:", this.selectedJobPosting.documentID);
       // document.addEventListener("click", this.handleClickOutside);
     },
     CloseViewModal() {

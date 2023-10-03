@@ -37,7 +37,8 @@
                 label="Estimated Salary"
                 labelPlacement="stacked"
                 fill="outline"
-                placeholder="Salary"
+                :placeholder="jobPosting ? jobPosting.salary : ''"
+                v-model="formData.salary"
                 required
               >
               </IonInput>
@@ -50,7 +51,8 @@
                 label="Estimated Hours of Work"
                 labelPlacement="stacked"
                 fill="outline"
-                placeholder="Hours"
+                :placeholder="jobPosting ? jobPosting.hours : ''"
+                v-model="formData.hours"
                 required
               >
               </IonInput>
@@ -63,7 +65,7 @@
           <IonInput
             class="modal-addjobpost-input"
             label="Job Title"
-            placeholder="Title"
+            :placeholder="jobPosting ? jobPosting.jobname : ''"
             labelPlacement="stacked"
             fill="outline"
             v-model="formData.jobname"
@@ -79,7 +81,7 @@
             labelPlacement="stacked"
             v-model="formData.jobtype"
             fill="outline"
-            placeholder="Select Job Type"
+            :placeholder="jobPosting ? jobPosting.jobtype : ''"
             required
           >
             <IonSelectOption value="Full-Time">Full-Time</IonSelectOption>
@@ -98,7 +100,7 @@
             label-placement="stacked"
             interface="popover"
             fill="outline"
-            placeholder="Select Position Level"
+            :placeholder="jobPosting ? jobPosting.positionlvl : ''"
             required
           >
             <IonSelectOption value="CEO/SVP/AVP/VP/Director"
@@ -125,7 +127,7 @@
             label-placement="stacked"
             interface="popover"
             fill="outline"
-            placeholder="Select Mininimun Working Experience"
+            :placeholder="jobPosting ? jobPosting.yearsofexp : ''"
             required
           >
             <IonSelectOption value="0">0</IonSelectOption>
@@ -145,6 +147,7 @@
             fill="outline"
             labelPlacement="stacked"
             class="modal-addjobpost-input"
+            :placeholder="jobPosting ? jobPosting.jobdes : ''"
             v-model="formData.jobdes"
             style="height: 100%"
           >
@@ -159,7 +162,7 @@
                 label-placement="stacked"
                 interface="popover"
                 fill="outline"
-                placeholder="Select Required Educational Attainment"
+                :placeholder="jobPosting ? jobPosting.reqeduc : ''"
                 required
               >
                 <IonSelectOption value="none">none</IonSelectOption>
@@ -183,7 +186,8 @@
                 label="Location"
                 labelPlacement="stacked"
                 fill="outline"
-                placeholder="Location"
+                :placeholder="jobPosting ? jobPosting.loc : ''"
+                v-model="formData.loc"
                 required
               >
               </IonInput>
@@ -280,11 +284,11 @@ import {
   IonIcon,
 } from "@ionic/vue";
 import ChoiceModal from "@/SignUp/Seeker-InterestModal.vue";
-import { useJobStore } from "@/stores/jobstore";
+import { useJobStore } from "@/stores/updatejobstore";
 import { ref as asd, uploadBytes, getDownloadURL } from "firebase/storage";
 import { dbImage, db } from "@/firebaseDB";
 import { getDashboardProfile } from "../Dashboard-Model";
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, computed, defineComponent, PropType } from "vue";
 import { addCircleOutline, close } from "ionicons/icons";
 export default {
   components: {
@@ -306,10 +310,9 @@ export default {
     IonSelectOption,
     IonChip,
   },
-  setup() {
+  setup(props) {
     const user = ref(null);
     const companyname = ref("Loading..."); // Initialize as "Loading..."
-
     onMounted(async () => {
       const userEmail = localStorage.getItem("email");
       // const userPassword = localStorage.getItem("password");
@@ -322,16 +325,20 @@ export default {
     });
 
     const formData = computed(() => ({
-      pic: "",
-      jobname: "",
-      jobtype: "",
-      jobdes: "",
-      company: companyname.value, // Access the value of companyname
+      pic: props.jobPosting ? props.jobPosting.pic : '',
+      jobname: props.jobPosting ? props.jobPosting.jobname : '',
+      jobtype: props.jobPosting ? props.jobPosting.jobtype : '',
+      jobdes: props.jobPosting ? props.jobPosting.jobdes : '',
+      salary: props.jobPosting ? props.jobPosting.salary : '',
+      hours: props.jobPosting ? props.jobPosting.hours : '',
+      loc: props.jobPosting ? props.jobPosting.loc : '',
+      reqeduc: props.jobPosting ? props.jobPosting.reqeduc : '',
+      yearsofexp: props.jobPosting ? props.jobPosting.yearsofexp : '',
+      positionlvl: props.jobPosting ? props.jobPosting.positionlvl : '',
     }));
 
     return {
       user, // Expose user ref to the template
-      companyname, // Expose companyname ref to the template
       formData,
       addCircleOutline,
       close,
@@ -341,14 +348,19 @@ export default {
     isEditmodal: {
       type: Boolean,
       required: true,
-    }
+    },
+    jobPosting: { 
+      type: Object,
+      default: null,
   },
-  data() {
+    
+  },
+  data(props) {
     return {
       imageUrl: null,
       modalOpen: false,
       modalChoices: [],
-      chosenChoices: [],
+      chosenChoices: props.jobPosting ? props.jobPosting.chosenInterests : '',
       selectedImage: null,
       thereisImage: false,
     };
@@ -397,7 +409,7 @@ export default {
     },
 
     async handleSubmit(event) {
-      const requiredFields = ["jobname", "jobtype", "jobdes"];
+      const requiredFields = ["jobname", "jobtype", "jobdes", "positionlvl", "salary", "hours", "yearsofexp", "reqeduc", "loc"];
       let isFormValid = true;
       let isImageSelected = false;
 
@@ -412,7 +424,7 @@ export default {
         isImageSelected = true;
       }
 
-      if (isFormValid && this.chosenChoices.length > 0 && isImageSelected) {
+      if (isFormValid && this.chosenChoices.length > 0) {
         if (this.selectedFile) {
           // Upload the selected image to Firebase Storage
           const storageRef = asd(
@@ -437,12 +449,13 @@ export default {
         const jobstore = useJobStore();
         jobstore.setFormData(this.formData);
         jobstore.setChosenInterests(this.chosenChoices);
-        await jobstore.postjob();
+        await jobstore.updateData(this.jobPosting.documentID);
         modalController.dismiss();
       } else {
         // Handle the case where a required field is empty
         console.error("Please fill in all required fields.");
         alert("Please fill in all required fields");
+        alert(this.jobid);
       }
     },
   },

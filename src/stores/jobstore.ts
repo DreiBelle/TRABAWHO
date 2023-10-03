@@ -12,7 +12,12 @@ export const useJobStore = defineStore("jobpost", {
       jobname: "",
       jobtype: "",
       jobdes: "",
-      additioninfo: "",
+      positionlvl: "",
+      salary: "",
+      hours: "",
+      yearsofexp: "",
+      reqeduc: "",
+      loc: "",
       dateCreated: "",
       chosenInterests: [],
       company: "",
@@ -28,7 +33,7 @@ export const useJobStore = defineStore("jobpost", {
     getChosenInterests() {
       return this.formData.chosenInterests;
     },
-    
+
     async postjob() {
 
       // Set the current date as the dateCreated
@@ -44,7 +49,12 @@ export const useJobStore = defineStore("jobpost", {
           jobname: "",
           jobtype: "",
           jobdes: "",
-          additioninfo: "",
+          positionlvl: "",
+          salary: "",
+          hours: "",
+          yearsofexp: "",
+          reqeduc: "",
+          loc: "",
           dateCreated: "",
           chosenInterests: [],
           company: "",
