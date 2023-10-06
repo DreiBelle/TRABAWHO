@@ -1,9 +1,9 @@
-.SignUp-{
+/* .SignUp-{
 
 }
 
 .SignUpBackground {
-  /* background-image: url("../assets/background-Login.jpg"); */
+  background-image: url("../assets/background-Login.jpg");
  color: snow;
   background-size: cover;
   background-position: center;
@@ -80,4 +80,73 @@
 
 .SignUp-ListOfInterest{
   padding: 10px;
+} */
+
+/* new */
+
+.flexcenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signup-card {
+  height: 450px;
+  width: 700px;
+  border-radius: 10px;
+}
+
+.signup-inputs {
+  min-height: 0 !important;
+  height: 40px;
+  --highlight-color-focused: #262c5c;
+  color: black;
+  --border-color: black !important;
+}
+
+.signup-text-terms {
+  color: black;
+  font-size: 12px;
+  padding-left: 10px;
+}
+
+.signup-buttons {
+  --border-width: 1px;
+}
+
+.signup-a {
+  padding-left: 5px;
+  padding-right: 5px;
+  cursor: pointer;
+}
+
+/* new */
+
+.signup-logo{
+  height: 100px;
+}
+
+.signup-title{
+  font-size: 35px;
+  font-family: MalbergTrial-Heavy;
+}
+
+.signup-button {
+  width: 90vw;
+  --background: #262c5c;
+  width: 90vw;
+  max-width: 350px;
+  height: 40px !important;
+  --border-width: 1px;
+  --border-color: #262c5c;
+  color: white;
+}
+
+/* mobile */
+.signup-inputs-mobile {
+  min-height: 0 !important;
+  height: 40px;
+  --highlight-color-focused: #262c5c;
+  color: black;
+  --border-color: black !important;
 }

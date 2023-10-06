@@ -1,88 +1,267 @@
 <template>
-  <IonPage>
-    <IonContent>
-      <div class="SignUpBackground" name="centercontents">
-        <IonCard class="SignUpEmployer-IonCard">
-          <IonGrid>
-            <IonRow>
-              <IonCol>
-                <IonButton class="SignUpJobSeeker-Back" @click="goBack" fill="clear">
-                  back
-                </IonButton>
-              </IonCol>
-              <IonCol size="6" class="SignUpJobSeeker-FlexCenter">
-                <IonText style="font-size: 25px"> REGISTER </IonText>
-              </IonCol>
-              <IonCol> </IonCol>
-            </IonRow>
+  <!-- <IonPage>
+    <div class="SignUpBackground" name="centercontents">
+      <IonCard class="SignUpEmployer-IonCard">
+        <IonGrid>
+          <IonRow>
+            <IonCol>
+              <IonButton
+                class="SignUpJobSeeker-Back"
+                @click="goBack"
+                fill="clear"
+              >
+                back
+              </IonButton>
+            </IonCol>
+            <IonCol size="6" class="SignUpJobSeeker-FlexCenter">
+              <IonText style="font-size: 25px"> REGISTER </IonText>
+            </IonCol>
+            <IonCol> </IonCol>
+          </IonRow>
 
-            <IonRow>
-              <IonCol>
-                <IonInput class="SignUpJobSeeker-input" label="Email" labelPlacement="floating"
-                  placeholder="Enter valid email address" type="email" v-model="formData.email" required>
-                </IonInput>
-              </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol>
-                <IonInput class="SignUpJobSeeker-input" label="Contact Person Name" labelPlacement="floating"
-                  placeholder="Enter Full Name" v-model="formData.contactpn" required>
-                </IonInput>
-              </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol>
-                <IonInput class="SignUpJobSeeker-input" label="Contact Number" labelPlacement="floating"
-                  placeholder="Enter Contact Number" v-model="formData.number" required>
-                </IonInput>
-              </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol>
-                <IonInput class="SignUpJobSeeker-input" label="Registered Business Name" labelPlacement="floating"
-                  placeholder="Enter Business Name" v-model="formData.businessname" required>
-                </IonInput>
-              </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol>
-                <IonInput class="SignUpJobSeeker-input" label="Password" labelPlacement="floating"
-                  placeholder="Enter Password" type="password" v-model="formData.password" required>
-                </IonInput>
-              </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol style="text-align: right" size="2">
-                <IonCheckbox v-model="formData.acceptTerms"></IonCheckbox>
-              </IonCol>
-              <IonCol style="text-align: left" size="10">
-                <IonText>
-                  I have read and accept the
-                  <a href="/TermsandConditionsEmployer">
-                    terms and conditions</a>
-                </IonText>
-              </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol>
-                <IonButton class="SignUpButtonActions" expand="block" fill="outline" @click="signInWithGoogle"
-                  style="color: black; --border-color: black">
-                  Or Signin With Google?
-                </IonButton>
-              </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol>
-                <IonButton class="SignUpButtonActions" expand="block" fill="outline" @click="submitForm"
-                  style="color: black; --border-color: black">
-                  Continue
-                </IonButton>
-              </IonCol>
-            </IonRow>
-          </IonGrid>
-        </IonCard>
-      </div>
-    </IonContent>
+          <IonRow>
+            <IonCol>
+              <IonInput
+                class="SignUpJobSeeker-input"
+                label="Email"
+                labelPlacement="floating"
+                placeholder="Enter valid email address"
+                type="email"
+                v-model="formData.email"
+                required
+              >
+              </IonInput>
+            </IonCol>
+          </IonRow>
+          <IonRow>
+            <IonCol>
+              <IonInput
+                class="SignUpJobSeeker-input"
+                label="Contact Person Name"
+                labelPlacement="floating"
+                placeholder="Enter Full Name"
+                v-model="formData.contactpn"
+                required
+              >
+              </IonInput>
+            </IonCol>
+          </IonRow>
+          <IonRow>
+            <IonCol>
+              <IonInput
+                class="SignUpJobSeeker-input"
+                label="Contact Number"
+                labelPlacement="floating"
+                placeholder="Enter Contact Number"
+                v-model="formData.number"
+                required
+              >
+              </IonInput>
+            </IonCol>
+          </IonRow>
+          <IonRow>
+            <IonCol>
+              <IonInput
+                class="SignUpJobSeeker-input"
+                label="Registered Business Name"
+                labelPlacement="floating"
+                placeholder="Enter Business Name"
+                v-model="formData.businessname"
+                required
+              >
+              </IonInput>
+            </IonCol>
+          </IonRow>
+          <IonRow>
+            <IonCol>
+              <IonInput
+                class="SignUpJobSeeker-input"
+                label="Password"
+                labelPlacement="floating"
+                placeholder="Enter Password"
+                type="password"
+                v-model="formData.password"
+                required
+              >
+              </IonInput>
+            </IonCol>
+          </IonRow>
+          <IonRow>
+            <IonCol style="text-align: right" size="2">
+              <IonCheckbox v-model="formData.acceptTerms"></IonCheckbox>
+            </IonCol>
+            <IonCol style="text-align: left" size="10">
+              <IonText>
+                I have read and accept the
+                <a href="/TermsandConditionsEmployer"> terms and conditions</a>
+              </IonText>
+            </IonCol>
+          </IonRow>
+          <IonRow>
+            <IonCol>
+              <IonButton
+                class="SignUpButtonActions"
+                expand="block"
+                fill="outline"
+                @click="signInWithGoogle"
+                style="color: black; --border-color: black"
+              >
+                Or Signin With Google?
+              </IonButton>
+            </IonCol>
+          </IonRow>
+          <IonRow>
+            <IonCol>
+              <IonButton
+                class="SignUpButtonActions"
+                expand="block"
+                fill="outline"
+                @click="submitForm"
+                style="color: black; --border-color: black"
+              >
+                Continue
+              </IonButton>
+            </IonCol>
+          </IonRow>
+        </IonGrid>
+      </IonCard>
+    </div>
+  </IonPage> -->
+  <IonPage style="background: linear-gradient(to bottom right, white, #a6aad4)">
+    <HomeBar />
+
+    <div class="flexcenter" style="height: 100%">
+      <IonCard class="signup-card">
+        <IonGrid style="height: 100%; width: 100%; padding: 0">
+          <IonRow style="height: 100%">
+            <IonCol size="5.5" style="border-right: 1px solid black">
+              <IonGrid>
+                <IonRow>
+                  <IonCol style="color: black">
+                    <div class="flexcenter">Start Creating an Accounts</div>
+                  </IonCol>
+                </IonRow>
+                <IonRow>
+                  <IonCol>
+                    <IonInput
+                      class="signup-inputs"
+                      fill="outline"
+                      label="Email"
+                      labelPlacement="stacked"
+                      placeholder="Enter valid email address"
+                      type="email"
+                      v-model="formData.email"
+                      required
+                    >
+                    </IonInput>
+                  </IonCol>
+                </IonRow>
+                <IonRow>
+                  <IonCol>
+                    <IonInput
+                      class="signup-inputs"
+                      fill="outline"
+                      label="Contact Person Name"
+                      labelPlacement="stacked"
+                      placeholder="Enter Full Name"
+                      v-model="formData.contactpn"
+                      required
+                    >
+                    </IonInput>
+                  </IonCol>
+                </IonRow>
+                <IonRow>
+                  <IonCol>
+                    <IonInput
+                      fill="outline"
+                      class="signup-inputs"
+                      label="Contact Number"
+                      labelPlacement="stacked"
+                      placeholder="Enter Contact Number"
+                      v-model="formData.number"
+                      required
+                    >
+                    </IonInput>
+                  </IonCol>
+                </IonRow>
+                <IonRow>
+                  <IonCol>
+                    <IonInput
+                      fill="outline"
+                      class="signup-inputs"
+                      label="Registered Business Name"
+                      labelPlacement="stacked"
+                      placeholder="Enter Business Name"
+                      v-model="formData.businessname"
+                      required
+                    >
+                    </IonInput>
+                  </IonCol>
+                </IonRow>
+                <IonRow>
+                  <IonCol>
+                    <IonInput
+                      fill="outline"
+                      class="signup-inputs"
+                      label="Password"
+                      labelPlacement="stacked"
+                      placeholder="Enter Password"
+                      type="password"
+                      v-model="formData.password"
+                      required
+                    >
+                    </IonInput>
+                  </IonCol>
+                </IonRow>
+                <IonRow>
+                  <IonCol class="flexcenter">
+                    <IonCheckbox v-model="formData.acceptTerms"></IonCheckbox>
+                    <IonText class="signup-text-terms">
+                      I have read and accept the
+                      <a href="/TermsandConditionsEmployer">
+                        terms and conditions</a
+                      >
+                    </IonText>
+                  </IonCol>
+                </IonRow>
+                <IonRow style="border-bottom: 1px solid black">
+                  <IonCol>
+                    <IonButton
+                      class="signup-buttons"
+                      expand="block"
+                      fill="outline"
+                      @click="submitForm"
+                      style="color: black; --border-color: black"
+                    >
+                      SIGN-IN
+                    </IonButton>
+                  </IonCol>
+                </IonRow>
+                <IonRow>
+                  <IonCol>
+                    <IonButton
+                      class="signup-buttons"
+                      expand="block"
+                      @click="signInWithGoogle"
+                      style="--background: black; color: white"
+                    >
+                      GOOGLE SIGN-IN
+                    </IonButton>
+                    <div
+                      class="flexcenter"
+                      style="font-size: 11px; padding-left: 5px"
+                    >
+                      Already have an Account? <a href="/Logincomputer" class="signup-a">Log In</a> | <a class="signup-a" style="color: red" href="/home">Cancel</a>
+                    </div>
+                  </IonCol>
+                </IonRow>
+              </IonGrid>
+            </IonCol>
+            <IonCol size="6.5"> </IonCol>
+          </IonRow>
+        </IonGrid>
+      </IonCard>
+    </div>
   </IonPage>
 </template>
 
@@ -99,15 +278,21 @@ import {
   IonCard,
   IonCheckbox,
   IonModal,
+  IonHeader,
 } from "@ionic/vue";
 import "./SignUp.css";
+import "../Home/Home.css";
 import { GoRegister2, goBack, goTermsandCondition } from "./SignUp-Controller";
 import { useSignupStore2 } from "@/stores/signupstore2";
 import { Firestore } from "firebase/firestore";
 import { checkifregisteredgoogle } from "./Employer-Model";
 import router from "../router";
-import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth } from '../firebaseDB';
+import {
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
+import { auth } from "../firebaseDB";
 import { GoEmployerDashboard } from "@/Login/Login-Controller";
 const signupStore2 = useSignupStore2();
 const formData = {
@@ -120,7 +305,7 @@ const formData = {
   type: "",
   acceptTerms: false,
 };
-const signInWithGoogle = async() => {
+const signInWithGoogle = async () => {
   const provider = new GoogleAuthProvider();
   try {
     const result = await signInWithPopup(auth, provider);
@@ -129,7 +314,8 @@ const signInWithGoogle = async() => {
     const email = user.email;
     const name = user.displayName;
     const isRegistered = await checkifregisteredgoogle(email);
-    if (isRegistered) { // checks if google already signed in
+    if (isRegistered) {
+      // checks if google already signed in
       localStorage.setItem("email", email);
       GoEmployerDashboard();
     } else {
@@ -140,12 +326,19 @@ const signInWithGoogle = async() => {
       GoEmployerDashboard();
     }
   } catch (error) {
-    console.error('Google Sign-In Error:', error);
+    console.error("Google Sign-In Error:", error);
     alert(error);
   }
 };
 const submitForm = async () => {
-  const requiredFields = ['email', 'contactpn', 'number', 'businessname', 'password', 'dateCreated'];
+  const requiredFields = [
+    "email",
+    "contactpn",
+    "number",
+    "businessname",
+    "password",
+    "dateCreated",
+  ];
   let isFormValid = true;
 
   for (const field of requiredFields) {
@@ -156,15 +349,18 @@ const submitForm = async () => {
   }
   if (formData.acceptTerms) {
     isFormValid = true;
-  }
-  else {
+  } else {
     isFormValid = false;
-    alert("Accept terms and conditions")
+    alert("Accept terms and conditions");
   }
 
   if (isFormValid) {
     try {
-      const credential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+      const credential = await createUserWithEmailAndPassword(
+        auth,
+        formData.email,
+        formData.password
+      );
       console.log(credential.user);
       signupStore2.setFormData(formData);
       await signupStore2.registerUser();
@@ -173,14 +369,24 @@ const submitForm = async () => {
     } catch (error) {
       alert(error.message);
     }
-  }
-  else {
-    alert("Fill all the Field to continue")
+  } else {
+    alert("Fill all the Field to continue");
   }
 };
-
 </script>
 
-<script lang="ts"></script>
+<script lang="ts">
+import HomeBar from "../Home/Home-TopBar.vue"
 
-<style></style>
+export default {
+  components: {
+    HomeBar,
+  }
+}
+</script>
+
+<style>
+/* ion-col {
+  border: 1px solid black;
+} */
+</style>

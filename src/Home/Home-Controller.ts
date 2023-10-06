@@ -5,7 +5,7 @@ function GoLogin_(){
 }
 
 function GoRegister_(){
-    router.push("/SignUp")
+    router.push("/choosesignup")
 }
 
 function GoEmployer_(){

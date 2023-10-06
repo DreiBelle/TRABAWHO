@@ -1,5 +1,5 @@
 <template>
-  <IonPage>
+  <!-- <IonPage>
     <IonContent>
       <div class="SignUpBackground" name="centercontents">
         <IonCard class="SignUpJobSeeker-ioncard">
@@ -95,6 +95,59 @@
         </IonCard>
       </div>
     </IonContent>
+  </IonPage> -->
+  <IonPage style="background: linear-gradient(to bottom right, white, #a6aad4)">
+    <IonGrid style="height: 100%; width: 100%">
+      <IonRow style="height: 100%">
+        <IonCol class="flexcenter">
+          <IonGrid>
+            <IonRow>
+              <IonCol class="flexcenter"> Sign Up </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol class="flexcenter">
+                <IonAvatar style="--background: black" >
+                  <img
+                    src="https://ionicframework.com/docs/img/demos/avatar.svg"
+                    alt=""
+                  /> </IonAvatar
+              ></IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol>
+                <IonInput
+                  labelPlacement="stacked"
+                  type="email"
+                  label="Email"
+                  fill="outline"
+                  class="signup-inputs"
+                  placeholder="Enter valid email"
+                >
+                </IonInput>
+              </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol>
+                <IonInput
+                  labelPlacement="stacked"
+                  type="password"
+                  label="Password"
+                  fill="outline"
+                  class="signup-inputs-mobile"
+                  placeholder="Enter valid password"
+                >
+                </IonInput>
+              </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol>
+                <IonButton class="signup-button"> Sign Up</IonButton>
+              </IonCol>
+            </IonRow>
+          </IonGrid>
+        </IonCol>
+      </IonRow>
+    </IonGrid>
   </IonPage>
 </template>
 
@@ -111,14 +164,19 @@ import {
   IonCard,
   IonCheckbox,
   IonModal,
+  IonAvatar,
 } from "@ionic/vue";
 import "./SignUp.css";
 import { GoRegister2, goBack, goTermsandCondition } from "./SignUp-Controller";
 import { useSignupStore } from "@/stores/signupstore";
 import { Firestore } from "firebase/firestore";
 import { checkifregisteredgoogle } from "./Seeker-Model";
-import { createUserWithEmailAndPassword,  GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth } from '../firebaseDB';
+import {
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
+import { auth } from "../firebaseDB";
 import { GoSwipe } from "@/NavBar/NavBar-Controller";
 
 const signupStore = useSignupStore();
@@ -139,10 +197,9 @@ const formData = {
   dateCreated: "",
   // chosenInterest: [],
   type: "",
-
 };
 
-const signInWithGoogle = async() => {
+const signInWithGoogle = async () => {
   const provider = new GoogleAuthProvider();
   try {
     const result = await signInWithPopup(auth, provider);
@@ -150,8 +207,9 @@ const signInWithGoogle = async() => {
     const email = user.email;
     const name = user.displayName;
     const isRegistered = await checkifregisteredgoogle(email);
-    
-    if (isRegistered) { // checks if google already signed in
+
+    if (isRegistered) {
+      // checks if google already signed in
       localStorage.setItem("email", email);
       GoSwipe();
     } else {
@@ -162,13 +220,20 @@ const signInWithGoogle = async() => {
       GoSwipe();
     }
   } catch (error) {
-    console.error('Google Sign-In Error:', error);
+    console.error("Google Sign-In Error:", error);
     alert(error);
   }
 };
 
 const submitForm = async () => {
-  const requiredFields = ['firstName', 'middleName', 'lastName', 'suffix', 'email', 'password'];
+  const requiredFields = [
+    "firstName",
+    "middleName",
+    "lastName",
+    "suffix",
+    "email",
+    "password",
+  ];
   let isFormValid = true;
 
   for (const field of requiredFields) {
@@ -179,27 +244,34 @@ const submitForm = async () => {
   }
   if (formData.acceptTerms) {
     isFormValid = true;
-  }
-  else {
+  } else {
     isFormValid = false;
-    alert("Accept terms and conditions")
+    alert("Accept terms and conditions");
   }
 
   if (isFormValid) {
     try {
-      const credential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+      const credential = await createUserWithEmailAndPassword(
+        auth,
+        formData.email,
+        formData.password
+      );
       console.log(credential.user);
       signupStore.setFormData(formData);
       GoRegister2();
     } catch (error) {
       alert(error.message);
     }
+  } else {
+    alert("Fill all the Field to continue");
   }
-  else {
-    alert("Fill all the Field to continue")
-  }
-}
-
+};
 </script>
 
 <script lang="ts"></script>
+
+<style>
+ion-col {
+  border: 1px solid black;
+}
+</style>

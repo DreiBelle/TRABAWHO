@@ -154,6 +154,11 @@ const routes: Array<RouteRecordRaw> = [
     name: "LandingPage",
     component: () => import("../Home/Home-LandingPage.vue"),
   },
+  {
+    path: "/ChooseSignUp",
+    name: "ChooseSignUp",
+    component: () => import("../SignUp/Seeker-SignUpChoose.vue"),
+  },
 ];
 
 const getUserType = async () => {

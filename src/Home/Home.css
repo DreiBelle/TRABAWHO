@@ -1,4 +1,4 @@
-.HomeJobSeekerButtonActions {
+/* .HomeJobSeekerButtonActions {
   --background-activated: snow;
   color: black;
   --border-color: black;
@@ -8,7 +8,7 @@
 }
 
 .HomeJobSeekerBackground {
-  /* background-image: url("../assets/background-Login.jpg"); */
+  background-image: url("../assets/background-Login.jpg");
   background-size: cover;
   background-position: center;
   justify-content: center;
@@ -28,11 +28,11 @@
   height: auto;
   width: 150px;
   border: 2px solid black;
-}
+} */
 
 /* landingpage */
 
-.landingpage-mininavbar {
+/* .landingpage-mininavbar {
   background-color: #262c5c;
   color: white;
   position: fixed;
@@ -74,7 +74,7 @@
   transition: font-size 0.5s ease;
   padding: 0;
   font-family: "MalbergTrial-Heavy";
-}
+} */
 
 /* @media (max-width: 768px) {
   .landingpage-text-title {
@@ -83,7 +83,7 @@
   }
 } */
 
-.landingpage-text-description {
+/* .landingpage-text-description {
   font-size: 20px;
   font-family: MalbergTrial-Regular;
   margin-top: -50px;
@@ -103,7 +103,7 @@
   background: #262c5c;
   border-radius: 30px;
   transition: scale 0.5s ease;
-  animation: colorChange  10s infinite;
+  /* animation: colorChange  10s infinite; 
 }
 
 .landingpage-square:hover {
@@ -127,8 +127,55 @@
   width:390px;
   position: absolute;
   right: 0;
-  bottom: ;
   border-radius: 200px 200px 200px 0 ;
+} */
+
+@media (max-width: 1025px) {
+  .home-logo {
+    height: 150px;
+  }
+
+  .home-title {
+    font-size: 80px;
+    font-family: MalbergTrial-Heavy;
+  }
+
+  .home-buttons {
+    margin-top: 120px;
+    color: white;
+    --background: #262c5c;
+    width: 50vw;
+    max-width: 50vw;
+  }
+
+  .home-a-getstarted {
+    font-size: 15px;
+    padding-top: 20px;
+  }
+}
+
+@media (max-width: 426px) {
+  .home-logo {
+    height: 100px;
+  }
+
+  .home-title {
+    font-size: 50px;
+    font-family: MalbergTrial-Heavy;
+  }
+
+  .home-buttons {
+    margin-top: 100px;
+    color: white;
+    --background: #262c5c;
+    width: 75vw;
+    max-width: 250px;
+  }
+
+  .home-a-getstarted {
+    font-size: 13px;
+    padding-top: 20px;
+  }
 }
 
 @font-face {
@@ -141,7 +188,12 @@
   src: url(../assets/fonts/MalbergTrial-Regular.ttf);
 }
 
-@keyframes colorChange {
+@font-face {
+  font-family: PrimeformProDemo-Light;
+  src: url(../assets/fonts/PrimeformProDemo-Light.otf);
+}
+
+/* @keyframes colorChange {
   0% {
     scale: 1;
   }
@@ -156,5 +208,106 @@
   }
   50% {
     scale: 1;
+  }
+} */
+
+.flexcenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.landingpage-navigations {
+  color: white;
+  font-family: "MalbergTrial-Regular";
+  transition: scale 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+}
+
+.landingpage-navigations:hover {
+  color: rgb(243, 236, 236);
+  font-family: "MalbergTrial-Regular";
+  scale: 1.05;
+  transition: scale 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+}
+
+.landingpage-header {
+  height: 50px;
+  background: #262c5c;
+}
+
+.landingpage-container-logo {
+  padding-left: 10px;
+  scale: 1;
+  transition: scale 0.3s ease;
+  cursor: pointer;
+}
+
+.landingpage-container-logo:hover {
+  padding-left: 10px;
+  scale: 1.02;
+  transition: scale 0.3s ease;
+}
+
+.landingpage-logo {
+  height: 35px;
+}
+
+.landingpage-logo-name {
+  font-family: "MalbergTrial-Heavy";
+  padding-left: 5px;
+  color: white;
+  font-size: 25px;
+  letter-spacing: 1px;
+}
+
+.landingpage-text-subtitle {
+  text-align: left;
+  font-size: 20px;
+  transition: font-size 0.5s ease;
+  font-family: PrimeformProDemo-Light;
+}
+
+.landingpage-text-maintitle {
+  font-size: 110px;
+  font-family: "MalbergTrial-Heavy";
+  line-height: 90px;
+  transition: line-height 0.5s ease, font-size 0.5s ease;
+}
+
+.landingpage-text-description {
+  font-size: 15px;
+  transition: font-size 0.5s ease;
+}
+
+.landingpage-maintitle-container {
+  justify-content: left !important;
+}
+
+.landingpage-buttons {
+  padding-top: 30px;
+  --border-width: 1px;
+  --border-color: #262c5c;
+  color: #262c5c;
+}
+
+@media (max-width: 1100px) {
+  .landingpage-text-subtitle {
+    text-align: left;
+    font-size: 15px;
+    transition: font-size 0.5s ease;
+  }
+
+  .landingpage-text-maintitle {
+    font-size: 90px;
+    font-family: "MalbergTrial-Heavy";
+    line-height: 70px;
+    transition: line-height 0.5s ease, font-size 0.5s ease;
+  }
+
+  .landingpage-text-description {
+    font-size: 15px;
+    transition: font-size 0.5s ease;
   }
 }

@@ -5,6 +5,7 @@
         <IonCol size="10" class="flexcenter">
           <IonSearchbar
             class="dashboard-navbar-topbar-searchbar"
+            v-model="searchTerm"
           ></IonSearchbar>
         </IonCol>
         <IonCol
@@ -20,7 +21,7 @@
       </IonRow>
       <IonRow>
         <IonCol>
-          <JobPostings />
+          <JobPostings :searchTerm="searchTerm"/>
         </IonCol>
       </IonRow>
     </IonGrid>
@@ -69,6 +70,11 @@ export default {
     AddModal,
     IonButton,
     IonSearchbar,
+  },
+  data() {
+    return{
+      searchTerm: "",
+    }
   },
   setup() {
     return {

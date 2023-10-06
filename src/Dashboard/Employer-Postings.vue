@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isLoading">
+  <div v-if="jobPostings.length == 0">
     <IonCard class="dashboard-postedjobs-jobposting" style="margin-right: 25px">
       <IonGrid style="height: 100%; padding: 0">
         <IonRow style="height: 100%">
@@ -73,11 +73,11 @@
       </IonGrid>
     </IonCard>
   </div>
-  <div v-else>
+  <div v-else >
     <div id="myElement" v-if="jobPostings.length > 0">
       <IonCard
         class="dashboard-postedjobs-jobposting"
-        v-for="(job, index) in jobPostings"
+        v-for="(job, index) in filteredJobPostings"
         :key="index"
         @click="OpenViewModal(index)"
       >
@@ -109,7 +109,12 @@
     <div v-else>No job postings available for your company.</div>
   </div>
 
-  <ViewModal :is-viewmodal="isViewmodal" @close-view-modal="CloseViewModal" @open-view-modal="OpenViewModal" :is-open="isViewmodal"/>
+  <ViewModal
+    :is-viewmodal="isViewmodal"
+    @close-view-modal="CloseViewModal"
+    @open-view-modal="OpenViewModal"
+    :is-open="isViewmodal"
+  />
 
   <!-- <IonModal
     ref="modal"
@@ -171,9 +176,16 @@ export default {
     IonCardHeader,
     IonModal,
   },
+  props: {
+    searchTerm: {
+      required: true,
+      type: String,
+    },
+  },
   setup() {
     const user = ref(null);
     const jobPostings = ref([]);
+    const filterjobPostings = ref([]);
 
     const updateJobPostings = (snapshot) => {
       jobPostings.value = snapshot.docs.map((doc) => doc.data());
@@ -212,7 +224,15 @@ export default {
       thumbsUp,
       bookmark,
       close,
+      filterjobPostings,
     };
+  },
+  computed: {
+    filteredJobPostings() {
+      return this.jobPostings.filter((job) => {
+        return job.jobname.toLowerCase().includes(this.searchTerm.toLowerCase());
+      });
+    },
   },
   data() {
     return {
@@ -224,6 +244,7 @@ export default {
     OpenViewModal(index) {
       this.isViewmodal = true;
       console.log(index);
+      console.log(this.thesearchTerm)
       // document.addEventListener("click", this.handleClickOutside);
     },
     CloseViewModal() {
@@ -241,6 +262,8 @@ export default {
     setTimeout(() => {
       this.isLoading = false;
     }, 1000);
+
+    
   },
 };
 </script>
