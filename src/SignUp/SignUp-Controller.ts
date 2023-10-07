@@ -17,11 +17,15 @@ function goTermsandCondition_(){
 }
 
 function GoLogin_(){
-    router.push("/Home")
+    router.push("/Login")
 }
 
 function GoSwipe_(){
     router.push("/Swipe")
+}
+
+function GoLandingPage_(){
+    router.push("/LandingPage")
 }
 
 export const GoRegister2 = GoRegister2_
@@ -30,4 +34,6 @@ export const goBack = goBack_
 export const goTermsandCondition = goTermsandCondition_
 export const goLogin = GoLogin_
 export const GoSwipe = GoSwipe_
+export const GoLandingPage = GoLandingPage_
+
 

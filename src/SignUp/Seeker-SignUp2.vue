@@ -1,5 +1,5 @@
 <template>
-  <IonPage>
+  <!-- <IonPage>
     <IonContent>
       <div class="SignUpBackground" name="centercontents">
         <IonCard class="SignUpJobSeeker-ioncard">
@@ -74,6 +74,67 @@
         </IonCard>
       </div>
     </IonContent>
+  </IonPage> -->
+
+  <IonPage class="signup-ionpage">
+    <IonGrid class="signup-grid">
+      <IonRow style="height: 100%;">
+        <IonCol class="flexcenter">
+          <IonGrid>
+            <IonRow>
+              <IonCol class="flexcenter">
+                <IonIcon @click="goBack()" class="signup-back-mobile" :icon="arrowBackOutline"></IonIcon>
+                <IonText class="signup-title-mobile">
+                  EDUCATION
+                </IonText>
+              </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol class="flexcenter">
+                <IonInput placeholder="Elementary" fill="outline" labelPlacement="stacked" label="Elementary"
+                  class="signup-inputs-mobile">
+                </IonInput>
+              </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol class="flexcenter">
+                <IonInput placeholder="High School" fill="outline" labelPlacement="stacked" label="High School"
+                  class="signup-inputs-mobile">
+                </IonInput>
+              </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol class="flexcenter">
+                <IonInput placeholder="Senior High School" fill="outline" labelPlacement="stacked" label="Senior High School"
+                  class="signup-inputs-mobile">
+                </IonInput>
+              </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol class="flexcenter">
+                <IonInput placeholder="College" fill="outline" labelPlacement="stacked" label="College"
+                  class="signup-inputs-mobile">
+                </IonInput>
+              </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol class="flexcenter">
+                <IonInput placeholder="Masteral" fill="outline" labelPlacement="stacked" label="Masteral"
+                  class="signup-inputs-mobile">
+                </IonInput>
+              </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol class="flexcenter">
+                <IonButton @click="GoRegister3()" class="signup-button-email-mobile">
+                  Continue
+                </IonButton>
+              </IonCol>
+            </IonRow>
+          </IonGrid>
+        </IonCol>
+      </IonRow>
+    </IonGrid>
   </IonPage>
 </template>
 
@@ -89,11 +150,14 @@ import {
   IonText,
   IonCard,
   IonCheckbox,
+  IonLabel,
+IonIcon,
 } from "@ionic/vue";
 import "./SignUp.css";
 import { GoRegister3, goBack } from "./SignUp-Controller";
 import { useSignupStore } from "@/stores/signupstore"
 import { SignupModel } from "@/SignUp/Seeker-Model";
+import { arrowBackOutline } from "ionicons/icons";
 
 
 const signupStore = useSignupStore();

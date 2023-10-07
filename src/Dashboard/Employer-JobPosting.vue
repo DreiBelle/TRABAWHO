@@ -3,16 +3,9 @@
     <IonGrid style="height: 100%; width: 100%; padding: 0">
       <IonRow class="dashboard-search-jobposting">
         <IonCol size="10" class="flexcenter">
-          <IonSearchbar
-            class="dashboard-navbar-topbar-searchbar"
-          ></IonSearchbar>
+          <IonSearchbar class="dashboard-navbar-topbar-searchbar" v-model="searchTerm"></IonSearchbar>
         </IonCol>
-        <IonCol
-          size="2"
-          id="open-modal"
-          class="Dashboard-Card-JobPosting flexcenter"
-          style="justify-content: right"
-        >
+        <IonCol size="2" id="open-modal" class="Dashboard-Card-JobPosting flexcenter" style="justify-content: right">
           <IonButton style="width: 100%">
             <IonIcon :icon="addCircleOutline"></IonIcon>Add
           </IonButton>
@@ -20,7 +13,7 @@
       </IonRow>
       <IonRow>
         <IonCol>
-          <JobPostings />
+          <JobPostings :searchTerm="searchTerm" />
         </IonCol>
       </IonRow>
     </IonGrid>
@@ -76,6 +69,11 @@ export default {
     };
   },
   methods: {},
+  data() {
+    return {
+      searchTerm: "",
+    }
+  },
 };
 </script>
 <style>

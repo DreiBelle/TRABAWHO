@@ -75,7 +75,7 @@
   </div>
   <div v-else>
     <div id="myElement" v-if="jobPostings.length > 0">
-      <IonCard class="dashboard-postedjobs-jobposting" v-for="(job, index) in jobPostings" :key="index"
+      <IonCard class="dashboard-postedjobs-jobposting" v-for="(job, index) in filteredJobPostings" :key="index"
         @click="OpenViewModal(index)">
         <IonGrid style="height: 100%; padding: 0">
           <IonRow style="height: 100%">
@@ -167,6 +167,8 @@ export default {
   setup() {
     const user = ref(null);
     const jobPostings = ref([]);
+    const filterjobPostings = ref([]);
+
 
     const updateJobPostings = (snapshot) => {
       jobPostings.value = snapshot.docs.map((doc) => doc.data());
@@ -209,7 +211,15 @@ export default {
       thumbsUp,
       bookmark,
       close,
+      filterjobPostings,
     };
+  },
+  computed: {
+    filteredJobPostings() {
+      return this.jobPostings.filter((job) => {
+        return job.jobname.toLowerCase().includes(this.searchTerm.toLowerCase());
+      });
+    },
   },
   data() {
     return {
@@ -235,6 +245,12 @@ export default {
       if (modal && !modal.contains(event.target)) {
         this.CloseViewModal();
       }
+    },
+  },
+  props: {
+    searchTerm: {
+      required: true,
+      type: String,
     },
   },
   mounted() {

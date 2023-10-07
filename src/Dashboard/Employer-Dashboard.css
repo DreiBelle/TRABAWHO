@@ -412,7 +412,14 @@ IonRouterOutlet
 }
 
 .dashboard-navbar-logo {
-  padding-bottom: 25px;
+  height: 45px;
+  width: auto;
+}
+
+.dashboard-navbar-text-trabawho{
+  font-size: 35px;
+  font-family: "MalbergTrial-Heavy";
+  padding-left: 7px;
 }
 
 .dashboard-navbar-topbar {
@@ -483,8 +490,6 @@ IonRouterOutlet
 }
 
 /* listofjobposting */
-.dashboard-listofjobposting- {
-}
 
 .dashboard-listofjobposting-card {
   height: 100%;
@@ -566,7 +571,7 @@ IonRouterOutlet
   height: 50px;
   min-height: 10px !important;
   color: black;
-  --highlight-color-focused: navy;
+  --highlight-color-focused: #262c5c;
   --border-color: black !important;
 }
 
@@ -643,17 +648,6 @@ IonRouterOutlet
   border: 1px solid black;
 }
 
-.modal-image {
-  height:200px;
-  max-width: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 10px;
-  border: 1px solid black;
-}
-
 .modal-viewjobpost-icon {
   color: black;
 }
@@ -662,4 +656,9 @@ IonRouterOutlet
   --height: 600px;
   --width: 500px;
   --border-radius: 20px;
+}
+
+@font-face {
+  font-family: MalbergTrial-Heavy;
+  src: url(../assets/fonts/MalbergTrial-Heavy.ttf);
 }

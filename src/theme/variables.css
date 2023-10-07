@@ -234,3 +234,14 @@ http://ionicframework.com/docs/theming/ */
     --ion-card-background: #1e1e1e;
   }
 } */
+
+@font-face {
+  font-family: MalbergTrial-Heavy;
+  src: url(../assets/fonts/MalbergTrial-Heavy.ttf);
+}
+
+.flexcenter{
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}

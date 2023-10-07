@@ -1,75 +1,65 @@
 <template>
-  <IonGrid class="landingpage-contents">
-    <IonRow style="height: 100%">
-      <IonCol class="flexcenter" style="margin: 0">
-        <div>
-          <IonText>
-            <h1 class="landingpage-text-title">TRABAWHO</h1>
-            <p class="landingpage-text-description">Effortlessly discover a diverse pool of talented candidates and
-              find your next ideal hire with ease.</p>
-          </IonText>
-          <IonButton expand="block" fill="outline" class="landingpage-buttons-Getstarted">
-            GET STARTED
-          </IonButton>
-        </div>
-      </IonCol>
-      <IonCol>
-        <IonGrid style="height: 100%;">
-          <IonRow style="height: 6%;">
-            <IonCol size="8">
-
-            </IonCol>
-            <IonCol size="2">
-              <IonButton expand="block">
-                LOG IN
-              </IonButton>
-            </IonCol>
-            <IonCol size="2">
-              <IonButton expand="block" fill="outline">
-                GET STARTED
-              </IonButton>
-            </IonCol>
-          </IonRow>
-          <IonRow style="height: 94%;">
-            <IonCol class="flexcenter" style="justify-content: left;">
-              <div class="landingpage-square landingpage-square-first">
-
+  <IonPage style="background: linear-gradient(to bottom right, white, #a6aad4); color: black;">
+    <HomeBar />
+    <div style="height: 100%;">
+      <IonGrid style="height: 100%; width: 100%; padding: 0">
+        <IonRow style="height: 100%">
+          <IonCol class="flexcenter" size="5.5">
+            <div class="landingpage-maintitle-container">
+              <div style="padding-left: 40px; padding-right: 40px">
+                <IonGrid>
+                  <IonRow>
+                    <IonCol>
+                      <div class="landingpage-text-subtitle">
+                        A Job Posting and Matching Application
+                      </div>
+                    </IonCol>
+                  </IonRow>
+                  <IonRow>
+                    <IonCol>
+                      <div class="landingpage-text-maintitle">TRABAWHO</div>
+                    </IonCol>
+                  </IonRow>
+                  <IonRow>
+                    <IonCol>
+                      <div class="landingpage-text-description">
+                        Post jobs and connect with candidates smoothly. Your
+                        next perfect hire is just a click away. Start your
+                        journey now!
+                      </div>
+                    </IonCol>
+                  </IonRow>
+                  <IonRow>
+                    <IonCol>
+                      <IonButton
+                        @click="GoLoginComputer"
+                        fill="outline"
+                        expand="block"
+                        class="landingpage-buttons"
+                      >
+                        LOG IN
+                      </IonButton>
+                    </IonCol>
+                    <IonCol>
+                      <IonButton
+                        @click="GoEmployer"
+                        style="--background: #262c5c; color: white"
+                        expand="block"
+                        class="landingpage-buttons"
+                      >
+                        SIGN UP
+                      </IonButton>
+                    </IonCol>
+                  </IonRow>
+                </IonGrid>
               </div>
-              <div class="landingpage-square landingpage-square-second">
-
-              </div>
-            </IonCol>
-          </IonRow>
-        </IonGrid>
-      </IonCol>
-    </IonRow>
-  </IonGrid>
-
-  <IonGrid class="landingpage-mininavbar">
-    <IonRow style="height: 60px">
-      <IonCol class="flexcenter">
-        <img class="landingpage-logo" alt="logo" src="../assets/logo/whitefilllogo.png">
-      </IonCol>
-    </IonRow>
-    <IonRow style="height: calc(85% - 60px)">
-      <IonCol> </IonCol>
-    </IonRow>
-    <IonRow style="height: 5%">
-      <IonCol class="flexcenter">
-        <IonIcon class="landingpage-icons" :icon="logoFacebook"></IonIcon>
-      </IonCol>
-    </IonRow>
-    <IonRow style="height: 5%">
-      <IonCol class="flexcenter">
-        <IonIcon class="landingpage-icons" :icon="logoTwitter"></IonIcon>
-      </IonCol>
-    </IonRow>
-    <IonRow style="height: 5%">
-      <IonCol class="flexcenter">
-        <IonIcon class="landingpage-icons" :icon="informationCircleOutline"></IonIcon>
-      </IonCol>
-    </IonRow>
-  </IonGrid>
+            </div>
+          </IonCol>
+          <IonCol> </IonCol>
+        </IonRow>
+      </IonGrid>
+    </div>
+  </IonPage>
 </template>
 <script lang="ts">
 import {
@@ -78,12 +68,15 @@ import {
   IonCol,
   IonContent,
   IonGrid,
+  IonHeader,
   IonIcon,
   IonPage,
   IonRow,
   IonText,
 } from "@ionic/vue";
 import "./Home.css";
+import { GoEmployer, GoLoginComputer } from "./Home-Controller";
+import HomeBar from "../Home/Home-TopBar.vue";
 import {
   logoFacebook,
   informationCircleOutline,
@@ -91,6 +84,7 @@ import {
 } from "ionicons/icons";
 export default {
   components: {
+    HomeBar,
     IonGrid,
     IonRow,
     IonCol,
@@ -99,15 +93,19 @@ export default {
     IonIcon,
     IonText,
     IonButton,
-    IonAvatar
+    IonAvatar,
+    IonHeader,
   },
   setup() {
     return {
       logoFacebook,
       informationCircleOutline,
       logoTwitter,
+      GoEmployer,
+      GoLoginComputer,
     };
   },
+  methods: {},
 };
 </script>
 <style>
