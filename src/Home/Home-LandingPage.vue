@@ -55,7 +55,9 @@
               </div>
             </div>
           </IonCol>
-          <IonCol> </IonCol>
+          <IonCol>
+            <img class="landingpage-picture" src="../assets/landpage2.png" />  
+          </IonCol>
         </IonRow>
       </IonGrid>
     </div>

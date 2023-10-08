@@ -126,7 +126,7 @@
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
-                <IonButton @click="GoRegister3()" class="signup-button-email-mobile">
+                <IonButton @click="GoRegister3" class="signup-button-email-mobile">
                   Continue
                 </IonButton>
               </IonCol>
@@ -195,8 +195,6 @@ const submitForm = async () => {
       type: "",
 
     });
-
-    GoRegister3()
   }
   else {
     alert("Fill all the Field to continue")
@@ -225,5 +223,4 @@ console.log(sharedFormData.password);
 
 </script>
 
-<script lang="ts">
-</script>
+

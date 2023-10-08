@@ -8,14 +8,14 @@
           <IonCol size="1"> </IonCol>
           <IonCol class="flexcenter" size="6"> {{ jobPosting ? jobPosting.jobname : "Loading..." }} </IonCol>
           <IonCol size="1">
-            <IonIcon @click="OpenEditModal" :icon="pencilOutline">
+            <IonIcon class="modal-icon" style="color: green" @click="OpenEditModal" :icon="pencilOutline">
             </IonIcon>
           </IonCol>
           <IonCol size="1">
-            <IonIcon @click="deletejob" :icon="trashOutline"></IonIcon>
+            <IonIcon class="modal-icon" style="color: red" @click="deletejob" :icon="trashOutline"></IonIcon>
           </IonCol>
           <IonCol size="1">
-            <IonIcon @click="closeViewmodal" :icon="close"></IonIcon>
+            <IonIcon class="modal-icon" @click="closeViewmodal" :icon="close"></IonIcon>
           </IonCol>
         </IonRow>
       </IonGrid>
@@ -27,8 +27,8 @@
       </IonRow> -->
       <IonRow style="height: 20%">
         <IonCol class="flexcenter">
-          <div class="modal-viewjobpost-image">
-            <img class="modal-image" :src="jobPosting ? jobPosting.pic : ''" alt="" />
+          <div style="height: 100%; width: 100%;;">
+            <img class="modal-viewjobpost-image" :src="jobPosting ? jobPosting.pic : ''" alt="" />
           </div>
         </IonCol>
       </IonRow>
@@ -120,7 +120,7 @@
       </IonRow>
     </IonGrid>
 
-    <EditModal :is-editmodal="Editmodal" :is-open="Editmodal" :job-posting="jobPosting"
+    <EditModal :is-editmodal="Editmodal" :job-posting="jobPosting"
       @close-edit-modal="CloseEditModal" />
 
     <!-- <IonModal
@@ -207,14 +207,10 @@ export default {
     OpenEditModal() {
       this.Editmodal = true;
       // document.addEventListener("click", this.handleClickOutside);
-      const viewModal = document.getElementById("modalView");
-      viewModal.style.display = "none";
     },
     CloseEditModal() {
       this.Editmodal = false;
       // document.removeEventListener("click", this.handleClickOutside);
-      const viewModal = document.getElementById("modalView");
-      viewModal.style.display = "flex";
     },
 
     handleClickOutside(event) {
@@ -223,7 +219,7 @@ export default {
         this.CloseEditModal();
       }
     },
-    async deletejob(){
+    async deletejob() {
       const jobstore = useJobStore();
       await jobstore.deleteData(this.jobPosting.documentID);
       this.closeViewmodal();

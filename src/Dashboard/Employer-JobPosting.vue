@@ -6,7 +6,7 @@
           <IonSearchbar class="dashboard-navbar-topbar-searchbar" v-model="searchTerm"></IonSearchbar>
         </IonCol>
         <IonCol size="2" id="open-modal" class="Dashboard-Card-JobPosting flexcenter" style="justify-content: right">
-          <IonButton style="width: 100%">
+          <IonButton style="--background: #262c5c; width: 100%">
             <IonIcon :icon="addCircleOutline"></IonIcon>Add
           </IonButton>
         </IonCol>

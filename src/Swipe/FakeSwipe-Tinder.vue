@@ -2,7 +2,7 @@
   <div class="Swipe-Swipeable" :class="{ 'Swipe-Swipeable--animated': position !== 0 }"
     :style="{ transform: `translateX(${position}px)` }">
     <div class="Swipe-CardContent" id="card">
-      <IonGrid style="height: 100%">
+      <IonGrid class="swipe-container">
         <IonRow style="height: 10%">
           <IonCol>
             {{ item.content }}

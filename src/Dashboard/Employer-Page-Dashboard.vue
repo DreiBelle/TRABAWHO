@@ -1,5 +1,5 @@
 <template>
-  <IonPage style="background-color: white; color: black;">
+  <IonPage style="  background-color: rgb(236, 228, 228); color: black;">
     <IonGrid style="height: 10%; width: 100%; padding-left: 255px">
       <IonRow style="height: 20%">
         <IonCol class="flexcenter">
@@ -7,9 +7,6 @@
         </IonCol>
         <IonCol class="flexcenter">
           <IonCard class="dashboard-minidataanalytics-card"> views </IonCard>
-        </IonCol>
-        <IonCol class="flexcenter">
-          <IonCard class="dashboard-minidataanalytics-card"> bookmarks </IonCard>
         </IonCol>
         <IonCol class="flexcenter">
           <IonCard class="dashboard-minidataanalytics-card"> bookmarks </IonCard>

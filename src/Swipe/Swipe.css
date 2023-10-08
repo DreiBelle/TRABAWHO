@@ -3,7 +3,7 @@
   align-items: center;
   display: flex;
   height: 100%;
-  background-color: #f3f2ee;
+  color: black;
 }
 
 .Swipe-NoMore {
@@ -13,18 +13,18 @@
 }
 
 .Swipe-Swipeable {
-  width: 90%;
-  height: 80%;
+  width: 95%;
+  height: 90%;
   margin: 10px;
   background-color: white;
-  border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
   transition: transform 0.3s ease-out;
   user-select: none;
-  position: absolute  ;
+  position: absolute;
+  border-radius: 20px;
 }
 
 .Swipe-CardContent {
@@ -33,9 +33,8 @@
   color: black;
   height: 100%;
   width: 100%;
-}
-
-.Swipe- {
+  padding: 0;
+  border-radius: 200px !important;
 }
 
 .Swipe-FlexCenter {
@@ -85,8 +84,8 @@
 
 .Swipe-Header {
   height: 50px;
-  background-color: white;
-  color: black;
+  background-color: #262c5c;
+  color: white;
 }
 
 .Swipe-Swipeable--animated {
@@ -114,6 +113,83 @@
   margin-top: 10px;
 }
 
-.asd{
-  display: hidden;
+.asd {
+  background: white;
+  border-radius: 20px;
+}
+
+.swipe-picture {
+  height: 105px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.swipe-text {
+  text-align: center;
+}
+
+.swipe-description {
+  text-align: justify;
+}
+
+.swipe-view-modal {
+  --height: 80%;
+  --width: 95%;
+  --border-radius: 20px;
+}
+
+.swipe-card-modal {
+  width: 100%;
+  margin: 0;
+  /* margin-left: 20px !important;
+  margin-right: 20px !important; */
+  color: black;
+  font-size: 15px;
+  padding: 5px;
+  margin-top: 5px;
+}
+
+.swipe-label-modal {
+  font-weight: bold;
+  font-family: MalbergTrial-Regular;
+}
+
+.swipe-ionpage {
+  background: black;
+}
+
+.swipe-moreinformation {
+  height: 30px;
+  color: black;
+  font-size: 12px;
+  border-radius: 0 0 20px 20px;
+}
+
+.swipe-container-title {
+  height: 30px;
+  background-color: #262c5c;
+  color: white;
+  letter-spacing: 2px;
+  font-size: 18px;
+  font-family: MalbergTrial-Heavy;
+  border-radius: 20px 20px 0 0;
+}
+
+.swipe-container {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  border: 1px solid black;
+  border-radius: 20px;
+  border-color: #262c5c;
+}
+
+.swipe-logo {
+  height: 30px;
+  width: auto;
+}
+
+.swipe-icon {
+  font-size: 20px !important;
+  color: white;
 }

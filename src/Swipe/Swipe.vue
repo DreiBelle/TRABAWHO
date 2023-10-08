@@ -3,15 +3,18 @@
     <IonHeader class="Swipe-Header">
       <IonGrid style="height: 100%; padding: 0">
         <IonRow style="height: 100%">
-          <IonCol class="Swipe-FlexCenter" size="1.5"> </IonCol>
+          <IonCol class="Swipe-FlexCenter" size="2"> 
+            <img class="swipe-logo" src="../assets/logo/whitefilllogo.png" alt="logo">
+          </IonCol>
           <IonCol class="Swipe-FlexCenter"> </IonCol>
-          <IonCol class="Swipe-FlexCenter" size="1.5">
-            <IonIcon :icon="settingsOutline"></IonIcon>
+          <IonCol class="Swipe-FlexCenter" size="2">
+            <IonIcon class="swipe-icon" :icon="settings"></IonIcon>
           </IonCol>
         </IonRow>
       </IonGrid>
     </IonHeader>
-    <IonGrid style="height: 100%; width: 100%; background-color: #f3f2ee">
+    <IonGrid style="height: 100%; width: 100%;background: whitesmoke;
+">
       <IonRow style="height: 100%">
         <IonCol>
           <div class="Swipe-Background" v-if="nextCardIndex < cards.length">
@@ -44,7 +47,7 @@ import FakeSwipeableCard from "./FakeSwipe-Tinder.vue";
 import FloatingButtons from "./Swipe-FloatingButtons.vue";
 import NavBar from "../NavBar/NavBar.vue";
 import "./Swipe.css";
-import { car, settingsOutline } from "ionicons/icons";
+import { car, settings } from "ionicons/icons";
 import { getJobs } from "./Swipe-Model";
 import {
   IonCard,
@@ -86,12 +89,12 @@ export default {
     IonLabel,
   },
   setup() {
-    return { settingsOutline };
+    return { settings };
   },
   data() {
     return {
       nextCardIndex: 1,
-      currentCardIndex: 0 ,
+      currentCardIndex: 0,
       cards: [],
     };
   },
@@ -135,36 +138,36 @@ export default {
   },
 
   async mounted() {
-  try {
-    const user = asd(null);
-    const userEmail = localStorage.getItem("email");
+    try {
+      const user = asd(null);
+      const userEmail = localStorage.getItem("email");
       // const userPassword = localStorage.getItem("password");
-    user.value = await getUserProfile(userEmail);
+      user.value = await getUserProfile(userEmail);
 
-    const chosenInterest = Array.from(user.value.chosenInterests);
-    console.log(chosenInterest);
+      const chosenInterest = Array.from(user.value.chosenInterests);
+      // console.log("chosen interest:" + chosenInterest.values);
 
-    const jobs = await getJobs(chosenInterest); // this function fetches jobs from Firestore
+      const jobs = await getJobs(chosenInterest); // this function fetches jobs from Firestore
 
-    // Fetch image URLs from Firebase Storage for each job
-    const jobsWithImages = await Promise.all(
-      jobs.map(async (job) => {
-        const imageUrl = await getDownloadURL(ref(dbImage, job.pic)); 
-        return {
-          content: job.jobname,
-          picture: imageUrl, // Now `picture` contains the image URL
-          jobtype: job.jobtype,
-          jobdescription: job.jobdes,
-        };
-      })
-    );
+      // Fetch image URLs from Firebase Storage for each job
+      const jobsWithImages = await Promise.all(
+        jobs.map(async (job) => {
+          const imageUrl = await getDownloadURL(ref(dbImage, job.pic));
+          return {
+            content: job.jobname,
+            picture: imageUrl, // Now `picture` contains the image URL
+            jobtype: job.jobtype,
+            jobdescription: job.jobdes,
+          };
+        })
+      );
 
-    this.cards = jobsWithImages;
-    this.showNextCard();
-  } catch (error) {
-    console.error("Error fetching jobs: ", error);
-  }
-},
+      this.cards = jobsWithImages;
+      this.showNextCard();
+    } catch (error) {
+      console.error("Error fetching jobs: ", error);
+    }
+  },
 
   // mounted() {
   //   this.showNextCard();
@@ -173,7 +176,7 @@ export default {
 </script>
 
 <style>
-ion-col {
+/* ion-col {
   border: 1px solid black;
-}
+} */
 </style>

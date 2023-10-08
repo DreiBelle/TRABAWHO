@@ -4,20 +4,12 @@
       <IonGrid>
         <IonRow>
           <IonCol>
-            <IonSearchbar
-              class="SignUp-Modal-Search"
-              v-model="searchQuery"
-              @ionClear="clearSearch"
-            ></IonSearchbar>
+            <IonSearchbar class="SignUp-Modal-Search" v-model="searchQuery" @ionClear="clearSearch"></IonSearchbar>
           </IonCol>
         </IonRow>
         <IonRow>
           <IonCol class="SignUp-ListOfInterest">
-            <IonItem
-              v-for="choice in filteredChoices"
-              :key="choice.id"
-              @click="selectChoice(choice)"
-            >
+            <IonItem v-for="choice in filteredChoices" :key="choice.id" @click="selectChoice(choice)">
               {{ choice.label }}
             </IonItem>
           </IonCol>
@@ -29,6 +21,7 @@
 
 <script setup lang="ts">
 import {
+  IonPage,
   IonContent,
   IonList,
   IonItem,
@@ -36,6 +29,7 @@ import {
   IonGrid,
   IonRow,
   IonCol,
+  IonModal,
 } from "@ionic/vue";
 import "./SignUp.css";
 </script>

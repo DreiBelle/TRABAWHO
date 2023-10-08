@@ -1,9 +1,17 @@
-.NavBar-{
-
+.NavBar- {
 }
 
-.NavBar-Buttons{
- background-color: white;
- --color: black;
- --color-selected: navy;
+.NavBar-Buttons {
+  background-color: #262c5c;
+  --color: black;
+  --color-selected: rgb(221, 210, 210);
+  color: white;
+  font-size: 11px;
+}
+
+.navbar-container {
+  height: 50px !important;
+}
+
+.navbar-ionpage {
 }

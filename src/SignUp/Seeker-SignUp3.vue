@@ -138,11 +138,11 @@
         </IonRow>
       </IonGrid>
     </IonContent>
-  </IonPage>
 
-  <IonModal :is-open="modalOpen" @did-dismiss="closeModal">
-    <ChoiceModal style="border: 1px solid black" :choice="modalChoices" @choice-selected="handleChoiceSelected" />
-  </IonModal>
+    <IonModal :is-open="modalOpen" @did-dismiss="closeModal()">
+      <ChoiceModal style="border: 1px solid black" @choice-selected="handleChoiceSelected" />
+    </IonModal>
+  </IonPage>
 </template>
 
 <script lang="ts">

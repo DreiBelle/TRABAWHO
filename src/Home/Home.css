@@ -254,6 +254,14 @@
   height: 35px;
 }
 
+.landingpage-picture{
+  position: absolute;
+  right: 0;
+  bottom: 3vh ;
+  height: 90%;
+  width: auto;
+}
+
 .landingpage-logo-name {
   font-family: "MalbergTrial-Heavy";
   padding-left: 5px;

@@ -391,15 +391,16 @@ IonRouterOutlet
   margin-top: 10px;
   padding: 12px;
   cursor: pointer;
-  transition: background-color 0.5s ease, font-size 0.5s ease;
+  transition: background-color 0.5s ease, scale 0.3s ease;
+  scale: 1;
 }
 
 .dashboard-navbar-cols:hover {
   background-color: #1e234a;
   margin-top: 10px;
   padding: 12px;
-  transition: background-color 0.5s ease, font-size 0.5s ease;
-  font-size: 17px;
+  transition: background-color 0.5s ease, scale 0.3s ease;
+  scale: 1.05;
 }
 
 .dashboard-navbar-navigations {
@@ -487,6 +488,7 @@ IonRouterOutlet
   height: 100%;
   width: 100%;
   padding: 10px;
+  
 }
 
 /* listofjobposting */
@@ -576,7 +578,7 @@ IonRouterOutlet
 }
 
 .modal-addjobpost-button {
-  --background: navy;
+  --background: #262c5c;
   --color: white;
 }
 
@@ -646,6 +648,7 @@ IonRouterOutlet
   align-items: center;
   border-radius: 10px;
   border: 1px solid black;
+  object-fit: cover;
 }
 
 .modal-viewjobpost-icon {
@@ -661,4 +664,24 @@ IonRouterOutlet
 @font-face {
   font-family: MalbergTrial-Heavy;
   src: url(../assets/fonts/MalbergTrial-Heavy.ttf);
+}
+
+.modal-icon{
+  scale: 1;
+  transition: scale 0.3s ease;
+  font-size: 16px;
+}
+
+.modal-icon:hover{
+  scale: 1.1;
+  transition: scale 0.3s ease;
+  font-size: 16px;
+}
+
+.modal-addjobpost-choose-label{
+  background: #262c5c;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  margin-left: 5px;
 }

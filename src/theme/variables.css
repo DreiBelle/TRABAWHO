@@ -240,6 +240,13 @@ http://ionicframework.com/docs/theming/ */
   src: url(../assets/fonts/MalbergTrial-Heavy.ttf);
 }
 
+@font-face {
+  font-family: MalbergTrial-Regular;
+  src: url(../assets/fonts/MalbergTrial-Regular.ttf);
+}
+
+
+
 .flexcenter{
   justify-content: center;
   align-items: center;

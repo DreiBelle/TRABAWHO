@@ -1,32 +1,31 @@
 <template>
   <IonPage>
-    <IonTabs>
+    <IonTabs >
       <IonRouterOutlet></IonRouterOutlet>
-      <IonTabBar slot="bottom">
-
+      <IonTabBar class="navbar-container" slot="bottom">
         <!-- change this button later -->
         <IonTabButton class="NavBar-Buttons" tab="Logout" @click="handleSignout">
-          <IonIcon :icon="logOutOutline"></IonIcon>
+          <IonIcon :icon="logOut"></IonIcon>
           <IonLabel>Logout</IonLabel>
         </IonTabButton>
 
         <IonTabButton class="NavBar-Buttons" tab="Message" href="/Seeker-Message">
-          <IonIcon :icon="chatbubblesOutline"></IonIcon>
+          <IonIcon :icon="chatbubbles"></IonIcon>
           <IonLabel>Message</IonLabel>
         </IonTabButton>
 
         <IonTabButton class="NavBar-Buttons" tab="Home" href="/Swipe">
-          <IonIcon :icon="homeOutline"></IonIcon>
+          <IonIcon :icon="home"></IonIcon>
           <IonLabel>Home</IonLabel>
         </IonTabButton>
 
         <IonTabButton class="NavBar-Buttons" tab="Notification">
-          <IonIcon :icon="notificationsOutline"></IonIcon>
+          <IonIcon :icon="notifications"></IonIcon>
           <IonLabel>Notification</IonLabel>
         </IonTabButton>
 
         <IonTabButton class="NavBar-Buttons" tab="Profile" href="/Seeker-Profile">
-          <IonIcon :icon="personOutline"></IonIcon>
+          <IonIcon :icon="person"></IonIcon>
           <IonLabel>Profile</IonLabel>
         </IonTabButton>
 
@@ -55,7 +54,7 @@ import {
 } from "@ionic/vue";
 import { GoSwipe, GoMessage, GoProfile, GoHome } from "./NavBar-Controller";
 import "./NavBar.css";
-import { chatbubblesOutline, homeOutline, notificationsOutline, logOutOutline, personOutline } from "ionicons/icons";
+import { chatbubbles, home, notifications, logOut, person } from "ionicons/icons";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "@/firebaseDB";
 import { ref, onMounted } from "vue";
@@ -90,7 +89,7 @@ export default {
         }
       });
     });
-    return { chatbubblesOutline, homeOutline, notificationsOutline, logOutOutline, personOutline };
+    return { chatbubbles, home, notifications, logOut, person };
   },
   methods: {
     handleSignout() {
