@@ -1,0 +1,71 @@
+.emessage-avatar {
+  --background: black;
+  margin-right: 15px;
+  height: 50px;
+  width: 50px;
+}
+
+.emessage-avatar-image{
+  height: auto;
+  width: 50px;
+  min-width: 30px;
+  min-height: 30px;
+}
+
+.emessage-avatar-inside {
+  --background: black;
+  margin-right: 15px;
+  height: 40px;
+  width: 40px;
+}
+
+.emessage-persons-tabs {
+  cursor: pointer;
+}
+
+.emessage-persons-tabs:hover {
+  cursor: pointer;
+  --background: lightgrey;
+  transition: (--background) 0.3s ease;
+}
+
+.emessage-container {
+  border-right: 1px solid lightgrey;
+  /* box-shadow: 5px 0px 30px rgba(0, 0, 0, 0.1); */
+}
+
+.emessage-container2 {
+  border-bottom: 1px solid lightgrey;
+  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
+}
+
+.emessage-input-message {
+  height: 100%;
+  width: calc(100% - 70px);
+  min-height: 0px !important;
+  color: black;
+  --highlight-color-focused: #262c5c;
+  --border-color: black !important;
+  margin: 5px 15px 0px 0px;
+}
+
+
+.emessage-icon-send{
+  font-size: 25px;
+  color: #262c5c;
+} 
+
+.emessage-receiver-container{
+  display: flex;
+  align-items: center ;
+}
+
+.emessage-receiver-message{
+  display: flex;
+  align-items: center ;
+  background: lightgrey;
+  color: black;
+  padding: 10px;
+  margin: 10px 0 0 0;
+  border-radius: 10px;
+}

@@ -417,7 +417,7 @@ IonRouterOutlet
   width: auto;
 }
 
-.dashboard-navbar-text-trabawho{
+.dashboard-navbar-text-trabawho {
   font-size: 35px;
   font-family: "MalbergTrial-Heavy";
   padding-left: 7px;
@@ -488,7 +488,7 @@ IonRouterOutlet
   height: 100%;
   width: 100%;
   padding: 10px;
-  
+  margin: 0px 10px 0px 10px;
 }
 
 /* listofjobposting */
@@ -627,7 +627,6 @@ IonRouterOutlet
 .modal-viewjobpost-card-statistics {
   height: 50px;
   width: 100%;
-  margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -635,7 +634,6 @@ IonRouterOutlet
 
 .modal-viewjobpost-cards {
   width: 100%;
-  margin: 0;
   overflow-y: auto;
 }
 
@@ -666,22 +664,28 @@ IonRouterOutlet
   src: url(../assets/fonts/MalbergTrial-Heavy.ttf);
 }
 
-.modal-icon{
+.modal-icon {
   scale: 1;
   transition: scale 0.3s ease;
   font-size: 16px;
 }
 
-.modal-icon:hover{
+.modal-icon:hover {
   scale: 1.1;
   transition: scale 0.3s ease;
   font-size: 16px;
 }
 
-.modal-addjobpost-choose-label{
+.modal-addjobpost-choose-label {
   background: #262c5c;
   color: white;
   padding: 5px;
   border-radius: 5px;
   margin-left: 5px;
+}
+
+.page-components-container {
+  height: calc(80% - 30px);
+  padding-bottom: 10px;
+  padding-top: 5px;
 }

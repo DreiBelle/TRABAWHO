@@ -1,7 +1,16 @@
 <template>
-  <IonPage style="  background-color: rgb(236, 228, 228); color: black;">
-    <IonGrid style="height: 10%; width: 100%; padding-left: 255px">
-      <IonRow style="height: 20%">
+  <IonPage style="background-color: rgb(236, 228, 228); color: black">
+    <IonGrid style="height: 10%; width: 100%; padding: 0px 0px 0px 250px">
+      <IonRow style="height: 30px; background: #202651;">
+        <IonCol>
+          <IonText style="color: white; justify-content: right; display: flex;"> 
+            Welcome Back! 
+            {{ user ? `${user.businessname}` : "Loading..." }}
+            <IonIcon style="padding-left: 5px;" :icon="personOutline"></IonIcon>
+          </IonText>
+        </IonCol>
+      </IonRow>
+      <IonRow style="height: 20%; padding-top: 10px;">
         <IonCol class="flexcenter">
           <IonCard class="dashboard-minidataanalytics-card"> likes </IonCard>
         </IonCol>
@@ -9,15 +18,15 @@
           <IonCard class="dashboard-minidataanalytics-card"> views </IonCard>
         </IonCol>
         <IonCol class="flexcenter">
-          <IonCard class="dashboard-minidataanalytics-card"> bookmarks </IonCard>
+          <IonCard class="dashboard-minidataanalytics-card">
+            bookmarks
+          </IonCard>
         </IonCol>
       </IonRow>
-      <IonRow style="height: 80%">
+      <IonRow class="page-components-container">
         <IonCol class="flexcenter">
           <IonCard style="height: 100%; width: 100%">
-            <IonContent>
-              <component :is="ShowView" />
-            </IonContent>
+            <component :is="ShowView" />
           </IonCard>
         </IonCol>
       </IonRow>
@@ -26,9 +35,19 @@
     <!-- navbar to -->
     <IonGrid class="dashboard-navbar-container">
       <IonRow>
-        <IonCol class="dashboard-navbar-flexcenter dashboard-navbar-cols" style="height: 70px">
-          <img class="dashboard-navbar-logo" src="../assets/logo/whitefilllogo.png" alt="logo" />
-          <p style="justify-content: end" class="dashboard-navbar-text-trabawho">
+        <IonCol
+          class="dashboard-navbar-flexcenter dashboard-navbar-cols"
+          style="height: 70px"
+        >
+          <img
+            class="dashboard-navbar-logo"
+            src="../assets/logo/whitefilllogo.png"
+            alt="logo"
+          />
+          <p
+            style="justify-content: end"
+            class="dashboard-navbar-text-trabawho"
+          >
             TRABAWHO
           </p>
         </IonCol>
@@ -40,39 +59,75 @@
         </IonCol>
       </IonRow>
       <IonRow>
-        <IonCol @click="ShowTabs('Profile')" class="dashboard-navbar-flexcenter dashboard-navbar-cols">
-          <IonIcon class="dashboard-navbar-icons" :icon="personOutline"></IonIcon>
-          <IonText class="dashboard-navbar-navigations">{{ user ? `${user.businessname}` : "Loading..." }}</IonText>
+        <IonCol
+          @click="ShowTabs('Profile')"
+          class="dashboard-navbar-flexcenter dashboard-navbar-cols"
+        >
+          <IonIcon
+            class="dashboard-navbar-icons"
+            :icon="personOutline"
+          ></IonIcon>
+          <IonText class="dashboard-navbar-navigations">Profile</IonText>
         </IonCol>
       </IonRow>
       <IonRow>
-        <IonCol @click="ShowTabs('JobPostings')" class="dashboard-navbar-flexcenter dashboard-navbar-cols">
-          <IonIcon class="dashboard-navbar-icons" :icon="documentOutline"></IonIcon>
+        <IonCol
+          @click="ShowTabs('JobPostings')"
+          class="dashboard-navbar-flexcenter dashboard-navbar-cols"
+        >
+          <IonIcon
+            class="dashboard-navbar-icons"
+            :icon="documentOutline"
+          ></IonIcon>
           <IonText class="dashboard-navbar-navigations">Job Postings</IonText>
         </IonCol>
       </IonRow>
       <IonRow>
-        <IonCol @click="ShowTabs('DataAnalytics')" class="dashboard-navbar-flexcenter dashboard-navbar-cols">
-          <IonIcon class="dashboard-navbar-icons" :icon="analyticsOutline"></IonIcon>
+        <IonCol
+          @click="ShowTabs('DataAnalytics')"
+          class="dashboard-navbar-flexcenter dashboard-navbar-cols"
+        >
+          <IonIcon
+            class="dashboard-navbar-icons"
+            :icon="analyticsOutline"
+          ></IonIcon>
           <IonText class="dashboard-navbar-navigations">Data Analytics</IonText>
         </IonCol>
       </IonRow>
       <IonRow>
-        <IonCol @click="ShowTabs('Notifications')" class="dashboard-navbar-flexcenter dashboard-navbar-cols">
-          <IonIcon class="dashboard-navbar-icons" :icon="notificationsOutline"></IonIcon>
+        <IonCol
+          @click="ShowTabs('Notifications')"
+          class="dashboard-navbar-flexcenter dashboard-navbar-cols"
+        >
+          <IonIcon
+            class="dashboard-navbar-icons"
+            :icon="notificationsOutline"
+          ></IonIcon>
           <IonText class="dashboard-navbar-navigations">Notification</IonText>
         </IonCol>
       </IonRow>
       <IonRow>
-        <IonCol @click="ShowTabs('Messages')" class="dashboard-navbar-flexcenter dashboard-navbar-cols">
-          <IonIcon class="dashboard-navbar-icons" :icon="chatboxEllipsesOutline"></IonIcon>
+        <IonCol
+          @click="ShowTabs('Messages')"
+          class="dashboard-navbar-flexcenter dashboard-navbar-cols"
+        >
+          <IonIcon
+            class="dashboard-navbar-icons"
+            :icon="chatboxEllipsesOutline"
+          ></IonIcon>
           <IonText class="dashboard-navbar-navigations">Messages</IonText>
         </IonCol>
       </IonRow>
       <IonRow>
-        <IonCol @click="handleSignout" class="dashboard-navbar-flexcenter dashboard-navbar-cols"
-          style="position: absolute; bottom: 10px">
-          <IonIcon class="dashboard-navbar-icons" :icon="logOutOutline"></IonIcon>
+        <IonCol
+          @click="handleSignout"
+          class="dashboard-navbar-flexcenter dashboard-navbar-cols"
+          style="position: absolute; bottom: 10px"
+        >
+          <IonIcon
+            class="dashboard-navbar-icons"
+            :icon="logOutOutline"
+          ></IonIcon>
           <IonText class="dashboard-navbar-navigations">Logout</IonText>
         </IonCol>
       </IonRow>

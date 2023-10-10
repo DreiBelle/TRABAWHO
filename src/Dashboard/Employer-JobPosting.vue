@@ -1,26 +1,35 @@
 <template>
-  <div class="dashboard-content-jobposting">
-    <IonGrid style="height: 100%; width: 100%; padding: 0">
-      <IonRow class="dashboard-search-jobposting">
-        <IonCol size="10" class="flexcenter">
-          <IonSearchbar class="dashboard-navbar-topbar-searchbar" v-model="searchTerm"></IonSearchbar>
-        </IonCol>
-        <IonCol size="2" id="open-modal" class="Dashboard-Card-JobPosting flexcenter" style="justify-content: right">
-          <IonButton style="--background: #262c5c; width: 100%">
-            <IonIcon :icon="addCircleOutline"></IonIcon>Add
-          </IonButton>
-        </IonCol>
-      </IonRow>
-      <IonRow>
-        <IonCol>
-          <JobPostings :searchTerm="searchTerm" />
-        </IonCol>
-      </IonRow>
-    </IonGrid>
-  </div>
+  <IonContent style="--background: none;">
+    <div class="dashboard-content-jobposting">
+      <IonGrid style="height: 100%; width: 100%; padding: 0">
+        <IonRow class="dashboard-search-jobposting">
+          <IonCol size="10" class="flexcenter">
+            <IonSearchbar
+              class="dashboard-navbar-topbar-searchbar"
+              v-model="searchTerm"
+            ></IonSearchbar>
+          </IonCol>
+          <IonCol
+            size="2"
+            id="open-modal"
+            class="Dashboard-Card-JobPosting flexcenter"
+            style="justify-content: right"
+          >
+            <IonButton style="--background: #262c5c; width: 100%">
+              <IonIcon :icon="addCircleOutline"></IonIcon>Add
+            </IonButton>
+          </IonCol>
+        </IonRow>
+        <IonRow>
+          <IonCol>
+            <JobPostings :searchTerm="searchTerm" />
+          </IonCol>
+        </IonRow>
+      </IonGrid>
+    </div>
 
-  <AddModal trigger="open-modal"></AddModal>
-
+    <AddModal trigger="open-modal"></AddModal>
+  </IonContent>
   <!-- <IonModal
     ref="modal"
     trigger="open-modal"
@@ -72,7 +81,7 @@ export default {
   data() {
     return {
       searchTerm: "",
-    }
+    };
   },
 };
 </script>
