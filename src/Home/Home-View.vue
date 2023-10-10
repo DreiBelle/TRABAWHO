@@ -10,7 +10,7 @@
                   <IonCol class="flexcenter">
                     <img
                       class="home-logo"
-                      src="../assets/logo/blacklogo.png"
+                      src="../assets/logo/logo1.png"
                       alt="logo"
                     />
                   </IonCol>

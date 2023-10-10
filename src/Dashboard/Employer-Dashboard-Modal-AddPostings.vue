@@ -1,6 +1,6 @@
 <template>
   <IonModal class="modal-addjobpost">
-    <IonGrid style="height: 100%; width: 100%; padding: 10px">
+    <IonGrid style="height: 100%; padding: 10px">
       <IonRow style="height: 6%">
         <IonCol class="flexcenter"> ADD JOB POSTING </IonCol>
       </IonRow>
@@ -14,25 +14,33 @@
           </div>
         </IonCol>
         <IonCol size="4" class="modal-addjobpost-button-addimage">
-          <label class="modal-addjobpost-choose-label" for="fileInput">
-            Add an Image
+          <label for="fileInput">
+            <input id="fileInput" type="file" accept="image/jpeg" @change="handleFileChange" ref="myfile" />
           </label>
-          <input id="fileInput" type="file" accept="image/jpeg" @change="handleFileChange" ref="myfile"
-            style="display: none;" />
         </IonCol>
         <IonCol style="padding: 0" size="6">
           <IonRow>
             <IonCol>
-              <IonInput class="modal-addjobpost-input" label="Estimated Salary" labelPlacement="stacked" fill="outline"
-                placeholder="Salary" v-model="formData.salary" required>
-              </IonInput>
+              <IonSelect class="modal-addjobpost-input" label="Estimated Salary" interface="popover"
+                labelPlacement="stacked" fill="outline" placeholder="Salary" v-model="formData.salary" required>
+                <IonSelectOption value="0php - 5,000php">0php - 5,000php</IonSelectOption>
+                <IonSelectOption value="6,000php - 10,000php">6,000php - 10,000php</IonSelectOption>
+                <IonSelectOption value="11,000php - 50,000php">11,000php - 50,000php</IonSelectOption>
+                <IonSelectOption value="51,000php - 100,000php">51,000php - 100,000php</IonSelectOption>
+                <IonSelectOption value="100,000php and above">100,000php and above</IonSelectOption>
+              </IonSelect>
             </IonCol>
           </IonRow>
           <IonRow>
             <IonCol>
-              <IonInput class="modal-addjobpost-input" label="Estimated Hours of Work" labelPlacement="stacked"
-                fill="outline" placeholder="Hours" v-model="formData.hours" required>
-              </IonInput>
+              <IonSelect class="modal-addjobpost-input" label="Estimated Hours of Work" interface="popover"
+                labelPlacement="stacked" fill="outline" placeholder="Hours" v-model="formData.hours" required>
+                <IonSelectOption value="4">4hrs</IonSelectOption>
+                <IonSelectOption value="8">8hrs</IonSelectOption>
+                <IonSelectOption value="12">12hrs</IonSelectOption>
+                <IonSelectOption value="16">16hrs</IonSelectOption>
+                <IonSelectOption value="20">20hrs</IonSelectOption>
+              </IonSelect>
             </IonCol>
           </IonRow>
         </IonCol>
@@ -104,9 +112,12 @@
           </IonRow>
           <IonRow>
             <IonCol>
-              <IonInput class="modal-addjobpost-input" label="Location" labelPlacement="stacked" fill="outline"
-                placeholder="Location" v-model="formData.loc" required>
-              </IonInput>
+              <IonSelect class="modal-addjobpost-input" label="Location" labelPlacement="stacked" fill="outline"
+                interface="popover" placeholder="Location" v-model="formData.loc" required>
+                <IonSelectOption value="Work From Home">Work from home</IonSelectOption>
+                <IonSelectOption value="Within the province">Within the province</IonSelectOption>
+                <IonSelectOption value="Outside of the province">Outside of the province</IonSelectOption>
+              </IonSelect>
             </IonCol>
           </IonRow>
         </IonCol>
@@ -269,6 +280,25 @@ export default {
       this.chosenChoices.push(choice);
       this.modalOpen = false;
     },
+    clearmodal() {
+      this.formData.pic = "";
+      this.formData.jobname = "";
+      this.formData.jobtype = "";
+      this.formData.jobdes = "";
+      this.formData.positionlvl = "";
+      this.formData.salary = "";
+      this.formData.hours = "";
+      this.formData.yearsofexp = "";
+      this.formData.reqeduc = "";
+      this.formData.loc = "";
+
+      // Clear the image URL and set thereisImage to false
+      this.imageUrl = null;
+      this.thereisImage = false;
+
+      // Clear the chosenChoices array
+      this.chosenChoices = [];
+    },
     async handleFileChange(event) {
       const files = event.target.files;
       console.log(files); // Check if files array is populated
@@ -283,7 +313,6 @@ export default {
         reader.readAsDataURL(file);
         this.selectedFile = file;
         this.thereisImage = true;
-        console.log(file);
       } else {
         // Handle the case when no files are selected or an error occurred.
         console.error("No files selected or an error occurred.");

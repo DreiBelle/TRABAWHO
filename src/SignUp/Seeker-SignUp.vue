@@ -111,26 +111,27 @@
             <IonRow>
               <IonCol class="flexcenter">
                 <IonInput placeholder="Full Name" fill="outline" labelPlacement="stacked" label="Username"
-                  class="signup-inputs-mobile"></IonInput>
+                  class="signup-inputs-mobile" v-model="formData.fullname" required>
+                </IonInput>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
                 <IonInput placeholder="Valid Email" fill="outline" labelPlacement="stacked" label="Email"
-                  class="signup-inputs-mobile">
+                  class="signup-inputs-mobile" v-model="formData.email" required>
                 </IonInput>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
-                <IonInput placeholder="Password" fill="outline" labelPlacement="stacked" label="Password"
-                  class="signup-inputs-mobile">
+                <IonInput placeholder="Password" type="password" fill="outline" labelPlacement="stacked" label="Password"
+                  class="signup-inputs-mobile" v-model="formData.password" required>
                 </IonInput>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
-                <IonCheckbox style="margin-left: 5px;"></IonCheckbox>
+                <IonCheckbox style="margin-left: 5px;" v-model="formData.acceptTerms"></IonCheckbox>
                 <IonText class="signup-text-terms">
                   I have read and accept the
                   <a href="/TermsandConditions" style="color: #262c5c;"> terms and conditions</a>
@@ -140,7 +141,7 @@
             <IonRow>
               <IonCol>
                 <div class="flexcenter">
-                  <IonButton @click="GoRegister2()" class="signup-button-email-mobile">
+                  <IonButton @click="submitForm" class="signup-button-email-mobile">
                     Continue
                   </IonButton>
                 </div>
@@ -186,6 +187,7 @@ import {
   IonProgressBar,
   IonButton,
   IonIcon,
+  IonContent,
 } from "@ionic/vue";
 import "./SignUp.css";
 import { GoRegister2, goBack, goTermsandCondition, goLogin } from "./SignUp-Controller";
@@ -208,15 +210,13 @@ export default {
     IonText,
     IonProgressBar,
     IonButton,
-    IonIcon
-  },
+    IonIcon,
+    IonContent
+},
   setup() {
     const signupStore = useSignupStore();
     const formData = {
-      firstName: "",
-      middleName: "",
-      lastName: "",
-      suffix: "",
+      fullname: "",
       email: "",
       password: "",
       acceptTerms: false,
@@ -224,8 +224,12 @@ export default {
       juniorhigh: "",
       seniorhigh: "",
       college: "",
-      othereduc: "",
-      workexp: "",
+      masteral: "",
+      hours: "",
+      yearsofexp: "",
+      jobtype: "",
+      salary: "",
+      loc: "",
       dateCreated: "",
       // chosenInterest: [],
       type: "",
@@ -258,7 +262,7 @@ export default {
     };
 
     const submitForm = async () => {
-      const requiredFields = ['firstName', 'middleName', 'lastName', 'suffix', 'email', 'password'];
+      const requiredFields = ['fullname', 'email', 'password'];
       let isFormValid = true;
 
       for (const field of requiredFields) {
@@ -294,6 +298,7 @@ export default {
       signInWithGoogle,
       submitForm,
       logoGoogle,
+      formData,
     }
   },
   methods: {
@@ -304,8 +309,8 @@ export default {
 }
 </script>
 
-<style>
-/* ion-col {
+<!-- <style>
+ion-col {
   border: 1px solid black;
-} */
-</style>
+}
+</style> -->

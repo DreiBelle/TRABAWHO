@@ -6,7 +6,7 @@
           <IonGrid>
             <IonRow>
               <IonCol class="flexcenter">
-                <img class="login-logo" src="../assets/logo/blacklogo.png" alt="logo" />
+                <img class="login-logo" src="../assets/logo/logo1.png" alt="logo" />
               </IonCol>
             </IonRow>
             <IonRow>
@@ -26,7 +26,7 @@
                 <div>
                   <div>
                     <IonInput label="Password" labelPlacement="stacked" placeholder="Enter Password" fill="outline"
-                      class="login-input" required v-model="Password">
+                      class="login-input" type="password" required v-model="Password">
                     </IonInput>
                   </div>
                   <div>

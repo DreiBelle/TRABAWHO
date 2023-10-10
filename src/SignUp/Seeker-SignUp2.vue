@@ -92,41 +92,41 @@
             <IonRow>
               <IonCol class="flexcenter">
                 <IonInput placeholder="Elementary" fill="outline" labelPlacement="stacked" label="Elementary"
-                  class="signup-inputs-mobile">
+                  class="signup-inputs-mobile" v-model="formData.elementary" required>
                 </IonInput>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
                 <IonInput placeholder="High School" fill="outline" labelPlacement="stacked" label="High School"
-                  class="signup-inputs-mobile">
+                  class="signup-inputs-mobile" v-model="formData.juniorhigh" required>
                 </IonInput>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
-                <IonInput placeholder="Senior High School" fill="outline" labelPlacement="stacked" label="Senior High School"
-                  class="signup-inputs-mobile">
+                <IonInput placeholder="Senior High School" fill="outline" labelPlacement="stacked"
+                  label="Senior High School" class="signup-inputs-mobile" v-model="formData.seniorhigh" required>
                 </IonInput>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
                 <IonInput placeholder="College" fill="outline" labelPlacement="stacked" label="College"
-                  class="signup-inputs-mobile">
+                  class="signup-inputs-mobile" v-model="formData.college" required>
                 </IonInput>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
                 <IonInput placeholder="Masteral" fill="outline" labelPlacement="stacked" label="Masteral"
-                  class="signup-inputs-mobile">
+                  class="signup-inputs-mobile" v-model="formData.masteral" required>
                 </IonInput>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
-                <IonButton @click="GoRegister3" class="signup-button-email-mobile">
+                <IonButton @click="submitForm" class="signup-button-email-mobile">
                   Continue
                 </IonButton>
               </IonCol>
@@ -151,7 +151,7 @@ import {
   IonCard,
   IonCheckbox,
   IonLabel,
-IonIcon,
+  IonIcon,
 } from "@ionic/vue";
 import "./SignUp.css";
 import { GoRegister3, goBack } from "./SignUp-Controller";
@@ -166,12 +166,16 @@ const formData = {
   juniorhigh: "",
   seniorhigh: "",
   college: "",
-  othereduc: "",
-  workexp: "",
+  masteral: "",
+  hours: "",
+  yearsofexp: "",
+  jobtype: "",
+  salary: "",
+  loc: "",
 };
 
 const submitForm = async () => {
-  const requiredFields = ['elementary', 'juniorhigh', 'seniorhigh', 'college', 'othereduc', 'workexp'];
+  const requiredFields = ['elementary', 'juniorhigh', 'seniorhigh', 'college', 'masteral'];
   let isFormValid = true;
 
   for (const field of requiredFields) {
@@ -188,13 +192,13 @@ const submitForm = async () => {
       juniorhigh: formData.juniorhigh,
       seniorhigh: formData.seniorhigh,
       college: formData.college,
-      othereduc: formData.othereduc,
-      workexp: formData.workexp,
+      masteral: formData.masteral,
       dateCreated: "",
       // chosenInterest: [],
       type: "",
-
     });
+
+    GoRegister3()
   }
   else {
     alert("Fill all the Field to continue")
@@ -207,20 +211,17 @@ const submitForm = async () => {
   console.log(formData.juniorhigh);
   console.log(formData.seniorhigh);
   console.log(formData.college);
-  console.log(formData.othereduc);
-  console.log(formData.workexp);
+  console.log(formData.masteral);
 
 }
 
 
 const sharedFormData = signupStore.formData;
-console.log(sharedFormData.firstName);
-console.log(sharedFormData.middleName);
-console.log(sharedFormData.lastName);
-console.log(sharedFormData.suffix);
+
+console.log(sharedFormData.fullname);
 console.log(sharedFormData.email);
-console.log(sharedFormData.password);
 
 </script>
 
-
+<script lang="ts">
+</script>

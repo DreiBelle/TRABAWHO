@@ -20,21 +20,22 @@ async function checkifregisteredgoogle_(email) {
 export const checkifregisteredgoogle = checkifregisteredgoogle_;
 
 export interface SignupModel {
-    firstName: string;
-    middleName: string;
-    lastName: string;
-    suffix: string;
-    email: string;
-    password: string;
-    acceptTerms: boolean;
-    elementary: string;
-    juniorhigh: string;
-    seniorhigh: string;
-    college: string;
-    othereduc: string;
-    workexp: string;
-    dateCreated: string;
-    // chosenInterest: any[];
-    type: string;
+  fullname: string;
+  email: string;
+  password: string;
+  acceptTerms: boolean;
+  elementary: string;
+  juniorhigh: string;
+  seniorhigh: string;
+  college: string;
+  masteral: string;
+  hours: string;
+  yearsofexp: string;
+  jobtype: string;
+  salary: string;
+  loc: string;
+  dateCreated: string;
+  // chosenInterest: any[];
+  type: string;
   }
   

@@ -40,7 +40,7 @@ async function UserLogin_(Username) {
       }
     }
   } else {
-    console.log("Username not found");
+    console.log("Email not found");
   }
 }
 
@@ -114,8 +114,8 @@ async function updatePassword_(Username) {
       throw error;
     }
   } else {
-    console.log("Username not found");
-    alert("Username not found");
+    console.log("Email not found");
+    alert("Email not found");
     return null;
   }
 }

@@ -1,11 +1,18 @@
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../firebaseDB";
 
-async function getJobs_(chosenInterest) {
+async function getJobs_(chosenInterest, hours, jobtype, loc, yearsofexp, salary) {
     try {
         const jobpostCollection = collection(db, "jobpost"); 
 
-        const q = query(jobpostCollection, where("chosenInterests", "==", chosenInterest));
+        const q = query(jobpostCollection, 
+            where("chosenInterests", "array-contains-any", chosenInterest),
+            where("hours", "==", hours),
+            where("jobtype", "==", jobtype),
+            where("loc", "==", loc),
+            where("yearsofexp", "==", yearsofexp),
+            where("salary", "==", salary),
+            );
 
         // const q = query(jobpostCollection);
 
@@ -16,7 +23,7 @@ async function getJobs_(chosenInterest) {
 
         // Loop through the documents and push the data to the jobs array
         querySnapshot.forEach((doc) => {
-            if (doc.exists()) {
+            if (doc.exists) {
                 const data = doc.data();
                 jobs.push(data);
             }

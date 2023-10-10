@@ -191,8 +191,10 @@ router.beforeEach(async (to, from, next) => {
 
       // Check the user's type and restrict access accordingly
       if (
-        userType === "jobseeker" &&
-        (to.path.includes("/Swipe") || to.path.includes("/Seeker-Profile"))
+        userType === "jobseeker" &&(
+          to.path.includes("/Swipe") || 
+          to.path.includes("/Seeker-Profile") ||
+          to.path.includes("/Seeker-Message"))
       ) {
         next();
       } else if (

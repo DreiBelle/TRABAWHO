@@ -3,7 +3,7 @@
     <IonHeader class="Swipe-Header">
       <IonGrid style="height: 100%; padding: 0">
         <IonRow style="height: 100%">
-          <IonCol class="Swipe-FlexCenter" size="2"> 
+          <IonCol class="Swipe-FlexCenter" size="2">
             <img class="swipe-logo" src="../assets/logo/whitefilllogo.png" alt="logo">
           </IonCol>
           <IonCol class="Swipe-FlexCenter"> </IonCol>
@@ -144,10 +144,20 @@ export default {
       // const userPassword = localStorage.getItem("password");
       user.value = await getUserProfile(userEmail);
 
-      const chosenInterest = Array.from(user.value.chosenInterests);
-      // console.log("chosen interest:" + chosenInterest.values);
+      const chosenInterest = user.value.chosenInterests;
+      const hours = user.value.hours;
+      const jobtype = user.value.jobtype;
+      const loc = user.value.loc;
+      const yearsofexp = user.value.yearsofexp;
+      const salary = user.value.salary;
+      console.log(chosenInterest);
+      console.log(hours);
+      console.log(jobtype);
+      console.log(loc);
+      console.log(yearsofexp);
+      console.log(salary);
 
-      const jobs = await getJobs(chosenInterest); // this function fetches jobs from Firestore
+      const jobs = await getJobs(chosenInterest, hours, jobtype, loc, yearsofexp, salary);
 
       // Fetch image URLs from Firebase Storage for each job
       const jobsWithImages = await Promise.all(
@@ -163,7 +173,7 @@ export default {
       );
 
       this.cards = jobsWithImages;
-      this.showNextCard();
+      // this.showNextCard();
     } catch (error) {
       console.error("Error fetching jobs: ", error);
     }

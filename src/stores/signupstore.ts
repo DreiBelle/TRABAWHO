@@ -8,10 +8,7 @@ import { SignupModel } from "@/SignUp/Seeker-Model";
 export const useSignupStore = defineStore("signup", {
   state: () => ({
     formData: {
-      firstName: "",
-      middleName: "",
-      lastName: "",
-      suffix: "",
+      fullname: "",
       email: "",
       password: "",
       acceptTerms: false,
@@ -19,8 +16,12 @@ export const useSignupStore = defineStore("signup", {
       juniorhigh: "",
       seniorhigh: "",
       college: "",
-      othereduc: "",
-      workexp: "",
+      masteral: "",
+      hours: "",
+      yearsofexp: "",
+      jobtype: "",
+      salary: "",
+      loc: "",
       dateCreated: "",
       chosenInterests: [], // Add this property
       type: "",
@@ -41,7 +42,7 @@ export const useSignupStore = defineStore("signup", {
       this.formData.email = email;
       this.formData.firstName = firstName;
     },
-    
+
     async registerUser() {
 
       // Set the current date as the dateCreated
@@ -55,18 +56,19 @@ export const useSignupStore = defineStore("signup", {
         console.log("User registered successfully!");
         // Reset the form data after registration if needed
         this.formData = {
-          firstName: "",
-          middleName: "",
-          lastName: "",
-          suffix: "",
+          fullname: "",
           email: "",
           password: "",
           elementary: "",
           juniorhigh: "",
           seniorhigh: "",
           college: "",
-          othereduc: "",
-          workexp: "",
+          masteral: "",
+          hours: "",
+          yearsofexp: "",
+          jobtype: "",
+          salary: "",
+          loc: "",
           dateCreated: "",
           chosenInterests: [],
           type: "",

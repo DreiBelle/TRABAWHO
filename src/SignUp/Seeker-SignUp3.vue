@@ -59,47 +59,66 @@
               </IonRow>
               <IonRow>
                 <IonCol class="flexcenter">
-                  <IonInput label="Preffered Hours" placeholder="Enter Preffered hours of work" label-placement="stacked"
-                    fill="outline" class="signup-inputs-mobile"></IonInput>
+                  <IonSelect label="Preffered Hours" placeholder="Select Preffered hours of work"
+                    label-placement="stacked" interface="popover" fill="outline" class="signup-inputs-mobile"
+                    v-model="formData.hours" required>
+                    <IonSelectOption value="4">4hrs</IonSelectOption>
+                    <IonSelectOption value="8">8hrs</IonSelectOption>
+                    <IonSelectOption value="12">12hrs</IonSelectOption>
+                    <IonSelectOption value="16">16hrs</IonSelectOption>
+                    <IonSelectOption value="20">20hrs</IonSelectOption>
+                  </IonSelect>
                 </IonCol>
               </IonRow>
               <IonRow>
                 <IonCol class="flexcenter">
-                  <IonInput label="years of experience" placeholder="Enter years of experience" label-placement="stacked"
-                    fill="outline" class="signup-inputs-mobile"></IonInput>
+                  <IonSelect label="years of experience" placeholder="Select years of experience"
+                    label-placement="stacked" interface="popover" fill="outline" class="signup-inputs-mobile"
+                    v-model="formData.yearsofexp" required>
+                    <IonSelectOption value="0">0</IonSelectOption>
+                    <IonSelectOption value="1-5">1-5</IonSelectOption>
+                    <IonSelectOption value="6-10">6-10</IonSelectOption>
+                    <IonSelectOption value="11-15">11-15</IonSelectOption>
+                    <IonSelectOption value="16-20">16-20</IonSelectOption>
+                    <IonSelectOption value="21-23">21-23</IonSelectOption>
+                    <IonSelectOption value="24+">24+</IonSelectOption>
+                  </IonSelect>
                 </IonCol>
               </IonRow>
               <IonRow>
                 <IonCol class="flexcenter">
                   <IonSelect class="signup-inputs-mobile" label="Preffered Salary" label-placement="stacked"
-                    interface="popover" fill="outline" placeholder="Select Preffered Salary based on skills" required>
-                    <IonSelectOption value="0php - 5000php">0php - 5,000php</IonSelectOption>
-                    <IonSelectOption value="6000php - 10000php">6,000php - 10,000php</IonSelectOption>
-                    <IonSelectOption value="11000php - 50000php">11,000php - 50,000php</IonSelectOption>
-                    <IonSelectOption value="51000php - 100000php">51,000php - 100,000php</IonSelectOption>
-                    <IonSelectOption value="100000php and above">100,000php and above</IonSelectOption>
+                    interface="popover" fill="outline" placeholder="Input Preffered Salary based on skills"
+                    v-model="formData.salary" required>
+                    <IonSelectOption value="0php - 5,000php">0php - 5,000php</IonSelectOption>
+                    <IonSelectOption value="6,000php - 10,000php">6,000php - 10,000php</IonSelectOption>
+                    <IonSelectOption value="11,000php - 50,000php">11,000php - 50,000php</IonSelectOption>
+                    <IonSelectOption value="51,000php - 100,000php">51,000php - 100,000php</IonSelectOption>
+                    <IonSelectOption value="100,000php and above">100,000php and above</IonSelectOption>
                   </IonSelect>
                 </IonCol>
               </IonRow>
               <IonRow>
                 <IonCol class="flexcenter">
                   <IonSelect class="signup-inputs-mobile" label="Job Type" label-placement="stacked" interface="popover"
-                    fill="outline" placeholder="Select Preffered Job Type" required :multiple="true">
-                    <IonSelectOption value="Full Time">Full Time</IonSelectOption>
-                    <IonSelectOption value="Part Time">Part Time</IonSelectOption>
-                    <IonSelectOption value="Contract">Contract</IonSelectOption>
-                    <IonSelectOption value="Temporary">Temporary</IonSelectOption>
-                    <IonSelectOption value="Internship">Internship</IonSelectOption>
+                    fill="outline" placeholder="Select Preffered Job Type" v-model="formData.jobtype" required
+                  >
+                  <IonSelectOption value="Full-Time">Full-Time</IonSelectOption>
+                  <IonSelectOption value="Part-Time">Part-Time</IonSelectOption>
+                  <IonSelectOption value="Contract">Contract</IonSelectOption>
+                  <IonSelectOption value="Temporary">Temporary</IonSelectOption>
+                  <IonSelectOption value="Internship">Internship</IonSelectOption>
                   </IonSelect>
                 </IonCol>
               </IonRow>
               <IonRow>
                 <IonCol class="flexcenter">
                   <IonSelect class="signup-inputs-mobile" label="Location" label-placement="stacked" interface="popover"
-                    fill="outline" placeholder="Select Preffered Location" required :multiple="true">
-                    <IonSelectOption value="Full Time">Work from home</IonSelectOption>
-                    <IonSelectOption value="Part Time">Within the province</IonSelectOption>
-                    <IonSelectOption value="Contract">Outside of the province</IonSelectOption>
+                    fill="outline" placeholder="Select Preffered Location" v-model="formData.loc" required
+                  >
+                    <IonSelectOption value="Work From Home">Work from home</IonSelectOption>
+                    <IonSelectOption value="Within the province">Within the province</IonSelectOption>
+                    <IonSelectOption value="Outside of the province">Outside of the province</IonSelectOption>
                   </IonSelect>
                 </IonCol>
               </IonRow>
@@ -130,7 +149,7 @@
               </IonRow>
               <IonRow>
                 <IonCol>
-                  <IonButton @click="GoSwipe()" class="signup-button-email-mobile"> Register </IonButton>
+                  <IonButton @click="handleSubmit" class="signup-button-email-mobile"> Register </IonButton>
                 </IonCol>
               </IonRow>
             </IonGrid>
@@ -139,8 +158,8 @@
       </IonGrid>
     </IonContent>
 
-    <IonModal :is-open="modalOpen" @did-dismiss="closeModal()">
-      <ChoiceModal style="border: 1px solid black" @choice-selected="handleChoiceSelected" />
+    <IonModal :is-open="modalOpen" @did-dismiss="closeModal">
+      <ChoiceModal style="border: 1px solid black" :choice="modalChoices" @choice-selected="handleChoiceSelected" />
     </IonModal>
   </IonPage>
 </template>
@@ -164,9 +183,9 @@ import {
 } from "@ionic/vue";
 import "./SignUp.css";
 import { goBack, GoSwipe } from "./SignUp-Controller";
-import { useSignupStore } from "@/stores/signupstore"
+import { useSignupStore } from "@/stores/signupstore";
 import { ref } from "vue"; // Import the ref function
-import ChoiceModal from "./Seeker-InterestModal.vue";
+import ChoiceModal from "@/SignUp/Seeker-InterestModal.vue";
 import { goLogin } from '@/SignUp/SignUp-Controller';
 import { addCircleOutline, arrowBackOutline, close } from "ionicons/icons";
 
@@ -186,8 +205,39 @@ export default {
     IonText,
     IonCard,
     IonModal,
-    IonInput
+    IonInput,
   },
+
+  setup() {
+    const signupStore = useSignupStore();
+    const sharedFormData = signupStore.formData;
+
+    const formData = {
+      hours: "",
+      yearsofexp: "",
+      jobtype: "",
+      salary: "",
+      loc: "",
+    };
+
+    console.log("Page 3");
+    console.log(sharedFormData.fullname);
+    console.log(sharedFormData.email);
+    console.log(sharedFormData.elementary);
+    console.log(sharedFormData.juniorhigh);
+    console.log(sharedFormData.seniorhigh);
+    console.log(sharedFormData.college);
+    console.log(sharedFormData.masteral);
+
+    return {
+      addCircleOutline,
+      close,
+      arrowBackOutline,
+      GoSwipe,
+      formData,
+    }
+  },
+
   data() {
     return {
       modalOpen: false,
@@ -215,7 +265,18 @@ export default {
 
       if (this.chosenChoices.length > 0) {
         const signupStore = useSignupStore();
+        const sharedFormData = signupStore.formData;
         signupStore.setChosenInterests(this.chosenChoices);
+
+        signupStore.setFormData({
+          ...sharedFormData,
+          hours: this.formData.hours,
+          yearsofexp: this.formData.yearsofexp,
+          jobtype: this.formData.jobtype,
+          salary: this.formData.salary,
+          loc: this.formData.loc,
+        });
+
         console.log("Chosen Choices:", this.chosenChoices);
         await signupStore.registerUser(); // Register the user
         // GoHomeSwipeJobSeekers()
@@ -226,32 +287,8 @@ export default {
         alert("Fill all the Field to continue")
       }
     },
-
     goBack,
   },
-  setup() {
-    const signupStore = useSignupStore();
-    const sharedFormData = signupStore.formData;
-    console.log("Page 3");
-    console.log(sharedFormData.firstName);
-    console.log(sharedFormData.middleName);
-    console.log(sharedFormData.lastName);
-    console.log(sharedFormData.suffix);
-    console.log(sharedFormData.email);
-    console.log(sharedFormData.password);
-    console.log(sharedFormData.elementary);
-    console.log(sharedFormData.juniorhigh);
-    console.log(sharedFormData.seniorhigh);
-    console.log(sharedFormData.college);
-    console.log(sharedFormData.othereduc);
-    console.log(sharedFormData.workexp);
-    return {
-      addCircleOutline,
-      close,
-      arrowBackOutline,
-      GoSwipe,
-    }
-  }
 };
 </script>
 
