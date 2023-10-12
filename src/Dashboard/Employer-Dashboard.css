@@ -630,11 +630,13 @@ IonRouterOutlet
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 0;
 }
 
 .modal-viewjobpost-cards {
   width: 100%;
   overflow-y: auto;
+  margin: 0;
 }
 
 .modal-viewjobpost-image {

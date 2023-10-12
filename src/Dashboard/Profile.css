@@ -141,3 +141,86 @@
   width: 100%;
   background-color: snow;
 }
+
+.eprofile-addphoto-icon{
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  color: whitesmoke;
+  font-size: 30px;
+}
+
+/* modal */
+.eprofile-modal-cover-container1{
+  height: 125px;
+  border: 1px solid black;
+  border-radius: 20px;
+  width: 100%;
+}
+
+.eprofile-modal-cover-container2{
+  height: 120px;
+  width: 120px;
+  border: 1px solid black
+}
+
+.eprofile-editprofile-input {
+  width: 100% !important;
+  height: 50px;
+  min-height: 10px !important;
+  color: black;
+  --highlight-color-focused: #262c5c;
+  --border-color: black !important;
+  margin: 5px
+}
+
+.eprofile-modal-buttons{
+  width: 100%;
+  --background: #262c5c;
+  color: white;
+}
+
+.eprofile-modal-buttons2{
+  color: #262c5c;
+  --border-width: 1px;
+  --border-color: #262c5c;
+}
+
+.eprofile-modal-founder-container{
+  border: 1px solid black;
+  padding: 5px;
+  border-radius: 5px;
+  margin: 5px;
+  width: 100%;
+}
+
+.eproifle-modal-editpicture{
+  background: #262c5c;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.eprofile-editmodal{
+  --border-radius: 20px;
+  --height: 90%;
+  --width: 600px;
+  --min-height: 0px;
+}
+
+.eprofile-coverphoto{
+  object-fit: cover;
+}
+
+.eprofile-modal-icon{
+  scale: 1;
+  cursor: pointer;
+  transition: color 0.3s ease, scale 0.5s ease;
+}
+
+.eprofile-modal-icon:hover{
+  scale: 1.1;
+  color: red;
+  transition: color 0.3s ease, scale 0.5s ease;
+}

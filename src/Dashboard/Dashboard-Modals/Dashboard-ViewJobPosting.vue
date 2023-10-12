@@ -55,96 +55,103 @@
           </IonCol>
         </IonRow>
         <IonRow>
-          <IonCol>
-            <IonRow>
-              <IonCol class="flexcenter" size="4">
-                <IonCard class="modal-viewjobpost-card-statistics">
-                  <IonIcon
-                    class="modal-viewjobpost-icon"
-                    :icon="eyeSharp"
-                  ></IonIcon>
-                  <IonText style="padding-left: 5px"> 0 </IonText>
-                </IonCard>
-              </IonCol>
-              <IonCol class="flexcenter" size="4">
-                <IonCard class="modal-viewjobpost-card-statistics">
-                  <IonIcon
-                    class="modal-viewjobpost-icon"
-                    :icon="thumbsUp"
-                  ></IonIcon>
-                  <IonText style="padding-left: 5px"> 0 </IonText>
-                </IonCard>
-              </IonCol>
-              <IonCol class="flexcenter" size="4">
-                <IonCard class="modal-viewjobpost-card-statistics">
-                  <IonIcon
-                    class="modal-viewjobpost-icon"
-                    :icon="bookmark"
-                  ></IonIcon>
-                  <IonText style="padding-left: 5px"> 0 </IonText>
-                </IonCard>
-              </IonCol>
-            </IonRow>
+          <IonCol class="flexcenter">
+            <IonCard class="modal-viewjobpost-card-statistics">
+              <IonIcon
+                class="modal-viewjobpost-icon"
+                :icon="eyeSharp"
+              ></IonIcon>
+              <IonText style="padding-left: 5px"> 0 </IonText>
+            </IonCard>
+          </IonCol>
+          <IonCol class="flexcenter">
+            <IonCard class="modal-viewjobpost-card-statistics">
+              <IonIcon
+                class="modal-viewjobpost-icon"
+                :icon="thumbsUp"
+              ></IonIcon>
+              <IonText style="padding-left: 5px"> 0 </IonText>
+            </IonCard>
+          </IonCol>
+          <IonCol class="flexcenter">
+            <IonCard class="modal-viewjobpost-card-statistics">
+              <IonIcon
+                class="modal-viewjobpost-icon"
+                :icon="bookmark"
+              ></IonIcon>
+              <IonText style="padding-left: 5px"> 0 </IonText>
+            </IonCard>
           </IonCol>
         </IonRow>
-        <IonCard class="modal-viewjobpost-cards" style="height: fit-content">
-          <IonGrid>
-            <IonRow>
-              <IonCol>
-                Job Type:
-                {{ jobPosting ? jobPosting.jobtype : "Loading..." }}
-              </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol>
-                Position level:
-                {{ jobPosting ? jobPosting.positionlvl : "Loading..." }}
-              </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol>
-                Salary:
-                {{ jobPosting ? jobPosting.salary : "Loading..." }}
-              </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol>
-                Hours of Work:
-                {{ jobPosting ? jobPosting.hours : "Loading..." }}
-              </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol>
-                Years of Experience:
-                {{ jobPosting ? jobPosting.yearsofexp : "Loading..." }}
-              </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol>
-                Educational Attainment:
-                {{ jobPosting ? jobPosting.reqeduc : "Loading..." }}
-              </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol>
-                Tags:
-                {{ jobPosting ? jobPosting.chosenInterests : "Loading..." }}
-              </IonCol>
-            </IonRow>
-          </IonGrid>
-        </IonCard>
-        <IonCard class="modal-viewjobpost-cards" style="height: 175px">
-          <IonGrid style="height: 100%">
-            <IonRow style="height: 100%">
-              <IonCol
-                >Location:
-                {{ jobPosting ? jobPosting.loc : "Loading..." }}
-              </IonCol>
-            </IonRow>
-          </IonGrid>
-        </IonCard>
         <IonRow>
-          <IonCol>
+          <IonCol class="flexcenter">
+            <IonCard
+              class="modal-viewjobpost-cards"
+              style="height: fit-content"
+            >
+              <IonGrid>
+                <IonRow>
+                  <IonCol>
+                    Job Type:
+                    {{ jobPosting ? jobPosting.jobtype : "Loading..." }}
+                  </IonCol>
+                </IonRow>
+                <IonRow>
+                  <IonCol>
+                    Position level:
+                    {{ jobPosting ? jobPosting.positionlvl : "Loading..." }}
+                  </IonCol>
+                </IonRow>
+                <IonRow>
+                  <IonCol>
+                    Salary:
+                    {{ jobPosting ? jobPosting.salary : "Loading..." }}
+                  </IonCol>
+                </IonRow>
+                <IonRow>
+                  <IonCol>
+                    Hours of Work:
+                    {{ jobPosting ? jobPosting.hours : "Loading..." }}
+                  </IonCol>
+                </IonRow>
+                <IonRow>
+                  <IonCol>
+                    Years of Experience:
+                    {{ jobPosting ? jobPosting.yearsofexp : "Loading..." }}
+                  </IonCol>
+                </IonRow>
+                <IonRow>
+                  <IonCol>
+                    Educational Attainment:
+                    {{ jobPosting ? jobPosting.reqeduc : "Loading..." }}
+                  </IonCol>
+                </IonRow>
+                <IonRow>
+                  <IonCol>
+                    Tags:
+                    {{ jobPosting ? jobPosting.chosenInterests : "Loading..." }}
+                  </IonCol>
+                </IonRow>
+              </IonGrid>
+            </IonCard>
+          </IonCol>
+        </IonRow>
+        <IonRow>
+          <IonCol class="flexcenter">
+            <IonCard class="modal-viewjobpost-cards" style="height: 175px">
+              <IonGrid style="height: 100%">
+                <IonRow style="height: 100%">
+                  <IonCol
+                    >Location:
+                    {{ jobPosting ? jobPosting.loc : "Loading..." }}
+                  </IonCol>
+                </IonRow>
+              </IonGrid>
+            </IonCard>
+          </IonCol>
+        </IonRow>
+        <IonRow>
+          <IonCol class="flexcenter">
             <IonChip>sample</IonChip>
           </IonCol>
         </IonRow>
@@ -262,7 +269,7 @@ export default {
 };
 </script>
 <style>
-ion-col {
+/* ion-col {
   border: 1px solid black;
-}
+} */
 </style>

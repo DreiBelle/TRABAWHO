@@ -3,7 +3,7 @@
     :style="{ transform: `translateX(${position}px)` }" @mousedown="startSwipe" @mousemove="swipe" @mouseup="endSwipe"
     @touchstart="startSwipe" @touchmove="swipe" @touchend="endSwipe">
     <div class="Swipe-CardContent" id="card">
-      <IonGrid @click="viewSwipe(true)" class="swipe-container">
+      <IonGrid  class="swipe-container">
         <IonRow class="swipe-container-title">
           <IonCol>
             <IonText>
@@ -12,8 +12,9 @@
           </IonCol>
         </IonRow>
         <IonRow style="height: 105px;">
-          <IonCol class="flexcenter" style="padding: 0;">
-            <img class="swipe-picture" :src="item.picture" alt="">
+          <IonCol class="flexcenter" style="padding: 0;" id="picture">
+            <!-- <img class="swipe-picture" :src="item.picture" alt=""> -->
+            <IonButton @click="getPicture()"></IonButton>
           </IonCol>
         </IonRow>
         <IonRow style="height: 30px">
@@ -163,7 +164,7 @@
 </template>
 
 <script lang="ts">
-import { IonCard, IonCol, IonContent, IonGrid, IonIcon, IonModal, IonRow, IonText } from "@ionic/vue";
+import { IonButton, IonCard, IonCol, IonContent, IonGrid, IonIcon, IonModal, IonRow, IonText } from "@ionic/vue";
 import { close } from "ionicons/icons"
 import "./Swipe.css";
 
@@ -182,6 +183,12 @@ export default {
     };
   },
   methods: {
+    getPicture(){
+      const picturea = document.getElementById("picture")
+      const imageUrl = this.item.picture
+      picturea.style.backgroundImage = `url(${imageUrl})`
+      console.log(this.item.picture)
+    },
     viewSwipe(x) {
       this.openView = x;
     },
@@ -220,7 +227,10 @@ export default {
     },
 
   },
-  components: { IonGrid, IonRow, IonCol, IonCard, IonText, IonContent, IonModal, IonIcon },
+  mounted(){
+    this.getPicture()
+  },
+  components: { IonGrid, IonRow, IonCol, IonCard, IonText, IonContent, IonModal, IonIcon, IonButton },
   setup() {
     return {
       close,
