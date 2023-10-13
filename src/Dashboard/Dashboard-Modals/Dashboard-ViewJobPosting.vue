@@ -112,7 +112,9 @@
       </IonRow>
       <IonRow style="height: 10%">
         <IonCol>
-          <IonChip>{{ jobPosting ? jobPosting.chosenInterests : "Loading..." }}</IonChip>
+          <IonChipGroup>
+            <IonChip v-for="interest in jobPosting.chosenInterests" :key="interest"> {{ interest.label }} </IonChip>
+          </IonChipGroup>
         </IonCol>
       </IonRow>
     </IonGrid>
