@@ -3,8 +3,12 @@
     <IonHeader class="Swipe-Header">
       <IonGrid style="height: 100%; padding: 0">
         <IonRow style="height: 100%">
-          <IonCol class="Swipe-FlexCenter" size="2"> 
-            <img class="swipe-logo" src="../assets/logo/whitefilllogo.png" alt="logo">
+          <IonCol class="Swipe-FlexCenter" size="2">
+            <img
+              class="swipe-logo"
+              src="../assets/logo/whitefilllogo.png"
+              alt="logo"
+            />
           </IonCol>
           <IonCol class="Swipe-FlexCenter"> </IonCol>
           <IonCol class="Swipe-FlexCenter" size="2">
@@ -13,26 +17,36 @@
         </IonRow>
       </IonGrid>
     </IonHeader>
-    <IonGrid style="height: 100%; width: 100%;background: whitesmoke;
-">
+    <IonGrid style="height: 100%; width: 100%; background: whitesmoke">
       <IonRow style="height: 100%">
         <IonCol>
           <div class="Swipe-Background" v-if="nextCardIndex < cards.length">
-            <SwipeableCard :item="cards[currentCardIndex]" @swipeLeft="handleSwipeLeft" @swipeRight="handleSwipeRight"
-              style="z-index: 2" id="mainswiper" class="asd" />
+            <SwipeableCard
+              :item="cards[currentCardIndex]"
+              @swipeLeft="handleSwipeLeft"
+              @swipeRight="handleSwipeRight"
+              style="z-index: 2"
+              id="mainswiper"
+              class="asd"
+            />
             <FakeSwipeableCard :item="cards[nextCardIndex]" />
           </div>
-          <div class="Swipe-Background" v-else-if="currentCardIndex < cards.length">
-            <SwipeableCard :item="cards[currentCardIndex]" @swipeLeft="handleSwipeLeft" @swipeRight="handleSwipeRight"
-              style="z-index: 2" id="mainswiper" class="asd" />
-            <IonCard class="Swipe-Swipeable">
-              no more available jobs
-            </IonCard>
+          <div
+            class="Swipe-Background"
+            v-else-if="currentCardIndex < cards.length"
+          >
+            <SwipeableCard
+              :item="cards[currentCardIndex]"
+              @swipeLeft="handleSwipeLeft"
+              @swipeRight="handleSwipeRight"
+              style="z-index: 2"
+              id="mainswiper"
+              class="asd"
+            />
+            <IonCard class="Swipe-Swipeable"> no more available jobs </IonCard>
           </div>
           <div class="Swipe-Background" v-else>
-            <IonCard class="Swipe-Swipeable">
-              no more available jobs
-            </IonCard>
+            <IonCard class="Swipe-Swipeable"> no more available jobs </IonCard>
           </div>
         </IonCol>
       </IonRow>
@@ -100,14 +114,14 @@ export default {
   },
   methods: {
     handleSwipeLeft() {
-      const swiper = document.getElementById("mainswiper")
+      const swiper = document.getElementById("mainswiper");
 
       setTimeout(() => {
-        swiper.style.display = 'none';
+        swiper.style.display = "none";
       }, 100);
 
       setTimeout(() => {
-        swiper.style.display = 'inline';
+        swiper.style.display = "inline";
       }, 500);
 
       console.log("swipe left");
@@ -115,14 +129,14 @@ export default {
     },
 
     handleSwipeRight() {
-      const swiper = document.getElementById("mainswiper")
+      const swiper = document.getElementById("mainswiper");
 
       setTimeout(() => {
-        swiper.style.display = 'none';
+        swiper.style.display = "none";
       }, 100);
 
       setTimeout(() => {
-        swiper.style.display = 'inline';
+        swiper.style.display = "inline";
       }, 500);
 
       console.log("swipe right");
@@ -176,7 +190,7 @@ export default {
 </script>
 
 <style>
-/* ion-col {
+ion-col {
   border: 1px solid black;
-} */
+}
 </style>

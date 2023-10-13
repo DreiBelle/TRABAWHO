@@ -1,50 +1,50 @@
 <template>
-  <div class="Swipe-Swipeable" :class="{ 'Swipe-Swipeable--animated': position !== 0 }"
-    :style="{ transform: `translateX(${position}px)` }" @mousedown="startSwipe" @mousemove="swipe" @mouseup="endSwipe"
-    @touchstart="startSwipe" @touchmove="swipe" @touchend="endSwipe">
+  <div
+    class="Swipe-Swipeable"
+    :class="{ 'Swipe-Swipeable--animated': position !== 0 }"
+    :style="{ transform: `translateX(${position}px)` }"
+    @mousedown="startSwipe"
+    @mousemove="swipe"
+    @mouseup="endSwipe"
+    @touchstart="startSwipe"
+    @touchmove="swipe"
+    @touchend="endSwipe"
+  >
     <div class="Swipe-CardContent" id="card">
-      <IonGrid  class="swipe-container">
-        <IonRow class="swipe-container-title">
-          <IonCol>
-            <IonText>
-              <b>{{ item.content.toUpperCase() }}</b>
-            </IonText>
-          </IonCol>
-        </IonRow>
-        <IonRow style="height: 105px;">
-          <IonCol class="flexcenter" style="padding: 0;" id="picture">
-            <!-- <img class="swipe-picture" :src="item.picture" alt=""> -->
-            <IonButton @click="getPicture()"></IonButton>
-          </IonCol>
+      <IonGrid class="swipe-container" id="picture">
+        <IonRow style="height: calc(100% - 60px) ;">
+          <IonCol> </IonCol>
         </IonRow>
         <IonRow style="height: 30px">
           <IonCol class="swipe-text">
             <b>DESCRIPTION</b>
           </IonCol>
         </IonRow>
-        <IonRow style="height: calc(100% - 195px);">
+        <IonRow style="height: calc(100% - 195px)">
           <IonCol>
             <IonContent style="--background: none">
-              <IonText class="swipe-description">{{ item.jobdescription }}</IonText>
+              <IonText class="swipe-description">{{
+                item.jobdescription
+              }}</IonText>
             </IonContent>
           </IonCol>
         </IonRow>
         <IonRow class="swipe-moreinformation">
-          <IonCol class="flexcenter">
-            CLICK FOR MORE INFORMATION
-          </IonCol>
+          <IonCol class="flexcenter"> CLICK FOR MORE INFORMATION </IonCol>
         </IonRow>
       </IonGrid>
     </div>
 
     <div class="flexcenter">
-      <IonModal class="swipe-view-modal" :is-open="openView" @did-dismiss="viewSwipe(false)">
+      <IonModal
+        class="swipe-view-modal"
+        :is-open="openView"
+        @did-dismiss="viewSwipe(false)"
+      >
         <IonContent style="--background: snow">
-          <IonGrid style="padding: 0;">
+          <IonGrid style="padding: 0">
             <IonRow class="swipe-container-title">
-              <IonCol size="1">
-
-              </IonCol>
+              <IonCol size="1"> </IonCol>
               <IonCol class="flexcenter">
                 <b>{{ item.content.toUpperCase() }}</b>
               </IonCol>
@@ -54,20 +54,18 @@
               </IonCol>
             </IonRow>
             <IonRow>
-              <IonCol style="margin: 0; padding: 0;" class="flexcenter">
-                <img class="swipe-picture" :src="item.picture" alt="">
+              <IonCol style="margin: 0; padding: 0" class="flexcenter">
+                <img class="swipe-picture" :src="item.picture" alt="" />
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol>
                 <IonCard class="swipe-card-modal">
-                  <IonText class="swipe-label-modal">
-                    COMPANY:
-                  </IonText>
+                  <IonText class="swipe-label-modal"> COMPANY: </IonText>
                 </IonCard>
               </IonCol>
             </IonRow>
-            <IonRow style="background-color: rgb(224, 222, 222);">
+            <IonRow style="background-color: rgb(224, 222, 222)">
               <IonCol>
                 <IonText class="swipe-label-modal flexcenter">
                   INFORMATION
@@ -77,29 +75,23 @@
             <IonRow>
               <IonCol>
                 <IonCard class="swipe-card-modal">
-                  <IonText class="swipe-label-modal">
-                    JOB TYPE:
-                  </IonText>
+                  <IonText class="swipe-label-modal"> JOB TYPE: </IonText>
                 </IonCard>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
                 <IonCard class="swipe-card-modal">
-                  <IonText class="swipe-label-modal">
-                    POSITION LEVEL:
-                  </IonText>
+                  <IonText class="swipe-label-modal"> POSITION LEVEL: </IonText>
                 </IonCard>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
                 <IonCard class="swipe-card-modal">
-                  <IonText class="swipe-label-modal">
-                    DESCRIPTION:
-                  </IonText>
+                  <IonText class="swipe-label-modal"> DESCRIPTION: </IonText>
                   <div>
-                    <IonText style="padding-left: 10px;">
+                    <IonText style="padding-left: 10px">
                       {{ item.jobdescription }}
                     </IonText>
                   </div>
@@ -109,29 +101,23 @@
             <IonRow>
               <IonCol class="flexcenter">
                 <IonCard class="swipe-card-modal">
-                  <IonText class="swipe-label-modal">
-                    SALARY:
-                  </IonText>
+                  <IonText class="swipe-label-modal"> SALARY: </IonText>
                 </IonCard>
               </IonCol>
               <IonCol class="flexcenter">
                 <IonCard class="swipe-card-modal">
-                  <IonText class="swipe-label-modal">
-                    HOURS:
-                  </IonText>
+                  <IonText class="swipe-label-modal"> HOURS: </IonText>
                 </IonCard>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
                 <IonCard class="swipe-card-modal">
-                  <IonText class="swipe-label-modal">
-                    LOCATION:
-                  </IonText>
+                  <IonText class="swipe-label-modal"> LOCATION: </IonText>
                 </IonCard>
               </IonCol>
             </IonRow>
-            <IonRow style="background-color: rgb(224, 222, 222);">
+            <IonRow style="background-color: rgb(224, 222, 222)">
               <IonCol>
                 <IonText class="swipe-label-modal flexcenter">
                   REQUIREMENTS
@@ -164,10 +150,19 @@
 </template>
 
 <script lang="ts">
-import { IonButton, IonCard, IonCol, IonContent, IonGrid, IonIcon, IonModal, IonRow, IonText } from "@ionic/vue";
-import { close } from "ionicons/icons"
+import {
+  IonButton,
+  IonCard,
+  IonCol,
+  IonContent,
+  IonGrid,
+  IonIcon,
+  IonModal,
+  IonRow,
+  IonText,
+} from "@ionic/vue";
+import { close } from "ionicons/icons";
 import "./Swipe.css";
-
 
 export default {
   props: {
@@ -183,11 +178,11 @@ export default {
     };
   },
   methods: {
-    getPicture(){
-      const picturea = document.getElementById("picture")
-      const imageUrl = this.item.picture
-      picturea.style.backgroundImage = `url(${imageUrl})`
-      console.log(this.item.picture)
+    getPicture() {
+      const picturea = document.getElementById("picture");
+      const imageUrl = this.item.picture;
+      picturea.style.backgroundImage = `url(${imageUrl})`;
+      console.log(this.item.picture);
     },
     viewSwipe(x) {
       this.openView = x;
@@ -225,17 +220,26 @@ export default {
         this.position = 0;
       }
     },
-
   },
-  mounted(){
-    this.getPicture()
+  mounted() {
+    this.getPicture();
   },
-  components: { IonGrid, IonRow, IonCol, IonCard, IonText, IonContent, IonModal, IonIcon, IonButton },
+  components: {
+    IonGrid,
+    IonRow,
+    IonCol,
+    IonCard,
+    IonText,
+    IonContent,
+    IonModal,
+    IonIcon,
+    IonButton,
+  },
   setup() {
     return {
       close,
-    }
-  }
+    };
+  },
 };
 </script>
 
