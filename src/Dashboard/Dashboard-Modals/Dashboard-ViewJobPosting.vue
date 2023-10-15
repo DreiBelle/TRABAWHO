@@ -179,6 +179,7 @@ import {
   IonModal,
   IonContent,
   IonHeader,
+IonInput,
 } from "@ionic/vue";
 import {
   eyeSharp,
@@ -203,7 +204,8 @@ export default {
     IonText,
     IonIcon,
     IonHeader,
-  },
+    IonInput
+},
   props: {
     isViewmodal: {
       type: Boolean,
