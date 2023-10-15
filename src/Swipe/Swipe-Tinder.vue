@@ -1,72 +1,75 @@
 <template>
-  <div class="Swipe-Swipeable" :class="{ 'Swipe-Swipeable--animated': position !== 0 }"
-    :style="{ transform: `translateX(${position}px)` }" @mousedown="startSwipe" @mousemove="swipe" @mouseup="endSwipe"
-    @touchstart="startSwipe" @touchmove="swipe" @touchend="endSwipe">
+  <div
+    class="Swipe-Swipeable"
+    :class="{ 'Swipe-Swipeable--animated': position !== 0 }"
+    :style="{ transform: `translateX(${position}px)` }"
+    @mousedown="startSwipe"
+    @mousemove="swipe"
+    @mouseup="endSwipe"
+    @touchstart="startSwipe"
+    @touchmove="swipe"
+    @touchend="endSwipe"
+    @click="viewSwipe(true)"
+  >
     <div class="Swipe-CardContent" id="card">
-      <IonGrid @click="viewSwipe(true)" class="swipe-container">
-        <IonRow class="swipe-container-title">
-          <IonCol>
-            <IonText>
-              <b>{{ item.content.toUpperCase() }}</b>
-            </IonText>
-          </IonCol>
-        </IonRow>
-        <IonRow style="height: 105px;">
-          <IonCol class="flexcenter" style="padding: 0;">
-            <img class="swipe-picture" :src="item.picture" alt="">
-          </IonCol>
-        </IonRow>
-        <IonRow style="height: 30px">
-          <IonCol class="swipe-text">
-            <b>DESCRIPTION</b>
-          </IonCol>
-        </IonRow>
-        <IonRow style="height: calc(100% - 195px);">
-          <IonCol>
-            <IonContent style="--background: none">
-              <IonText class="swipe-description">{{ item.jobdescription }}</IonText>
-            </IonContent>
-          </IonCol>
-        </IonRow>
-        <IonRow class="swipe-moreinformation">
-          <IonCol class="flexcenter">
-            CLICK FOR MORE INFORMATION
-          </IonCol>
-        </IonRow>
-      </IonGrid>
+      <div class="swipe-container1" id="picture">
+        <div style="height: calc(100% - 75px)"></div>
+        <div class="swipe-text-preview-container">
+          <div>
+            <IonText class="swipe-text-preview"> Name </IonText>
+          </div>
+          <div>
+            <IonText class="swipe-text-preview"> TYPE </IonText>
+          </div>
+          <div>
+            <IonText class="swipe-text-preview"> POSITION LVL </IonText>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="flexcenter">
-      <IonModal class="swipe-view-modal" :is-open="openView" @did-dismiss="viewSwipe(false)">
+      <IonModal :is-open="openView" @did-dismiss="viewSwipe(false)">
         <IonContent style="--background: snow">
-          <IonGrid style="padding: 0;">
-            <IonRow class="swipe-container-title">
-              <IonCol size="1">
+          <div @click="viewSwipe(false)" class="swipe-container2">
+            <div class="swipe-icons-container flexcenter">
+              <IonIcon @click="viewSwipe(false)" :icon="close"></IonIcon>
+              <IonText>CLOSE</IonText>
+            </div>
+            <div style="height: calc(100vh - 70px)">
+              <img class="swipe-picture" :src="item.picture" alt="" />
+            </div>
+            <div class="swipe-text-preview-container flexcenter">
+              <div>
+                <div>
+                  <IonText class="swipe-text-preview">
+                    {{ item.content.toUpperCase() }}
+                  </IonText>
+                </div>
+                <div>
+                  <IonText class="swipe-text-preview"> TYPE </IonText>
+                </div>
+                <div>
+                  <IonText class="swipe-text-preview"> POSITION LVL </IonText>
+                </div>
+              </div>
+            </div>
+          </div>
 
-              </IonCol>
-              <IonCol class="flexcenter">
-                <b>{{ item.content.toUpperCase() }}</b>
-              </IonCol>
-
-              <IonCol class="flexcenter" size="1">
-                <IonIcon @click="viewSwipe(false)" :icon="close"></IonIcon>
-              </IonCol>
-            </IonRow>
+          <IonGrid style="padding: 0">
             <IonRow>
-              <IonCol style="margin: 0; padding: 0;" class="flexcenter">
-                <img class="swipe-picture" :src="item.picture" alt="">
+              <IonCol style="margin: 0; padding: 0" class="flexcenter">
+                <!-- <img class="swipe-picture" :src="item.picture" alt="" /> -->
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol>
                 <IonCard class="swipe-card-modal">
-                  <IonText class="swipe-label-modal">
-                    COMPANY:
-                  </IonText>
+                  <IonText class="swipe-label-modal"> COMPANY: </IonText>
                 </IonCard>
               </IonCol>
             </IonRow>
-            <IonRow style="background-color: rgb(224, 222, 222);">
+            <IonRow style="background-color: rgb(224, 222, 222)">
               <IonCol>
                 <IonText class="swipe-label-modal flexcenter">
                   INFORMATION
@@ -76,29 +79,23 @@
             <IonRow>
               <IonCol>
                 <IonCard class="swipe-card-modal">
-                  <IonText class="swipe-label-modal">
-                    JOB TYPE:
-                  </IonText>
+                  <IonText class="swipe-label-modal"> JOB TYPE: </IonText>
                 </IonCard>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
                 <IonCard class="swipe-card-modal">
-                  <IonText class="swipe-label-modal">
-                    POSITION LEVEL:
-                  </IonText>
+                  <IonText class="swipe-label-modal"> POSITION LEVEL: </IonText>
                 </IonCard>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
                 <IonCard class="swipe-card-modal">
-                  <IonText class="swipe-label-modal">
-                    DESCRIPTION:
-                  </IonText>
+                  <IonText class="swipe-label-modal"> DESCRIPTION: </IonText>
                   <div>
-                    <IonText style="padding-left: 10px;">
+                    <IonText style="padding-left: 10px">
                       {{ item.jobdescription }}
                     </IonText>
                   </div>
@@ -108,29 +105,23 @@
             <IonRow>
               <IonCol class="flexcenter">
                 <IonCard class="swipe-card-modal">
-                  <IonText class="swipe-label-modal">
-                    SALARY:
-                  </IonText>
+                  <IonText class="swipe-label-modal"> SALARY: </IonText>
                 </IonCard>
               </IonCol>
               <IonCol class="flexcenter">
                 <IonCard class="swipe-card-modal">
-                  <IonText class="swipe-label-modal">
-                    HOURS:
-                  </IonText>
+                  <IonText class="swipe-label-modal"> HOURS: </IonText>
                 </IonCard>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
                 <IonCard class="swipe-card-modal">
-                  <IonText class="swipe-label-modal">
-                    LOCATION:
-                  </IonText>
+                  <IonText class="swipe-label-modal"> LOCATION: </IonText>
                 </IonCard>
               </IonCol>
             </IonRow>
-            <IonRow style="background-color: rgb(224, 222, 222);">
+            <IonRow style="background-color: rgb(224, 222, 222)">
               <IonCol>
                 <IonText class="swipe-label-modal flexcenter">
                   REQUIREMENTS
@@ -163,10 +154,19 @@
 </template>
 
 <script lang="ts">
-import { IonCard, IonCol, IonContent, IonGrid, IonIcon, IonModal, IonRow, IonText } from "@ionic/vue";
-import { close } from "ionicons/icons"
+import {
+  IonCard,
+  IonCol,
+  IonContent,
+  IonGrid,
+  IonIcon,
+  IonModal,
+  IonRow,
+  IonText,
+} from "@ionic/vue";
+import { close } from "ionicons/icons";
 import "./Swipe.css";
-
+import { doc } from "firebase/firestore";
 
 export default {
   props: {
@@ -182,6 +182,13 @@ export default {
     };
   },
   methods: {
+    getPicture() {
+      const picture1 = document.getElementById("picture");
+      const imageUrl = this.item.picture;
+      picture1.style.backgroundImage = `url(${imageUrl})`;
+      picture1.style.backgroundSize = "cover";
+      picture1.style.backgroundPosition = "center";
+    },
     viewSwipe(x) {
       this.openView = x;
     },
@@ -218,19 +225,31 @@ export default {
         this.position = 0;
       }
     },
-
   },
-  components: { IonGrid, IonRow, IonCol, IonCard, IonText, IonContent, IonModal, IonIcon },
+  mounted() {
+    this.getPicture();
+  },
+  components: {
+    IonGrid,
+    IonRow,
+    IonCol,
+    IonCard,
+    IonText,
+    IonContent,
+    IonModal,
+    IonIcon,
+  },
   setup() {
     return {
       close,
-    }
-  }
+    };
+  },
 };
 </script>
 
 <style>
 /* ion-col {
-  border: 1px solid black !important;
+  border: 1px solid white !important;
+  color: white;
 } */
 </style>

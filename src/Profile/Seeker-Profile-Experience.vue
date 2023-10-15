@@ -1,5 +1,5 @@
 <template>
-  <IonCard class="Seeker-Profile-Experience-Card">
+  <!-- <IonCard class="Seeker-Profile-Experience-Card">
     <IonGrid style="padding: 0; height: 100%;">
       <IonRow style="height: 100%;">
         <IonCol size="2" class="Seeker-Profile-FlexCenter">
@@ -13,19 +13,52 @@
         </IonCol>
       </IonRow>
     </IonGrid>
-  </IonCard>
+  </IonCard> -->
+
+  <div class="flexcenter">
+    <div>
+      <div class="flexcenter">
+        <IonAvatar>
+          <img
+            src="https://ionicframework.com/docs/img/demos/avatar.svg"
+            alt="image"
+          />
+        </IonAvatar>
+      </div>
+      <div>
+        <IonText> PROFILE NAME </IonText>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <IonCard> Age </IonCard>
+  </div>
+
+  <div>
+    <IonCard> about me </IonCard>
+  </div>
 
   <IonButton fill="outline" class="Seeker-Profile-AddButton">
     <IonIcon :icon="add"></IonIcon>
   </IonButton>
 </template>
 <script lang="ts">
-import { IonButton, IonCard, IonCol, IonContent, IonGrid, IonIcon, IonRow } from "@ionic/vue";
+import {
+  IonAvatar,
+  IonButton,
+  IonCard,
+  IonCol,
+  IonContent,
+  IonGrid,
+  IonIcon,
+  IonRow,
+  IonText,
+} from "@ionic/vue";
 import "./Seeker-Profile.css";
-import { getUserProfile } from "./Profile-Model"
+import { getUserProfile } from "./Profile-Model";
 import { ref, onMounted } from "vue";
-import { add, newspaperOutline, chevronForwardOutline } from "ionicons/icons"
-
+import { add, newspaperOutline, chevronForwardOutline } from "ionicons/icons";
 
 export default {
   components: {
@@ -35,7 +68,9 @@ export default {
     IonIcon,
     IonGrid,
     IonRow,
-    IonCol
+    IonCol,
+    IonAvatar,
+    IonText,
   },
   setup() {
     // Assuming you have access to the email from your sharedFormData
@@ -50,7 +85,7 @@ export default {
       user, // Expose user ref to the template
       add,
       newspaperOutline,
-      chevronForwardOutline
+      chevronForwardOutline,
     };
   },
 };
@@ -61,4 +96,3 @@ export default {
   border: 1px solid black;
 } */
 </style>
-  

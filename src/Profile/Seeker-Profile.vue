@@ -2,37 +2,37 @@
   <IonPage>
     <IonHeader class="Seeker-Profile-Header">
       <IonGrid style="height: 100%; width: 100%; padding: 0">
-        <IonRow style="height: 45%">
-          <IonCol class="Seeker-Profile-FlexCenter" size="1.5">P</IonCol>
-          <IonCol class="Seeker-Profile-FlexCenter" style="justify-content: left">
-            <IonText>
-              {{
-                user
-                ? `${user.firstName} ${user.middleName} ${user.lastName} ${user.suffix}`
-                : "Loading..."
-              }}
-            </IonText>
-          </IonCol>
-          <IonCol class="Seeker-Profile-FlexCenter" size="1.5">
-            <IonIcon @click="GoHome" :icon="settingsOutline"></IonIcon>
-          </IonCol>
-        </IonRow>
-        <IonRow style="height: 20%; width: 100%">
+        <IonRow>
           <IonCol class="Seeker-Profile-Tabs-Container" id="Experience">
-            <IonButton class="Seeker-Profile-Buttons" fill="clear" expand="block" @click="ShowTabs('Experience')"
-              id="ExperienceButton">
-              Experience
+            <IonButton
+              class="Seeker-Profile-Buttons"
+              fill="clear"
+              expand="block"
+              @click="ShowTabs('Experience')"
+              id="ExperienceButton"
+            >
+              Profile
             </IonButton>
           </IonCol>
           <IonCol class="Seeker-Profile-Tabs-Container" id="Educational">
-            <IonButton class="Seeker-Profile-Buttons" fill="clear" expand="block" @click="ShowTabs('Educational')"
-              id="EducationalButton">
-              Educational
+            <IonButton
+              class="Seeker-Profile-Buttons"
+              fill="clear"
+              expand="block"
+              @click="ShowTabs('Educational')"
+              id="EducationalButton"
+            >
+              Education
             </IonButton>
           </IonCol>
           <IonCol class="Seeker-Profile-Tabs-Container" id="Skills">
-            <IonButton class="Seeker-Profile-Buttons" fill="clear" expand="block" @click="ShowTabs('Skills')"
-              id="SkillsButton">
+            <IonButton
+              class="Seeker-Profile-Buttons"
+              fill="clear"
+              expand="block"
+              @click="ShowTabs('Skills')"
+              id="SkillsButton"
+            >
               Skills
             </IonButton>
           </IonCol>
@@ -40,8 +40,10 @@
       </IonGrid>
     </IonHeader>
 
-    <IonGrid style="height: 100%; color: black; background-color: #f3f2ee; width: 100%;">
-      <IonRow style="background-color: #f9f6ee; height: 100%;">
+    <IonGrid
+      style="height: 100%; color: black; background-color: #f3f2ee; width: 100%"
+    >
+      <IonRow style="background-color: #f9f6ee; height: 100%">
         <IonCol class="Seeker-Profile-Information-Container">
           <IonContent class="Seeker-Profile-IonContent">
             <component :is="ShowComponents" />

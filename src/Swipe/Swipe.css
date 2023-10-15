@@ -118,24 +118,36 @@
   border-radius: 20px;
 }
 
+.asd2 {
+  background: white;
+  border-radius: 20px;
+  margin-top: 20px;
+}
+
 .swipe-picture {
-  height: 105px;
+  height: 100vh;
   width: 100%;
   object-fit: cover;
+  position: relative;
+  z-index: -1;
+  top: 0;
+}
+
+.swipe-picture2 {
+  height: 100vh;
+  width: 100%;
+  object-fit: cover;
+  position: relative;
 }
 
 .swipe-text {
-  text-align: center;
+  padding: 0;
+  color: white;
+  background: rgba(0, 0, 0, 0.219);
 }
 
 .swipe-description {
   text-align: justify;
-}
-
-.swipe-view-modal {
-  --height: 80%;
-  --width: 95%;
-  --border-radius: 20px;
 }
 
 .swipe-card-modal {
@@ -175,12 +187,20 @@
   border-radius: 20px 20px 0 0;
 }
 
-.swipe-container {
+.swipe-container1 {
   height: 100%;
   padding: 0;
   margin: 0;
-  border: 1px solid black;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  border-color: #262c5c;
   border-radius: 20px;
+}
+
+.swipe-container2 {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
   border-color: #262c5c;
 }
 
@@ -192,4 +212,33 @@
 .swipe-icon {
   font-size: 20px !important;
   color: white;
+}
+
+.swipe-text-preview {
+  justify-content: left;
+  display: flex;
+  align-items: center;
+  padding: 0 0 0 10px;
+  color: black;
+  font-size: 18px;
+}
+
+.swipe-text-preview-container {
+  background: rgba(0, 0, 0, 0.219);
+  border-radius: 0 0 0 0;
+  height: 60px;
+  justify-content: left;
+}
+
+.swipe-icons{
+  color: white;
+  
+}
+
+.swipe-icons-container{
+  color: white;
+  background: rgba(0, 0, 0, 0.47);
+  position: fixed;
+  width: 100%;
+  padding: 3px;
 }

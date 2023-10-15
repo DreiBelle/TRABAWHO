@@ -1,15 +1,23 @@
 <template>
   <IonPage>
-    <IonTabs >
+    <IonTabs>
       <IonRouterOutlet></IonRouterOutlet>
       <IonTabBar class="navbar-container" slot="bottom">
         <!-- change this button later -->
-        <IonTabButton class="NavBar-Buttons" tab="Logout" @click="handleSignout">
+        <IonTabButton
+          class="NavBar-Buttons"
+          tab="Logout"
+          @click="handleSignout"
+        >
           <IonIcon :icon="logOut"></IonIcon>
           <IonLabel>Logout</IonLabel>
         </IonTabButton>
 
-        <IonTabButton class="NavBar-Buttons" tab="Message" href="/Seeker-Message">
+        <IonTabButton
+          class="NavBar-Buttons"
+          tab="Message"
+          href="/Seeker-Message"
+        >
           <IonIcon :icon="chatbubbles"></IonIcon>
           <IonLabel>Message</IonLabel>
         </IonTabButton>
@@ -24,11 +32,14 @@
           <IonLabel>Notification</IonLabel>
         </IonTabButton>
 
-        <IonTabButton class="NavBar-Buttons" tab="Profile" href="/Seeker-Profile">
+        <IonTabButton
+          class="NavBar-Buttons"
+          tab="Profile"
+          href="/Seeker-Profile"
+        >
           <IonIcon :icon="person"></IonIcon>
           <IonLabel>Profile</IonLabel>
         </IonTabButton>
-
       </IonTabBar>
     </IonTabs>
   </IonPage>
@@ -51,10 +62,20 @@ import {
   IonTabButton,
   IonIcon,
   IonLabel,
+  IonHeader,
 } from "@ionic/vue";
 import { GoSwipe, GoMessage, GoProfile, GoHome } from "./NavBar-Controller";
 import "./NavBar.css";
-import { chatbubbles, home, notifications, logOut, person } from "ionicons/icons";
+import "../Swipe/Swipe.css";
+
+import {
+  chatbubbles,
+  home,
+  notifications,
+  logOut,
+  person,
+  settings,
+} from "ionicons/icons";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "@/firebaseDB";
 import { ref, onMounted } from "vue";
@@ -78,6 +99,7 @@ export default {
     IonTabButton,
     IonIcon,
     IonLabel,
+    IonHeader,
   },
   setup() {
     onMounted(() => {
@@ -89,7 +111,7 @@ export default {
         }
       });
     });
-    return { chatbubbles, home, notifications, logOut, person };
+    return { chatbubbles, home, notifications, logOut, person, settings };
   },
   methods: {
     handleSignout() {
@@ -98,7 +120,7 @@ export default {
         localStorage.removeItem("password");
         GoHome();
       });
-    }
+    },
   },
 };
 </script>

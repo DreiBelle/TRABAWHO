@@ -1,43 +1,85 @@
 <template>
   <IonPage>
-    <IonHeader class="Swipe-Header">
-      <IonGrid style="height: 100%; padding: 0">
-        <IonRow style="height: 100%">
-          <IonCol class="Swipe-FlexCenter" size="2">
-            <img class="swipe-logo" src="../assets/logo/whitefilllogo.png" alt="logo">
-          </IonCol>
-          <IonCol class="Swipe-FlexCenter"> </IonCol>
-          <IonCol class="Swipe-FlexCenter" size="2">
-            <IonIcon class="swipe-icon" :icon="settings"></IonIcon>
-          </IonCol>
-        </IonRow>
-      </IonGrid>
-    </IonHeader>
-    <IonGrid style="height: 100%; width: 100%;background: whitesmoke;
-">
-      <IonRow style="height: 100%">
-        <IonCol>
-          <div class="Swipe-Background" v-if="nextCardIndex < cards.length">
-            <SwipeableCard :item="cards[currentCardIndex]" @swipeLeft="handleSwipeLeft" @swipeRight="handleSwipeRight"
-              style="z-index: 2" id="mainswiper" class="asd" />
-            <FakeSwipeableCard :item="cards[nextCardIndex]" />
-          </div>
-          <div class="Swipe-Background" v-else-if="currentCardIndex < cards.length">
-            <SwipeableCard :item="cards[currentCardIndex]" @swipeLeft="handleSwipeLeft" @swipeRight="handleSwipeRight"
-              style="z-index: 2" id="mainswiper" class="asd" />
-            <IonCard class="Swipe-Swipeable">
-              no more available jobs
-            </IonCard>
-          </div>
-          <div class="Swipe-Background" v-else>
-            <IonCard class="Swipe-Swipeable">
-              no more available jobs
-            </IonCard>
-          </div>
-        </IonCol>
-      </IonRow>
-    </IonGrid>
-    <!-- <FloatingButtons style="z-index: 3;"/> -->
+    <div v-if="isloading">
+      <IonProgressBar type="indeterminate"></IonProgressBar>
+      <IonHeader class="Swipe-Header">
+        <IonGrid style="height: 100%; padding: 0">
+          <IonRow style="height: 100%">
+            <IonCol class="Swipe-FlexCenter" size="2">
+              <img
+                class="swipe-logo"
+                src="../assets/logo/whitefilllogo.png"
+                alt="logo"
+              />
+            </IonCol>
+            <IonCol class="Swipe-FlexCenter"> </IonCol>
+            <IonCol class="Swipe-FlexCenter" size="2">
+              <IonIcon class="swipe-icon" :icon="settings"></IonIcon>
+            </IonCol>
+          </IonRow>
+        </IonGrid>
+      </IonHeader>
+    </div>
+    <div v-if="!isloading">
+      <IonPage>
+        <IonHeader class="Swipe-Header">
+          <IonGrid style="height: 100%; padding: 0">
+            <IonRow style="height: 100%">
+              <IonCol class="Swipe-FlexCenter" size="2">
+                <img
+                  class="swipe-logo"
+                  src="../assets/logo/whitefilllogo.png"
+                  alt="logo"
+                />
+              </IonCol>
+              <IonCol class="Swipe-FlexCenter"> </IonCol>
+              <IonCol class="Swipe-FlexCenter" size="2">
+                <IonIcon class="swipe-icon" :icon="settings"></IonIcon>
+              </IonCol>
+            </IonRow>
+          </IonGrid>
+        </IonHeader>
+        <IonGrid style="height: 100%; width: 100%; background: whitesmoke">
+          <IonRow style="height: 100%">
+            <IonCol>
+              <div class="Swipe-Background" v-if="nextCardIndex < cards.length">
+                <SwipeableCard
+                  :item="cards[currentCardIndex]"
+                  @swipeLeft="handleSwipeLeft"
+                  @swipeRight="handleSwipeRight"
+                  style="z-index: 2"
+                  id="mainswiper"
+                  class="asd"
+                />
+                <FakeSwipeableCard :item="cards[nextCardIndex]" class="asd2" />
+              </div>
+              <div
+                class="Swipe-Background"
+                v-else-if="currentCardIndex < cards.length"
+              >
+                <SwipeableCard
+                  :item="cards[currentCardIndex]"
+                  @swipeLeft="handleSwipeLeft"
+                  @swipeRight="handleSwipeRight"
+                  style="z-index: 2"
+                  id="mainswiper"
+                  class="asd"
+                />
+                <IonCard class="Swipe-Swipeable">
+                  no more available jobs
+                </IonCard>
+              </div>
+              <div class="Swipe-Background" v-else>
+                <IonCard class="Swipe-Swipeable">
+                  no more available jobs
+                </IonCard>
+              </div>
+            </IonCol>
+          </IonRow>
+        </IonGrid>
+        <!-- <FloatingButtons style="z-index: 3;"/> -->
+      </IonPage>
+    </div>
   </IonPage>
 </template>
 
@@ -58,6 +100,7 @@ import {
   IonIcon,
   IonLabel,
   IonPage,
+  IonProgressBar,
   IonRouterOutlet,
   IonRow,
   IonTabBar,
@@ -87,6 +130,7 @@ export default {
     IonIcon,
     IonRouterOutlet,
     IonLabel,
+    IonProgressBar,
   },
   setup() {
     return { settings };
@@ -96,18 +140,19 @@ export default {
       nextCardIndex: 1,
       currentCardIndex: 0,
       cards: [],
+      isloading: true,
     };
   },
   methods: {
     handleSwipeLeft() {
-      const swiper = document.getElementById("mainswiper")
+      const swiper = document.getElementById("mainswiper");
 
       setTimeout(() => {
-        swiper.style.display = 'none';
+        swiper.style.display = "none";
       }, 100);
 
       setTimeout(() => {
-        swiper.style.display = 'inline';
+        swiper.style.display = "inline";
       }, 500);
 
       console.log("swipe left");
@@ -115,14 +160,14 @@ export default {
     },
 
     handleSwipeRight() {
-      const swiper = document.getElementById("mainswiper")
+      const swiper = document.getElementById("mainswiper");
 
       setTimeout(() => {
-        swiper.style.display = 'none';
+        swiper.style.display = "none";
       }, 100);
 
       setTimeout(() => {
-        swiper.style.display = 'inline';
+        swiper.style.display = "inline";
       }, 500);
 
       console.log("swipe right");
@@ -136,7 +181,6 @@ export default {
       }, 501);
     },
   },
-
   async mounted() {
     try {
       const user = asd(null);
@@ -157,7 +201,14 @@ export default {
       console.log(yearsofexp);
       console.log(salary);
 
-      const jobs = await getJobs(chosenInterest, hours, jobtype, loc, yearsofexp, salary);
+      const jobs = await getJobs(
+        chosenInterest,
+        hours,
+        jobtype,
+        loc,
+        yearsofexp,
+        salary
+      );
 
       // Fetch image URLs from Firebase Storage for each job
       const jobsWithImages = await Promise.all(
@@ -177,11 +228,9 @@ export default {
     } catch (error) {
       console.error("Error fetching jobs: ", error);
     }
-  },
 
-  // mounted() {
-  //   this.showNextCard();
-  // },
+    this.isloading = false;
+  },
 };
 </script>
 

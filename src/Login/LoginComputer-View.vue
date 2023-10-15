@@ -56,7 +56,7 @@
                 </IonRow>
               </IonGrid>
             </IonCol>
-            <IonCol size="6.5"> <img class="login-logo" src="../assets/logo/logo1.png" alt="logo" /> </IonCol>
+            <IonCol size="6.5">  </IonCol>
           </IonRow>
         </IonGrid>
       </IonCard>

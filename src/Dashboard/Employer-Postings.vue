@@ -75,12 +75,23 @@
   </div>
   <div v-else>
     <div id="myElement" v-if="jobPostings.length > 0">
-      <IonCard class="dashboard-postedjobs-jobposting" v-for="(job, index) in filteredJobPostings" :key="index"
-        @click="OpenViewModal(index)">
+      <IonCard
+        class="dashboard-postedjobs-jobposting"
+        v-for="(job, index) in filteredJobPostings"
+        :key="index"
+        @click="OpenViewModal(index)"
+      >
         <IonGrid style="height: 100%; padding: 0">
           <IonRow style="height: 100%">
-            <IonCol class="flexcenter" style="padding: 0; justify-content: left">
-              <img class="Dashboard-AddJobPostings-Card-Picture" :src="job ? job.pic : ''" alt="" />
+            <IonCol
+              class="flexcenter"
+              style="padding: 0; justify-content: left"
+            >
+              <img
+                class="Dashboard-AddJobPostings-Card-Picture"
+                :src="job ? job.pic : ''"
+                alt=""
+              />
             </IonCol>
             <IonCol class="flexcenter" style="justify-content: left" size="8">
               {{ job ? job.jobname : "Loading..." }}
@@ -94,6 +105,12 @@
             <IonCol class="flexcenter">
               <IonIcon style="padding-right: 5px" :icon="bookmark"></IonIcon> 0
             </IonCol>
+            <IonCol class="flexcenter postings-arhive-container">
+              <IonIcon
+                class="postings-arhive-button flexcenter"
+                :icon="archive"
+              ></IonIcon>
+            </IonCol>
           </IonRow>
         </IonGrid>
       </IonCard>
@@ -101,8 +118,13 @@
     <div v-else>No job postings available for your company.</div>
   </div>
 
-  <ViewModal :is-viewmodal="isViewmodal" @close-view-modal="CloseViewModal" @open-view-modal="OpenViewModal"
-    :is-open="isViewmodal" :job-posting="selectedJobPosting" />
+  <ViewModal
+    :is-viewmodal="isViewmodal"
+    @close-view-modal="CloseViewModal"
+    @open-view-modal="OpenViewModal"
+    :is-open="isViewmodal"
+    :job-posting="selectedJobPosting"
+  />
 
   <!-- <IonModal
     ref="modal"
@@ -131,7 +153,7 @@ import {
   IonCardHeader,
   IonModal,
 } from "@ionic/vue";
-import { eyeSharp, thumbsUp, bookmark, close } from "ionicons/icons";
+import { eyeSharp, thumbsUp, bookmark, close, archive } from "ionicons/icons";
 import { getJobPostings } from "@/Dashboard/Dashboard-Model";
 import { getDashboardProfile } from "./Dashboard-Model";
 import { ref, onMounted, onUnmounted } from "vue";
@@ -168,7 +190,6 @@ export default {
     const user = ref(null);
     const jobPostings = ref([]);
     const filterjobPostings = ref([]);
-
 
     const updateJobPostings = (snapshot) => {
       jobPostings.value = snapshot.docs.map((doc) => doc.data());
@@ -212,12 +233,15 @@ export default {
       bookmark,
       close,
       filterjobPostings,
+      archive,
     };
   },
   computed: {
     filteredJobPostings() {
       return this.jobPostings.filter((job) => {
-        return job.jobname.toLowerCase().includes(this.searchTerm.toLowerCase());
+        return job.jobname
+          .toLowerCase()
+          .includes(this.searchTerm.toLowerCase());
       });
     },
   },

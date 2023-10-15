@@ -1,24 +1,38 @@
 <template>
-  <IonModal class="modal-addjobpost" :is-open="isEditmodal" @did-dismiss="closeOther" style="background-color: rgba(0, 0, 0, 0.4);">
-    <IonGrid style="height: 100%; padding: 10px" >
-      <IonRow style="height: 6%">
-        <IonCol class="flexcenter"> EDIT JOB POSTING </IonCol>
-      </IonRow>
-      <IonRow style="height: 24.5%; max-height: 123px">
-        <IonCol size="2" class="flexcenter">
-          <div v-if="!thereisImage">
-            <div class="modal-addjobpost-image"></div>
-          </div>
-          <div v-else class="flexcenter">
-            <img
-              :src="imageUrl"
-              alt="Selected Image"
-              v-if="imageUrl"
-              class="modal-addjobpost-image"
-            />
-          </div>
-        </IonCol>
-        <IonCol size="4" class="modal-addjobpost-button-addimage">
+  <IonModal
+    class="modal-addjobpost"
+    :is-open="isEditmodal"
+    @did-dismiss="closeOther"
+    style="background-color: rgba(0, 0, 0, 0.4)"
+  >
+    <IonHeader class="modal-editjobposting-header flexcenter">EDIT</IonHeader>
+    <IonContent>
+      <div style="padding: 10px">
+        <div
+          class="flexcenter"
+          style="justify-content: left"
+          v-if="!thereisImage"
+        >
+          <div class="modal-addjobpost-image"></div>
+          <input
+            id="fileInput"
+            type="file"
+            accept="image/jpeg"
+            @change="handleFileChange"
+            ref="myfile"
+            style="display: none"
+          />
+          <label for="fileInput" class="modal-editposting-modal">
+            Choose Picture
+          </label>
+        </div>
+        <div v-else class="flexcenter">
+          <img
+            :src="imageUrl"
+            alt="Selected Image"
+            v-if="imageUrl"
+            class="modal-addjobpost-image"
+          />
           <label for="fileInput">
             <input
               id="fileInput"
@@ -28,52 +42,9 @@
               ref="myfile"
             />
           </label>
-        </IonCol>
-        <IonCol style="padding: 0" size="6">
-          <IonRow>
-            <IonCol>
-              <IonSelect
-                class="modal-addjobpost-input"
-                label="Estimated Salary"
-                interface="popover"
-                labelPlacement="stacked"
-                fill="outline"
-                :placeholder="jobPosting ? jobPosting.salary : ''"
-                v-model="formData.salary"
-                required
-              >
-                <IonSelectOption value="0php - 5,000php">0php - 5,000php</IonSelectOption>
-                <IonSelectOption value="6,000php - 10,000php">6,000php - 10,000php</IonSelectOption>
-                <IonSelectOption value="11,000php - 50,000php">11,000php - 50,000php</IonSelectOption>
-                <IonSelectOption value="51,000php - 100,000php">51,000php - 100,000php</IonSelectOption>
-                <IonSelectOption value="100,000php and above">100,000php and above</IonSelectOption>
-              </IonSelect>
-            </IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol>
-              <IonSelect
-                class="modal-addjobpost-input"
-                label="Estimated Hours of Work"
-                interface="popover"
-                labelPlacement="stacked"
-                fill="outline"
-                :placeholder="jobPosting ? jobPosting.hours : ''"
-                v-model="formData.hours"
-                required
-              >
-                <IonSelectOption value="4">4hrs</IonSelectOption>
-                <IonSelectOption value="8">8hrs</IonSelectOption>
-                <IonSelectOption value="12">12hrs</IonSelectOption>
-                <IonSelectOption value="16">16hrs</IonSelectOption>
-                <IonSelectOption value="20">20hrs</IonSelectOption>
-              </IonSelect>
-            </IonCol>
-          </IonRow>
-        </IonCol>
-      </IonRow>
-      <IonRow style="height: 12%">
-        <IonCol class="flexcenter">
+        </div>
+
+        <div>
           <IonInput
             class="modal-addjobpost-input"
             label="Job Title"
@@ -84,8 +55,9 @@
             required
           >
           </IonInput>
-        </IonCol>
-        <IonCol>
+        </div>
+
+        <div>
           <IonSelect
             class="modal-addjobpost-input"
             label="Job Type"
@@ -102,10 +74,9 @@
             <IonSelectOption value="Temporary">Temporary</IonSelectOption>
             <IonSelectOption value="Internship">Internship</IonSelectOption>
           </IonSelect>
-        </IonCol>
-      </IonRow>
-      <IonRow style="height: 12%">
-        <IonCol>
+        </div>
+
+        <div>
           <IonSelect
             class="modal-addjobpost-input"
             label="Position Level"
@@ -132,8 +103,70 @@
               >Less than 1 year experience</IonSelectOption
             >
           </IonSelect>
-        </IonCol>
-        <IonCol>
+        </div>
+
+        <div>
+          <IonSelect
+            class="modal-addjobpost-input"
+            label="Estimated Salary"
+            interface="popover"
+            labelPlacement="stacked"
+            fill="outline"
+            :placeholder="jobPosting ? jobPosting.salary : ''"
+            v-model="formData.salary"
+            required
+          >
+            <IonSelectOption value="0php - 5,000php"
+              >0php - 5,000php</IonSelectOption
+            >
+            <IonSelectOption value="6,000php - 10,000php"
+              >6,000php - 10,000php</IonSelectOption
+            >
+            <IonSelectOption value="11,000php - 50,000php"
+              >11,000php - 50,000php</IonSelectOption
+            >
+            <IonSelectOption value="51,000php - 100,000php"
+              >51,000php - 100,000php</IonSelectOption
+            >
+            <IonSelectOption value="100,000php and above"
+              >100,000php and above</IonSelectOption
+            >
+          </IonSelect>
+        </div>
+
+        <div>
+          <IonSelect
+            class="modal-addjobpost-input"
+            label="Estimated Hours of Work"
+            interface="popover"
+            labelPlacement="stacked"
+            fill="outline"
+            :placeholder="jobPosting ? jobPosting.hours : ''"
+            v-model="formData.hours"
+            required
+          >
+            <IonSelectOption value="4">4hrs</IonSelectOption>
+            <IonSelectOption value="8">8hrs</IonSelectOption>
+            <IonSelectOption value="12">12hrs</IonSelectOption>
+            <IonSelectOption value="16">16hrs</IonSelectOption>
+            <IonSelectOption value="20">20hrs</IonSelectOption>
+          </IonSelect>
+        </div>
+
+        <div>
+          <IonInput
+            class="modal-addjobpost-input"
+            label="No. of employees"
+            placeholder="Needed no. of employees"
+            labelPlacement="stacked"
+            fill="outline"
+            type="number"
+            required
+          >
+          </IonInput>
+        </div>
+
+        <div>
           <IonSelect
             class="modal-addjobpost-input"
             label="Required Years of Experience"
@@ -152,10 +185,9 @@
             <IonSelectOption value="21-23">21-23</IonSelectOption>
             <IonSelectOption value="24+">24+</IonSelectOption>
           </IonSelect>
-        </IonCol>
-      </IonRow>
-      <IonRow style="height: 23.5%">
-        <IonCol size="6">
+        </div>
+
+        <div>
           <IonTextarea
             label="Job Description"
             fill="outline"
@@ -163,65 +195,62 @@
             class="modal-addjobpost-input"
             :placeholder="jobPosting ? jobPosting.jobdes : ''"
             v-model="formData.jobdes"
-            style="height: 100%"
+            style="height: 200px"
           >
           </IonTextarea>
-        </IonCol>
-        <IonCol size="6" style="padding: 0">
-          <IonRow>
-            <IonCol>
-              <IonSelect
-                class="modal-addjobpost-input"
-                label="Required Educational Attainment"
-                label-placement="stacked"
-                interface="popover"
-                fill="outline"
-                v-model="formData.reqeduc"
-                :placeholder="jobPosting ? jobPosting.reqeduc : ''"
-                required
-              >
-                <IonSelectOption value="none">none</IonSelectOption>
+        </div>
 
-                <IonSelectOption value="Junior High School Graduate and above"
-                  >Junior High School Graduate and above</IonSelectOption
-                >
-                <IonSelectOption value="Senior High School Graduate and above"
-                  >Senior High School Graduate and above</IonSelectOption
-                >
-                <IonSelectOption value="College Graduate"
-                  >College Graduate</IonSelectOption
-                >
-              </IonSelect></IonCol
+        <div>
+          <IonSelect
+            class="modal-addjobpost-input"
+            label="Required Educational Attainment"
+            label-placement="stacked"
+            interface="popover"
+            fill="outline"
+            v-model="formData.reqeduc"
+            :placeholder="jobPosting ? jobPosting.reqeduc : ''"
+            required
+          >
+            <IonSelectOption value="none">none</IonSelectOption>
+
+            <IonSelectOption value="Junior High School Graduate and above"
+              >Junior High School Graduate and above</IonSelectOption
             >
-          </IonRow>
-          <IonRow>
-            <IonCol>
-              <IonSelect
-                class="modal-addjobpost-input"
-                label="Location"
-                interface="popover"
-                labelPlacement="stacked"
-                fill="outline"
-                :placeholder="jobPosting ? jobPosting.loc : ''"
-                v-model="formData.loc"
-                required
-                
-              >
-                <IonSelectOption value="Work From Home">Work from home</IonSelectOption>
-                <IonSelectOption value="Within the province">Within the province</IonSelectOption>
-                <IonSelectOption value="Outside of the province">Outside of the province</IonSelectOption>
-              </IonSelect>
-            </IonCol>
-          </IonRow>
-        </IonCol>
-      </IonRow>
-      <IonRow style="height: 3%">
-        <IonCol style="padding: 0; padding-left: 5px; font-size: 12px">
-          Specialized Fields
-        </IonCol>
-      </IonRow>
-      <IonRow style="height: 9%">
-        <IonCol class="flexcenter" style="justify-content: left; padding: 0">
+            <IonSelectOption value="Senior High School Graduate and above"
+              >Senior High School Graduate and above</IonSelectOption
+            >
+            <IonSelectOption value="College Graduate"
+              >College Graduate</IonSelectOption
+            >
+          </IonSelect>
+        </div>
+
+        <div>
+          <IonSelect
+            class="modal-addjobpost-input"
+            label="Location"
+            interface="popover"
+            labelPlacement="stacked"
+            fill="outline"
+            :placeholder="jobPosting ? jobPosting.loc : ''"
+            v-model="formData.loc"
+            required
+          >
+            <IonSelectOption value="Work From Home"
+              >Work from home</IonSelectOption
+            >
+            <IonSelectOption value="Within the province"
+              >Within the province</IonSelectOption
+            >
+            <IonSelectOption value="Outside of the province"
+              >Outside of the province</IonSelectOption
+            >
+          </IonSelect>
+        </div>
+
+        <div style="margin: 5px">Specialized Fields</div>
+
+        <div class="flexcenter" style="justify-content: left; margin-left: 5px">
           <IonChip v-for="choice in chosenChoices" :key="choice.id">
             {{ choice.label }}
             <IonIcon
@@ -230,6 +259,7 @@
               :icon="close"
             ></IonIcon>
           </IonChip>
+
           <div v-if="chosenChoices.length > 0" class="flexcenter">
             <IonIcon
               @click="openModal"
@@ -238,7 +268,7 @@
               class="modal-addjobpost-addicon"
             ></IonIcon>
           </div>
-          <div v-else>
+          <div v-else class="flexcenter">
             <IonButton
               @click="openModal"
               class="modal-addjobpost-button-button-tags"
@@ -248,30 +278,26 @@
               Add Specialized Fields
             </IonButton>
           </div>
-        </IonCol>
-      </IonRow>
-      <IonRow style="height: 10%">
-        <IonCol>
-          <IonButton
-            @click="closeOther"
-            class="modal-addjobpost-button"
-            style="--background: darkred"
-            expand="block"
-          >
-            cancel
-          </IonButton>
-        </IonCol>
-        <IonCol>
-          <IonButton
-            @click="handleSubmit"
-            class="modal-addjobpost-button"
-            expand="block"
-          >
-            save changes
-          </IonButton>
-        </IonCol>
-      </IonRow>
-    </IonGrid>
+        </div>
+
+        <div style="width: 100%" class="flexcenter">
+          <div style="width: 50%">
+            <IonButton
+              @click="closeOther"
+              class="modal-addjobpost-button"
+              style="--background: darkred"
+            >
+              cancel
+            </IonButton>
+          </div>
+          <div style="width: 50%">
+            <IonButton @click="handleSubmit" class="modal-addjobpost-button" s>
+              save changes
+            </IonButton>
+          </div>
+        </div>
+      </div>
+    </IonContent>
 
     <IonModal :is-open="modalOpen" @did-dismiss="closeModal">
       <ChoiceModal
@@ -286,6 +312,7 @@
 <script lang="ts">
 import {
   IonButton,
+  IonHeader,
   IonCard,
   IonCol,
   IonGrid,
@@ -329,6 +356,7 @@ export default {
     IonSelect,
     IonSelectOption,
     IonChip,
+    IonHeader,
   },
   setup(props) {
     const user = ref(null);
@@ -345,16 +373,16 @@ export default {
     });
 
     const formData = computed(() => ({
-      pic: props.jobPosting ? props.jobPosting.pic : '',
-      jobname: props.jobPosting ? props.jobPosting.jobname : '',
-      jobtype: props.jobPosting ? props.jobPosting.jobtype : '',
-      jobdes: props.jobPosting ? props.jobPosting.jobdes : '',
-      salary: props.jobPosting ? props.jobPosting.salary : '',
-      hours: props.jobPosting ? props.jobPosting.hours : '',
-      loc: props.jobPosting ? props.jobPosting.loc : '',
-      reqeduc: props.jobPosting ? props.jobPosting.reqeduc : '',
-      yearsofexp: props.jobPosting ? props.jobPosting.yearsofexp : '',
-      positionlvl: props.jobPosting ? props.jobPosting.positionlvl : '',
+      pic: props.jobPosting ? props.jobPosting.pic : "",
+      jobname: props.jobPosting ? props.jobPosting.jobname : "",
+      jobtype: props.jobPosting ? props.jobPosting.jobtype : "",
+      jobdes: props.jobPosting ? props.jobPosting.jobdes : "",
+      salary: props.jobPosting ? props.jobPosting.salary : "",
+      hours: props.jobPosting ? props.jobPosting.hours : "",
+      loc: props.jobPosting ? props.jobPosting.loc : "",
+      reqeduc: props.jobPosting ? props.jobPosting.reqeduc : "",
+      yearsofexp: props.jobPosting ? props.jobPosting.yearsofexp : "",
+      positionlvl: props.jobPosting ? props.jobPosting.positionlvl : "",
     }));
 
     return {
@@ -364,23 +392,22 @@ export default {
       close,
     };
   },
-  props:{
+  props: {
     isEditmodal: {
       type: Boolean,
       required: true,
     },
-    jobPosting: { 
+    jobPosting: {
       type: Object,
       default: null,
-  },
-    
+    },
   },
   data(props) {
     return {
       imageUrl: null,
       modalOpen: false,
       modalChoices: [],
-      chosenChoices: props.jobPosting ? props.jobPosting.chosenInterests : '',
+      chosenChoices: props.jobPosting ? props.jobPosting.chosenInterests : "",
       selectedImage: null,
       thereisImage: false,
     };
@@ -429,7 +456,17 @@ export default {
     },
 
     async handleSubmit(event) {
-      const requiredFields = ["jobname", "jobtype", "jobdes", "positionlvl", "salary", "hours", "yearsofexp", "reqeduc", "loc"];
+      const requiredFields = [
+        "jobname",
+        "jobtype",
+        "jobdes",
+        "positionlvl",
+        "salary",
+        "hours",
+        "yearsofexp",
+        "reqeduc",
+        "loc",
+      ];
       let isFormValid = true;
       let isImageSelected = false;
 
@@ -483,6 +520,6 @@ export default {
 </script>
 <style>
 /* ion-col {
-    border: 1px solid black;
-  } */
+  border: 1px solid black;
+} */
 </style>

@@ -1,31 +1,30 @@
 <template>
-  <div class="Swipe-Swipeable" :class="{ 'Swipe-Swipeable--animated': position !== 0 }"
-    :style="{ transform: `translateX(${position}px)` }">
+  <div
+    class="Swipe-Swipeable"
+    :class="{ 'Swipe-Swipeable--animated': position !== 0 }"
+    :style="{ transform: `translateX(${position}px)` }"
+  >
     <div class="Swipe-CardContent" id="card">
-      <IonGrid class="swipe-container">
-        <IonRow style="height: 10%">
-          <IonCol>
-            {{ item.content }}
-          </IonCol>
-        </IonRow>
-        <IonRow style="height: 50%">
-          <IonCol>
-            <img class="Dashboard-AddJobPostings-Card-Picture" :src="item.picture" alt="">
-          </IonCol>
-        </IonRow>
-        <IonRow style="height: 10%">
-          <IonCol> {{ item.jobtype }} </IonCol>
-        </IonRow>
-        <IonRow style="height: 50%">
-          <IonCol> {{ item.jobdescription }} </IonCol>
-        </IonRow>
-      </IonGrid>
+      <div class="swipe-container1" id="fakepicture">
+        <div style="height: calc(100% - 75px)"></div>
+        <div class="swipe-text-preview-container">
+          <div>
+            <IonText class="swipe-text-preview"> Name </IonText>
+          </div>
+          <div>
+            <IonText class="swipe-text-preview"> TYPE </IonText>
+          </div>
+          <div>
+            <IonText class="swipe-text-preview"> POSITION LVL </IonText>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { IonCard, IonCol, IonGrid, IonRow } from "@ionic/vue";
+import { IonText, IonCard, IonCol, IonGrid, IonRow } from "@ionic/vue";
 import "./Swipe.css";
 
 export default {
@@ -41,9 +40,18 @@ export default {
     };
   },
   methods: {
-
+    getPicture() {
+      const picture1 = document.getElementById("fakepicture");
+      const imageUrl = this.item.picture;
+      picture1.style.backgroundImage = `url(${imageUrl})`;
+      picture1.style.backgroundSize = "cover";
+      picture1.style.backgroundPosition = "center";
+    },
   },
-  components: { IonGrid, IonRow, IonCol, IonCard },
+  mounted() {
+    this.getPicture();
+  },
+  components: { IonText, IonGrid, IonRow, IonCol, IonCard },
 };
 </script>
 

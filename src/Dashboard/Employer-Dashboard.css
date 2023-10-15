@@ -566,6 +566,7 @@ IonRouterOutlet
   justify-content: left;
   align-items: end;
   padding-bottom: 10px;
+  width: 100%;
 }
 
 .modal-addjobpost-input {
@@ -575,11 +576,14 @@ IonRouterOutlet
   color: black;
   --highlight-color-focused: #262c5c;
   --border-color: black !important;
+  margin: 10px 0 0 5px;
 }
 
 .modal-addjobpost-button {
   --background: #262c5c;
   --color: white;
+  width: 100%;
+  padding: 0 0 5px 5px;
 }
 
 .modal-addjobpost-button-button-tags {
@@ -618,7 +622,7 @@ IonRouterOutlet
 .modal-addjobpost {
   --height: 540px;
   --width: 100%;
-  --max-width: 700px;
+  --max-width: 550px;
   --border-radius: 20px;
 }
 
@@ -635,10 +639,11 @@ IonRouterOutlet
 .modal-viewjobpost-cards {
   width: 100%;
   overflow-y: auto;
+  color: black;
 }
 
 .modal-viewjobpost-image {
-  height: 100px;
+  height: 100%;
   max-width: 100%;
   width: 100%;
   display: flex;
@@ -655,7 +660,8 @@ IonRouterOutlet
 
 .modal-viewjobpost {
   --height: 600px;
-  --width: 500px;
+  --width: 100%;
+  --max-width: 800px;
   --border-radius: 20px;
 }
 
@@ -688,4 +694,42 @@ IonRouterOutlet
   height: calc(80% - 30px);
   padding-bottom: 10px;
   padding-top: 5px;
+}
+
+.postings-arhive-button {
+  padding: 0;
+  justify-content: right;
+  font-size: 17px;
+}
+
+.postings-arhive-container {
+  background: #262c5c;
+  color: white;
+  transition: color 0.3s ease;
+}
+
+.postings-arhive-container:hover {
+  background: #262c5c;
+  color: yellow;
+  transition: color 0.3s ease;
+}
+
+.modal-editjobposting-header{
+  height: 35px;
+  background-color: #262c5c;
+  color: white;
+}
+
+.modal-editposting-modal{
+  padding: 5px;
+  background-color: #262c5c;
+  color: white;
+  border-radius: 10px;
+  height: 30px;
+  width: 120px;
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
 }

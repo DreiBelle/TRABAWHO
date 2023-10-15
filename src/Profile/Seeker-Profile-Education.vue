@@ -87,35 +87,7 @@
         </IonRow>
       </IonGrid>
     </IonCard>
-
-    <IonText style="font-size:12px ;">
-      OTHER EDUCATION:
-    </IonText>
-
-    <!-- eto na yung dapat maadd, wag nalang natin irequire to sa signup-->
-    <!-- sample lang to -->
-    <IonCard class="Seeker-Profile-Educational-Card">
-      <IonGrid style="height: 100%; padding: 0;">
-        <IonRow style="height: 100%;">
-          <IonCol size="2" class="Seeker-Profile-FlexCenter Seeker-Profile-Educational-Icons">
-            <IonIcon size="large" :icon="school"></IonIcon>
-          </IonCol>
-          <IonCol>
-            <IonRow style="height: 50%;">
-              <IonCol class="Seeker-Profile-Educational-Container-School">
-                <IonText><b>Masteral:</b></IonText>
-              </IonCol>
-            </IonRow>
-            <IonRow style="height: 50%;">
-              <IonCol class="Seeker-Profile-Educational-Container-School" style="padding-left: 20px;">
-                {{ user ? `${user.othereduc}` : "..." }}
-              </IonCol>
-            </IonRow>
-          </IonCol>
-        </IonRow>
-      </IonGrid>
-    </IonCard>
-
+    
     <IonCard class="Seeker-Profile-Educational-Card">
       <IonGrid style="height: 100%; padding: 0;">
         <IonRow style="height: 100%;">

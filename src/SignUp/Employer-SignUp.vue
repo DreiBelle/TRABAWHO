@@ -115,7 +115,7 @@
                       class="signup-buttons"
                       expand="block"
                       @click="signInWithGoogle"
-                      style="--background: black; color: white"
+                      style="--background: #262c5c; color: white"
                     >
                       GOOGLE SIGN-IN
                     </IonButton>
@@ -129,7 +129,7 @@
                 </IonRow>
               </IonGrid>
             </IonCol>
-            <IonCol size="6.5"> <img class="login-logo" src="../assets/logo/logo1.png" alt="logo" /> </IonCol>
+            <IonCol size="6.5"> </IonCol>
           </IonRow>
         </IonGrid>
       </IonCard>
