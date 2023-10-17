@@ -181,8 +181,13 @@ const submitForm = async () => {
   for (const field of requiredFields) {
     if (!formData[field]) {
       isFormValid = false;
-      break; // Exit the loop if any required field is empty
+      alert(`Please fill in the ${field} field.`);
+      break;
     }
+  }
+  if (!isFormValid) {
+    alert("Fill in all the required fields to continue.");
+    return;
   }
 
   if (isFormValid) {

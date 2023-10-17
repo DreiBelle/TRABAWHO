@@ -101,21 +101,19 @@
               <IonRow>
                 <IonCol class="flexcenter">
                   <IonSelect class="signup-inputs-mobile" label="Job Type" label-placement="stacked" interface="popover"
-                    fill="outline" placeholder="Select Preffered Job Type" v-model="formData.jobtype" required
-                  >
-                  <IonSelectOption value="Full-Time">Full-Time</IonSelectOption>
-                  <IonSelectOption value="Part-Time">Part-Time</IonSelectOption>
-                  <IonSelectOption value="Contract">Contract</IonSelectOption>
-                  <IonSelectOption value="Temporary">Temporary</IonSelectOption>
-                  <IonSelectOption value="Internship">Internship</IonSelectOption>
+                    fill="outline" placeholder="Select Preffered Job Type" v-model="formData.jobtype" required>
+                    <IonSelectOption value="Full-Time">Full-Time</IonSelectOption>
+                    <IonSelectOption value="Part-Time">Part-Time</IonSelectOption>
+                    <IonSelectOption value="Contract">Contract</IonSelectOption>
+                    <IonSelectOption value="Temporary">Temporary</IonSelectOption>
+                    <IonSelectOption value="Internship">Internship</IonSelectOption>
                   </IonSelect>
                 </IonCol>
               </IonRow>
               <IonRow>
                 <IonCol class="flexcenter">
                   <IonSelect class="signup-inputs-mobile" label="Location" label-placement="stacked" interface="popover"
-                    fill="outline" placeholder="Select Preffered Location" v-model="formData.loc" required
-                  >
+                    fill="outline" placeholder="Select Preffered Location" v-model="formData.loc" required>
                     <IonSelectOption value="Work From Home">Work from home</IonSelectOption>
                     <IonSelectOption value="Within the province">Within the province</IonSelectOption>
                     <IonSelectOption value="Outside of the province">Outside of the province</IonSelectOption>
@@ -262,6 +260,20 @@ export default {
       this.modalOpen = false;
     },
     async handleSubmit() {
+      const requiredFields = ['elementary', 'juniorhigh', 'seniorhigh', 'college', 'masteral'];
+      let isFormValid = true;
+
+      for (const field of requiredFields) {
+        if (!this.formData[field]) {
+          isFormValid = false;
+          alert(`Please fill in the ${field} field.`);
+          break;
+        }
+      }
+      if (!isFormValid) {
+        alert("Fill in all the required fields to continue.");
+        return;
+      }
 
       if (this.chosenChoices.length > 0) {
         const signupStore = useSignupStore();

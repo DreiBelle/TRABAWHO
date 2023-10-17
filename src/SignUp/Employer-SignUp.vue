@@ -197,21 +197,23 @@ const signInWithGoogle = async() => {
   }
 };
 const submitForm = async () => {
-  const requiredFields = ['email', 'contactpn', 'number', 'businessname', 'password', 'dateCreated'];
+  const requiredFields = ['email', 'contactpn', 'number', 'businessname', 'password'];
   let isFormValid = true;
 
   for (const field of requiredFields) {
     if (!formData[field]) {
       isFormValid = false;
-      break; // Exit the loop if any required field is empty
+      alert(`Please fill in the ${field} field.`);
+      break;
     }
   }
-  if (formData.acceptTerms) {
-    isFormValid = true;
+  if (!isFormValid) {
+    alert("Fill in all the required fields to continue.");
+    return;
   }
-  else {
+  if (!formData.acceptTerms) {
     isFormValid = false;
-    alert("Accept terms and conditions")
+    alert("Accept the terms and conditions to continue.");
   }
 
   if (isFormValid) {

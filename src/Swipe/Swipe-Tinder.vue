@@ -16,13 +16,13 @@
         <div style="height: calc(100% - 75px)"></div>
         <div class="swipe-text-preview-container">
           <div>
-            <IonText class="swipe-text-preview"> Name </IonText>
+            <IonText class="swipe-text-preview"> {{ item.jobname }} </IonText>
           </div>
           <div>
-            <IonText class="swipe-text-preview"> TYPE </IonText>
+            <IonText class="swipe-text-preview"> {{ item.jobtype }} </IonText>
           </div>
           <div>
-            <IonText class="swipe-text-preview"> POSITION LVL </IonText>
+            <IonText class="swipe-text-preview"> {{ item.positionlvl }} </IonText>
           </div>
         </div>
       </div>
@@ -37,20 +37,20 @@
               <IonText>CLOSE</IonText>
             </div>
             <div style="height: calc(100vh - 70px)">
-              <img class="swipe-picture" :src="item.picture" alt="" />
+              <img class="swipe-picture" :src="item.pic" alt="" />
             </div>
             <div class="swipe-text-preview-container flexcenter">
               <div>
                 <div>
                   <IonText class="swipe-text-preview">
-                    {{ item.content.toUpperCase() }}
+                    {{ item.jobname.toUpperCase() }}
                   </IonText>
                 </div>
                 <div>
-                  <IonText class="swipe-text-preview"> TYPE </IonText>
+                  <IonText class="swipe-text-preview"> {{ item.jobtype }} </IonText>
                 </div>
                 <div>
-                  <IonText class="swipe-text-preview"> POSITION LVL </IonText>
+                  <IonText class="swipe-text-preview"> {{ item.positionlvl }} </IonText>
                 </div>
               </div>
             </div>
@@ -65,7 +65,7 @@
             <IonRow>
               <IonCol>
                 <IonCard class="swipe-card-modal">
-                  <IonText class="swipe-label-modal"> COMPANY: </IonText>
+                  <IonText class="swipe-label-modal"> COMPANY: {{ item.company }}</IonText>
                 </IonCard>
               </IonCol>
             </IonRow>
@@ -79,21 +79,21 @@
             <IonRow>
               <IonCol>
                 <IonCard class="swipe-card-modal">
-                  <IonText class="swipe-label-modal"> JOB TYPE: </IonText>
+                  <IonText class="swipe-label-modal"> JOB TYPE: {{ item.jobtype }}</IonText>
                 </IonCard>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
                 <IonCard class="swipe-card-modal">
-                  <IonText class="swipe-label-modal"> POSITION LEVEL: </IonText>
+                  <IonText class="swipe-label-modal"> POSITION LEVEL: {{ item.positionlvl }} </IonText>
                 </IonCard>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
                 <IonCard class="swipe-card-modal">
-                  <IonText class="swipe-label-modal"> DESCRIPTION: </IonText>
+                  <IonText class="swipe-label-modal"> DESCRIPTION: {{ item.jobdes }} </IonText>
                   <div>
                     <IonText style="padding-left: 10px">
                       {{ item.jobdescription }}
@@ -105,19 +105,19 @@
             <IonRow>
               <IonCol class="flexcenter">
                 <IonCard class="swipe-card-modal">
-                  <IonText class="swipe-label-modal"> SALARY: </IonText>
+                  <IonText class="swipe-label-modal"> SALARY: {{ item.salary }} </IonText>
                 </IonCard>
               </IonCol>
               <IonCol class="flexcenter">
                 <IonCard class="swipe-card-modal">
-                  <IonText class="swipe-label-modal"> HOURS: </IonText>
+                  <IonText class="swipe-label-modal"> HOURS: {{ item.hours }} </IonText>
                 </IonCard>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
                 <IonCard class="swipe-card-modal">
-                  <IonText class="swipe-label-modal"> LOCATION: </IonText>
+                  <IonText class="swipe-label-modal"> LOCATION: {{ item.loc }} </IonText>
                 </IonCard>
               </IonCol>
             </IonRow>
@@ -132,7 +132,7 @@
               <IonCol class="flexcenter">
                 <IonCard class="swipe-card-modal">
                   <IonText class="swipe-label-modal">
-                    YEARS OF EXPERIENCE:
+                    YEARS OF EXPERIENCE: {{ item.yearsofexp }}
                   </IonText>
                 </IonCard>
               </IonCol>
@@ -141,7 +141,7 @@
               <IonCol class="flexcenter">
                 <IonCard class="swipe-card-modal">
                   <IonText class="swipe-label-modal">
-                    EDUCATION ATTAINMENT:
+                    EDUCATION ATTAINMENT: {{ item.reqeduc }}
                   </IonText>
                 </IonCard>
               </IonCol>
@@ -184,7 +184,7 @@ export default {
   methods: {
     getPicture() {
       const picture1 = document.getElementById("picture");
-      const imageUrl = this.item.picture;
+      const imageUrl = this.item.pic;
       picture1.style.backgroundImage = `url(${imageUrl})`;
       picture1.style.backgroundSize = "cover";
       picture1.style.backgroundPosition = "center";

@@ -8,13 +8,13 @@ import { SignupModel } from "@/SignUp/Employer-Model";
 export const useSignupStore2 = defineStore("signup2", {
   state: () => ({
     formData: {
-        email: "",
-        contactpn: "",
-        number: "",
-        businessname: "",
-        password: "",
-        dateCreated: "",
-        type: "",
+      email: "",
+      contactpn: "",
+      number: "",
+      businessname: "",
+      password: "",
+      dateCreated: "",
+      type: "",
     },
   }),
   actions: {
@@ -26,7 +26,6 @@ export const useSignupStore2 = defineStore("signup2", {
       this.formData.email = email;
       this.formData.contactpn = contactpn;
     },
-    
     async registerUser() {
 
       // Set the current date as the dateCreated
@@ -40,13 +39,13 @@ export const useSignupStore2 = defineStore("signup2", {
         console.log("User registered successfully!");
         // Reset the form data after registration if needed
         this.formData = {
-            email: "",
-            contactpn: "",
-            number: "",
-            businessname: "",
-            password: "",
-            dateCreated: "",
-            type: "",
+          email: "",
+          contactpn: "",
+          number: "",
+          businessname: "",
+          password: "",
+          dateCreated: "",
+          type: "",
         };
       } catch (error) {
         console.error("Error registering user:", error);

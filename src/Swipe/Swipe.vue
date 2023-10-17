@@ -194,6 +194,7 @@ export default {
       const loc = user.value.loc;
       const yearsofexp = user.value.yearsofexp;
       const salary = user.value.salary;
+      const jobname = user.value.jobname;
       console.log(chosenInterest);
       console.log(hours);
       console.log(jobtype);
@@ -207,7 +208,7 @@ export default {
         jobtype,
         loc,
         yearsofexp,
-        salary
+        salary,
       );
 
       // Fetch image URLs from Firebase Storage for each job
@@ -215,10 +216,17 @@ export default {
         jobs.map(async (job) => {
           const imageUrl = await getDownloadURL(ref(dbImage, job.pic));
           return {
-            content: job.jobname,
-            picture: imageUrl, // Now `picture` contains the image URL
+            jobname: job.jobname,
+            pic: imageUrl, // Now `picture` contains the image URL
             jobtype: job.jobtype,
-            jobdescription: job.jobdes,
+            jobdes: job.jobdes,
+            company: job.company,
+            hours: job.hours,
+            loc: job.loc,
+            positionlvl: job.positionlvl,
+            reqeduc: job.reqeduc,
+            salary: job.salary,
+            yearsofexp: job.yearsofexp,
           };
         })
       );

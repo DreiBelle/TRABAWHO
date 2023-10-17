@@ -7,20 +7,14 @@
             <IonRow>
               <IonCol class="flexcenter">
                 <IonAvatar class="eprofile-profilepic">
-                  <img
-                    src="https://ionicframework.com/docs/img/demos/avatar.svg"
-                    alt="image"
-                  />
+                  <img :src="user ? user.pic : 'fallback-image-url'" alt="image" />
                 </IonAvatar>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
-                <IonText
-                  class="eprofile-text-title-container"
-                  style="font-size: 20px; padding-top: 0"
-                >
-                  REGISTERED BUSINESS TEXT
+                <IonText class="eprofile-text-title-container" style="font-size: 20px; padding-top: 0">
+                  {{ user ? `${user.businessname}` : "..." }}
                 </IonText>
               </IonCol>
             </IonRow>
@@ -38,12 +32,14 @@
                         <IonText class="eprofile-text"> Founder/s </IonText>
                       </div>
                       <div class="flexcenter eprofile-text-subtext-container">
-                        <!-- <IonAvatar class="eprofile-avatar">
-                                            <img src="https://ionicframework.com/docs/img/demos/avatar.svg" alt="">
-                                        </IonAvatar> -->
-                        <IonText class="eprofile-text-subtext">
-                          Andrei Emmanuel
-                        </IonText>
+                        <template v-if="user">
+                          <IonText class="eprofile-text-subtext">
+                            {{ user ? `${user.founders}` : "..." }}
+                          </IonText>
+                        </template>
+                        <template v-else>
+                          Loading founders...
+                        </template>
                       </div>
                     </IonCol>
                   </IonRow>
@@ -56,7 +52,7 @@
                       </div>
                       <div class="flexcenter">
                         <IonText class="eprofile-text-subtext">
-                          February 24, 2002
+                          {{ user ? `${user.yearsofest}` : "..." }}
                         </IonText>
                       </div>
                     </IonCol>
@@ -69,7 +65,7 @@
                         </IonText>
                       </div>
                       <div class="flexcenter">
-                        <IonText class="eprofile-text-subtext"> 10 </IonText>
+                        <IonText class="eprofile-text-subtext"> {{ user ? `${user.noofempl}` : "..." }} </IonText>
                       </div>
                     </IonCol>
                   </IonRow>
@@ -80,7 +76,7 @@
                       </div>
                       <div class="flexcenter">
                         <IonText class="eprofile-text-subtext">
-                          Bayombong
+                          {{ user ? `${user.loc}` : "..." }}
                         </IonText>
                       </div>
                     </IonCol>
@@ -88,13 +84,19 @@
                   <IonRow>
                     <IonCol class="flexcenter">
                       <IonAvatar class="eprofile-avatar-socialmedias">
-                        <IonIcon :icon="logoFacebook"></IonIcon>
+                        <a v-if="user && user.facebook" :href="user.facebook" target="_blank">
+                          <IonIcon :icon="logoFacebook"></IonIcon>
+                        </a>
                       </IonAvatar>
                       <IonAvatar class="eprofile-avatar-socialmedias">
-                        <IonIcon :icon="logoTwitter"></IonIcon>
+                        <a v-if="user && user.twitter" :href="user.twitter" target="_blank">
+                          <IonIcon :icon="logoTwitter"></IonIcon>
+                        </a>
                       </IonAvatar>
                       <IonAvatar class="eprofile-avatar-socialmedias">
-                        <IonIcon :icon="logoInstagram"></IonIcon>
+                        <a v-if="user && user.instagram" :href="user.instagram" target="_blank">
+                          <IonIcon :icon="logoInstagram"></IonIcon>
+                        </a>
                       </IonAvatar>
                     </IonCol>
                   </IonRow>
@@ -106,11 +108,7 @@
             <IonRow>
               <IonCol>
                 <div class="flexcenter eprofile-coverpic-container">
-                  <img
-                    class="eprofile-coverpic"
-                    src="../assets/companybackground.jpg"
-                    alt=""
-                  />
+                  <img :src="user ? user.bacpic : 'fallback-image-url'" alt="image" />
                 </div>
               </IonCol>
             </IonRow>
@@ -131,14 +129,7 @@
                     </IonText>
                   </div>
                   <div class="eprofile-cards-text">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                    occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum.
+                    {{ user ? `${user.mv}` : "..." }}
                   </div>
                 </IonCard>
               </IonCol>
@@ -154,10 +145,7 @@
                       <IonCard class="eprofile-cards3">
                         <IonRow style="height: 100%">
                           <IonCol size="1"> picture </IonCol>
-                          <IonCol
-                            class="eprofile-title-recent-postings"
-                            size="8"
-                          >
+                          <IonCol class="eprofile-title-recent-postings" size="8">
                             jobname
                           </IonCol>
                           <IonCol class="flexcenter" size="1">
@@ -166,17 +154,11 @@
                             <IonText class="eprofile-text-bookmark">0</IonText>
                           </IonCol>
                           <IonCol class="flexcenter" size="1">
-                            <IonIcon
-                              class="eprofile-icons"
-                              :icon="thumbsUp"
-                            ></IonIcon>
+                            <IonIcon class="eprofile-icons" :icon="thumbsUp"></IonIcon>
                             <IonText class="eprofile-text-bookmark">0</IonText>
                           </IonCol>
                           <IonCol class="flexcenter" size="1">
-                            <IonIcon
-                              class="eprofile-icons"
-                              :icon="bookmark"
-                            ></IonIcon>
+                            <IonIcon class="eprofile-icons" :icon="bookmark"></IonIcon>
                             <IonText class="eprofile-text-bookmark">0</IonText>
                           </IonCol>
                         </IonRow>
@@ -197,17 +179,11 @@
                       <IonCard class="eprofile-cards3">
                         <IonRow style="height: 100%">
                           <IonCol size="1"> Picture </IonCol>
-                          <IonCol
-                            class="eprofile-title-recent-postings"
-                            size="10"
-                          >
+                          <IonCol class="eprofile-title-recent-postings" size="10">
                             Nyzuz Damaso liked Carpenter Post
                           </IonCol>
                           <IonCol class="flexcenter" size="1">
-                            <IonIcon
-                              class="eprofile-icons"
-                              :icon="chevronForward"
-                            >
+                            <IonIcon class="eprofile-icons" :icon="chevronForward">
                             </IonIcon>
                           </IonCol>
                         </IonRow>
@@ -227,6 +203,9 @@
 </template>
 <script lang="ts">
 import ProfileModal from "./Dashboard-Modals/Profile-Edit.vue";
+import { ref, onMounted } from 'vue'
+import { getDashboardProfile } from "./Dashboard-Model";
+import { getJobPostings } from "./Dashboard-Model";
 import {
   IonAvatar,
   IonButton,
@@ -251,7 +230,8 @@ import {
   bookmark,
   chevronForward,
 } from "ionicons/icons";
-
+import { db } from "../firebaseDB";
+import { collection, query, where } from "firebase/firestore";
 export default {
   components: {
     ProfileModal,
@@ -272,6 +252,29 @@ export default {
     };
   },
   setup() {
+    const user = ref(null);
+    const jobs = ref([]);
+
+    const updateuserprofile = (snapshot) => {
+      user.value = snapshot.docs.map((doc) => doc.data());
+    };
+
+    onMounted(async () => {
+      const userEmail = localStorage.getItem("email");
+      // const userPassword = localStorage.getItem("password");
+
+      user.value = await getDashboardProfile(userEmail);
+      jobs.value = await getJobPostings(userEmail, user.value.businessname);
+
+      const usersRef = collection(db, "users");
+      const q = query(
+        usersRef,
+        where("email", "==", userEmail)
+      );
+
+      console.log(user.value.id);
+    });
+
     return {
       pencil,
       logoGoogle,
@@ -282,11 +285,13 @@ export default {
       thumbsUp,
       bookmark,
       chevronForward,
+      user,
+      jobs,
     };
   },
-  methods:{
-    ocModal(x){
-      this.isProfileOpen= x;
+  methods: {
+    ocModal(x) {
+      this.isProfileOpen = x;
     }
   }
 };
