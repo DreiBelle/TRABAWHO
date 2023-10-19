@@ -75,6 +75,12 @@
                   </IonRow>
                   <IonRow>
                     <IonCol>
+                      Needed Employees:
+                      {{ jobPosting ? jobPosting.noofempl : "Loading..." }}
+                    </IonCol>
+                  </IonRow>
+                  <IonRow>
+                    <IonCol>
                       Years of Experience:
                       {{ jobPosting ? jobPosting.yearsofexp : "Loading..." }}
                     </IonCol>

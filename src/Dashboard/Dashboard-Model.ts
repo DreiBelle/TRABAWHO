@@ -51,15 +51,16 @@ export interface JobpostModel {
   jobname: string;
   jobtype: string;
   jobdes: string;
-  dateCreated: "",
+  dateCreated: "";
   chosenInterests: any[];
   company: string;
-  positionlvl: string,
-  salary: string,
-  hours: string,
-  yearsofexp: string,
-  reqeduc: string,
-  loc: string,
+  positionlvl: string;
+  salary: string;
+  hours: string;
+  yearsofexp: string;
+  reqeduc: string;
+  loc: string;
+  noofempl: string;
 }
 export interface additionalprof {
   pic: string;

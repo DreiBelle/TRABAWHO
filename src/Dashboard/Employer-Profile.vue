@@ -231,7 +231,7 @@ import {
   chevronForward,
 } from "ionicons/icons";
 import { db } from "../firebaseDB";
-import { collection, query, where } from "firebase/firestore";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 export default {
   components: {
     ProfileModal,
@@ -255,23 +255,18 @@ export default {
     const user = ref(null);
     const jobs = ref([]);
 
-    const updateuserprofile = (snapshot) => {
-      user.value = snapshot.docs.map((doc) => doc.data());
-    };
-
     onMounted(async () => {
       const userEmail = localStorage.getItem("email");
       // const userPassword = localStorage.getItem("password");
-
+      
       user.value = await getDashboardProfile(userEmail);
       jobs.value = await getJobPostings(userEmail, user.value.businessname);
 
-      const usersRef = collection(db, "users");
-      const q = query(
-        usersRef,
-        where("email", "==", userEmail)
-      );
-
+      const userQuery = query(collection(db, "users"), where("email", "==", userEmail));
+      const userUnsubscribe = onSnapshot(userQuery, (snapshot) => {
+        user.value = snapshot.docs[0]?.data();
+      });
+      
       console.log(user.value.id);
     });
 

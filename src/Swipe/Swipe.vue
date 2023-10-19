@@ -170,6 +170,7 @@ export default {
         swiper.style.display = "inline";
       }, 500);
 
+      this.$eventBus.emit('swipedRight', this.user.value);
       console.log("swipe right");
       this.showNextCard();
     },

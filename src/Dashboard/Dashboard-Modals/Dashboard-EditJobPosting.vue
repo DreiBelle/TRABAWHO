@@ -161,6 +161,7 @@
             labelPlacement="stacked"
             fill="outline"
             type="number"
+            v-model="formData.noofempl"
             required
           >
           </IonInput>
@@ -379,6 +380,7 @@ export default {
       jobdes: props.jobPosting ? props.jobPosting.jobdes : "",
       salary: props.jobPosting ? props.jobPosting.salary : "",
       hours: props.jobPosting ? props.jobPosting.hours : "",
+      noofempl: props.jobPosting ? props.jobPosting.noofempl : "",
       loc: props.jobPosting ? props.jobPosting.loc : "",
       reqeduc: props.jobPosting ? props.jobPosting.reqeduc : "",
       yearsofexp: props.jobPosting ? props.jobPosting.yearsofexp : "",

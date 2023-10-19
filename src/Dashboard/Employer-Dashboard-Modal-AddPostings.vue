@@ -158,6 +158,7 @@
             labelPlacement="stacked"
             fill="outline"
             type="number"
+            v-model="formData.noofempl"
             required
           >
           </IonInput>
@@ -373,8 +374,10 @@ export default {
 
       // Once you have user data, set companyname
       if (user.value) {
-        companyname.value = user.value.businessname;
+        companyname.value = user.value.id;
       }
+      console.log(user.value.id);
+
     });
 
     const formData = computed(() => ({
@@ -388,6 +391,7 @@ export default {
       yearsofexp: "",
       reqeduc: "",
       loc: "",
+      noofempl: "",
       company: companyname.value, // Access the value of companyname
     }));
 

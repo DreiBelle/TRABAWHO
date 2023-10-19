@@ -21,6 +21,7 @@ export const useJobStore = defineStore("jobpost", {
       dateCreated: "",
       chosenInterests: [],
       company: "",
+      noofempl: "",
     },
   }),
   actions: {
@@ -58,6 +59,7 @@ export const useJobStore = defineStore("jobpost", {
           dateCreated: "",
           chosenInterests: [],
           company: "",
+          noofempl: "",
         };
       } catch (error) {
         console.error("Error registering jobpost:", error);
