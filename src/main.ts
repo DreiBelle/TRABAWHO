@@ -31,8 +31,6 @@ import "./theme/variables.css";
 const app = createApp(App).use(IonicVue).use(router);
 const pinia = createPinia();
 
-app.config.globalProperties.$eventBus = app;
-
 router.isReady().then(() => {
   app.use(pinia);
   app.mount("#app");  
