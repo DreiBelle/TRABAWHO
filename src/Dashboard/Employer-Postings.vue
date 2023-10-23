@@ -206,10 +206,7 @@ export default {
       );
 
       const jobPostingsRef = collection(db, "jobpost");
-      const q = query(
-        jobPostingsRef,
-        where("company", "==", user.value.id)
-      );
+      const q = query(jobPostingsRef, where("company", "==", user.value.id));
       // Set up a real-time listener for job postings
       const unsubscribe = onSnapshot(q, (snapshot) => {
         updateJobPostings(snapshot);

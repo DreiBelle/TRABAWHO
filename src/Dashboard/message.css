@@ -53,6 +53,7 @@
 .emessage-icon-send{
   font-size: 25px;
   color: #262c5c;
+  cursor: pointer;
 } 
 
 .emessage-receiver-container{

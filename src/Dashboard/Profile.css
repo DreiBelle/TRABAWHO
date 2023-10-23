@@ -211,6 +211,8 @@
 
 .eprofile-coverphoto{
   object-fit: cover;
+  width: 100%;
+  border-radius: 20px;
 }
 
 .eprofile-modal-icon{
@@ -224,3 +226,4 @@
   color: red;
   transition: color 0.3s ease, scale 0.5s ease;
 }
+

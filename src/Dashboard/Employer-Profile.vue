@@ -108,7 +108,7 @@
             <IonRow>
               <IonCol>
                 <div class="flexcenter eprofile-coverpic-container">
-                  <img :src="user ? user.bacpic : 'fallback-image-url'" alt="image" />
+                  <img class="flexcenter eprofile-coverpic-container eprofile-coverphoto" :src="user ? user.bacpic : 'fallback-image-url'" alt="image" />
                 </div>
               </IonCol>
             </IonRow>
