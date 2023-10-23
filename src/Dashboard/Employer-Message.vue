@@ -4,12 +4,12 @@
       <IonCol class="emessage-container" size="3">
         <IonRow>
           <IonCol>
-            <IonSearchbar></IonSearchbar>
+            <IonSearchbar v-model="searchTerm"></IonSearchbar>
           </IonCol>
         </IonRow>
         <IonRow>
           <IonCol>
-            <IonList v-for="users in chats">
+            <IonList v-for="users in filteredSearch">
               <IonItem @click="clickUser(users)" class="emessage-persons-tabs">
                 <IonText>{{ users }}</IonText>
               </IonItem>
@@ -98,6 +98,7 @@ import {
   orderBy,
 } from "firebase/firestore";
 import { db } from "@/firebaseDB";
+import Filter from "bad-words";
 
 export default {
   components: {
@@ -121,7 +122,9 @@ export default {
       messages: [],
       clickedChat: "",
       contentsMessage: "",
+      filteredMessage: "",
       unsubscribe: null,
+      searchTerm: "",
     };
   },
   setup() {
@@ -131,16 +134,6 @@ export default {
   },
   methods: {
     async clickUser(receiver) {
-      // const messages = ref([]);
-      // this.clickedChat = receiver;
-
-      // const receivedMessages = await getReceives(this.sender, this.clickedChat);
-
-      // messages.value = await getMessages(this.sender, receiver);
-      // messages.value = messages.value.concat(receivedMessages);
-      // messages.value.sort((a, b) => a.dateSent - b.dateSent);
-
-      // return (this.messages = messages);
 
       if (this.unsubscribe) {
         this.unsubscribe();
@@ -167,16 +160,27 @@ export default {
     },
 
     async sendMessage() {
+      const filter = new Filter();
+      this.filteredMessage = filter.clean(this.contentsMessage);
       const docRef = await addDoc(collection(db, "Messages"), {
         dateSent: serverTimestamp(),
         messageId: this.sender + this.clickedChat,
-        messageText: this.contentsMessage,
+        messageText: this.filteredMessage,
         receiverEmail: this.clickedChat,
         senderEmail: this.sender,
       });
 
       console.log("id: ", docRef.id);
       this.contentsMessage = "";
+    },
+  },
+  computed: {
+    filteredSearch() {
+      return this.chats.filter((chat) => {
+        return chat
+          .toLowerCase()
+          .includes(this.searchTerm.toLowerCase());
+      });
     },
   },
 };
