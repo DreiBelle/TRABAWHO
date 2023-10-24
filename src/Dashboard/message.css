@@ -1,11 +1,12 @@
 .emessage-avatar {
   --background: black;
   margin-right: 15px;
-  height: 50px;
-  width: 50px;
+  height: 30px;
+  width: 30px;
+  margin: 0 0 0 10px;
 }
 
-.emessage-avatar-image{
+.emessage-avatar-image {
   height: auto;
   width: 50px;
   min-width: 30px;
@@ -49,24 +50,41 @@
   margin: 5px 15px 0px 0px;
 }
 
-
-.emessage-icon-send{
+.emessage-icon-send {
   font-size: 25px;
   color: #262c5c;
   cursor: pointer;
-} 
-
-.emessage-receiver-container{
-  display: flex;
-  align-items: center ;
 }
 
-.emessage-receiver-message{
+.emessage-receiver-container {
   display: flex;
-  align-items: center ;
+  align-items: center;
+}
+
+.emessage-receiver-message {
+  display: flex;
+  align-items: center;
   background: lightgrey;
   color: black;
   padding: 10px;
   margin: 10px 0 0 0;
   border-radius: 10px;
+}
+
+.eprofile-card-messages {
+  padding: 10px;
+}
+
+.eprofile-skeleton {
+  width: 40%;
+  height: 70px;
+  border-radius: 5px;
+  margin: 10px;
+}
+
+.eprofile-skeleton2 {
+  width: 40%;
+  height: 50px;
+  border-radius: 5px;
+  margin: 10px;
 }

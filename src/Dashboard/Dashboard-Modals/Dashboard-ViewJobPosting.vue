@@ -91,14 +91,6 @@
                       {{ jobPosting ? jobPosting.reqeduc : "Loading..." }}
                     </IonCol>
                   </IonRow>
-                  <IonRow>
-                    <IonCol>
-                      Tags:
-                      {{
-                        jobPosting ? jobPosting.chosenInterests : "Loading..."
-                      }}
-                    </IonCol>
-                  </IonRow>
                 </IonGrid>
               </IonCard>
             </div>
