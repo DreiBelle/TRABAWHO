@@ -77,12 +77,12 @@ http://ionicframework.com/docs/theming/ */
 }
 
 /* @media (prefers-color-scheme: dark) { */
-  /*
+/*
    * Dark Colors
    * -------------------------------------------
    */
 
-  /* body {
+/* body {
     --ion-color-primary: #428cff;
     --ion-color-primary-rgb: 66,140,255;
     --ion-color-primary-contrast: #ffffff;
@@ -147,12 +147,12 @@ http://ionicframework.com/docs/theming/ */
     --ion-color-light-tint: #383a3e;
   } */
 
-  /*
+/*
    * iOS Dark Theme
    * -------------------------------------------
    */
 
-  /* .ios body {
+/* .ios body {
     --ion-background-color: #000000;
     --ion-background-color-rgb: 0,0,0;
 
@@ -190,13 +190,12 @@ http://ionicframework.com/docs/theming/ */
     --ion-toolbar-border-color: var(--ion-color-step-250);
   } */
 
-
-  /*
+/*
    * Material Design Dark Theme
    * -------------------------------------------
    */
 
-  /* .md body {
+/* .md body {
     --ion-background-color: #121212;
     --ion-background-color-rgb: 18,18,18;
 
@@ -245,10 +244,35 @@ http://ionicframework.com/docs/theming/ */
   src: url(../assets/fonts/MalbergTrial-Regular.ttf);
 }
 
-
-
-.flexcenter{
+.flexcenter {
   justify-content: center;
   align-items: center;
   display: flex;
+}
+
+.custom-scrollbar {
+  --offset-bottom: auto !important;
+  --overflow: auto;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgb(255, 255, 255);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #262c5c;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #1c224a;
+  }
+
+  .inner-scroll {
+    scrollbar-width: thin;
+  }
 }

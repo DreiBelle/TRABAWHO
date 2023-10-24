@@ -1,7 +1,7 @@
 <template>
   <IonModal class="modal-addjobpost" @did-dismiss="clearmodal()">
     <IonHeader class="modal-editjobposting-header flexcenter">ADD POSTINGS</IonHeader>
-    <IonContent>
+    <IonContent class="custom-scrollbar">
       <div style="padding: 10px">
         <div
           class="flexcenter"

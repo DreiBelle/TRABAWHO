@@ -25,8 +25,8 @@
                     <IonInput class="signup-inputs" fill="outline" label="Password" labelPlacement="stacked"
                       placeholder="Enter Password" type="password" v-model="Password" required>
                     </IonInput>
-                    <div class="login-a-forgotpassword">
-                      <a @click="resetPassword">Forgot Password?</a>
+                    <div style="margin-top: 5px;" class="login-a-forgotpassword">
+                      <a style="cursor: pointer;" @click="resetPassword">Forgot Password?</a>
                     </div>
                   </IonCol>
                 </IonRow>
@@ -56,7 +56,9 @@
                 </IonRow>
               </IonGrid>
             </IonCol>
-            <IonCol size="6.5">  </IonCol>
+            <IonCol class="flexcenter" size="6.5">
+              <img src="../assets/picture2.png" alt="picture" style="height: auto; width: 95%;"/>
+            </IonCol>
           </IonRow>
         </IonGrid>
       </IonCard>

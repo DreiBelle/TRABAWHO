@@ -1,38 +1,24 @@
 <template>
   <IonPage>
     <IonContent style="--background: none">
-      <div v-if="user ? `${user.founders}` : '...'">
+      <div
+        v-if="user && (user.founders && user.businessname && user.email && user.loc && user.businessname && user.number && user.pic && user.bacpic && user.yearsofest)">
         <IonGrid class="eprofile-grid">
           <IonRow style="height: calc(100% - 55px)">
             <IonCol size="3">
               <IonRow>
                 <IonCol class="flexcenter">
-                  <IonAvatar
-                    v-if="user ? user.pic : 'fallback-image-url'"
-                    class="eprofile-profilepic"
-                  >
-                    <img
-                      :src="user ? user.pic : 'fallback-image-url'"
-                      alt="image"
-                    />
+                  <IonAvatar v-if="user ? user.pic : 'fallback-image-url'" class="eprofile-profilepic">
+                    <img :src="user ? user.pic : 'fallback-image-url'" alt="image" />
                   </IonAvatar>
-                  <IonAvatar
-                    v-if="user ? !user.pic : 'fallback-image-url'"
-                    class="eprofile-profilepic"
-                  >
-                    <img
-                      src="https://ionicframework.com/docs/img/demos/avatar.svg"
-                      alt="image"
-                    />
+                  <IonAvatar v-if="user ? !user.pic : 'fallback-image-url'" class="eprofile-profilepic">
+                    <img src="https://ionicframework.com/docs/img/demos/avatar.svg" alt="image" />
                   </IonAvatar>
                 </IonCol>
               </IonRow>
               <IonRow>
                 <IonCol class="flexcenter">
-                  <IonText
-                    class="eprofile-text-title-container"
-                    style="font-size: 20px; padding-top: 0"
-                  >
+                  <IonText class="eprofile-text-title-container" style="font-size: 20px; padding-top: 0">
                     {{ user ? `${user.businessname}` : "..." }}
                   </IonText>
                 </IonCol>
@@ -91,6 +77,18 @@
                     <IonRow>
                       <IonCol>
                         <div class="flexcenter">
+                          <IonText class="eprofile-text"> Email: </IonText>
+                        </div>
+                        <div class="flexcenter">
+                          <IonText class="eprofile-text-subtext">
+                            {{ user ? `${user.email}` : "..." }}
+                          </IonText>
+                        </div>
+                      </IonCol>
+                    </IonRow>
+                    <IonRow>
+                      <IonCol>
+                        <div class="flexcenter">
                           <IonText class="eprofile-text"> Location: </IonText>
                         </div>
                         <div class="flexcenter">
@@ -101,31 +99,31 @@
                       </IonCol>
                     </IonRow>
                     <IonRow>
+                      <IonCol>
+                        <div class="flexcenter">
+                          <IonText class="eprofile-text"> Contact Number: </IonText>
+                        </div>
+                        <div class="flexcenter">
+                          <IonText class="eprofile-text-subtext">
+                            {{ user ? `${user.number}` : "..." }}
+                          </IonText>
+                        </div>
+                      </IonCol>
+                    </IonRow>
+                    <IonRow>
                       <IonCol class="flexcenter">
-                        <IonAvatar class="eprofile-avatar-socialmedias">
-                          <a
-                            v-if="user && user.facebook"
-                            :href="user.facebook"
-                            target="_blank"
-                          >
+                        <IonAvatar v-if="user && user.facebook" class="eprofile-avatar-socialmedias">
+                          <a :href="user.facebook" target="_blank" class="flexcenter" style="color: white;">
                             <IonIcon :icon="logoFacebook"></IonIcon>
                           </a>
                         </IonAvatar>
-                        <IonAvatar class="eprofile-avatar-socialmedias">
-                          <a
-                            v-if="user && user.twitter"
-                            :href="user.twitter"
-                            target="_blank"
-                          >
+                        <IonAvatar v-if="user && user.twitter" class="eprofile-avatar-socialmedias">
+                          <a :href="user.twitter" target="_blank" class="flexcenter" style="color: white;">
                             <IonIcon :icon="logoTwitter"></IonIcon>
                           </a>
                         </IonAvatar>
-                        <IonAvatar class="eprofile-avatar-socialmedias">
-                          <a
-                            v-if="user && user.instagram"
-                            :href="user.instagram"
-                            target="_blank"
-                          >
+                        <IonAvatar v-if="user && user.instagram" class="eprofile-avatar-socialmedias">
+                          <a :href="user.instagram" target="_blank" class="flexcenter" style="color: white;">
                             <IonIcon :icon="logoInstagram"></IonIcon>
                           </a>
                         </IonAvatar>
@@ -139,24 +137,15 @@
               <IonRow>
                 <IonCol>
                   <div class="flexcenter eprofile-coverpic-container">
-                    <img
-                      class="flexcenter eprofile-coverpic-container eprofile-coverphoto"
-                      :src="user ? user.bacpic : 'fallback-image-url'"
-                      alt="image"
-                    />
+                    <img class="flexcenter eprofile-coverpic-container eprofile-coverphoto"
+                      :src="user ? user.bacpic : 'fallback-image-url'" alt="image" />
                   </div>
                 </IonCol>
               </IonRow>
               <IonRow style="height: 55px">
                 <IonCol class="eprofile-container-button-edit">
-                  <IonButton
-                    @click="ocModal(true)"
-                    class="eprofile-button-edit"
-                  >
-                    <IonIcon
-                      style="padding-right: 5px"
-                      :icon="pencil"
-                    ></IonIcon>
+                  <IonButton @click="ocModal(true)" class="eprofile-button-edit">
+                    <IonIcon style="padding-right: 5px" :icon="pencil"></IonIcon>
                     EDIT PROFILE
                   </IonButton>
                 </IonCol>
@@ -186,36 +175,21 @@
                         <IonCard class="eprofile-cards3">
                           <IonRow style="height: 100%">
                             <IonCol size="1"> picture </IonCol>
-                            <IonCol
-                              class="eprofile-title-recent-postings"
-                              size="8"
-                            >
+                            <IonCol class="eprofile-title-recent-postings" size="8">
                               jobname
                             </IonCol>
                             <IonCol class="flexcenter" size="1">
                               <IonIcon class="eprofile-icons" :icon="eye">
                               </IonIcon>
-                              <IonText class="eprofile-text-bookmark"
-                                >0</IonText
-                              >
+                              <IonText class="eprofile-text-bookmark">0</IonText>
                             </IonCol>
                             <IonCol class="flexcenter" size="1">
-                              <IonIcon
-                                class="eprofile-icons"
-                                :icon="thumbsUp"
-                              ></IonIcon>
-                              <IonText class="eprofile-text-bookmark"
-                                >0</IonText
-                              >
+                              <IonIcon class="eprofile-icons" :icon="thumbsUp"></IonIcon>
+                              <IonText class="eprofile-text-bookmark">0</IonText>
                             </IonCol>
                             <IonCol class="flexcenter" size="1">
-                              <IonIcon
-                                class="eprofile-icons"
-                                :icon="bookmark"
-                              ></IonIcon>
-                              <IonText class="eprofile-text-bookmark"
-                                >0</IonText
-                              >
+                              <IonIcon class="eprofile-icons" :icon="bookmark"></IonIcon>
+                              <IonText class="eprofile-text-bookmark">0</IonText>
                             </IonCol>
                           </IonRow>
                         </IonCard>
@@ -235,17 +209,11 @@
                         <IonCard class="eprofile-cards3">
                           <IonRow style="height: 100%">
                             <IonCol size="1"> Picture </IonCol>
-                            <IonCol
-                              class="eprofile-title-recent-postings"
-                              size="10"
-                            >
+                            <IonCol class="eprofile-title-recent-postings" size="10">
                               Nyzuz Damaso liked Carpenter Post
                             </IonCol>
                             <IonCol class="flexcenter" size="1">
-                              <IonIcon
-                                class="eprofile-icons"
-                                :icon="chevronForward"
-                              >
+                              <IonIcon class="eprofile-icons" :icon="chevronForward">
                               </IonIcon>
                             </IonCol>
                           </IonRow>
@@ -259,18 +227,25 @@
           </IonRow>
         </IonGrid>
       </div>
-      <div v-if="user ? `${!user.founders}` : '...'">
-        <IonButton @click="ocModal(true)" class="eprofile-button-edit">
-          <IonIcon style="padding-right: 5px" :icon="pencil"></IonIcon>
-          EDIT PROFILE
-        </IonButton>
+      <div class="flexcenter" style="height: 100%" v-else>
+        <div>
+          <div class="flexcenter">
+            <IonText class="eprofie-text-startbuilding">
+              START BUILDING <br />
+              YOUR PROFILE
+            </IonText>
+          </div>
+          <div class="flexcenter">
+            <IonButton @click="ocModal(true)" fill="outline" class="eprofile-button-edit2">
+              <IonIcon style="padding-right: 5px" :icon="pencil"></IonIcon>
+              EDIT PROFILE
+            </IonButton>
+          </div>
+        </div>
       </div>
     </IonContent>
 
-    <ProfileModal
-      :isProfilemodal="isProfileOpen"
-      @close-profile-modal="ocModal(false)"
-    />
+    <ProfileModal :isProfilemodal="isProfileOpen" @close-profile-modal="ocModal(false)" />
   </IonPage>
 </template>
 <script lang="ts">

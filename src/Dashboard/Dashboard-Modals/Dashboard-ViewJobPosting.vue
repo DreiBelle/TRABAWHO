@@ -29,7 +29,7 @@
           <img class="modal-viewjobpost-image" :src="jobPosting ? jobPosting.pic : ''" alt="" />
         </IonCol>
         <IonCol size="6.5" class="flexcenter">
-          <IonContent>
+          <IonContent class="custom-scrollbar">
             <div class="flexcenter">
               <IonCard class="modal-viewjobpost-card-statistics">
                 <IonIcon class="modal-viewjobpost-icon" :icon="eyeSharp"></IonIcon>
