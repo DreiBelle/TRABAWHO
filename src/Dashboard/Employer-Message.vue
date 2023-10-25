@@ -11,9 +11,12 @@
           </IonCol>
         </IonRow>
         <IonRow>
-          <IonCol>
-            <IonList v-for="users in filteredSearch" style="padding: 2px;" class="flexcenter">
-              <IonItem @click="clickUser(users)" class="emessage-persons-tabs flexcenter">
+          <IonCol class="custom-scrollbar">
+            <div v-for="users in filteredSearch">
+              <div
+                @click="clickUser(users)"
+                class="emessage-persons-tabs flexcenter"
+              >
                 <div>
                   <IonAvatar class="emessage-avatar" style="margin-right: 10px">
                     <img
@@ -24,8 +27,8 @@
                 <div>
                   <IonText>{{ users }}</IonText>
                 </div>
-              </IonItem>
-            </IonList>
+              </div>
+            </div>
           </IonCol>
         </IonRow>
       </IonCol>
@@ -40,7 +43,7 @@
             style="width: 95%; height: 40px; border-radius: 5px"
           ></IonSkeletonText>
         </IonRow>
-        <IonRow v-else style="height: 60px" class="emessage-container2">
+        <IonRow v-else style="height: 50px" class="emessage-container2">
           <IonCol class="flexcenter" style="justify-content: left">
             <div>
               <IonAvatar class="emessage-avatar" style="margin-right: 10px">
@@ -53,7 +56,7 @@
             <!-- <IonIcon :icon=""></IonIcon> -->
           </IonCol>
         </IonRow>
-        <IonRow v-if="this.isLoading" style="height: calc(100% - 120px)">
+        <IonRow v-if="this.isLoading" style="height: calc(100% - 100px)">
           <IonCol>
             <IonContent style="--background: none">
               <IonSkeletonText
@@ -84,7 +87,7 @@
             </IonContent>
           </IonCol>
         </IonRow>
-        <IonRow v-else style="height: calc(100% - 120px)">
+        <IonRow v-else style="height: calc(100% - 100px)">
           <IonCol style="margin: 0; padding: 0">
             <IonContent
               style="--background: none"
@@ -98,12 +101,28 @@
                       style="display: flex; justify-content: right"
                       class="flexcenter"
                     >
-                      <IonCard
-                        style="position: relative; left: 0; width: fit-content"
-                        class="eprofile-card-messages"
+                      <div
+                        @click="removeMessage(message.id)"
+                        class="emessage-removemessage-container flexcenter"
                       >
-                        {{ messages ? `${message.messageText}` : "..." }}
-                      </IonCard>
+                        <ion-icon
+                          class="emessage-removemessage"
+                          :icon="trash"
+                        ></ion-icon>
+                      </div>
+                      <div>
+                        <IonCard
+                          style="
+                            position: relative;
+                            left: 0;
+                            width: fit-content;
+                            z-index: 2;
+                          "
+                          class="eprofile-card-messages"
+                        >
+                          {{ messages ? `${message.messageText}` : "..." }}
+                        </IonCard>
+                      </div>
                     </div>
                   </div>
                   <div
@@ -126,11 +145,15 @@
                   </div>
                 </div>
               </div>
-              <div v-else>start messaging each other</div>
+              <div v-else class="flexcenter">
+                <IonText class="emessage-startmessaging">
+                  YOU CAN NOW MESSAGE EACH OTHER
+                </IonText>
+              </div>
             </IonContent>
           </IonCol>
         </IonRow>
-        <IonRow class="flexcenter" style="height: 50px">
+        <IonRow class="flexcenter" style="height: 40px">
           <IonInput
             fill="outline"
             placeholder="Aa"
@@ -168,9 +191,12 @@ import {
   IonCard,
   IonContent,
   IonSkeletonText,
+  IonButton,
+  IonAlert,
+  IonModal,
 } from "@ionic/vue";
 import "./message.css";
-import { send } from "ionicons/icons";
+import { ellipsisVertical, send, trash } from "ionicons/icons";
 import {
   collection,
   addDoc,
@@ -180,6 +206,8 @@ import {
   where,
   limit,
   orderBy,
+  deleteDoc,
+  doc,
 } from "firebase/firestore";
 import { db } from "@/firebaseDB";
 import Filter from "bad-words";
@@ -201,6 +229,9 @@ export default {
     IonCard,
     IonContent,
     IonSkeletonText,
+    IonAlert,
+    IonModal,
+    IonButton,
   },
   data() {
     return {
@@ -213,14 +244,21 @@ export default {
       unsubscribe: null,
       searchTerm: "",
       isLoading: true,
+      alertRemove: false,
     };
   },
   setup() {
     return {
       send,
+      trash,
     };
   },
   methods: {
+    async removeMessage(id) {
+      // this.alertRemove = false;
+      await deleteDoc(doc(db, "Messages", id));
+    },
+
     scrollToBottom() {
       this.$nextTick(() => {
         const container = this.$refs.content.$el; // Assuming this is the container element
@@ -244,33 +282,21 @@ export default {
         limit(100)
       );
 
-      // this.unsubscribe = onSnapshot(sendq, (snapshot) => {
-      //   const newMessages = [];
-      //   snapshot.forEach((doc) => {
-      //     newMessages.push(doc.data());
-      //   });
-      //   this.messages = newMessages;
-      //   this.isLoading = false;
-      // });
-
-      try {
-        this.unsubscribe = onSnapshot(sendq, (snapshot) => {
-          const newMessages = [];
-          snapshot.forEach((doc) => {
-            newMessages.push(doc.data());
-          });
-          this.messages = newMessages;
+      this.unsubscribe = onSnapshot(sendq, (snapshot) => {
+        const newMessages = [];
+        snapshot.forEach((doc) => {
+          const messageData = doc.data();
+          const messageId = doc.id;
+          // Add the document ID to the message data
+          const messageWithId = {
+            id: messageId,
+            ...messageData,
+          };
+          newMessages.push(messageWithId);
         });
-      } catch (error) {
-        // Handle any errors that may occur during data loading
-        console.error("Error loading data:", error);
-      } finally {
+        this.messages = newMessages;
         this.isLoading = false;
-
-        setTimeout(() => {
-          this.scrollToBottom();
-        }, 50);
-      }
+      });
     },
 
     async sendMessage() {
@@ -324,7 +350,14 @@ export default {
     this.unsubscribe = onSnapshot(sendq, (snapshot) => {
       const newMessages = [];
       snapshot.forEach((doc) => {
-        newMessages.push(doc.data());
+        const messageData = doc.data();
+        const messageId = doc.id;
+        // Add the document ID to the message data
+        const messageWithId = {
+          id: messageId,
+          ...messageData,
+        };
+        newMessages.push(messageWithId);
       });
       this.messages = newMessages;
       this.isLoading = false;
