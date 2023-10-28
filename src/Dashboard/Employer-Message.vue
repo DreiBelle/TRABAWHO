@@ -1,27 +1,19 @@
 <template>
-  <IonGrid style="height: 100%; width: 100%; padding: 0">
+  <IonGrid style="height: 100%; width: 100%; padding: 0;">
     <IonRow style="height: 100%">
       <IonCol class="emessage-container" size="3">
         <IonRow>
           <IonCol>
-            <IonSearchbar
-              class="dashboard-navbar-topbar-searchbar"
-              v-model="searchTerm"
-            ></IonSearchbar>
+            <IonSearchbar class="dashboard-navbar-topbar-searchbar" v-model="searchTerm"></IonSearchbar>
           </IonCol>
         </IonRow>
         <IonRow>
           <IonCol class="custom-scrollbar">
             <div v-for="users in filteredSearch">
-              <div
-                @click="clickUser(users)"
-                class="emessage-persons-tabs flexcenter"
-              >
+              <div @click="clickUser(users)" class="emessage-persons-tabs flexcenter">
                 <div>
                   <IonAvatar class="emessage-avatar" style="margin-right: 10px">
-                    <img
-                      src="https://ionicframework.com/docs/img/demos/avatar.svg"
-                    />
+                    <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
                   </IonAvatar>
                 </div>
                 <div>
@@ -33,23 +25,14 @@
         </IonRow>
       </IonCol>
       <IonCol size="9" style="padding: 0">
-        <IonRow
-          v-if="this.isLoading"
-          style="height: 60px"
-          class="emessage-container2 flexcenter"
-        >
-          <IonSkeletonText
-            :animated="true"
-            style="width: 95%; height: 40px; border-radius: 5px"
-          ></IonSkeletonText>
+        <IonRow v-if="this.isLoading" style="height: 60px" class="emessage-container2 flexcenter">
+          <IonSkeletonText :animated="true" style="width: 95%; height: 40px; border-radius: 5px"></IonSkeletonText>
         </IonRow>
         <IonRow v-else style="height: 50px" class="emessage-container2">
           <IonCol class="flexcenter" style="justify-content: left">
             <div>
               <IonAvatar class="emessage-avatar" style="margin-right: 10px">
-                <img
-                  src="https://ionicframework.com/docs/img/demos/avatar.svg"
-                />
+                <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
               </IonAvatar>
             </div>
             <div>{{ clickedChat }}</div>
@@ -59,89 +42,66 @@
         <IonRow v-if="this.isLoading" style="height: calc(100% - 100px)">
           <IonCol>
             <IonContent style="--background: none">
-              <IonSkeletonText
-                :animated="true"
-                class="eprofile-skeleton2"
-              ></IonSkeletonText>
-              <IonSkeletonText
-                :animated="true"
-                class="eprofile-skeleton2"
-              ></IonSkeletonText>
+              <IonSkeletonText :animated="true" class="eprofile-skeleton2"></IonSkeletonText>
+              <IonSkeletonText :animated="true" class="eprofile-skeleton2"></IonSkeletonText>
               <div class="flexcenter" style="justify-content: right">
-                <IonSkeletonText
-                  :animated="true"
-                  s
-                  class="eprofile-skeleton"
-                ></IonSkeletonText>
+                <IonSkeletonText :animated="true" s class="eprofile-skeleton"></IonSkeletonText>
               </div>
-              <IonSkeletonText
-                :animated="true"
-                class="eprofile-skeleton"
-              ></IonSkeletonText>
+              <IonSkeletonText :animated="true" class="eprofile-skeleton"></IonSkeletonText>
               <div class="flexcenter" style="justify-content: right">
-                <IonSkeletonText
-                  :animated="true"
-                  class="eprofile-skeleton2"
-                ></IonSkeletonText>
+                <IonSkeletonText :animated="true" class="eprofile-skeleton2"></IonSkeletonText>
               </div>
             </IonContent>
           </IonCol>
         </IonRow>
         <IonRow v-else style="height: calc(100% - 100px)">
           <IonCol style="margin: 0; padding: 0">
-            <IonContent
-              style="--background: none"
-              ref="content"
-              class="custom-scrollbar"
-            >
+            <IonContent style="--background: none" ref="content" class="custom-scrollbar">
               <div v-if="messages.length != 0">
                 <div v-for="(message, index) in messages">
                   <div v-if="message.senderEmail === sender">
-                    <div
-                      style="display: flex; justify-content: right"
-                      class="flexcenter"
-                    >
-                      <div
-                        @click="removeMessage(message.id)"
-                        class="emessage-removemessage-container flexcenter"
-                      >
-                        <ion-icon
-                          class="emessage-removemessage"
-                          :icon="trash"
-                        ></ion-icon>
+                    <div style="display: flex; justify-content: right" class="flexcenter">
+                      <div @click="confirmRemoveMessage(message.id)" class="emessage-removemessage-container flexcenter">
+                        <ion-icon class="emessage-removemessage" :icon="trash"></ion-icon>
                       </div>
                       <div>
-                        <IonCard
-                          style="
-                            position: relative;
-                            left: 0;
-                            width: fit-content;
-                            z-index: 2;
-                          "
-                          class="eprofile-card-messages"
-                        >
+                        <div class="emessage-sender" style="justify-content: right;">
+                          <img @click="openModalviewpicture(true, message.messagePicture)" v-if="message.messagePicture"
+                            class="emessage-pictureSent" :src="message ? message.messagePicture : 'fallback-image-url'"
+                            alt="Selected Image" />
+                        </div>
+                        <div class="emessage-sender" style="justify-content: right;">
+                          <IonCard v-if="message.messageText" class="eprofile-card-messages">
+                            {{ messages ? `${message.messageText}` : "..." }}
+                          </IonCard>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="emessage-sender" style="margin: 0 10px 0 10px;">
+                      <IonText class="emessage-textdatesent">{{ formatTimestamp(message.dateSent) }}</IonText>
+                    </div>
+                  </div>
+                  <div v-if="message.receiverEmail === sender" class="flexcenter"
+                    style="justify-content: left !important">
+                    <!-- {{ messages ? `${message.messageText}` : "..." }} -->
+                    <IonAvatar class="emessage-avatar">
+                      <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+                    </IonAvatar>
+                    <div>
+                      <div class="emessage-receiver" style="justify-content: left;">
+                        <img @click="openModalviewpicture(true, message.messagePicture)" v-if="message.messagePicture"
+                          class="emessage-pictureReceive" :src="message ? message.messagePicture : 'fallback-image-url'"
+                          alt="Selected Image" />
+                      </div>
+                      <div class="emessage-receiver" style="justify-content: left;">
+                        <IonCard v-if="message.messageText" class="eprofile-card-messages">
                           {{ messages ? `${message.messageText}` : "..." }}
                         </IonCard>
                       </div>
+                      <div class="emessage-receiver" style="margin: 0 0 0 10px;">
+                        <IonText class="emessage-textdatesent">{{ formatTimestamp(message.dateSent) }}</IonText>
+                      </div>
                     </div>
-                  </div>
-                  <div
-                    v-if="message.receiverEmail === sender"
-                    class="flexcenter"
-                    style="justify-content: left !important"
-                  >
-                    <!-- {{ messages ? `${message.messageText}` : "..." }} -->
-                    <IonAvatar class="emessage-avatar">
-                      <img
-                        src="https://ionicframework.com/docs/img/demos/avatar.svg"
-                      />
-                    </IonAvatar>
-                    <IonCard
-                      style="justify-content: left; width: fit-content"
-                      class="eprofile-card-messages"
-                    >
-                      {{ messages ? `${message.messageText}` : "..." }}
-                    </IonCard>
                   </div>
                 </div>
               </div>
@@ -153,29 +113,42 @@
             </IonContent>
           </IonCol>
         </IonRow>
-        <IonRow class="flexcenter" style="height: 40px">
-          <IonInput
-            fill="outline"
-            placeholder="Aa"
-            class="emessage-input-message"
-            v-model="contentsMessage"
-            @keyup.enter="sendMessage()"
-          >
-          </IonInput>
-          <IonIcon
-            @click="sendMessage()"
-            class="emessage-icon-send"
-            :icon="send"
-          >
-          </IonIcon>
+        <IonRow class="flexcenter" style="margin: 5px;">
+          <div style="width: 100%;">
+            <div style="position: absolute; bottom: 50px; left: 30px;">
+              <div v-if="!namePic" style="color: transparent;">
+
+              </div>
+              <div v-else-if="namePic">
+                <IonChip style="cursor:default;">
+                  {{ namePic }}
+                  <IonIcon @click="removePicture" style="cursor:pointer;" :icon="close"> </IonIcon>
+                </IonChip>
+              </div>
+            </div>
+            <div style="height: 40px; width: 100%;" class="flexcenter">
+              <label for="fileInput">
+                <IonIcon class="emessage-icon-send" :icon="folder"></IonIcon>
+              </label>
+              <input id="fileInput" type="file" accept="image/jpeg" ref="myfile" style="display: none"
+                @change="addPicturemessage" />
+              <IonInput fill="outline" placeholder="Aa" class="emessage-input-message" v-model="contentsMessage"
+                @keyup.enter="sendMessage()">
+              </IonInput>
+              <IonIcon @click="sendMessage()" class="emessage-icon-send" :icon="send">
+              </IonIcon>
+            </div>
+          </div>
         </IonRow>
       </IonCol>
     </IonRow>
   </IonGrid>
+
+  <IonModal :is-open="setviewPicture" @did-dismiss="openModalviewpicture(false, '')" class="emessage-pictureFull">
+    <img class="emessage-pictureSentFull" :src="setviewPicturefull" alt="Selected Image" />
+  </IonModal>
 </template>
 <script lang="ts">
-import { getMessages, getReceives } from "./Dashboard-Model";
-import { ref, onMounted, onBeforeUnmount } from "vue";
 import {
   IonPage,
   IonGrid,
@@ -194,9 +167,10 @@ import {
   IonButton,
   IonAlert,
   IonModal,
+  IonChip,
 } from "@ionic/vue";
 import "./message.css";
-import { ellipsisVertical, send, trash } from "ionicons/icons";
+import { ellipsisVertical, folder, send, trash, close } from "ionicons/icons";
 import {
   collection,
   addDoc,
@@ -212,6 +186,9 @@ import {
 import { db } from "@/firebaseDB";
 import Filter from "bad-words";
 import "./Employer-Dashboard.css";
+import { ref as asd, uploadBytes, getDownloadURL } from "firebase/storage";
+import { dbImage } from "@/firebaseDB";
+import { useUserStore } from "@/stores/updateemprof"
 
 export default {
   components: {
@@ -232,10 +209,11 @@ export default {
     IonAlert,
     IonModal,
     IonButton,
+    IonChip
   },
   data() {
     return {
-      chats: ["capisce@gmail.com", "dashboard@gmail.com", "emman@gmail.com"],
+      chats: ["dashboard@gmail.com", "capisce@gmail.com", "emman@gmail.com"],
       sender: localStorage.getItem("email"),
       messages: [],
       clickedChat: "",
@@ -245,17 +223,84 @@ export default {
       searchTerm: "",
       isLoading: true,
       alertRemove: false,
+      namePic: "",
+      selectedpic: "",
+      messagePic: "",
+      setviewPicture: false,
+      setviewPicturefull: "",
     };
   },
   setup() {
     return {
       send,
       trash,
+      folder,
+      close,
     };
   },
   methods: {
+    openModalviewpicture(x, picture) {
+      this.setviewPicture = x;
+      this.setviewPicturefull = picture;
+    },
+
+    removePicture() {
+      this.namePic = ""
+      this.selectedpic = ""
+    },
+
+    formatTimestamp(timestamp) {
+      if (timestamp && timestamp.seconds) {
+        const date = new Date(timestamp.seconds * 1000); // Convert seconds to milliseconds
+        const currentDate = new Date();
+
+        if (date.toDateString() === currentDate.toDateString()) {
+          // If the date matches today, display the time with AM/PM
+          const hours = date.getHours();
+          const minutes = date.getMinutes();
+          const amOrPm = hours >= 12 ? 'PM' : 'AM';
+          const formattedHours = (hours % 12) || 12; // Convert to 12-hour format
+
+          return `${formattedHours}:${minutes} ${amOrPm}`;
+        } else {
+          // If the date is not today, display the full date
+          const month = date.toLocaleString('default', { month: 'long' });
+          const day = date.getDate();
+          const year = date.getFullYear();
+          return `${month} ${day}, ${year}`;
+        }
+      } else {
+        return ''; // Return an empty string or handle the case when dateSent is null or undefined
+      }
+    },
+
+    async addPicturemessage(event) {
+      const files = event.target.files;
+      console.log(files);
+
+      if (files && files.length > 0) {
+        const file = files[0];
+        console.log("Selected file:", file);
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.imageUrl = e.target.result;
+        };
+        reader.readAsDataURL(file);
+        this.selectedpic = file;
+        this.namePic = file.name
+        console.log(file);
+      } else {
+        console.error("No files selected or an error occurred.");
+      }
+    },
+
+    async confirmRemoveMessage(id) {
+      if (window.confirm("Are you sure you want to delete this message?")) {
+        await this.removeMessage(id);
+      }
+    },
+
     async removeMessage(id) {
-      // this.alertRemove = false;
       await deleteDoc(doc(db, "Messages", id));
     },
 
@@ -301,17 +346,46 @@ export default {
 
     async sendMessage() {
       const filter = new Filter();
-      this.filteredMessage = filter.clean(this.contentsMessage);
-      const docRef = await addDoc(collection(db, "Messages"), {
-        dateSent: serverTimestamp(),
-        messageId: this.sender + this.clickedChat,
-        messageText: this.filteredMessage,
-        receiverEmail: this.clickedChat,
-        senderEmail: this.sender,
-      });
 
-      console.log("id: ", docRef.id);
+      if (this.selectedpic) {
+        const storageRef = asd(
+          dbImage,
+          "messagepictures/" + this.selectedpic.name
+        );
+
+        await uploadBytes(storageRef, this.selectedpic);
+        const downloadURL = await getDownloadURL(storageRef);
+
+        this.messagePic = downloadURL;
+      }
+
+      if (this.contentsMessage) {
+        this.filteredMessage = filter.clean(this.contentsMessage);
+
+        const docRef = await addDoc(collection(db, "Messages"), {
+          dateSent: serverTimestamp(),
+          messageId: this.sender + this.clickedChat,
+          messageText: this.filteredMessage,
+          receiverEmail: this.clickedChat,
+          senderEmail: this.sender,
+          messagePicture: this.messagePic,
+        });
+      }
+      else {
+        const docRef = await addDoc(collection(db, "Messages"), {
+          dateSent: serverTimestamp(),
+          messageId: this.sender + this.clickedChat,
+          messageText: this.contentsMessage,
+          receiverEmail: this.clickedChat,
+          senderEmail: this.sender,
+          messagePicture: this.messagePic,
+        });
+      }
+
       this.contentsMessage = "";
+      this.namePic = "";
+      this.selectedpic = "";
+      this.messagePic = "";
       this.scrollToBottom();
     },
   },
