@@ -4,20 +4,12 @@
       <IonRouterOutlet></IonRouterOutlet>
       <IonTabBar class="navbar-container" slot="bottom">
         <!-- change this button later -->
-        <IonTabButton
-          class="NavBar-Buttons"
-          tab="Logout"
-          @click="handleSignout"
-        >
-          <IonIcon :icon="logOut"></IonIcon>
-          <IonLabel>Logout</IonLabel>
+        <IonTabButton class="NavBar-Buttons" tab="Logout" @click="handleSignout">
+          <IonIcon :icon="bookmark"></IonIcon>
+          <IonLabel>Boomarks</IonLabel>
         </IonTabButton>
 
-        <IonTabButton
-          class="NavBar-Buttons"
-          tab="Message"
-          href="/Seeker-Message"
-        >
+        <IonTabButton class="NavBar-Buttons" tab="Message" href="/Seeker-Message">
           <IonIcon :icon="chatbubbles"></IonIcon>
           <IonLabel>Message</IonLabel>
         </IonTabButton>
@@ -32,11 +24,7 @@
           <IonLabel>Notification</IonLabel>
         </IonTabButton>
 
-        <IonTabButton
-          class="NavBar-Buttons"
-          tab="Profile"
-          href="/Seeker-Profile"
-        >
+        <IonTabButton class="NavBar-Buttons" tab="Profile" href="/Seeker-Profile">
           <IonIcon :icon="person"></IonIcon>
           <IonLabel>Profile</IonLabel>
         </IonTabButton>
@@ -75,6 +63,7 @@ import {
   logOut,
   person,
   settings,
+  bookmark,
 } from "ionicons/icons";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "@/firebaseDB";
@@ -111,7 +100,7 @@ export default {
         }
       });
     });
-    return { chatbubbles, home, notifications, logOut, person, settings };
+    return { bookmark, chatbubbles, home, notifications, logOut, person, settings };
   },
   methods: {
     handleSignout() {

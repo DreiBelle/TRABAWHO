@@ -4,7 +4,19 @@
       <IonCol class="emessage-container" size="3">
         <IonRow>
           <IonCol>
-            <IonSearchbar class="dashboard-navbar-topbar-searchbar" v-model="searchTerm"></IonSearchbar>
+
+            <IonText class="emessage-tile flexcenter" style="justify-content: left;">
+              <IonIcon style="margin: 5px;" :icon="mail">
+
+              </IonIcon>
+              INBOX
+            </IonText>
+          </IonCol>
+        </IonRow>
+        <IonRow>
+          <IonCol>
+            <IonSearchbar class="dashboard-navbar-topbar-searchbar" style="padding: 0;" v-model="searchTerm">
+            </IonSearchbar>
           </IonCol>
         </IonRow>
         <IonRow>
@@ -17,7 +29,7 @@
                   </IonAvatar>
                 </div>
                 <div>
-                  <IonText>{{ users }}</IonText>
+                  <IonText style="color: black;">{{ users }}</IonText>
                 </div>
               </div>
             </div>
@@ -35,7 +47,9 @@
                 <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
               </IonAvatar>
             </div>
-            <div>{{ clickedChat }}</div>
+            <div>
+              <IonText style="color: black;">{{ clickedChat }}</IonText>
+            </div>
             <!-- <IonIcon :icon=""></IonIcon> -->
           </IonCol>
         </IonRow>
@@ -59,48 +73,58 @@
             <IonContent style="--background: none" ref="content" class="custom-scrollbar">
               <div v-if="messages.length != 0">
                 <div v-for="(message, index) in messages">
-                  <div v-if="message.senderEmail === sender">
-                    <div style="display: flex; justify-content: right" class="flexcenter">
-                      <div @click="confirmRemoveMessage(message.id)" class="emessage-removemessage-container flexcenter">
+                  <div v-if="message.senderEmail === sender" class="emessage-spaces" @mouseover="hovered = true"
+                    @mouseout="hovered = false">
+                    <div class="emessage-sender emessage-removemessage-container-parent">
+                      <div id="removeButton" @click="confirmRemoveMessage(message.id)"
+                        class="emessage-removemessage-container flexcenter">
                         <ion-icon class="emessage-removemessage" :icon="trash"></ion-icon>
                       </div>
                       <div>
-                        <div class="emessage-sender" style="justify-content: right;">
+                        <div class="emessage-sender">
                           <img @click="openModalviewpicture(true, message.messagePicture)" v-if="message.messagePicture"
                             class="emessage-pictureSent" :src="message ? message.messagePicture : 'fallback-image-url'"
                             alt="Selected Image" />
                         </div>
-                        <div class="emessage-sender" style="justify-content: right;">
+                        <div class="emessage-sender">
                           <IonCard v-if="message.messageText" class="eprofile-card-messages">
                             {{ messages ? `${message.messageText}` : "..." }}
                           </IonCard>
                         </div>
                       </div>
+                      <div>
+                        <IonAvatar class="emessage-avatar">
+                          <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+                        </IonAvatar>
+                      </div>
                     </div>
-                    <div class="emessage-sender" style="margin: 0 10px 0 10px;">
+                    <div class="emessage-textdatesent">
                       <IonText class="emessage-textdatesent">{{ formatTimestamp(message.dateSent) }}</IonText>
                     </div>
                   </div>
-                  <div v-if="message.receiverEmail === sender" class="flexcenter"
-                    style="justify-content: left !important">
-                    <!-- {{ messages ? `${message.messageText}` : "..." }} -->
-                    <IonAvatar class="emessage-avatar">
-                      <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-                    </IonAvatar>
-                    <div>
-                      <div class="emessage-receiver" style="justify-content: left;">
-                        <img @click="openModalviewpicture(true, message.messagePicture)" v-if="message.messagePicture"
-                          class="emessage-pictureReceive" :src="message ? message.messagePicture : 'fallback-image-url'"
-                          alt="Selected Image" />
+                  <div v-if="message.receiverEmail === sender" style="justify-content: left !important"
+                    class="emessage-spaces">
+                    <div class="emessage-receiver">
+                      <div>
+                        <IonAvatar class="emessage-avatar2">
+                          <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+                        </IonAvatar>
                       </div>
-                      <div class="emessage-receiver" style="justify-content: left;">
-                        <IonCard v-if="message.messageText" class="eprofile-card-messages">
-                          {{ messages ? `${message.messageText}` : "..." }}
-                        </IonCard>
+                      <div>
+                        <div class="emessage-receiver">
+                          <img @click="openModalviewpicture(true, message.messagePicture)" v-if="message.messagePicture"
+                            class="emessage-pictureReceive" :src="message ? message.messagePicture : 'fallback-image-url'"
+                            alt="Selected Image" />
+                        </div>
+                        <div class="emessage-receiver">
+                          <IonCard v-if="message.messageText" class="eprofile-card-messages2">
+                            {{ messages ? `${message.messageText}` : "..." }}
+                          </IonCard>
+                        </div>
                       </div>
-                      <div class="emessage-receiver" style="margin: 0 0 0 10px;">
-                        <IonText class="emessage-textdatesent">{{ formatTimestamp(message.dateSent) }}</IonText>
-                      </div>
+                    </div>
+                    <div class="emessage-textdatesent2" style="margin: 0 0 0 10px;">
+                      <IonText class="emessage-textdatesent2">{{ formatTimestamp(message.dateSent) }}</IonText>
                     </div>
                   </div>
                 </div>
@@ -170,7 +194,7 @@ import {
   IonChip,
 } from "@ionic/vue";
 import "./message.css";
-import { ellipsisVertical, folder, send, trash, close } from "ionicons/icons";
+import { ellipsisVertical, folder, send, trash, close, mail } from "ionicons/icons";
 import {
   collection,
   addDoc,
@@ -219,15 +243,16 @@ export default {
       clickedChat: "",
       contentsMessage: "",
       filteredMessage: "",
-      unsubscribe: null,
       searchTerm: "",
-      isLoading: true,
-      alertRemove: false,
       namePic: "",
       selectedpic: "",
       messagePic: "",
-      setviewPicture: false,
       setviewPicturefull: "",
+      hovered: false,
+      setviewPicture: false,
+      isLoading: true,
+      alertRemove: false,
+      unsubscribe: null,
     };
   },
   setup() {
@@ -236,6 +261,7 @@ export default {
       trash,
       folder,
       close,
+      mail,
     };
   },
   methods: {
@@ -251,26 +277,31 @@ export default {
 
     formatTimestamp(timestamp) {
       if (timestamp && timestamp.seconds) {
-        const date = new Date(timestamp.seconds * 1000); // Convert seconds to milliseconds
+        const date = new Date(timestamp.seconds * 1000);
         const currentDate = new Date();
 
         if (date.toDateString() === currentDate.toDateString()) {
-          // If the date matches today, display the time with AM/PM
           const hours = date.getHours();
           const minutes = date.getMinutes();
           const amOrPm = hours >= 12 ? 'PM' : 'AM';
-          const formattedHours = (hours % 12) || 12; // Convert to 12-hour format
+          const formattedHours = (hours % 12) || 12;
 
           return `${formattedHours}:${minutes} ${amOrPm}`;
         } else {
-          // If the date is not today, display the full date
-          const month = date.toLocaleString('default', { month: 'long' });
-          const day = date.getDate();
-          const year = date.getFullYear();
-          return `${month} ${day}, ${year}`;
+          const month = String(date.getMonth() + 1).padStart(2, '0');
+          const day = String(date.getDate()).padStart(2, '0');
+          const year = String(date.getFullYear()).slice(-2);
+
+          const hours = date.getHours();
+          const minutes = date.getMinutes();
+          const amOrPm = hours >= 12 ? 'PM' : 'AM';
+          const formattedHours = (hours % 12) || 12;
+
+
+          return `${month}/${day}/${year} ${formattedHours}:${minutes} ${amOrPm}`;
         }
       } else {
-        return ''; // Return an empty string or handle the case when dateSent is null or undefined
+        return '';
       }
     },
 
@@ -306,7 +337,7 @@ export default {
 
     scrollToBottom() {
       this.$nextTick(() => {
-        const container = this.$refs.content.$el; // Assuming this is the container element
+        const container = this.$refs.content.$el;
         container.scrollTop = container.scrollHeight;
       });
     },
@@ -332,7 +363,6 @@ export default {
         snapshot.forEach((doc) => {
           const messageData = doc.data();
           const messageId = doc.id;
-          // Add the document ID to the message data
           const messageWithId = {
             id: messageId,
             ...messageData,
@@ -426,7 +456,6 @@ export default {
       snapshot.forEach((doc) => {
         const messageData = doc.data();
         const messageId = doc.id;
-        // Add the document ID to the message data
         const messageWithId = {
           id: messageId,
           ...messageData,

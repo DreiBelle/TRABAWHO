@@ -702,6 +702,19 @@ IonRouterOutlet
   font-size: 17px;
 }
 
+.page-jobposting-segments {
+  min-height: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(236, 228, 228);
+}
+
+.page-jobposting-segments-buttons {
+  width: 50%;
+  color: black;
+}
+
 .postings-arhive-container {
   background: #262c5c;
   color: white;
@@ -714,13 +727,13 @@ IonRouterOutlet
   transition: color 0.3s ease;
 }
 
-.modal-editjobposting-header{
+.modal-editjobposting-header {
   height: 35px;
   background-color: #262c5c;
   color: white;
 }
 
-.modal-editposting-modal{
+.modal-editposting-modal {
   padding: 5px;
   background-color: #262c5c;
   color: white;
@@ -731,5 +744,4 @@ IonRouterOutlet
   display: flex;
   justify-content: center;
   align-items: center;
-
 }

@@ -1,9 +1,15 @@
 .emessage-avatar {
-  --background: black;
   margin-right: 15px;
+  margin-left: 5px;
   height: 30px;
   width: 30px;
-  margin: 0 0 0 10px;
+}
+
+.emessage-avatar2 {
+  margin-left: 15px;
+  margin-right: 5px;
+  height: 30px;
+  width: 30px;
 }
 
 .emessage-avatar-image {
@@ -24,16 +30,17 @@
   cursor: pointer;
   justify-content: left !important;
   padding: 5px;
-  border-bottom: 1px solid grey;
+  border-bottom: 1px solid lightgrey;
+  transition: all 0.3s ease;
 }
 
 .emessage-persons-tabs:hover {
   cursor: pointer;
   justify-content: left;
   padding: 5px;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid grey;
   background: rgba(173, 216, 230, 0.432);
-  transition: all 0.5s ease;
+  transition: all 0.3s ease;
 }
 
 .emessage-container {
@@ -52,7 +59,7 @@
   min-height: 0px !important;
   color: black;
   --highlight-color-focused: #262c5c;
-  --border-color: black !important;
+  --border-color: rgba(0, 0, 0, 0.503) !important;
   margin: 5px;
 }
 
@@ -81,7 +88,21 @@
   margin: 5px;
   padding: 10px;
   width: fit-content;
+  color: white;
+  max-width: 500px;
+  background-color: #262c5c;
+  border-radius: 20px;
+
+}
+
+.eprofile-card-messages2 {
+  margin: 5px;
+  padding: 10px;
+  width: fit-content;
   color: black;
+  max-width: 500px;
+  background-color: rgb(236, 234, 234);
+  border-radius: 20px;
 }
 
 .eprofile-skeleton {
@@ -113,9 +134,13 @@
 }
 
 .emessage-removemessage {
+  display: none;
   background-color: #262c5c;
   border-radius: 100%;
   padding: 5px;
+}
+.emessage-removemessage-container-parent:hover .emessage-removemessage {
+  display: block;
 }
 
 .emessage-removemessage-container {
@@ -154,7 +179,6 @@
   margin: 5px;
   transition: all 0.3s ease;
   cursor: pointer;
-
 }
 
 .emessage-pictureFull {
@@ -164,20 +188,42 @@
 }
 
 .emessage-textdatesent {
-  font-size: 12px;
+  font-size: 11px;
   color: grey;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  margin-right: 30px;
 }
 
-.emessage-sender  {
-  margin: 5px;
+.emessage-textdatesent2 {
+  font-size: 11px;
+  color: grey;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  margin-left: 45px;
+}
+
+.emessage-sender {
   display: flex;
   align-items: center;
   justify-content: right;
 }
 
 .emessage-receiver {
-  margin: 5px;
   display: flex;
   align-items: center;
   justify-content: left;
+}
+
+.emessage-spaces {
+  margin-top: 7px;
+  margin-bottom: 7px;
+}
+
+.emessage-tile{
+  font-size: 30px;
+  color: #262c5c;
+  font-family: MalbergTrial-Heavy;
 }

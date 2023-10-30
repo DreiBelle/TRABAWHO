@@ -1,40 +1,155 @@
-.SeekerMessage- {
-}
-
-.EmployerMessage- {
-}
-
-.SeekerMessage-FlexCenter {
-  justify-content: center;
+.jmeesage-chats-container {
   display: flex;
   align-items: center;
+  justify-content: start;
 }
 
-.EmployerMessage-Content {
-  height: 100%;
+.jmessage-chats-card {
   width: 100%;
-  padding: 20px;
-  background-color: #f3f2ee;
+  height: fit-content;
+  padding: 5px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 
-.EmployerMessage-Container {
-  height: 100%;
-  background-color: white;
-}
-
-.SeekerMessage-Chatbox-Container {
-  background-color: #f3f2ee;
+.jmessage-text {
+  font-weight: bold;
   color: black;
 }
 
-.SeekerMessage-Header {
-  height: 50px;
-  background-color: white;
-  color: black;
+.jmessage-searchabr {
+  margin-bottom: -20px;
+  position: fixed;
+  top: 0;
+  margin-top: 30px;
+  z-index: 2;
 }
 
-.SeekerMessage-IonGrid {
-  height: 100%;
+.jmessage-modal-header {
+  background-color: #262c5c;
+  color: white;
+  height: 40px;
+  justify-content: left !important;
+}
+
+.jmessage-modal-header-avatar {
+  height: 30px;
+  width: 30px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.jmessage-input-message {
+  height: 40px;
   width: 100%;
-  background-color: white;
+  min-height: 0px !important;
+  color: black;
+  --highlight-color-focused: #262c5c;
+  --border-color: rgba(0, 0, 0, 0.503) !important;
+}
+
+.jmessage-icon-send {
+  font-size: 25px;
+  color: #262c5c;
+  cursor: pointer;
+}
+
+.jmessage-sender {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+}
+
+.jmessage-receiver {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+}
+
+.jprofile-card-messages {
+  margin: 5px;
+  padding: 10px;
+  width: fit-content;
+  color: white;
+  max-width: 500px;
+  background-color: #262c5c;
+  border-radius: 20px;
+}
+
+.jprofile-card-messages2 {
+  margin: 5px;
+  padding: 10px;
+  width: fit-content;
+  color: black;
+  max-width: 500px;
+  background-color: rgb(236, 234, 234);
+  border-radius: 20px;
+}
+
+.jmessage-avatar {
+  margin-right: 5px;
+  margin-left: 5px;
+  height: 30px;
+  width: 30px;
+}
+
+.emessage-pictureFull {
+  --height: 100%;
+  --background: rgba(0, 0, 0, 0.393);
+  --box-shadow: none;
+}
+
+.jmessage-icon-modal-close{
+  position: fixed;
+  z-index: 2;
+  top: 10px;
+  right: 10px;
+  color: rgba(255, 255, 255, 0.887);
+  font-size: 40px;
+}
+
+.jmessage-pictureSentFull {
+  max-height: 100vh;
+  height: 100%;
+  width:  100%;
+  object-fit: contain;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  padding: 10px;
+}
+
+.jmessage-pictureSent {
+  height: 200px;
+  width: auto;
+  border-radius: 10px 0 0 10px;
+  margin: 5px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.jmessage-pictureReceive {
+  height: 200px;
+  width: auto;
+  border-radius: 0px 10px 10px 0px;
+  margin: 5px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.jmessage-textdatesent {
+  font-size: 11px;
+  color: grey;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  margin-right: 10px;
+}
+
+.jmessage-textdatesent2 {
+  font-size: 11px;
+  color: grey;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  margin-left: 45px;
 }
