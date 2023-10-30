@@ -244,6 +244,21 @@ http://ionicframework.com/docs/theming/ */
   src: url(../assets/fonts/MalbergTrial-Regular.ttf);
 }
 
+@font-face {
+  font-family: Summer-Dream;
+  src: url(../assets/fonts/SummerDreamSansDEMO.ttf);
+}
+
+@font-face {
+  font-family: Heavitas;
+  src: url(../assets/fonts/Heavitas.ttf);
+}
+
+@font-face {
+  font-family: Interphrase;
+  src: url(../assets/fonts/Interphrase.ttf);
+}
+
 .flexcenter {
   justify-content: center;
   align-items: center;

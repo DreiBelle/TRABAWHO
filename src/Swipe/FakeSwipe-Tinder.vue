@@ -1,21 +1,21 @@
 <template>
-  <div
-    class="Swipe-Swipeable"
-    :class="{ 'Swipe-Swipeable--animated': position !== 0 }"
-    :style="{ transform: `translateX(${position}px)` }"
-  >
+  <div class="Swipe-Swipeable" :class="{ 'Swipe-Swipeable--animated': position !== 0 }"
+    :style="{ transform: `translateX(${position}px)` }">
     <div class="Swipe-CardContent" id="card">
       <div class="swipe-container1" id="fakepicture">
+        <div class="swipe-image-container">
+          <img class="swipe-image" :src="item.pic" />
+        </div>
         <div style="height: calc(100% - 75px)"></div>
-        <div class="swipe-text-preview-container">
+        <div class="swipe-text-preview">
           <div>
-            <IonText class="swipe-text-preview"> Name </IonText>
+            <IonText class="swipe-text-stroke" style="font-size: 40px;"> {{ item.jobname.toUpperCase() }} </IonText>
           </div>
           <div>
-            <IonText class="swipe-text-preview"> TYPE </IonText>
+            <IonText class="swipe-text-stroke2" style="font-size: 22px;"> Type: {{ item.jobtype }} </IonText>
           </div>
           <div>
-            <IonText class="swipe-text-preview"> POSITION LVL </IonText>
+            <IonText class="swipe-text-stroke2" style="font-size: 22px;"> Position {{ item.positionlvl }} </IonText>
           </div>
         </div>
       </div>
@@ -40,16 +40,17 @@ export default {
     };
   },
   methods: {
-    getPicture() {
-      const picture1 = document.getElementById("fakepicture");
-      const imageUrl = this.item.picture;
-      picture1.style.backgroundImage = `url(${imageUrl})`;
-      picture1.style.backgroundSize = "cover";
-      picture1.style.backgroundPosition = "center";
-    },
+    // getPicture() {
+    //   const picture1 = document.getElementById("fakepicture");
+    //   const imageUrl = this.item.pic;
+    //   console.log(imageUrl)
+    //   picture1.style.background = `linear-gradient(to top, rgba(0, 0, 0, 0.3), transparent), url(${imageUrl})`; picture1.style.backgroundSize = "cover";
+    //   picture1.style.backgroundSize = "cover";
+    //   picture1.style.backgroundPosition = "center";
+    // },
   },
   mounted() {
-    this.getPicture();
+    // this.getPicture();
   },
   components: { IonText, IonGrid, IonRow, IonCol, IonCard },
 };

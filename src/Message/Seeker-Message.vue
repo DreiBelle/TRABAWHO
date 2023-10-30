@@ -1,17 +1,19 @@
 <template>
   <IonPage>
-    <IonHeader class="SeekerMessage-Header">
-      <IonGrid style="height: 100%; padding: 0;">
-        <IonRow style="height: 100%">
-          <IonCol class="SeekerMessage-FlexCenter" size="1.5">
-            <IonIcon size="medium" :icon="settingsOutline"></IonIcon>
-          </IonCol>
-          <IonCol class="SeekerMessage-FlexCenter"> </IonCol>
-          <IonCol class="SeekerMessage-FlexCenter" size="1.5">
-            <IonIcon :icon="optionsOutline"></IonIcon>
-          </IonCol>
-        </IonRow>
-      </IonGrid>
+    <IonHeader class="jmessage-header">
+      <div class="flexcenter" style="height: 100%; width: 100%;">
+        <div class="jmessage-logo-container">
+          <img class="jmessage-logo" src="../assets/logo/whitefilllogo.png" alt="logo" />
+        </div>
+        <div>
+          <IonText class="jmessage-title">
+            INBOX
+          </IonText>
+        </div>
+        <div class="jmessage-icons-settings">
+          <IonIcon :icon="settings"></IonIcon>
+        </div>
+      </div>
     </IonHeader>
 
     <IonContent>
@@ -32,7 +34,7 @@
                   <IonText class="jmessage-text">{{ chat }}</IonText>
                 </div>
                 <div>
-                  asd
+                  current chat
                 </div>
               </div>
             </div>
@@ -56,22 +58,30 @@
         </div>
       </div>
       <div style="height: 100%;">
-        <IonContent id="contents">
+        <IonContent ref="content">
           <div v-if="messages.length != 0">
-            <div v-for="message in messages">
+            <div v-for="(message, index) in messages">
               <div v-if="message.senderEmail === sender" style="width: 50%; margin-left: 50%;">
                 <!-- sender -->
                 <div>
                   <div class="jmessage-sender">
-                    <img @click="openModalviewpicture(true, message.messagePicture)" v-if="message.messagePicture"
-                      class="jmessage-pictureSent" :src="message ? message.messagePicture : 'fallback-image-url'"
-                      alt="Selected Image" />
+                    <img @click="openModalviewpicture(true, message.messagePicture, message.id, message.senderEmail)"
+                      v-if="message.messagePicture" class="jmessage-pictureSent"
+                      :src="message ? message.messagePicture : 'fallback-image-url'" alt="Selected Image" />
                   </div>
                   <div class="jmessage-sender">
-                    <IonCard class="jprofile-card-messages" v-if="message.messageText">
+                    <IonCard @click="openPopover($event, message.id)" class="jprofile-card-messages"
+                      v-if="message.messageText">
                       {{ messages ? `${message.messageText}` : "..." }}
                     </IonCard>
                   </div>
+                  <IonPopover @click="removeMessage()" class="jmessage-popover-button" :is-open="popoverOpen"
+                    :event="event" @did-dismiss="popoverOpen = false">
+                    <div class="flexcenter" style="padding: 5px; font-size: 17px;">
+                      <IonIcon style="margin-bottom: 3px; margin-right: 5px;" :icon="trash"></IonIcon>
+                      <IonText>Remove</IonText>
+                    </div>
+                  </IonPopover>
                 </div>
                 <div>
                   <div class="jmessage-textdatesent" style="margin: 0 0 0 10px;">
@@ -89,9 +99,9 @@
                   </div>
                   <div>
                     <div class="jmeesage-receiver">
-                      <img @click="openModalviewpicture(true, message.messagePicture)" v-if="message.messagePicture"
-                        class="jmessage-pictureReceive" :src="message ? message.messagePicture : 'fallback-image-url'"
-                        alt="Selected Image" />
+                      <img @click="openModalviewpicture(true, message.messagePicture, message.id, message.senderEmail)"
+                        v-if="message.messagePicture" class="jmessage-pictureReceive"
+                        :src="message ? message.messagePicture : 'fallback-image-url'" alt="Selected Image" />
                     </div>
                     <div class="jmeesage-receiver">
                       <IonCard class="jprofile-card-messages2" v-if="message.messageText">
@@ -106,15 +116,19 @@
               </div>
             </div>
           </div>
-          <div v-else>
-            no messages
+          <div v-else style="height: 100%;">
+            <div class="flexcenter" style="height: 100%;">
+              <IonText class="jmessage-text-messagenow">
+                YOU CAN NOW MESSAGE EACH OTHER
+              </IonText>
+            </div>
           </div>
         </IonContent>
       </div>
       <div>
         <div>
           <div v-if="!namePic" style="color: transparent;">
-            
+
           </div>
           <div v-else-if="namePic">
             <IonChip style="cursor:default;">
@@ -142,9 +156,11 @@
       </div>
     </IonModal>
 
-    <IonModal mode="md" :is-open="setviewPicture" @did-dismiss="openModalviewpicture(false, '')"
+    <IonModal mode="md" :is-open="setviewPicture" @did-dismiss="openModalviewpicture(false, '', '', '')"
       class="emessage-pictureFull">
-      <IonIcon @click="openModalviewpicture(false, '')" class="jmessage-icon-modal-close" :icon="closeCircle"></IonIcon>
+      <IonIcon v-if="sender == noDel" @click="removeMessage()" :icon="trash" class="jmessage-icon-modal-trash"></IonIcon>
+      <IonIcon @click="openModalviewpicture(false, '', '', '')" class="jmessage-icon-modal-close" :icon="closeCircle">
+      </IonIcon>
       <img class="jmessage-pictureSentFull" :src="setviewPicturefull" />
     </IonModal>
   </IonPage>
@@ -169,10 +185,12 @@ import {
   IonModal,
   IonInput,
   IonChip,
+  IonButton,
+  IonPopover,
 } from "@ionic/vue";
 import Navbar from "../NavBar/NavBar.vue";
 import "./Seeker-Message.css";
-import { settingsOutline, optionsOutline, chevronBack, folder, send, close, closeCircle } from "ionicons/icons";
+import { settings, optionsOutline, chevronBack, folder, send, close, closeCircle, trash } from "ionicons/icons";
 import {
   collection,
   addDoc,
@@ -209,7 +227,9 @@ export default {
     IonAvatar,
     IonSearchbar,
     IonModal,
-    IonInput
+    IonInput,
+    IonButton,
+    IonPopover
   },
   data() {
     return {
@@ -224,14 +244,32 @@ export default {
       namePic: "",
       setviewPicturefull: "",
       setviewPicture: false,
+      isLoading: false,
+      popoverOpen: false,
+      event: null,
+      popOverId: "",
+      noDel: "",
     }
   },
   setup() {
     return {
-      settingsOutline, optionsOutline, chevronBack, folder, send, close, closeCircle
+      settings, optionsOutline, chevronBack, folder, send, close, closeCircle, trash
     }
   },
   methods: {
+    async removeMessage() {
+      this.popoverOpen = false
+      this.setviewPicture = false
+      await deleteDoc(doc(db, "Messages", this.popOverId));
+    },
+
+    openPopover(e: Event, id) {
+      this.event = e;
+      console.log(id)
+      this.popOverId = id
+      this.popoverOpen = true
+    },
+
     formatTimestamp(timestamp) {
       if (timestamp && timestamp.seconds) {
         const date = new Date(timestamp.seconds * 1000);
@@ -262,7 +300,7 @@ export default {
       }
     },
 
-    openModalviewpicture(x, picture) {
+    openModalviewpicture(x, picture, id, sender) {
       if (x == false) {
         this.setviewPicture = x;
         setTimeout(() => {
@@ -272,6 +310,9 @@ export default {
         this.setviewPicture = x;
         this.setviewPicturefull = picture;
       }
+
+      this.noDel = sender
+      this.popOverId = id
     },
 
     removePicture() {
@@ -299,8 +340,8 @@ export default {
       }
     },
 
-    scrollToBottom() {
-      
+    scrollToBottom(x) {
+      this.$refs.content.$el.scrollToBottom(x);
     },
 
     async sendMessage() {
@@ -349,7 +390,6 @@ export default {
           messagePicture: this.messagePic,
         });
       } else {
-        this.scrollToBottom();
         console.log("enter contents")
       }
 
@@ -357,7 +397,7 @@ export default {
       this.namePic = "";
       this.selectedpic = "";
       this.messagePic = "";
-
+      this.scrollToBottom(500);
     },
 
     async chatModal(x, receiver) {
@@ -389,6 +429,10 @@ export default {
         });
         this.messages = newMessages;
         this.isLoading = false;
+
+        setTimeout(() => {
+          this.scrollToBottom(500);
+        }, 150);
       });
 
       this.isChat = x
@@ -404,8 +448,4 @@ export default {
 };
 </script>
 
-<style>
-ion-col {
-  border: 1px solid black;
-}
-</style>
+<style></style>

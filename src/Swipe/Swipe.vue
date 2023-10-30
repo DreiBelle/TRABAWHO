@@ -1,70 +1,48 @@
 <template>
   <IonPage>
     <div v-if="isloading">
-      <IonProgressBar type="indeterminate"></IonProgressBar>
-      <IonHeader class="Swipe-Header">
-        <IonGrid style="height: 100%; padding: 0">
-          <IonRow style="height: 100%">
-            <IonCol class="Swipe-FlexCenter" size="2">
-              <img
-                class="swipe-logo"
-                src="../assets/logo/whitefilllogo.png"
-                alt="logo"
-              />
-            </IonCol>
-            <IonCol class="Swipe-FlexCenter"> </IonCol>
-            <IonCol class="Swipe-FlexCenter" size="2">
-              <IonIcon class="swipe-icon" :icon="settings"></IonIcon>
-            </IonCol>
-          </IonRow>
-        </IonGrid>
+      <IonHeader style="z-index: 1;" class="jmessage-header">
+        <div class="flexcenter" style="height: 100%; width: 100%;">
+          <div class="jmessage-logo-container">
+            <img class="jmessage-logo" src="../assets/logo/whitefilllogo.png" alt="logo" />
+          </div>
+          <div class="jmessage-icons-settings">
+            <IonIcon :icon="settings"></IonIcon>
+          </div>
+        </div>
+        <div style="height: 100vh; width: 100%; background: whitesmoke"></div>
       </IonHeader>
+      <IonProgressBar style="z-index: 2;" type="indeterminate"></IonProgressBar>
     </div>
     <div v-if="!isloading">
       <IonPage>
-        <IonHeader class="Swipe-Header">
-          <IonGrid style="height: 100%; padding: 0">
-            <IonRow style="height: 100%">
-              <IonCol class="Swipe-FlexCenter" size="2">
-                <img
-                  class="swipe-logo"
-                  src="../assets/logo/whitefilllogo.png"
-                  alt="logo"
-                />
-              </IonCol>
-              <IonCol class="Swipe-FlexCenter"> </IonCol>
-              <IonCol class="Swipe-FlexCenter" size="2">
-                <IonIcon class="swipe-icon" :icon="settings"></IonIcon>
-              </IonCol>
-            </IonRow>
-          </IonGrid>
+        <IonHeader class="jmessage-header">
+          <div class="flexcenter" style="height: 100%; width: 100%;">
+            <div class="jmessage-logo-container">
+              <img class="jmessage-logo" src="../assets/logo/whitefilllogo.png" alt="logo" />
+            </div>
+            <div class="jmessage-icons-settings">
+              <IonIcon :icon="settings"></IonIcon>
+            </div>
+          </div>
         </IonHeader>
         <IonGrid style="height: 100%; width: 100%; background: whitesmoke">
           <IonRow style="height: 100%">
             <IonCol>
-              <div class="Swipe-Background" v-if="nextCardIndex < cards.length">
-                <SwipeableCard
-                  :item="cards[currentCardIndex]"
-                  @swipeLeft="handleSwipeLeft"
-                  @swipeRight="handleSwipeRight"
-                  style="z-index: 2"
-                  id="mainswiper"
-                  class="asd"
-                />
+              <div class="Swipe-Background" v-if="(cards.length - currentCardIndex) >= 3">
+                <SwipeableCard :item="cards[currentCardIndex]" @swipeLeft="handleSwipeLeft" @swipeRight="handleSwipeRight"
+                  id="mainswiper" class="asd" />
+                <FakeSwipeableCard :item="cards[nextCardIndex]" class="asd2" />
+                <FakeSwipeableCard :item="cards[nextCardIndex + 1]" class="asd3" />
+              </div>
+              <div class="Swipe-Background" v-else-if="(cards.length - currentCardIndex) == 2">
+                <SwipeableCard :item="cards[currentCardIndex]" @swipeLeft="handleSwipeLeft" @swipeRight="handleSwipeRight"
+                  id="mainswiper" class="asd" />
                 <FakeSwipeableCard :item="cards[nextCardIndex]" class="asd2" />
               </div>
-              <div
-                class="Swipe-Background"
-                v-else-if="currentCardIndex < cards.length"
-              >
-                <SwipeableCard
-                  :item="cards[currentCardIndex]"
-                  @swipeLeft="handleSwipeLeft"
-                  @swipeRight="handleSwipeRight"
-                  style="z-index: 2"
-                  id="mainswiper"
-                  class="asd"
-                />
+              <div class="Swipe-Background" v-else-if="(cards.length - currentCardIndex) == 1">
+                <SwipeableCard :item="cards[currentCardIndex]" @swipeLeft="handleSwipeLeft" @swipeRight="handleSwipeRight"
+                  style="z-index: 2" id="mainswiper" class="asd" />
                 <IonCard class="Swipe-Swipeable">
                   no more available jobs
                 </IonCard>
@@ -89,7 +67,7 @@ import FakeSwipeableCard from "./FakeSwipe-Tinder.vue";
 import FloatingButtons from "./Swipe-FloatingButtons.vue";
 import NavBar from "../NavBar/NavBar.vue";
 import "./Swipe.css";
-import { car, settings } from "ionicons/icons";
+import { car, card, settings } from "ionicons/icons";
 import { getJobs } from "./Swipe-Model";
 import {
   IonCard,
@@ -106,13 +84,16 @@ import {
   IonTabBar,
   IonTabButton,
   IonTabs,
+  IonText,
 } from "@ionic/vue";
 import { dbImage } from "@/firebaseDB";
 import { getDownloadURL, ref } from "firebase/storage";
 import { ref as asd, onMounted } from "vue";
 import { getUserProfile } from "../Profile/Profile-Model";
+import '../Message/Seeker-Message.css'
 export default {
   components: {
+    IonText,
     FakeSwipeableCard,
     FloatingButtons,
     SwipeableCard,
@@ -232,6 +213,9 @@ export default {
       );
 
       this.cards = jobsWithImages;
+
+
+
       // this.showNextCard();
     } catch (error) {
       console.error("Error fetching jobs: ", error);

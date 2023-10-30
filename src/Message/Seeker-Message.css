@@ -21,15 +21,25 @@
   margin-bottom: -20px;
   position: fixed;
   top: 0;
-  margin-top: 30px;
+  margin-top: 40px;
   z-index: 2;
+}
+
+.jmessage-text-messagenow{
+  padding-left: 50px;
+  padding-right: 50px;
+  text-align: center;
+  font-family: Summer-Dream;
+  font-size: 20px;
+  line-height: 20px;
 }
 
 .jmessage-modal-header {
   background-color: #262c5c;
   color: white;
-  height: 40px;
+  height: 50px;
   justify-content: left !important;
+  padding: 5px;
 }
 
 .jmessage-modal-header-avatar {
@@ -99,7 +109,7 @@
   --box-shadow: none;
 }
 
-.jmessage-icon-modal-close{
+.jmessage-icon-modal-close {
   position: fixed;
   z-index: 2;
   top: 10px;
@@ -108,10 +118,19 @@
   font-size: 40px;
 }
 
+.jmessage-icon-modal-trash {
+  position: fixed;
+  z-index: 2;
+  top: 10px;
+  right: 60px;
+  color: rgba(255, 0, 0, 0.775);
+  font-size: 40px;
+}
+
 .jmessage-pictureSentFull {
   max-height: 100vh;
   height: 100%;
-  width:  100%;
+  width: 100%;
   object-fit: contain;
   border-radius: 10px;
   transition: all 0.3s ease;
@@ -152,4 +171,42 @@
   align-items: center;
   justify-content: left;
   margin-left: 45px;
+}
+
+.jmessage-popover-button {
+  color: white;
+  --background: maroon;
+  padding: 5px;
+}
+
+.jmessage-header {
+  height: 45px;
+  background-color: #262c5c;
+}
+
+.jmessage-logo {
+  height: 25px;
+  width: auto;
+}
+
+.jmessage-logo-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+}
+
+.jmessage-icons-settings {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 10px;
+  font-size: 25px;
+}
+
+.jmessage-title{
+  font-family: MalbergTrial-Heavy;
+  font-size: 30px;
+  letter-spacing: 2px;
 }
