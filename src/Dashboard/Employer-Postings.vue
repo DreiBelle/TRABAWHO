@@ -203,7 +203,7 @@ export default {
       jobPostings.value = await getJobPostings(
         userEmail,
         user.value.businessname,
-        user.vgalue.id,
+        user.value.id,
       );
 
       console.log(jobPostings.value.length);
