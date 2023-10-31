@@ -241,6 +241,7 @@ export default {
       modalOpen: false,
       modalChoices: [],
       chosenChoices: [],
+      userswipej: [],
     };
   },
   methods: {
@@ -260,7 +261,7 @@ export default {
       this.modalOpen = false;
     },
     async handleSubmit() {
-      const requiredFields = ['elementary', 'juniorhigh', 'seniorhigh', 'college', 'masteral'];
+      const requiredFields = ['hours', 'yearsofexp', 'jobtype', 'salary', 'loc'];
       let isFormValid = true;
 
       for (const field of requiredFields) {
@@ -278,8 +279,9 @@ export default {
       if (this.chosenChoices.length > 0) {
         const signupStore = useSignupStore();
         const sharedFormData = signupStore.formData;
+        this.userswipej.push({ jobdid: "" }); 
         signupStore.setChosenInterests(this.chosenChoices);
-
+        signupStore.setjobswipe(this.userswipej);
         signupStore.setFormData({
           ...sharedFormData,
           hours: this.formData.hours,

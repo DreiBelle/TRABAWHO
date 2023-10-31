@@ -12,15 +12,16 @@
       </IonRow>
       <IonRow style="height: 20%; padding-top: 10px;">
         <IonCol class="flexcenter">
-          <IonCard class="dashboard-minidataanalytics-card"> likes </IonCard>
+          <IonCard class="dashboard-minidataanalytics-card"> likes <IonText style="font-size: 100px;"> {{ likes }} </IonText></IonCard>
         </IonCol>
         <IonCol class="flexcenter">
-          <IonCard class="dashboard-minidataanalytics-card"> views </IonCard>
+          <IonCard class="dashboard-minidataanalytics-card"> views <IonText style="font-size: 100px;"> {{ views }} </IonText></IonCard>
         </IonCol>
         <IonCol class="flexcenter">
-          <IonCard class="dashboard-minidataanalytics-card">
-            bookmarks
-          </IonCard>
+          <IonCard class="dashboard-minidataanalytics-card"> bookmarks <IonText style="font-size: 100px;"> {{ bookmarks }} </IonText></IonCard>
+        </IonCol>
+        <IonCol class="flexcenter">
+          <IonCard class="dashboard-minidataanalytics-card"> Jobpostings <IonText style="font-size: 100px;"> {{ jobPostings.length }} </IonText></IonCard>
         </IonCol>
       </IonRow>
       <IonRow class="page-components-container">
@@ -170,7 +171,7 @@ import Messages from "./Employer-Message.vue";
 import Profile from "./Employer-Profile.vue";
 import Notifications from "./Employer-Notification.vue";
 import AddModal from "./Employer-Dashboard-Modal-AddPostings.vue";
-import { getDashboardProfile } from "./Dashboard-Model";
+import { getDashboardProfile, getJobPostings } from "./Dashboard-Model";
 import { ref, onMounted } from "vue";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "@/firebaseDB";
@@ -203,11 +204,27 @@ export default {
   },
   setup() {
     const user = ref(null);
+    const jobPostings = ref([]);
+    let likes = ref(0);
+    let views = ref(0);
+    let bookmarks = ref(0);
 
     onMounted(async () => {
       const userEmail = localStorage.getItem("email");
       // const userPassword = localStorage.getItem("password");
       user.value = await getDashboardProfile(userEmail);
+
+      jobPostings.value = await getJobPostings(
+        userEmail,
+        user.value.businessname,
+        user.value.id,
+      );
+
+      jobPostings.value.forEach((jobPosting) => {
+        likes.value += jobPosting.likes;
+        views.value += jobPosting.views;
+        bookmarks.value += jobPosting.bookmarks;
+      });
 
       onAuthStateChanged(auth, (user) => {
         if (user) {
@@ -227,6 +244,10 @@ export default {
       logOutOutline,
       chatboxEllipsesOutline,
       user,
+      jobPostings,
+      likes,
+      views,
+      bookmarks,
     };
   },
   data() {

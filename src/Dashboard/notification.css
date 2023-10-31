@@ -1,0 +1,14 @@
+.enotif-card{
+    height: 100%;
+    width: 100%;
+    color: black;
+    cursor: pointer;
+    transition: background 0.5s ease;
+  }
+  .enotif-card:hover{
+    height: 100%;
+    width: 100%;
+    color: black;
+    background: rgb(243, 243, 243);
+    transition: background 0.5s ease;
+  }

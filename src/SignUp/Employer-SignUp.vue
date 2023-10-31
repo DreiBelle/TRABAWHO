@@ -187,6 +187,8 @@ const signInWithGoogle = async() => {
     } else {
       // Email is not registered, proceed with registration.
       signupStore2.setGoogle(email, name);
+      signupStore2.setjobdata({swipedid: ""});
+      signupStore2.setswipedata({jobdid: ""});
       await signupStore2.registerUser();
       localStorage.setItem("email", email);
       GoEmployerDashboard();
@@ -221,6 +223,8 @@ const submitForm = async () => {
       const credential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
       console.log(credential.user);
       signupStore2.setFormData(formData);
+      signupStore2.setjobdata({swipedid: ""});
+      signupStore2.setswipedata({jobdid: ""});
       await signupStore2.registerUser();
       router.push("/LoginComputer");
       alert("Succesfully Registered");

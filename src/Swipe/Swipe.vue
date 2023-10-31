@@ -68,7 +68,7 @@ import FloatingButtons from "./Swipe-FloatingButtons.vue";
 import NavBar from "../NavBar/NavBar.vue";
 import "./Swipe.css";
 import { car, card, settings } from "ionicons/icons";
-import { getJobs } from "./Swipe-Model";
+import { getJobs, getjobownerProfile, deleteBlank, deleteBlank1 } from "./Swipe-Model";
 import {
   IonCard,
   IonCol,
@@ -86,11 +86,18 @@ import {
   IonTabs,
   IonText,
 } from "@ionic/vue";
-import { dbImage } from "@/firebaseDB";
+import { db, dbImage } from "@/firebaseDB";
 import { getDownloadURL, ref } from "firebase/storage";
 import { ref as asd, onMounted } from "vue";
 import { getUserProfile } from "../Profile/Profile-Model";
-import '../Message/Seeker-Message.css'
+import '../Message/Seeker-Message.css';
+import { getDashboardProfile } from "@/Dashboard/Dashboard-Model";
+import { useSwipedata } from "@/stores/swipedata";
+import { useSwipejob } from "@/stores/userswipejob";
+import { useupdatelike } from "@/stores/updatelikes";
+import { useupdateview } from "@/stores/updateviews";
+import { useupdatebookmark } from "@/stores/updatebookmarks";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 export default {
   components: {
     IonText,
@@ -114,18 +121,33 @@ export default {
     IonProgressBar,
   },
   setup() {
-    return { settings };
+    const user = asd(null);
+    onMounted(async () => {
+      const userEmail = localStorage.getItem("email");
+      // const userPassword = localStorage.getItem("password");
+      user.value = await getDashboardProfile(userEmail);
+    });
+
+    const useswipedata = useSwipedata();
+    const useswipejob = useSwipejob();
+    const updatelikes = useupdatelike();
+    const updateviews = useupdateview();
+    const updatebookmarks = useupdatebookmark();
+    return { settings, user, useswipedata, useswipejob, updatelikes, updateviews, updatebookmarks };
   },
   data() {
     return {
       nextCardIndex: 1,
       currentCardIndex: 0,
       cards: [],
+      swipedata: [],
+      jobdata: [],
+      userswipej: [],
       isloading: true,
     };
   },
   methods: {
-    handleSwipeLeft() {
+    async handleSwipeLeft(job) {
       const swiper = document.getElementById("mainswiper");
 
       setTimeout(() => {
@@ -138,9 +160,16 @@ export default {
 
       console.log("swipe left");
       this.showNextCard();
+
+      const oldview = job.views;
+      const newview = oldview + 1;
+      console.log(newview);
+
+      this.updateviews.setviews(newview);
+      await this.updateviews.updateviews(job.id);
     },
 
-    handleSwipeRight() {
+    async handleSwipeRight(job) {
       const swiper = document.getElementById("mainswiper");
 
       setTimeout(() => {
@@ -153,6 +182,51 @@ export default {
 
       console.log("swipe right");
       this.showNextCard();
+
+      console.log("the swiper id " + this.user.id);
+      console.log("the creator of jobposting " + job.company);
+      console.log("the id of jobposting " + job.id);
+
+      const jobowner = job.company;
+      const owner = await getjobownerProfile(jobowner);
+
+      this.swipedata = owner.swiperuser;
+      this.jobdata = owner.swiperjob;
+
+      this.swipedata.push({ swipedid: this.user.id });
+      this.jobdata.push({ jobdid: job.id });
+
+      this.userswipej = this.user.swiperjob;
+      this.userswipej.push({ jobdid: job.id });   
+
+      this.useswipedata.setswipedata(this.swipedata);
+      this.useswipedata.setjobdata(this.jobdata);
+      this.useswipejob.setjobswipe(this.userswipej);
+
+      await this.useswipedata.updateswipedata(job.company);
+      await this.useswipejob.updateuserswipedata(this.user.id);
+
+      const oldlike = job.likes;
+      const newlike = oldlike + 1;
+      console.log(newlike);
+
+      this.updatelikes.setlikes(newlike);
+      await this.updatelikes.updatelikes(job.id);
+
+      const oldview = job.views;
+      const newview = oldview + 1;
+      console.log(newview);
+
+      this.updateviews.setviews(newview);
+      await this.updateviews.updateviews(job.id);
+
+      deleteBlank(this.user.id)
+      deleteBlank(job.company);
+      deleteBlank1(job.company);
+      
+      this.swipedata = [];
+      this.jobdata = [];
+      this.userswipej = [];
     },
 
     showNextCard() {
@@ -164,6 +238,7 @@ export default {
   },
   async mounted() {
     try {
+      const jobIds = [];
       const user = asd(null);
       const userEmail = localStorage.getItem("email");
       // const userPassword = localStorage.getItem("password");
@@ -192,13 +267,19 @@ export default {
         salary,
       );
 
+      const filteredJobs = jobs.filter((job) => {
+        // icheCheck kung  yung jobid ay nasa user sa swiperjob array
+        return !this.user.swiperjob.some((swiperJob) => swiperJob.jobdid === job.id);
+      });
+
       // Fetch image URLs from Firebase Storage for each job
       const jobsWithImages = await Promise.all(
-        jobs.map(async (job) => {
+        filteredJobs.map(async (job) => {
           const imageUrl = await getDownloadURL(ref(dbImage, job.pic));
           return {
+            id: job.id,
             jobname: job.jobname,
-            pic: imageUrl, // Now `picture` contains the image URL
+            pic: imageUrl, 
             jobtype: job.jobtype,
             jobdes: job.jobdes,
             company: job.company,
@@ -208,15 +289,15 @@ export default {
             reqeduc: job.reqeduc,
             salary: job.salary,
             yearsofexp: job.yearsofexp,
+            likes: job.likes,
+            views: job.views,
+            bookmarks: job.bookmarks,
           };
         })
       );
 
       this.cards = jobsWithImages;
-
-
-
-      // this.showNextCard();
+      
     } catch (error) {
       console.error("Error fetching jobs: ", error);
     }

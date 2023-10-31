@@ -22,6 +22,9 @@ export const useJobStore = defineStore("jobpost", {
       chosenInterests: [],
       company: "",
       noofempl: "",
+      likes: 0,
+      views: 0,
+      bookmarks: 0,
     },
   }),
   actions: {
@@ -37,14 +40,16 @@ export const useJobStore = defineStore("jobpost", {
 
     async postjob() {
 
-      // Set the current date as the dateCreated
       this.formData.dateCreated = new Date().toISOString();
+      this.formData.likes = 0;
+      this.formData.views = 0;
+      this.formData.bookmarks = 0;
 
       try {
-        const usersCollection = collection(db, "jobpost"); // "jobpost" is the name of the Firestore collection
+        const usersCollection = collection(db, "jobpost"); 
         await addDoc(usersCollection, this.formData);
         console.log("jobpost registered successfully!");
-        // Reset the form data after registration if needed
+        
         this.formData = {
           pic: "",
           jobname: "",
@@ -60,6 +65,9 @@ export const useJobStore = defineStore("jobpost", {
           chosenInterests: [],
           company: "",
           noofempl: "",
+          likes: 0,
+          views: 0,
+          bookmarks: 0,
         };
       } catch (error) {
         console.error("Error registering jobpost:", error);

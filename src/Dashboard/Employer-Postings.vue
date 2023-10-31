@@ -97,13 +97,13 @@
               {{ job ? job.jobname : "Loading..." }}
             </IonCol>
             <IonCol class="flexcenter">
-              <IonIcon style="padding-right: 5px" :icon="eyeSharp"></IonIcon> 0
+              <IonIcon style="padding-right: 5px" :icon="eyeSharp"></IonIcon> {{ job ? job.views : "Loading..." }}
             </IonCol>
             <IonCol class="flexcenter">
-              <IonIcon style="padding-right: 5px" :icon="thumbsUp"></IonIcon> 0
+              <IonIcon style="padding-right: 5px" :icon="thumbsUp"></IonIcon> {{ job ? job.likes : "Loading..." }}
             </IonCol>
             <IonCol class="flexcenter">
-              <IonIcon style="padding-right: 5px" :icon="bookmark"></IonIcon> 0
+              <IonIcon style="padding-right: 5px" :icon="bookmark"></IonIcon> {{ job ? job.bookmarks : "Loading..." }}
             </IonCol>
             <IonCol class="flexcenter postings-arhive-container">
               <IonIcon
@@ -202,8 +202,11 @@ export default {
 
       jobPostings.value = await getJobPostings(
         userEmail,
-        user.value.businessname
+        user.value.businessname,
+        user.vgalue.id,
       );
+
+      console.log(jobPostings.value.length);
 
       const jobPostingsRef = collection(db, "jobpost");
       const q = query(jobPostingsRef, where("company", "==", user.value.id));

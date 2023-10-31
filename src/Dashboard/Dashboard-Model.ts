@@ -5,6 +5,8 @@ import {
   getDocs,
   orderBy,
   limit,
+  doc,
+  getDoc,
 } from "firebase/firestore";
 import { db } from "../firebaseDB";
 
@@ -24,13 +26,13 @@ async function getDashboardProfile_(Username) {
   }
 }
 
-async function getJobPostings_(Username, companyname) {
+async function getJobPostings_(Username, companyname, id) {
   try {
     const userDoc = await getDashboardProfile_(Username);
 
     if (userDoc && userDoc.businessname === companyname) {
       const jobPostingsRef = collection(db, "jobpost");
-      const q = query(jobPostingsRef, where("company", "==", companyname));
+      const q = query(jobPostingsRef, where("company", "==", id));
 
       const querySnapshot = await getDocs(q);
 
@@ -114,10 +116,45 @@ async function getReceives_(Sender, Receiver) {
   }
 }
 
+async function getSwipedpostings_(id) {
+  const jobDocRef = doc(db, "jobpost", id);
+
+  try {
+    const docSnap = await getDoc(jobDocRef);
+    if (docSnap.exists()) {
+      const jobDoc = docSnap.data();
+      jobDoc.id = docSnap.id;
+      return jobDoc;
+    } else {
+      console.log("Document not found");
+    }
+  } catch (error) {
+    console.error("Error getting document:", error);
+  }
+}
+
+async function getswiperProfile_(id) {
+  const userDocRef = doc(db, "users", id);
+  try {
+      const docSnap = await getDoc(userDocRef);
+      if (docSnap.exists()) {
+        const userDoc = docSnap.data();
+        userDoc.id = docSnap.id;
+        return userDoc;
+      } else {
+        console.log("Document not found");
+      }
+    } catch (error) {
+      console.error("Error getting document:", error);
+    }
+}
+
 export const getDashboardProfile = getDashboardProfile_;
 export const getJobPostings = getJobPostings_;
 export const getMessages = getMessages_;
 export const getReceives = getReceives_;
+export const getSwipedpostings = getSwipedpostings_;
+export const getswiperProfile = getswiperProfile_;
 export interface JobpostModel {
   jobname: string;
   jobtype: string;

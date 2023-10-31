@@ -15,6 +15,8 @@ export const useSignupStore2 = defineStore("signup2", {
       password: "",
       dateCreated: "",
       type: "",
+      swiperuser: [],
+      swiperjob: [],
     },
   }),
   actions: {
@@ -25,6 +27,12 @@ export const useSignupStore2 = defineStore("signup2", {
     setGoogle(email, contactpn) {
       this.formData.email = email;
       this.formData.contactpn = contactpn;
+    },
+    setswipedata(data) {
+      this.formData.swiperuser = data;
+    },
+    setjobdata(data) {
+      this.formData.swiperjob = data;
     },
     async registerUser() {
 
@@ -46,6 +54,8 @@ export const useSignupStore2 = defineStore("signup2", {
           password: "",
           dateCreated: "",
           type: "",
+          swiperuser: [],
+          swiperjob: [],
         };
       } catch (error) {
         console.error("Error registering user:", error);

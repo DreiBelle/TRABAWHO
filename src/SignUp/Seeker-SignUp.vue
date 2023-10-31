@@ -154,6 +154,7 @@ export default {
         } else {
           // Email is not registered, proceed with registration.
           signupStore.setGoogle(email, name);
+          signupStore.setjobswipe({jobdid: ""});
           await signupStore.registerUser();
           localStorage.setItem("email", email);
           GoSwipe();

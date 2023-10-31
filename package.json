@@ -20,6 +20,7 @@
     "@ionic/vue": "^7.4.2",
     "@ionic/vue-router": "^7.0.0",
     "bad-words": "^3.0.4",
+    "chart.js": "^4.4.0",
     "firebase": "^10.3.0",
     "ionicons": "^7.0.0",
     "pinia": "^2.1.6",

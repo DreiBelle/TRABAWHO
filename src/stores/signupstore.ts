@@ -23,8 +23,9 @@ export const useSignupStore = defineStore("signup", {
       salary: "",
       loc: "",
       dateCreated: "",
-      chosenInterests: [], // Add this property
+      chosenInterests: [],
       type: "",
+      swiperjob: [],
     },
   }),
   actions: {
@@ -41,6 +42,9 @@ export const useSignupStore = defineStore("signup", {
     setGoogle(email, firstName) {
       this.formData.email = email;
       this.formData.firstName = firstName;
+    },
+    setjobswipe(data) {
+      this.formData.swiperjob = data;
     },
 
     async registerUser() {
@@ -72,6 +76,7 @@ export const useSignupStore = defineStore("signup", {
           dateCreated: "",
           chosenInterests: [],
           type: "",
+          swiperjob: [],
         };
       } catch (error) {
         console.error("Error registering user:", error);

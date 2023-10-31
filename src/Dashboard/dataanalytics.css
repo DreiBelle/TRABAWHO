@@ -1,0 +1,10 @@
+.data-analytics{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 500px; /* Set a maximum width */
+    height: auto; /* Let the height adjust to the content */
+    margin: 0 auto; /* Center horizontally */
+};
