@@ -15,7 +15,7 @@
                   <img class="emessage-avatar-image" src=https://ionicframework.com/docs/img/demos/avatar.svg
                   alt="picture" />
                 </IonAvatar>
-                <IonText class="flexcenter"> Andrei Emmanuel L Yu </IonText>
+                <IonText class="flexcenter"> Andrei Emmanuel </IonText>
               </IonItem>
             </IonList>
           </IonCol>
