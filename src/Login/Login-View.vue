@@ -16,7 +16,7 @@
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
-                <IonInput label="Email" labelPlacement="stacked" placeholder="Enter Email" fill="outline"
+                <IonInput mode="md" label="Email" labelPlacement="stacked" placeholder="Enter Email" fill="outline"
                   class="login-input" required v-model="Username" style="margin-top: 30px">
                 </IonInput>
               </IonCol>
@@ -25,7 +25,7 @@
               <IonCol class="flexcenter">
                 <div>
                   <div>
-                    <IonInput label="Password" labelPlacement="stacked" placeholder="Enter Password" fill="outline"
+                    <IonInput mode="md" label="Password" labelPlacement="stacked" placeholder="Enter Password" fill="outline"
                       class="login-input" type="password" required v-model="Password">
                     </IonInput>
                   </div>

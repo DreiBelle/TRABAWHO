@@ -1,0 +1,82 @@
+.admin-manageuser-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 100%;
+  height: 100%;
+}
+
+.admin-manageuser-card {
+  width: calc(50% - 20px);
+  margin-bottom: 10px;
+  height: 100px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.admin-manageuser-card:hover {
+  width: calc(50% - 20px);
+  margin-bottom: 10px;
+  height: 100px;
+  cursor: pointer;
+  background-color: rgb(246, 242, 242);
+  transition: all 0.3s ease;
+}
+
+.admin-manageuser-icons {
+  color: #262c5c;
+  font-size: 25px;
+  transition: all 0.3s ease;
+}
+
+.admin-manageuser-open {
+  background-color: #262c5c;
+  color: white;
+}
+
+.admin-manageuser-icons-filter {
+  margin: 15px;
+  cursor: pointer;
+}
+
+.admin-manageuser-icons-filter:hover {
+  margin: 15px;
+  cursor: pointer;
+  scale: 1.1;
+  transition: all 0.3s ease;
+}
+
+.admin-manageuser-picture {
+  height: 100px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.admin-manageuser-text {
+  color: black;
+}
+
+.admin-manageuser-filter-title {
+  font-family: MalbergTrial-Heavy;
+  font-size: 30px;
+}
+
+.admin-manageuser-borderbottom {
+  border-bottom: 1px solid grey;
+}
+
+.admin-manageuser-filter-select {
+  width: calc(100% - 10px) !important;
+  height: 50px;
+  min-height: 10px !important;
+  color: black;
+  --highlight-color-focused: #262c5c;
+  --border-color: black !important;
+  margin: 10px 0 0 5px;
+}
+
+.admin-manageuser-filter-button {
+  position: absolute;
+  bottom: 0;
+  width: calc(100% - 10px);
+}

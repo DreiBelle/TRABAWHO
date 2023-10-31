@@ -1,4 +1,11 @@
-import { collection, query, where, getDocs } from "firebase/firestore";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  orderBy,
+  limit,
+} from "firebase/firestore";
 import { db } from "../firebaseDB";
 
 async function getDashboardProfile_(Username) {
@@ -12,7 +19,6 @@ async function getDashboardProfile_(Username) {
     const userDoc = docSnap.data();
     userDoc.id = docSnap.id;
     return userDoc;
-
   } else {
     console.log("Username not found");
   }
@@ -45,8 +51,73 @@ async function getJobPostings_(Username, companyname) {
   }
 }
 
+// emman
+async function getMessages_(Sender, Receiver) {
+  try {
+    const userDoc = await getDashboardProfile_(Sender);
+
+    if (userDoc.email === Sender) {
+      const messagesRef = collection(db, "Messages");
+      const q = query(
+        messagesRef,
+        where("receiverEmail", "==", Receiver),
+        where("senderEmail", "==", Sender),
+        // orderBy("dateSent", "asc"),
+        limit(100)
+      );
+
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        console.log("there are messages");
+        return querySnapshot.docs.map((doc) => doc.data());
+      } else {
+        console.log("No messages");
+        return [];
+      }
+    } else {
+      console.log("none");
+    }
+  } catch (error) {
+    console.error("Error", error);
+  }
+}
+
+async function getReceives_(Sender, Receiver) {
+  try {
+    const userDoc = await getDashboardProfile_(Sender);
+
+    if (userDoc.email === Sender) {
+      const messagesRef = collection(db, "Messages");
+      const q = query(
+        messagesRef,
+        where("receiverEmail", "==", Sender),
+        where("senderEmail", "==", Receiver),
+        // orderBy("dateSent", "asc"),
+        limit(100)
+      );
+
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        console.log("there are messages received");
+        return querySnapshot.docs.map((doc) => doc.data());
+      } else {
+        console.log("No messages received");
+        return [];
+      }
+    } else {
+      console.log("none");
+    }
+  } catch (error) {
+    console.error("Error", error);
+  }
+}
+
 export const getDashboardProfile = getDashboardProfile_;
 export const getJobPostings = getJobPostings_;
+export const getMessages = getMessages_;
+export const getReceives = getReceives_;
 export interface JobpostModel {
   jobname: string;
   jobtype: string;

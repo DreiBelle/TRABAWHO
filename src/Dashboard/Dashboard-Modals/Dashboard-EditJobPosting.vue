@@ -6,7 +6,7 @@
     style="background-color: rgba(0, 0, 0, 0.4)"
   >
     <IonHeader class="modal-editjobposting-header flexcenter">EDIT</IonHeader>
-    <IonContent>
+    <IonContent class="custom-scrollbar">
       <div style="padding: 10px">
         <div
           class="flexcenter"

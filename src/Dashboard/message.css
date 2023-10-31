@@ -1,11 +1,18 @@
 .emessage-avatar {
-  --background: black;
   margin-right: 15px;
-  height: 50px;
-  width: 50px;
+  margin-left: 5px;
+  height: 30px;
+  width: 30px;
 }
 
-.emessage-avatar-image{
+.emessage-avatar2 {
+  margin-left: 15px;
+  margin-right: 5px;
+  height: 30px;
+  width: 30px;
+}
+
+.emessage-avatar-image {
   height: auto;
   width: 50px;
   min-width: 30px;
@@ -21,12 +28,19 @@
 
 .emessage-persons-tabs {
   cursor: pointer;
+  justify-content: left !important;
+  padding: 5px;
+  border-bottom: 1px solid lightgrey;
+  transition: all 0.3s ease;
 }
 
 .emessage-persons-tabs:hover {
   cursor: pointer;
-  --background: lightgrey;
-  transition: (--background) 0.3s ease;
+  justify-content: left;
+  padding: 5px;
+  border-bottom: 1px solid grey;
+  background: rgba(173, 216, 230, 0.432);
+  transition: all 0.3s ease;
 }
 
 .emessage-container {
@@ -45,27 +59,171 @@
   min-height: 0px !important;
   color: black;
   --highlight-color-focused: #262c5c;
-  --border-color: black !important;
-  margin: 5px 15px 0px 0px;
+  --border-color: rgba(0, 0, 0, 0.503) !important;
+  margin: 5px;
 }
 
-
-.emessage-icon-send{
+.emessage-icon-send {
   font-size: 25px;
   color: #262c5c;
-} 
-
-.emessage-receiver-container{
-  display: flex;
-  align-items: center ;
+  cursor: pointer;
 }
 
-.emessage-receiver-message{
+.emessage-receiver-container {
   display: flex;
-  align-items: center ;
+  align-items: center;
+}
+
+.emessage-receiver-message {
+  display: flex;
+  align-items: center;
   background: lightgrey;
   color: black;
   padding: 10px;
   margin: 10px 0 0 0;
   border-radius: 10px;
+}
+
+.eprofile-card-messages {
+  margin: 5px;
+  padding: 10px;
+  width: fit-content;
+  color: white;
+  max-width: 500px;
+  background-color: #262c5c;
+  border-radius: 20px;
+
+}
+
+.eprofile-card-messages2 {
+  margin: 5px;
+  padding: 10px;
+  width: fit-content;
+  color: black;
+  max-width: 500px;
+  background-color: rgb(236, 234, 234);
+  border-radius: 20px;
+}
+
+.eprofile-skeleton {
+  width: 40%;
+  height: 70px;
+  border-radius: 5px;
+  margin: 10px;
+}
+
+.eprofile-skeleton2 {
+  width: 40%;
+  height: 50px;
+  border-radius: 5px;
+  margin: 10px;
+}
+
+.emessage-startmessaging {
+  font-size: 200%;
+  font-family: MalbergTrial-Heavy;
+  text-align: center;
+}
+
+.emessage-button-remove {
+  --background: none;
+  --color: rgb(132, 126, 126);
+  --box-shadow: none;
+  height: 15px;
+  width: 15px;
+}
+
+.emessage-removemessage {
+  display: none;
+  background-color: #262c5c;
+  border-radius: 100%;
+  padding: 5px;
+}
+.emessage-removemessage-container-parent:hover .emessage-removemessage {
+  display: block;
+}
+
+.emessage-removemessage-container {
+  color: white !important;
+  cursor: pointer;
+}
+
+.emessage-removemessage-container:hover {
+  color: red !important;
+  transition: all 0.1s ease;
+}
+
+.emessage-pictureSent {
+  height: 200px;
+  width: auto;
+  border-radius: 10px 0 0 10px;
+  margin: 5px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.emessage-pictureSentFull {
+  max-height: 100vh;
+  height: auto;
+  width: auto;
+  object-fit: contain;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  padding: 10px;
+}
+
+.emessage-pictureReceive {
+  height: 200px;
+  width: auto;
+  border-radius: 0px 10px 10px 0px;
+  margin: 5px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.emessage-pictureFull {
+  --height: fit-content;
+  --background: none;
+  --box-shadow: none;
+}
+
+.emessage-textdatesent {
+  font-size: 11px;
+  color: grey;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  margin-right: 30px;
+}
+
+.emessage-textdatesent2 {
+  font-size: 11px;
+  color: grey;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  margin-left: 45px;
+}
+
+.emessage-sender {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+}
+
+.emessage-receiver {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+}
+
+.emessage-spaces {
+  margin-top: 7px;
+  margin-bottom: 7px;
+}
+
+.emessage-tile{
+  font-size: 30px;
+  color: #262c5c;
+  font-family: MalbergTrial-Heavy;
 }

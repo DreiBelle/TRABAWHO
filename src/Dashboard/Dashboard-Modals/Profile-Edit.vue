@@ -1,6 +1,6 @@
 <template>
   <IonModal :is-open="isProfilemodal" @did-dismiss="closeProfilemodal" class="eprofile-editmodal">
-    <IonContent>
+    <IonContent class="custom-scrollbar">
       <IonGrid style="width: 100%">
         <IonRow>
           <IonCol size="1.5">
@@ -15,7 +15,7 @@
         </IonRow>
         <IonRow>
           <IonCol class="flexcenter" size="3">
-            <div v-if="!thereispic">
+            <div v-if="!user && user.pic">
               <div>
                 <IonAvatar class="eprofile-modal-cover-container2">
                   <img src="https://ionicframework.com/docs/img/demos/avatar.svg" alt="profile" />
@@ -29,10 +29,10 @@
                   style="display: none" />
               </div>
             </div>
-            <div v-if="thereispic">
+            <div v-else-if="user.pic">
               <div>
                 <IonAvatar class="eprofile-modal-cover-container2">
-                  <img :src="imageUrl" alt="Selected Image" v-if="imageUrl" />
+                  <img :src="user ? user.pic : 'fallback-image-url'" alt="Selected Image" />
                 </IonAvatar>
               </div>
               <div style="margin-top: 10px" class="flexcenter">
@@ -45,20 +45,23 @@
             </div>
           </IonCol>
           <IonCol class="flexcenter">
-            <div v-if="!thereisCover" style="width: 100%">
-              <div class="eprofile-modal-cover-container1"></div>
+            <div v-if="!user.bacpic" style="width: 100%">
+              <div class="eprofile-modal-cover-container1">
+                <div class="flexcenter" style="height: 100%;">
+                  <label class="eproifle-modal-editpicture2" for="addCover">
+                    ADD COVER PHOTO
+                  </label>
+                </div>
+              </div>
               <div style="margin-top: 10px; justify-content: right" class="flexcenter">
-                <label class="eproifle-modal-editpicture" for="addCover">
-                  Add Cover Photo
-                </label>
                 <input id="addCover" type="file" accept="image/jpeg" @change="addCoverphoto" ref="myfile"
                   style="display: none" />
               </div>
             </div>
-            <div style="width: 100%" v-if="thereisCover">
+            <div style="width: 100%" v-else-if="user.bacpic">
               <div class="eprofile-modal-cover-container1">
-                <img class="eprofile-modal-cover-container1 eprofile-coverphoto" :src="CoverUrl" alt="Selected Image"
-                  v-if="CoverUrl" />
+                <img class="eprofile-modal-cover-container1 eprofile-coverphoto"
+                  :src="user ? user.bacpic : 'fallback-image-url'" alt="Selected Image" />
               </div>
               <div style="margin-top: 10px; justify-content: right" class="flexcenter">
                 <label class="eproifle-modal-editpicture" for="fileInput">
@@ -72,8 +75,8 @@
         </IonRow>
         <IonRow>
           <IonCol class="flexcenter">
-            <IonInput class="eprofile-editprofile-input" label="Registered Business Name" fill="outline"
-              label-placement="stacked" v-model="formData.businessname">
+            <IonInput placeholder="business name" class="eprofile-editprofile-input" label="Registered Business Name"
+              fill="outline" label-placement="stacked" v-model="formData.businessname">
             </IonInput>
           </IonCol>
         </IonRow>
@@ -86,50 +89,58 @@
         </IonRow>
         <IonRow>
           <IonCol class="flexcenter">
-            <IonInput class="eprofile-editprofile-input" label="No. of Employees" fill="outline" label-placement="stacked"
-              type="number" v-model="formData.noofempl">
+            <IonInput placeholder="Total no. of employees" class="eprofile-editprofile-input" label="No. of Employees"
+              fill="outline" label-placement="stacked" type="number" v-model="formData.noofempl">
             </IonInput>
           </IonCol>
         </IonRow>
         <IonRow>
           <IonCol class="flexcenter">
-            <IonInput class="eprofile-editprofile-input" label="Location" fill="outline" label-placement="stacked"
-              v-model="formData.loc">
+            <IonInput placeholder="work location" class="eprofile-editprofile-input" label="Location" fill="outline"
+              label-placement="stacked" v-model="formData.loc">
             </IonInput>
           </IonCol>
         </IonRow>
         <IonRow>
           <IonCol class="flexcenter">
-            <IonTextarea class="eprofile-editprofile-input" fill="outline" style="height: 150px" label="Mission/Vission"
-              label-placement="stacked" v-model="formData.mv">
+            <IonTextarea placeholder="mission/vision of the company" class="eprofile-editprofile-input" fill="outline"
+              style="height: 150px" label="Mission/Vission" label-placement="stacked" v-model="formData.mv">
             </IonTextarea>
           </IonCol>
         </IonRow>
         <IonRow>
           <IonCol class="flexcenter">
-            <IonTextarea class="eprofile-editprofile-input" fill="outline" style="height: 150px" label="Founders"
-              label-placement="stacked" v-model="formData.founders">
+            <IonTextarea placeholder="Enter founder/s, press enter to add multiple people"
+              class="eprofile-editprofile-input" fill="outline" style="height: 150px; white-space: pre-line;"
+              label="Founders" label-placement="stacked" v-model="formData.founders">
             </IonTextarea>
           </IonCol>
         </IonRow>
         <IonRow>
           <IonCol class="flexcenter">
-            <IonInput class="eprofile-editprofile-input" label="Facebook" fill="outline" label-placement="stacked"
-              v-model="formData.facebook">
+            <IonInput placeholder="Contact person number" class="eprofile-editprofile-input" label="Contact number"
+              fill="outline" label-placement="stacked">
             </IonInput>
           </IonCol>
         </IonRow>
         <IonRow>
           <IonCol class="flexcenter">
-            <IonInput class="eprofile-editprofile-input" label="Twitter" fill="outline" label-placement="stacked"
-              v-model="formData.twitter">
+            <IonInput placeholder="Optional" class="eprofile-editprofile-input" label="Facebook" fill="outline"
+              label-placement="stacked" v-model="formData.facebook">
             </IonInput>
           </IonCol>
         </IonRow>
         <IonRow>
           <IonCol class="flexcenter">
-            <IonInput class="eprofile-editprofile-input" label="Instagram" fill="outline" label-placement="stacked"
-              v-model="formData.instagram">
+            <IonInput placeholder="Optional" class="eprofile-editprofile-input" label="Twitter" fill="outline"
+              label-placement="stacked" v-model="formData.twitter">
+            </IonInput>
+          </IonCol>
+        </IonRow>
+        <IonRow>
+          <IonCol class="flexcenter">
+            <IonInput placeholder="Optional" class="eprofile-editprofile-input" label="Instagram" fill="outline"
+              label-placement="stacked" v-model="formData.instagram">
             </IonInput>
           </IonCol>
         </IonRow>

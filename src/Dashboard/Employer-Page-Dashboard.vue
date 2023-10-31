@@ -25,8 +25,8 @@
       </IonRow>
       <IonRow class="page-components-container">
         <IonCol class="flexcenter">
-          <IonCard style="height: 100%; width: 100%">
-            <component :is="ShowView" />
+          <IonCard style="height: 100%; width: 100%; background-color: azure;">
+            <component :is="Views"/>
           </IonCard>
         </IonCol>
       </IonRow>
@@ -247,21 +247,6 @@ export default {
         localStorage.removeItem("password");
         GoHome();
       });
-    },
-  },
-  computed: {
-    ShowView() {
-      if (this.Views === "DataAnalytics") {
-        return "DataAnalytics";
-      } else if (this.Views === "JobPostings") {
-        return "JobPostings";
-      } else if (this.Views === "Notifications") {
-        return "Notifications";
-      } else if (this.Views === "Messages") {
-        return "Messages";
-      } else if (this.Views === "Profile") {
-        return "Profile";
-      }
     },
   },
 };
