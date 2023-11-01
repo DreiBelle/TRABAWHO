@@ -33,17 +33,17 @@
             <div class="flexcenter">
               <IonCard class="modal-viewjobpost-card-statistics">
                 <IonIcon class="modal-viewjobpost-icon" :icon="eyeSharp"></IonIcon>
-                <IonText style="padding-left: 5px"> 0 </IonText>
+                <IonText style="padding-left: 5px"> {{ jobPosting ? jobPosting.views : "Loading..." }} </IonText>
               </IonCard>
 
               <IonCard class="modal-viewjobpost-card-statistics">
                 <IonIcon class="modal-viewjobpost-icon" :icon="thumbsUp"></IonIcon>
-                <IonText style="padding-left: 5px"> 0 </IonText>
+                <IonText style="padding-left: 5px"> {{ jobPosting ? jobPosting.likes : "Loading..." }} </IonText>
               </IonCard>
 
               <IonCard class="modal-viewjobpost-card-statistics">
                 <IonIcon class="modal-viewjobpost-icon" :icon="bookmark"></IonIcon>
-                <IonText style="padding-left: 5px"> 0 </IonText>
+                <IonText style="padding-left: 5px"> {{ jobPosting ? jobPosting.bookmarks : "Loading..." }} </IonText>
               </IonCard>
             </div>
             <div class="flexcenter">

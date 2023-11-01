@@ -225,6 +225,10 @@ const sharedFormData = signupStore.formData;
 
 console.log(sharedFormData.fullname);
 console.log(sharedFormData.email);
+console.log(sharedFormData.age);
+console.log(sharedFormData.dateofb);
+console.log(sharedFormData.address);
+console.log(sharedFormData.gender);
 
 </script>
 

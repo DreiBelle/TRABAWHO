@@ -269,7 +269,7 @@ export default {
 
       const filteredJobs = jobs.filter((job) => {
         // icheCheck kung  yung jobid ay nasa user sa swiperjob array
-        return !this.user.swiperjob.some((swiperJob) => swiperJob.jobdid === job.id);
+        return !this.user.swiperjob.some((swiperJob) => swiperJob.jobdid === job.id) && job.isactive == "activate";
       });
 
       // Fetch image URLs from Firebase Storage for each job
@@ -292,6 +292,7 @@ export default {
             likes: job.likes,
             views: job.views,
             bookmarks: job.bookmarks,
+            creator: job.creator,
           };
         })
       );

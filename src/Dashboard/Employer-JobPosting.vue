@@ -8,7 +8,7 @@
               <IonSegmentButton class="page-jobposting-segments-buttons" @click="ShowTabs('JobPostings')" value="Active">
                 <IonLabel class="label">Active</IonLabel>
               </IonSegmentButton>
-              <IonSegmentButton class="page-jobposting-segments-buttons" @click="ShowTabs('ArchiveJobPostings')" value="Archive">
+              <IonSegmentButton class="page-jobposting-segments-buttons" @click="ShowTabs('Archive')" value="Archive">
                 <IonLabel class="label">Archive</IonLabel>
               </IonSegmentButton>
             </IonSegment>
@@ -28,8 +28,8 @@
           <IonCol v-if="Views == 'JobPostings'">
             <JobPostings :searchTerm="searchTerm" />
           </IonCol>
-          <IonCol v-else-if="Views == 'ArchiveJobPostings'">
-            archive
+          <IonCol v-else-if="Views == 'Archive'">
+            <Archive :searchTerm="searchTerm" />
             <!-- dito yung mga nakaarchive -->
           </IonCol>
         </IonRow>
@@ -66,6 +66,7 @@ import {
 } from "@ionic/vue";
 import { addCircleOutline } from "ionicons/icons";
 import JobPostings from "./Employer-Postings.vue";
+import Archive from "./Employer-Archive.vue";
 import AddModal from "./Employer-Dashboard-Modal-AddPostings.vue";
 
 export default {
@@ -76,6 +77,7 @@ export default {
     IonCol,
     IonContent,
     JobPostings,
+    Archive,
     IonCard,
     IonIcon,
     IonModal,

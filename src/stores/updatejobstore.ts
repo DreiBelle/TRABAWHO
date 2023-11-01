@@ -17,6 +17,8 @@ export const useJobStore = defineStore('jobStore', {
             reqeduc: "",
             loc: "",
             chosenInterests: [],
+            isactive: "",
+            creator: "",
         },
     }),
     actions: {
@@ -48,6 +50,8 @@ export const useJobStore = defineStore('jobStore', {
                   reqeduc: "",
                   loc: "",
                   chosenInterests: [],
+                  isactive: "",
+                  creator: "",
                 };
             } catch (error) {
                 console.error('Error updating data:', error);

@@ -37,5 +37,9 @@ export interface SignupModel {
   dateCreated: string;
   // chosenInterest: any[];
   type: string;
+  age: string,
+  dateofb: string,
+  address: string,
+  gender: string,
   }
   

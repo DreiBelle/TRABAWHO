@@ -101,7 +101,7 @@
               <IonRow>
                 <IonCol class="flexcenter">
                   <IonSelect class="signup-inputs-mobile" label="Job Type" label-placement="stacked" interface="popover"
-                    fill="outline" placeholder="Select Preffered Job Type" v-model="formData.jobtype" required>
+                    fill="outline" placeholder="Select Preffered Job Type" v-model="formData.jobtype" :multiple="true" required>
                     <IonSelectOption value="Full-Time">Full-Time</IonSelectOption>
                     <IonSelectOption value="Part-Time">Part-Time</IonSelectOption>
                     <IonSelectOption value="Contract">Contract</IonSelectOption>

@@ -8,7 +8,7 @@ async function getJobs_(chosenInterest, hours, jobtype, loc, yearsofexp, salary)
         const q = query(jobpostCollection, 
             where("chosenInterests", "array-contains-any", chosenInterest),
             where("hours", "==", hours),
-            where("jobtype", "==", jobtype),
+            where("jobtype", "in", jobtype),
             where("loc", "==", loc),
             where("yearsofexp", "==", yearsofexp),
             where("salary", "==", salary),

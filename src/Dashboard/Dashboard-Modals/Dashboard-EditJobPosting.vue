@@ -13,7 +13,12 @@
           style="justify-content: left"
           v-if="!thereisImage"
         >
-          <div class="modal-addjobpost-image"></div>
+        <img
+            :src="imageUrl"
+            alt="Selected Image"
+            v-if="imageUrl"
+            class="modal-addjobpost-image"
+          />
           <input
             id="fileInput"
             type="file"
@@ -279,7 +284,14 @@
               Add Specialized Fields
             </IonButton>
           </div>
-        </div>
+        </div><br/>
+
+        <div>
+          <ion-radio-group v-model="formData.isactive" required>
+            <ion-radio value="activate" color="success"><IonText color="Green">Activate</IonText></ion-radio><br />
+            <ion-radio value="notactivate" color="danger"><IonText color="Red">Not Activate</IonText></ion-radio><br />
+          </ion-radio-group>
+        </div><br/>
 
         <div style="width: 100%" class="flexcenter">
           <div style="width: 50%">
@@ -330,6 +342,7 @@ import {
   IonTextarea,
   IonChip,
   IonIcon,
+  IonText,
 } from "@ionic/vue";
 import ChoiceModal from "@/SignUp/Seeker-InterestModal.vue";
 import { useJobStore } from "@/stores/updatejobstore";
@@ -338,6 +351,7 @@ import { dbImage, db } from "@/firebaseDB";
 import { getDashboardProfile } from "../Dashboard-Model";
 import { ref, onMounted, computed, defineComponent, PropType } from "vue";
 import { addCircleOutline, close } from "ionicons/icons";
+import { IonRadio, IonRadioGroup } from '@ionic/vue';
 export default {
   components: {
     IonIcon,
@@ -347,6 +361,7 @@ export default {
     IonCol,
     IonCard,
     IonInput,
+    IonText,
     IonButton,
     IonPage,
     IonContent,
@@ -358,10 +373,12 @@ export default {
     IonSelectOption,
     IonChip,
     IonHeader,
+    IonRadio, 
+    IonRadioGroup,
   },
   setup(props) {
     const user = ref(null);
-    const companyname = ref("Loading..."); // Initialize as "Loading..."
+    const creator = ref("Loading...");
     onMounted(async () => {
       const userEmail = localStorage.getItem("email");
       // const userPassword = localStorage.getItem("password");
@@ -369,7 +386,7 @@ export default {
 
       // Once you have user data, set companyname
       if (user.value) {
-        companyname.value = user.value.businessname;
+        creator.value = user.value.businessname;
       }
     });
 
@@ -385,6 +402,8 @@ export default {
       reqeduc: props.jobPosting ? props.jobPosting.reqeduc : "",
       yearsofexp: props.jobPosting ? props.jobPosting.yearsofexp : "",
       positionlvl: props.jobPosting ? props.jobPosting.positionlvl : "",
+      isactive: props.jobPosting ? props.jobPosting.isactive : "",
+      creator: creator.value,
     }));
 
     return {
@@ -406,7 +425,7 @@ export default {
   },
   data(props) {
     return {
-      imageUrl: null,
+      imageUrl: props.jobPosting ? props.jobPosting.pic : null,
       modalOpen: false,
       modalChoices: [],
       chosenChoices: props.jobPosting ? props.jobPosting.chosenInterests : "",

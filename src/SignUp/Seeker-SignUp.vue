@@ -20,6 +20,37 @@
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
+                <IonInput placeholder="Age" fill="outline" labelPlacement="stacked" label="Age"
+                  class="signup-inputs-mobile" v-model="formData.age" required>
+                </IonInput>
+              </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol class="flexcenter">
+                <IonInput placeholder="Date of Birth" fill="outline" labelPlacement="stacked" label="Birthday"
+                  class="signup-inputs-mobile" v-model="formData.dateofb" required>
+                </IonInput>
+              </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol class="flexcenter">
+                <IonInput placeholder="Address" fill="outline" labelPlacement="stacked" label="Address"
+                  class="signup-inputs-mobile" v-model="formData.address" required>
+                </IonInput>
+              </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol class="flexcenter">
+                  <IonSelect label="Sex" placeholder="Select Gender"
+                    label-placement="stacked" interface="popover" fill="outline" class="signup-inputs-mobile"
+                    v-model="formData.gender" required>
+                    <IonSelectOption value="male">MALE</IonSelectOption>
+                    <IonSelectOption value="female">FEMALE</IonSelectOption>
+                  </IonSelect>
+                </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol class="flexcenter">
                 <IonInput placeholder="Valid Email" fill="outline" labelPlacement="stacked" label="Email"
                   class="signup-inputs-mobile" v-model="formData.email" required>
                 </IonInput>
@@ -91,6 +122,8 @@ import {
   IonButton,
   IonIcon,
   IonContent,
+  IonSelect,
+  IonSelectOption,
 } from "@ionic/vue";
 import "./SignUp.css";
 import { GoRegister2, goBack, goTermsandCondition, goLogin } from "./SignUp-Controller";
@@ -114,7 +147,9 @@ export default {
     IonProgressBar,
     IonButton,
     IonIcon,
-    IonContent
+    IonContent,
+    IonSelect,
+    IonSelectOption,
   },
   setup() {
     const signupStore = useSignupStore();
@@ -136,6 +171,10 @@ export default {
       dateCreated: "",
       // chosenInterest: [],
       type: "",
+      age: "",
+      dateofb: "",
+      address: "",
+      gender: "",
 
     };
 
@@ -166,7 +205,7 @@ export default {
     };
 
     const submitForm = async () => {
-      const requiredFields = ['fullname', 'email', 'password'];
+      const requiredFields = ['fullname', 'email', 'password', 'age', 'dateofb', 'address', 'gender'];
       let isFormValid = true;
 
       for (const field of requiredFields) {

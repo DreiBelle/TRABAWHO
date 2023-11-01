@@ -341,7 +341,7 @@ export default {
     },
 
     scrollToBottom(x) {
-      this.$refs.content.$el.scrollToBottom(x);
+      const container = this.$refs.content;
     },
 
     async sendMessage() {

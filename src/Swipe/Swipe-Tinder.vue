@@ -26,7 +26,7 @@
         <IonContent style="--background: white">
           <div class="flexcenter">
             <IonCard class="swipe-modal-card-company">
-              {{ item.company }}
+              {{ item.creator }}
             </IonCard>
           </div>
           <div class="swipe-modal-picture">

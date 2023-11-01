@@ -15,10 +15,10 @@
         </IonRow>
         <IonRow>
           <IonCol class="flexcenter" size="3">
-            <div v-if="!user && user.pic">
+            <div v-if="!user.pic">
               <div>
                 <IonAvatar class="eprofile-modal-cover-container2">
-                  <img src="https://ionicframework.com/docs/img/demos/avatar.svg" alt="profile" />
+                  <img :src="imageUrl || 'https://ionicframework.com/docs/img/demos/avatar.svg'" alt="profile" />
                 </IonAvatar>
               </div>
               <div style="margin-top: 10px" class="flexcenter">
@@ -47,11 +47,20 @@
           <IonCol class="flexcenter">
             <div v-if="!user.bacpic" style="width: 100%">
               <div class="eprofile-modal-cover-container1">
-                <div class="flexcenter" style="height: 100%;">
+                <img class="eprofile-modal-cover-container1 eprofile-coverphoto"
+                  :src=CoverUrl alt="Selected Image" />
+                <div v-if=!CoverUrl class="flexcenter" style="height: 100%;">
                   <label class="eproifle-modal-editpicture2" for="addCover">
                     ADD COVER PHOTO
                   </label>
                 </div>
+                <div v-if=CoverUrl style="margin-top: 10px" class="flexcenter">
+                <label class="eproifle-modal-editpicture" for="addPicture">
+                  Add Picture
+                </label>
+                <input id="addPicture" type="file" accept="image/jpeg" @change="addCoverphoto" ref="myfile"
+                  style="display: none" />
+              </div>
               </div>
               <div style="margin-top: 10px; justify-content: right" class="flexcenter">
                 <input id="addCover" type="file" accept="image/jpeg" @change="addCoverphoto" ref="myfile"
@@ -119,7 +128,7 @@
         <IonRow>
           <IonCol class="flexcenter">
             <IonInput placeholder="Contact person number" class="eprofile-editprofile-input" label="Contact number"
-              fill="outline" label-placement="stacked">
+              fill="outline" label-placement="stacked" v-model="formData.number">
             </IonInput>
           </IonCol>
         </IonRow>
@@ -159,9 +168,9 @@
   </IonModal>
 </template>
 <script lang="ts">
-import { addCircle, closeCircle, close } from "ionicons/icons";
+import { addCircle, closeCircle, close, image } from "ionicons/icons";
 import { ref as asd, uploadBytes, getDownloadURL } from "firebase/storage";
-import { dbImage } from "@/firebaseDB";
+import { db, dbImage } from "@/firebaseDB";
 import { useUserStore } from "@/stores/updateemprof"
 import { ref, onMounted, computed } from 'vue'
 import { getDashboardProfile } from "@/Dashboard/Dashboard-Model"
@@ -184,6 +193,7 @@ import {
   IonText,
   IonTextarea,
 } from "@ionic/vue";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 
 export default {
   components: {
@@ -212,6 +222,7 @@ export default {
       const userEmail = localStorage.getItem("email");
       // const userPassword = localStorage.getItem("password");
       user.value = await getDashboardProfile(userEmail);
+
     });
 
     const formData = computed(() => ({
@@ -220,13 +231,13 @@ export default {
       bacpic: user.value.bacpic || "",
       noofempl: user.value.noofempl || "",
       loc: user.value.loc || "",
+      number: user.value.number || "",
       mv: user.value.mv || "",
       yearsofest: user.value.yearsofest || "",
       founders: user.value.founders || "",
       facebook: user.value.facebook || "",
       twitter: user.value.twitter || "",
       instagram: user.value.instagram || "",
-
     }));
 
     return {
@@ -243,7 +254,7 @@ export default {
       required: true,
     },
   },
-  data() {
+  data(user) {
     return {
       imageUrl: null,
       CoverUrl: null,

@@ -307,7 +307,7 @@ export default {
       // const userPassword = localStorage.getItem("password");
 
       user.value = await getDashboardProfile(userEmail);
-      jobs.value = await getJobPostings(userEmail, user.value.businessname);
+      jobs.value = await getJobPostings(userEmail, user.value.businessname, user.value.id,);
 
       const userQuery = query(
         collection(db, "users"),
