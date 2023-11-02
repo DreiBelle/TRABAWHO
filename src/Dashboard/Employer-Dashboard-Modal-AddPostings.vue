@@ -1,23 +1,50 @@
 <template>
   <IonModal class="modal-addjobpost" @did-dismiss="clearmodal()">
-    <IonHeader class="modal-editjobposting-header flexcenter">ADD POSTINGS</IonHeader>
+    <IonHeader class="modal-editjobposting-header flexcenter">ADD POSTINGS
+      <IonIcon @click="closeOther" style="cursor: pointer; position: absolute; top: 10px; right: 15px;" :icon="close">
+      </IonIcon>
+    </IonHeader>
     <IonContent class="custom-scrollbar">
+
       <div style="padding: 10px">
-        <div class="flexcenter" style="justify-content: left" v-if="!thereisImage">
-          <div class="modal-addjobpost-image"></div>
-          <input id="fileInput" type="file" accept="image/jpeg" @change="handleFileChange" ref="myfile"
-            style="display: none" />
-          <label for="fileInput" class="modal-editposting-modal">
-            Choose Picture
-          </label>
+
+        <!-- <div>
+          <IonToggle @ion-change="changeArchive()" v-model="Archive" required mode="ios" :checked="true"></IonToggle>
+        </div> -->
+
+        <div class="flexcenter" v-if="!thereisImage">
+          <div>
+            <div class="flexcenter">
+              <div class="modal-addjobpost-image"></div>
+            </div>
+            <div>
+              <input id="fileInput" type="file" accept="image/jpeg" @change="handleFileChange" ref="myfile"
+                style="display: none" />
+              <label for="fileInput" class="modal-editposting-modal">
+                Choose Picture
+              </label>
+            </div>
+          </div>
         </div>
-        <div v-else class="flexcenter" style="justify-content: left">
-          <img :src="imageUrl" alt="Selected Image" v-if="imageUrl" class="modal-addjobpost-image" />
-          <input id="fileInput" type="file" accept="image/jpeg" @change="handleFileChange" ref="myfile"
-            style="display: none" />
-          <label for="fileInput" class="modal-editposting-modal">
-            Edit Picture
-          </label>
+        <div v-else class="flexcenter">
+          <div>
+            <div class="flexcenter">
+              <img :src="imageUrl" alt="Selected Image" v-if="imageUrl" class="modal-addjobpost-image" />
+            </div>
+            <div>
+              <input id="fileInput" type="file" accept="image/jpeg" @change="handleFileChange" ref="myfile"
+                style="display: none" />
+              <label for="fileInput" class="modal-editposting-modal">
+                Edit Picture
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="flexcenter" style="margin-top: 10px;">
+          <IonText class="modal-addjobpost-titlediv">
+            Job Information
+          </IonText>
         </div>
 
         <div>
@@ -61,14 +88,15 @@
         </div>
 
         <div>
-          <IonSelect class="modal-addjobpost-input" label="Hours of Work" interface="popover" labelPlacement="stacked"
-            fill="outline" placeholder="Select estimated hours of work" v-model="formData.hours" required>
-            <IonSelectOption value="4">4hrs</IonSelectOption>
-            <IonSelectOption value="8">8hrs</IonSelectOption>
-            <IonSelectOption value="12">12hrs</IonSelectOption>
-            <IonSelectOption value="16">16hrs</IonSelectOption>
-            <IonSelectOption value="20">20hrs</IonSelectOption>
-          </IonSelect>
+          <IonTextarea label="Job Description" fill="outline" labelPlacement="stacked" class="modal-addjobpost-input"
+            v-model="formData.jobdes" style="height: 200px" placeholder="Enter Description of the job">
+          </IonTextarea>
+        </div>
+
+        <div class="flexcenter" style="margin-top: 10px;">
+          <IonText class="modal-addjobpost-titlediv">
+            REQUIREMENTS
+          </IonText>
         </div>
 
         <div>
@@ -78,7 +106,18 @@
         </div>
 
         <div>
-          <IonSelect class="modal-addjobpost-input" label="Required Years of Experience" label-placement="stacked"
+          <IonSelect class="modal-addjobpost-input" label="Age" interface="popover" labelPlacement="stacked"
+            fill="outline" placeholder="Select preffered age" required>
+            <IonSelectOption value="none">none</IonSelectOption>
+            <IonSelectOption value="18-25">18-25</IonSelectOption>
+            <IonSelectOption value="26-35">26-35</IonSelectOption>
+            <IonSelectOption value="36-45">36-45</IonSelectOption>
+            <IonSelectOption value="46 and above">46 and above</IonSelectOption>
+          </IonSelect>
+        </div>
+
+        <div>
+          <IonSelect class="modal-addjobpost-input" label="Years of Experience" label-placement="stacked"
             interface="popover" fill="outline" v-model="formData.yearsofexp"
             placeholder="Select Mininimun Working Experience" required>
             <IonSelectOption value="0">0</IonSelectOption>
@@ -89,12 +128,6 @@
             <IonSelectOption value="21-23">21-23</IonSelectOption>
             <IonSelectOption value="24+">24+</IonSelectOption>
           </IonSelect>
-        </div>
-
-        <div>
-          <IonTextarea label="Job Description" fill="outline" labelPlacement="stacked" class="modal-addjobpost-input"
-            v-model="formData.jobdes" style="height: 200px" placeholder="Enter Description of the job">
-          </IonTextarea>
         </div>
 
         <div>
@@ -111,16 +144,35 @@
           </IonSelect>
         </div>
 
-        <div>
-          <IonSelect class="modal-addjobpost-input" label="Location" labelPlacement="stacked" fill="outline"
-            interface="popover" placeholder="Location" v-model="formData.loc" required>
-            <IonSelectOption value="Work From Home">Work from home</IonSelectOption>
-            <IonSelectOption value="Within the province">Within the province</IonSelectOption>
-            <IonSelectOption value="Outside of the province">Outside of the province</IonSelectOption>
-          </IonSelect>
+
+        <div class="flexcenter" style="margin-top: 10px;">
+          <IonText class="modal-addjobpost-titlediv">
+            WORK LOCATION
+          </IonText>
         </div>
 
-        <div style="margin: 5px">Specialized Fields</div>
+        <div class="flexcenter">
+          <IonInput class="modal-addjobpost-input" label="Province" placeholder="Province" labelPlacement="stacked"
+            fill="outline" type="text">
+          </IonInput>
+          <IonInput class="modal-addjobpost-input" label="City/Town" placeholder="City/Town" labelPlacement="stacked"
+            fill="outline" type="text">
+          </IonInput>
+        </div>
+        <div class="flexcenter">
+          <IonInput class="modal-addjobpost-input" label="District" placeholder="District - Purok" labelPlacement="stacked"
+            fill="outline" type="text">
+          </IonInput>
+          <IonInput class="modal-addjobpost-input" label="Street" placeholder="Street" labelPlacement="stacked"
+            fill="outline" type="text">
+          </IonInput>
+        </div>
+
+        <div class="flexcenter" style="margin-top: 10px;">
+          <IonText class="modal-addjobpost-titlediv">
+            SPECIALIZED FIELDS
+          </IonText>
+        </div>
 
         <div class="flexcenter" style="justify-content: left; margin-left: 5px">
           <IonChip v-for="choice in chosenChoices" :key="choice.id">
@@ -137,14 +189,18 @@
               Add Specialized Fields
             </IonButton>
           </div>
-        </div><br/>
+        </div><br />
 
-        <div>
+        <!-- <div>
           <ion-radio-group v-model="formData.isactive" required>
-            <ion-radio value="activate" color="success"><IonText color="Green">Activate</IonText></ion-radio><br />
-            <ion-radio value="notactivate" color="danger"><IonText color="Red">Not Activate</IonText></ion-radio><br />
+            <ion-radio value="activate" color="success">
+              <IonText color="Green">Activate</IonText>
+            </ion-radio><br />
+            <ion-radio value="notactivate" color="danger">
+              <IonText color="Red">Not Activate</IonText>
+            </ion-radio><br />
           </ion-radio-group>
-        </div><br/>
+        </div><br />  -->
 
         <div style="width: 100%" class="flexcenter">
           <div style="width: 50%">
@@ -188,6 +244,7 @@ import {
   IonIcon,
   IonHeader,
   IonText,
+  IonToggle,
 } from "@ionic/vue";
 import ChoiceModal from "@/SignUp/Seeker-InterestModal.vue";
 import { useJobStore } from "@/stores/jobstore";
@@ -218,8 +275,9 @@ export default {
     IonSelect,
     IonSelectOption,
     IonChip,
-    IonRadio, 
+    IonRadio,
     IonRadioGroup,
+    IonToggle
   },
   setup() {
     const user = ref(null);
@@ -252,8 +310,8 @@ export default {
       reqeduc: "",
       loc: "",
       noofempl: "",
-      company: companyname.value, 
-      isactive: "",
+      company: companyname.value,
+      isactive: "activate",
       creator: creator.value,
     }));
 
@@ -267,6 +325,7 @@ export default {
   },
   data() {
     return {
+      Archive: true,
       imageUrl: null,
       modalOpen: false,
       modalChoices: [],
@@ -276,6 +335,14 @@ export default {
     };
   },
   methods: {
+    changeArchive() {
+      if (this.archive == true) {
+        this.formData.isactive = 'activate'
+      }
+      else {
+        this.formData.isactive = 'notactivate'
+      }
+    },
     closeOther() {
       modalController.dismiss();
     },
@@ -346,10 +413,8 @@ export default {
         "jobdes",
         "positionlvl",
         "salary",
-        "hours",
         "yearsofexp",
         "reqeduc",
-        "loc",
         "noofempl"
       ];
       let isFormValid = true;

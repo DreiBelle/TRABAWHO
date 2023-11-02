@@ -1,81 +1,4 @@
 <template>
-  <!-- <IonPage>
-    <IonContent>
-      <div class="SignUpBackground" name="centercontents">
-        <IonCard class="SignUpJobSeeker-ioncard">
-          <IonGrid>
-            <IonRow>
-              <IonCol size="3">
-                <IonButton class="SignUpJobSeeker-Back" @click="goBack" fill="clear">
-                  back
-                </IonButton>
-              </IonCol>
-              <IonCol size="6" class="SignUpJobSeeker-FlexCenter">
-                <IonText style="font-size: 20px"> BACKGROUND </IonText>
-              </IonCol>
-              <IonCol size="3"> </IonCol>
-            </IonRow>
-
-            <IonRow>
-              <IonCol>
-                <IonInput class="SignUpJobSeeker-input" label="Elementary" labelPlacement="floating"
-                  placeholder="Enter Elementary School" v-model="formData.elementary" required>
-                </IonInput>
-              </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol>
-                <IonInput class="SignUpJobSeeker-input" label="Junior High" labelPlacement="floating"
-                  placeholder="Enter Junior High School " v-model="formData.juniorhigh" required>
-                </IonInput>
-              </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol>
-                <IonInput class="SignUpJobSeeker-input" label="Senior High" labelPlacement="floating"
-                  placeholder="Enter Senior High School" v-model="formData.seniorhigh" required>
-                </IonInput>
-              </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol>
-                <IonInput class="SignUpJobSeeker-input" label="College" labelPlacement="floating"
-                  placeholder="Enter College School" v-model="formData.college" required>
-                </IonInput>
-              </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol>
-                <IonInput class="SignUpJobSeeker-input" label="Other" labelPlacement="floating"
-                  placeholder="Enter other education attainment" v-model="formData.othereduc" required>
-                </IonInput>
-              </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol>
-                <hr style="border: 0.5px solid black" />
-              </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol>
-                <IonInput class="SignUpJobSeeker-input" label="Work Experience" labelPlacement="floating"
-                  placeholder="Enter Work Experience" v-model="formData.workexp" required>
-                </IonInput>
-              </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol>
-                <IonButton class="SignUpButtonActions" expand="block" fill="outline" @click="submitForm">
-                  Continue
-                </IonButton>
-              </IonCol>
-            </IonRow>
-          </IonGrid>
-        </IonCard>
-      </div>
-    </IonContent>
-  </IonPage> -->
-
   <IonPage class="signup-ionpage">
     <IonGrid class="signup-grid">
       <IonRow style="height: 100%;">
@@ -91,36 +14,36 @@
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
-                <IonInput placeholder="Elementary" fill="outline" labelPlacement="stacked" label="Elementary"
-                  class="signup-inputs-mobile" v-model="formData.elementary" required>
+                <IonInput mode="md" type="text" placeholder="Elementary" fill="outline" labelPlacement="stacked"
+                  label="Elementary" class="signup-inputs-mobile" v-model="formData.elementary" required>
                 </IonInput>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
-                <IonInput placeholder="High School" fill="outline" labelPlacement="stacked" label="High School"
-                  class="signup-inputs-mobile" v-model="formData.juniorhigh" required>
+                <IonInput mode="md" type="text" placeholder="High School" fill="outline" labelPlacement="stacked"
+                  label="High School" class="signup-inputs-mobile" v-model="formData.juniorhigh" required>
                 </IonInput>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
-                <IonInput placeholder="Senior High School" fill="outline" labelPlacement="stacked"
+                <IonInput mode="md" type="text" placeholder="Senior High School" fill="outline" labelPlacement="stacked"
                   label="Senior High School" class="signup-inputs-mobile" v-model="formData.seniorhigh" required>
                 </IonInput>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
-                <IonInput placeholder="College" fill="outline" labelPlacement="stacked" label="College"
-                  class="signup-inputs-mobile" v-model="formData.college" required>
+                <IonInput mode="md" type="text" placeholder="College" fill="outline" labelPlacement="stacked"
+                  label="College" class="signup-inputs-mobile" v-model="formData.college" required>
                 </IonInput>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
-                <IonInput placeholder="Masteral" fill="outline" labelPlacement="stacked" label="Masteral"
-                  class="signup-inputs-mobile" v-model="formData.masteral" required>
+                <IonInput mode="md" type="text" placeholder="Masteral" fill="outline" labelPlacement="stacked"
+                  label="Masteral" class="signup-inputs-mobile" v-model="formData.masteral">
                 </IonInput>
               </IonCol>
             </IonRow>
@@ -135,6 +58,9 @@
         </IonCol>
       </IonRow>
     </IonGrid>
+
+    <IonAlert mode="ios" :is-open="isAlert" header="Alert" :message=alertMessage :buttons="alertButtons"
+      @didDismiss="alertbox(false, '')"></IonAlert>
   </IonPage>
 </template>
 
@@ -152,14 +78,17 @@ import {
   IonCheckbox,
   IonLabel,
   IonIcon,
+  IonAlert,
 } from "@ionic/vue";
 import "./SignUp.css";
 import { GoRegister3, goBack } from "./SignUp-Controller";
 import { useSignupStore } from "@/stores/signupstore"
 import { SignupModel } from "@/SignUp/Seeker-Model";
 import { arrowBackOutline } from "ionicons/icons";
+import { ref } from 'vue';
 
 
+const alertButtons = ['OK'];
 const signupStore = useSignupStore();
 const formData = {
   elementary: "",
@@ -174,19 +103,27 @@ const formData = {
   loc: "",
 };
 
+const isAlert = ref(false);
+const alertMessage = ref('');
+
+const alertbox = (x, message) => {
+  isAlert.value = x;
+  alertMessage.value = message;
+}
+
 const submitForm = async () => {
-  const requiredFields = ['elementary', 'juniorhigh', 'seniorhigh', 'college', 'masteral'];
+  const requiredFields = ['elementary', 'juniorhigh', 'seniorhigh', 'college'];
   let isFormValid = true;
 
   for (const field of requiredFields) {
     if (!formData[field]) {
       isFormValid = false;
-      alert(`Please fill in the ${field} field.`);
+      alertbox(true, `Please fill in the ${field} field.`)
       break;
     }
   }
   if (!isFormValid) {
-    alert("Fill in all the required fields to continue.");
+    alertbox(true, `Fill in all the required fields to continue.`)
     return;
   }
 
@@ -206,7 +143,7 @@ const submitForm = async () => {
     GoRegister3()
   }
   else {
-    alert("Fill all the Field to continue")
+    alertbox(true, `Fill all the Field to continue`)
   }
 
   // await signupStore.registerUser();

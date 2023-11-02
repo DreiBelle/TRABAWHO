@@ -224,12 +224,13 @@
 
 .swipe-text-preview {
   position: absolute;
-  bottom: 10px;
-  left: 10px;
+  bottom: 15px;
+  left: 15px;
   text-align: left;
   color: white;
   font-size: 18px;
-  line-height: 18px;
+  line-height: 20px;
+  letter-spacing: 1px;
 }
 
 .swipe-text-preview2 {
@@ -253,7 +254,6 @@
 }
 
 .swipe-modal {
-
 }
 
 .swipe-icons-container {
@@ -265,13 +265,15 @@
 }
 
 .swipe-text-stroke {
-  -webkit-text-stroke: 1px black;
-  font-family: Summer-Dream;
+  text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black,
+    1px 1px 0 black;
+  font-family: BebasNeue-Regular;
 }
 
 .swipe-text-stroke2 {
-  -webkit-text-stroke: 1px black;
-  font-family: MalbergTrial-Heavy;
+  text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black,
+    1px 1px 0 black;
+  font-family: BebasNeue-Regular;
 }
 
 .swipe-modal-text-name {
@@ -327,12 +329,12 @@
   font-size: 14px;
   line-height: normal;
   font-family: Arial, Helvetica, sans-serif;
-
 }
 
 .swipe-modal-buttons {
   background-color: white;
   height: 50px;
+  width: 50px;
   font-size: 30px;
   color: red;
   margin: 20px 10px 20px 10px;
@@ -340,19 +342,20 @@
     rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 }
 
-.swipe-modal-card-company{
+.swipe-modal-card-company {
   padding: 5px;
   font-size: 17px;
-  width:90%;
+  width: 100%;
   text-align: center;
   position: fixed;
-  top: -20px;
+  top: -24px;
   color: black;
   font-weight: bold;
   font-family: MalbergTrial-Heavy;
+  border-radius: 0 0 10px 10px;
 }
 
-.swipe-image-container{
+.swipe-image-container {
   height: 100%;
   width: 100%;
   position: absolute;
@@ -360,10 +363,9 @@
   z-index: 0;
 }
 
-.swipe-image{
+.swipe-image {
   height: 100%;
   width: 100%;
   object-fit: cover;
   border-radius: 20px;
-
 }

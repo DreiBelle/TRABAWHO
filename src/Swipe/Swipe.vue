@@ -7,13 +7,13 @@
             <img class="jmessage-logo" src="../assets/logo/whitefilllogo.png" alt="logo" />
           </div>
           <div class="jmessage-icons-settings">
-            <IonIcon :icon="settings"></IonIcon>
+            <IonIcon :icon="logOut"></IonIcon>
           </div>
         </div>
-        <div style="height: 100vh; width: 100%; background: whitesmoke"></div>
       </IonHeader>
       <IonProgressBar style="z-index: 2;" type="indeterminate"></IonProgressBar>
     </div>
+
     <div v-if="!isloading">
       <IonPage>
         <IonHeader class="jmessage-header">
@@ -22,7 +22,7 @@
               <img class="jmessage-logo" src="../assets/logo/whitefilllogo.png" alt="logo" />
             </div>
             <div class="jmessage-icons-settings">
-              <IonIcon :icon="settings"></IonIcon>
+              <IonIcon id="showLogout" :icon="logOut"></IonIcon>
             </div>
           </div>
         </IonHeader>
@@ -67,9 +67,10 @@ import FakeSwipeableCard from "./FakeSwipe-Tinder.vue";
 import FloatingButtons from "./Swipe-FloatingButtons.vue";
 import NavBar from "../NavBar/NavBar.vue";
 import "./Swipe.css";
-import { car, card, settings } from "ionicons/icons";
+import { car, card, settings, logOut } from "ionicons/icons";
 import { getJobs, getjobownerProfile, deleteBlank, deleteBlank1 } from "./Swipe-Model";
 import {
+  IonAlert,
   IonCard,
   IonCol,
   IonContent,
@@ -98,6 +99,10 @@ import { useupdatelike } from "@/stores/updatelikes";
 import { useupdateview } from "@/stores/updateviews";
 import { useupdatebookmark } from "@/stores/updatebookmarks";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { GoHome } from "../NavBar/NavBar-Controller";
+import { signOut } from "firebase/auth";
+import { auth } from "@/firebaseDB";
+
 export default {
   components: {
     IonText,
@@ -119,6 +124,7 @@ export default {
     IonRouterOutlet,
     IonLabel,
     IonProgressBar,
+    IonAlert
   },
   setup() {
     const user = asd(null);
@@ -133,7 +139,26 @@ export default {
     const updatelikes = useupdatelike();
     const updateviews = useupdateview();
     const updatebookmarks = useupdatebookmark();
-    return { settings, user, useswipedata, useswipejob, updatelikes, updateviews, updatebookmarks };
+
+    const alertButtons = [
+      {
+        text: 'Cancel',
+        role: 'cancel',
+      },
+      {
+        text: 'OK',
+        role: 'confirm',
+        handler: () => {
+          signOut(auth).then(() => {
+            localStorage.removeItem("email");
+            localStorage.removeItem("password");
+            GoHome();
+          });
+        },
+      },
+    ];
+
+    return { alertButtons, logOut, settings, user, useswipedata, useswipejob, updatelikes, updateviews, updatebookmarks };
   },
   data() {
     return {
@@ -197,7 +222,7 @@ export default {
       this.jobdata.push({ jobdid: job.id });
 
       this.userswipej = this.user.swiperjob;
-      this.userswipej.push({ jobdid: job.id });   
+      this.userswipej.push({ jobdid: job.id });
 
       this.useswipedata.setswipedata(this.swipedata);
       this.useswipedata.setjobdata(this.jobdata);
@@ -223,7 +248,7 @@ export default {
       deleteBlank(this.user.id)
       deleteBlank(job.company);
       deleteBlank1(job.company);
-      
+
       this.swipedata = [];
       this.jobdata = [];
       this.userswipej = [];
@@ -279,7 +304,7 @@ export default {
           return {
             id: job.id,
             jobname: job.jobname,
-            pic: imageUrl, 
+            pic: imageUrl,
             jobtype: job.jobtype,
             jobdes: job.jobdes,
             company: job.company,
@@ -298,7 +323,7 @@ export default {
       );
 
       this.cards = jobsWithImages;
-      
+
     } catch (error) {
       console.error("Error fetching jobs: ", error);
     }

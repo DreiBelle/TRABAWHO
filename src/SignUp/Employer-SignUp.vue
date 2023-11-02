@@ -1,5 +1,5 @@
 <template>
- <IonPage style="background: linear-gradient(to bottom right, white, #a6aad4)">
+  <IonPage style="background: linear-gradient(to bottom right, white, #a6aad4)">
     <HomeBar />
 
     <div class="flexcenter" style="height: 100%">
@@ -15,73 +15,36 @@
                 </IonRow>
                 <IonRow>
                   <IonCol>
-                    <IonInput
-                      class="signup-inputs"
-                      fill="outline"
-                      label="Email"
-                      labelPlacement="stacked"
-                      placeholder="Enter valid email address"
-                      type="email"
-                      v-model="formData.email"
-                      required
-                    >
+                    <IonInput class="signup-inputs" fill="outline" label="Email" labelPlacement="stacked"
+                      placeholder="Enter valid email address" type="email" v-model="formData.email" required>
                     </IonInput>
                   </IonCol>
                 </IonRow>
                 <IonRow>
                   <IonCol>
-                    <IonInput
-                      class="signup-inputs"
-                      fill="outline"
-                      label="Contact Person Name"
-                      labelPlacement="stacked"
-                      placeholder="Enter Full Name"
-                      v-model="formData.contactpn"
-                      required
-                    >
+                    <IonInput class="signup-inputs" fill="outline" label="Contact Person Name" labelPlacement="stacked"
+                      placeholder="Enter Full Name" v-model="formData.contactpn" required>
                     </IonInput>
                   </IonCol>
                 </IonRow>
                 <IonRow>
                   <IonCol>
-                    <IonInput
-                      fill="outline"
-                      class="signup-inputs"
-                      label="Contact Number"
-                      labelPlacement="stacked"
-                      placeholder="Enter Contact Number"
-                      v-model="formData.number"
-                      required
-                    >
+                    <IonInput fill="outline" class="signup-inputs" label="Contact Number" labelPlacement="stacked"
+                      placeholder="Enter Contact Number" v-model="formData.number" required>
                     </IonInput>
                   </IonCol>
                 </IonRow>
                 <IonRow>
                   <IonCol>
-                    <IonInput
-                      fill="outline"
-                      class="signup-inputs"
-                      label="Registered Business Name"
-                      labelPlacement="stacked"
-                      placeholder="Enter Business Name"
-                      v-model="formData.businessname"
-                      required
-                    >
+                    <IonInput fill="outline" class="signup-inputs" label="Registered Business Name"
+                      labelPlacement="stacked" placeholder="Enter Business Name" v-model="formData.businessname" required>
                     </IonInput>
                   </IonCol>
                 </IonRow>
                 <IonRow>
                   <IonCol>
-                    <IonInput
-                      fill="outline"
-                      class="signup-inputs"
-                      label="Password"
-                      labelPlacement="stacked"
-                      placeholder="Enter Password"
-                      type="password"
-                      v-model="formData.password"
-                      required
-                    >
+                    <IonInput fill="outline" class="signup-inputs" label="Password" labelPlacement="stacked"
+                      placeholder="Enter Password" type="password" v-model="formData.password" required>
                     </IonInput>
                   </IonCol>
                 </IonRow>
@@ -90,40 +53,28 @@
                     <IonCheckbox v-model="formData.acceptTerms"></IonCheckbox>
                     <IonText class="signup-text-terms">
                       I have read and accept the
-                      <a href="/TermsandConditionsEmployer">
-                        terms and conditions</a
-                      >
+                      <a style="cursor: pointer;" @click="modalTerms(true)">
+                        terms and conditions</a>
                     </IonText>
                   </IonCol>
                 </IonRow>
                 <IonRow style="border-bottom: 1px solid black">
                   <IonCol>
-                    <IonButton
-                      class="signup-buttons"
-                      expand="block"
-                      fill="outline"
-                      @click="submitForm"
-                      style="color: black; --border-color: black"
-                    >
+                    <IonButton class="signup-buttons" expand="block" fill="outline" @click="submitForm"
+                      style="color: black; --border-color: black">
                       SIGN-IN
                     </IonButton>
                   </IonCol>
                 </IonRow>
                 <IonRow>
                   <IonCol>
-                    <IonButton
-                      class="signup-buttons"
-                      expand="block"
-                      @click="signInWithGoogle"
-                      style="--background: #262c5c; color: white"
-                    >
+                    <IonButton class="signup-buttons" expand="block" @click="signInWithGoogle"
+                      style="--background: #262c5c; color: white">
                       GOOGLE SIGN-IN
                     </IonButton>
-                    <div
-                      class="flexcenter"
-                      style="font-size: 11px; padding-left: 5px"
-                    >
-                      Already have an Account? <a href="/Logincomputer" class="signup-a">Log In</a> | <a class="signup-a" style="color: red" href="/home">Cancel</a>
+                    <div class="flexcenter" style="font-size: 11px; padding-left: 5px">
+                      Already have an Account? <a href="/Logincomputer" class="signup-a">Log In</a> | <a class="signup-a"
+                        style="color: red" href="/home">Cancel</a>
                     </div>
                   </IonCol>
                 </IonRow>
@@ -134,6 +85,8 @@
         </IonGrid>
       </IonCard>
     </div>
+
+    <terms :is-termsmodal="isTerms" @close-terms-modal="modalTerms(false)"></terms>
   </IonPage>
 </template>
 
@@ -172,7 +125,7 @@ const formData = {
   type: "",
   acceptTerms: false,
 };
-const signInWithGoogle = async() => {
+const signInWithGoogle = async () => {
   const provider = new GoogleAuthProvider();
   try {
     const result = await signInWithPopup(auth, provider);
@@ -187,8 +140,8 @@ const signInWithGoogle = async() => {
     } else {
       // Email is not registered, proceed with registration.
       signupStore2.setGoogle(email, name);
-      signupStore2.setjobdata({swipedid: ""});
-      signupStore2.setswipedata({jobdid: ""});
+      signupStore2.setjobdata({ swipedid: "" });
+      signupStore2.setswipedata({ jobdid: "" });
       await signupStore2.registerUser();
       localStorage.setItem("email", email);
       GoEmployerDashboard();
@@ -223,8 +176,8 @@ const submitForm = async () => {
       const credential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
       console.log(credential.user);
       signupStore2.setFormData(formData);
-      signupStore2.setjobdata({swipedid: ""});
-      signupStore2.setswipedata({jobdid: ""});
+      signupStore2.setjobdata({ swipedid: "" });
+      signupStore2.setswipedata({ jobdid: "" });
       await signupStore2.registerUser();
       router.push("/LoginComputer");
       alert("Succesfully Registered");
@@ -239,6 +192,23 @@ const submitForm = async () => {
 
 </script>
 
-<script lang="ts"></script>
+<script lang="ts">
+import terms from './Seeker-Terms.vue'
+export default {
+  components: {
+    terms,
+  },
+  data() {
+    return {
+      isTerms: false,
+    }
+  },
+  methods: {
+    modalTerms(x) {
+      this.isTerms = x;
+    }
+  }
+}
+</script>
 
 <style></style>

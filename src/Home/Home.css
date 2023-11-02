@@ -188,10 +188,6 @@
   src: url(../assets/fonts/MalbergTrial-Regular.ttf);
 }
 
-@font-face {
-  font-family: PrimeformProDemo-Light;
-  src: url(../assets/fonts/PrimeformProDemo-Light.otf);
-}
 
 /* @keyframes colorChange {
   0% {

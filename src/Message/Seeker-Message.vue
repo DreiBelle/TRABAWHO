@@ -1,19 +1,7 @@
 <template>
   <IonPage>
     <IonHeader class="jmessage-header">
-      <div class="flexcenter" style="height: 100%; width: 100%;">
-        <div class="jmessage-logo-container">
-          <img class="jmessage-logo" src="../assets/logo/whitefilllogo.png" alt="logo" />
-        </div>
-        <div>
-          <IonText class="jmessage-title">
-            INBOX
-          </IonText>
-        </div>
-        <div class="jmessage-icons-settings">
-          <IonIcon :icon="settings"></IonIcon>
-        </div>
-      </div>
+
     </IonHeader>
 
     <IonContent>
@@ -187,10 +175,15 @@ import {
   IonChip,
   IonButton,
   IonPopover,
+  IonFab,
+  IonFabButton,
+  IonFabList,
+  IonActionSheet,
+  IonAlert,
 } from "@ionic/vue";
 import Navbar from "../NavBar/NavBar.vue";
 import "./Seeker-Message.css";
-import { settings, optionsOutline, chevronBack, folder, send, close, closeCircle, trash } from "ionicons/icons";
+import { settings, optionsOutline, chevronBack, folder, send, close, closeCircle, trash, logOut } from "ionicons/icons";
 import {
   collection,
   addDoc,
@@ -207,6 +200,9 @@ import { db } from "@/firebaseDB";
 import Filter from "bad-words";
 import { ref as asd, uploadBytes, getDownloadURL } from "firebase/storage";
 import { dbImage } from "@/firebaseDB";
+import { GoHome } from "../NavBar/NavBar-Controller";
+import { signOut } from "firebase/auth";
+import { auth } from "@/firebaseDB";
 
 export default {
   components: {
@@ -229,7 +225,12 @@ export default {
     IonModal,
     IonInput,
     IonButton,
-    IonPopover
+    IonPopover,
+    IonFab,
+    IonFabButton,
+    IonFabList,
+    IonActionSheet,
+    IonAlert
   },
   data() {
     return {
@@ -253,7 +254,7 @@ export default {
   },
   setup() {
     return {
-      settings, optionsOutline, chevronBack, folder, send, close, closeCircle, trash
+      logOut, settings, optionsOutline, chevronBack, folder, send, close, closeCircle, trash
     }
   },
   methods: {

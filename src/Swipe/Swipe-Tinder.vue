@@ -5,17 +5,17 @@
     <div class="Swipe-CardContent" id="card">
       <div class="swipe-container1">
         <div class="swipe-image-container">
-          <img id="picture" class="swipe-image" :src="item.pic"/>
+          <img id="picture" class="swipe-image" :src="item.pic" />
         </div>
         <div class="swipe-text-preview">
           <div>
-            <IonText class="swipe-text-stroke" style="font-size: 40px;"> {{ item.jobname.toUpperCase() }} </IonText>
+            <IonText class="swipe-text-stroke" style="font-size: 35px;"> {{ item.jobname.toUpperCase() }} </IonText>
           </div>
           <div>
-            <IonText class="swipe-text-stroke2" style="font-size: 22px;"> Type: {{ item.jobtype }} </IonText>
+            <IonText class="swipe-text-stroke2" style="font-size: 19px;"> Type: {{ item.jobtype }} </IonText>
           </div>
           <div>
-            <IonText class="swipe-text-stroke2" style="font-size: 22px;"> Position: {{ item.positionlvl }} </IonText>
+            <IonText class="swipe-text-stroke2" style="font-size: 19px;"> Position: {{ item.positionlvl }} </IonText>
           </div>
         </div>
       </div>
@@ -82,11 +82,6 @@
               </IonAvatar>
               <IonAvatar @click="like()" class="flexcenter swipe-modal-buttons">
                 <IonIcon style="color: lightblue;" :icon="heart">
-
-                </IonIcon>
-              </IonAvatar>
-              <IonAvatar class="flexcenter swipe-modal-buttons">
-                <IonIcon style="color: rgb(171, 171, 0);" :icon="bookmark">
 
                 </IonIcon>
               </IonAvatar>

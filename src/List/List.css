@@ -1,0 +1,24 @@
+.list-cards {
+  height: 60px;
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.list-cards-image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.list-cards-text {
+  font-size: 15px;
+  color: black;
+  padding: 2px;
+}
+
+.list-total-cards {
+  padding: 7px;
+  width: fit-content;
+  color: black;
+  font-size: 15px;
+}

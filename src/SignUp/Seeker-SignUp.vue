@@ -1,111 +1,87 @@
 <template>
   <IonPage class="signup-ionpage">
-    <IonGrid class="signup-grid">
-      <IonRow style="height: 100%;">
-        <IonCol class="flexcenter">
-          <IonGrid>
-            <IonRow>
-              <IonCol class="flexcenter">
-                <IonText class="signup-title-mobile">
-                  Sign Up
-                </IonText>
-              </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol class="flexcenter">
-                <IonInput placeholder="Full Name" fill="outline" labelPlacement="stacked" label="Username"
-                  class="signup-inputs-mobile" v-model="formData.fullname" required>
-                </IonInput>
-              </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol class="flexcenter">
-                <IonInput placeholder="Age" fill="outline" labelPlacement="stacked" label="Age"
-                  class="signup-inputs-mobile" v-model="formData.age" required>
-                </IonInput>
-              </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol class="flexcenter">
-                <IonInput placeholder="Date of Birth" fill="outline" labelPlacement="stacked" label="Birthday"
-                  class="signup-inputs-mobile" v-model="formData.dateofb" required>
-                </IonInput>
-              </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol class="flexcenter">
-                <IonInput placeholder="Address" fill="outline" labelPlacement="stacked" label="Address"
-                  class="signup-inputs-mobile" v-model="formData.address" required>
-                </IonInput>
-              </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol class="flexcenter">
-                  <IonSelect label="Sex" placeholder="Select Gender"
-                    label-placement="stacked" interface="popover" fill="outline" class="signup-inputs-mobile"
-                    v-model="formData.gender" required>
-                    <IonSelectOption value="male">MALE</IonSelectOption>
-                    <IonSelectOption value="female">FEMALE</IonSelectOption>
-                  </IonSelect>
+    <IonContent style="--background: none;">
+      <IonGrid class="signup-grid">
+        <IonRow style="height: 100%;">
+          <IonCol class="flexcenter">
+            <IonGrid>
+              <IonRow>
+                <IonCol class="flexcenter">
+                  <IonText class="signup-title-mobile">
+                    Sign Up
+                  </IonText>
                 </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol class="flexcenter">
-                <IonInput placeholder="Valid Email" fill="outline" labelPlacement="stacked" label="Email"
-                  class="signup-inputs-mobile" v-model="formData.email" required>
-                </IonInput>
-              </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol class="flexcenter">
-                <IonInput placeholder="Password" type="password" fill="outline" labelPlacement="stacked" label="Password"
-                  class="signup-inputs-mobile" v-model="formData.password" required>
-                </IonInput>
-              </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol class="flexcenter">
-                <IonCheckbox style="margin-left: 5px;" v-model="formData.acceptTerms"></IonCheckbox>
-                <IonText class="signup-text-terms">
-                  I have read and accept the
-                  <a href="/TermsandConditions" style="color: #262c5c;"> terms and conditions</a>
-                </IonText>
-              </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol>
-                <div class="flexcenter">
-                  <IonButton @click="submitForm" class="signup-button-email-mobile">
-                    Continue
+              </IonRow>
+              <IonRow>
+                <IonCol class="flexcenter">
+                  <IonInput mode="md" type="text" placeholder="FirstName/MiddleName/LastName" fill="outline"
+                    labelPlacement="stacked" label="Full Name" class="signup-inputs-mobile" v-model="formData.fullname"
+                    required>
+                  </IonInput>
+                </IonCol>
+              </IonRow>
+              <IonRow>
+                <IonCol class="flexcenter">
+                  <IonInput mode="md" type="email" placeholder="Valid Email Address" fill="outline"
+                    labelPlacement="stacked" label="Email" class="signup-inputs-mobile" v-model="formData.email" required>
+                  </IonInput>
+                </IonCol>
+              </IonRow>
+              <IonRow>
+                <IonCol class="flexcenter">
+                  <IonInput mode="md" placeholder="Password" type="password" fill="outline" labelPlacement="stacked"
+                    label="Password" class="signup-inputs-mobile" v-model="formData.password" required>
+                  </IonInput>
+                </IonCol>
+              </IonRow>
+              <IonRow>
+                <IonCol class="flexcenter">
+                  <IonCheckbox style="margin-left: 5px;" v-model="formData.acceptTerms"></IonCheckbox>
+                  <IonText class="signup-text-terms">
+                    I have read and accept the
+                    <a @click="modalTerms(true)" style="color: #262c5c;"> terms and conditions</a>
+                  </IonText>
+                </IonCol>
+              </IonRow>
+              <IonRow>
+                <IonCol>
+                  <div class="flexcenter">
+                    <IonButton @click="submitForm" class="signup-button-email-mobile">
+                      Continue
+                    </IonButton>
+                  </div>
+                  <div class="flexcenter">
+                    <IonText class="signup-text-alreadyhave">
+                      Already have an account? <a @click="goLogin()" style="color: #262c5c;">Login</a> | <a
+                        @click="GoHome()" style="color: red;">Cancel</a>
+                    </IonText>
+                  </div>
+                </IonCol>
+              </IonRow>
+              <IonRow>
+                <IonCol style="border-bottom: 1px solid black; margin-bottom: 11px"></IonCol>
+                <IonCol class="flexcenter" size="2" style="font-size: 12px">OR</IonCol>
+                <IonCol style="border-bottom: 1px solid black; margin-bottom: 11px"></IonCol>
+              </IonRow>
+              <IonRow>
+                <IonCol class="flexcenter">
+                  <IonButton @click="signInWithGoogle()" class="signup-button-google">
+                    <IonIcon :icon="logoGoogle"> </IonIcon>
+                    <IonText style="padding-left: 5px;">
+                      Google
+                    </IonText>
                   </IonButton>
-                </div>
-                <div class="flexcenter">
-                  <IonText class="signup-text-alreadyhave">
-                    Already have an account? <a @click="goLogin()" style="color: #262c5c;">Login</a> | <a
-                      @click="GoHome()" style="color: red;">Cancel</a>
-                  </IonText>
-                </div>
-              </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol style="border-bottom: 1px solid black; margin-bottom: 11px"></IonCol>
-              <IonCol class="flexcenter" size="2" style="font-size: 12px">OR</IonCol>
-              <IonCol style="border-bottom: 1px solid black; margin-bottom: 11px"></IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol class="flexcenter">
-                <IonButton @click="signInWithGoogle()" class="signup-button-google">
-                  <IonIcon :icon="logoGoogle"> </IonIcon>
-                  <IonText style="padding-left: 5px;">
-                    Google
-                  </IonText>
-                </IonButton>
-              </IonCol>
-            </IonRow>
-          </IonGrid>
-        </IonCol>
-      </IonRow>
-    </IonGrid>
+                </IonCol>
+              </IonRow>
+            </IonGrid>
+          </IonCol>
+        </IonRow>
+      </IonGrid>
+    </IonContent>
+    <terms :is-termsmodal="isTerms" @close-terms-modal="modalTerms(false)"></terms>
+
+    <IonAlert mode="ios" :is-open="isAlert" header="Alert" :message=alertMessage :buttons="alertButtons"
+      @didDismiss="alertbox(false, '')"></IonAlert>
   </IonPage>
 </template>
 
@@ -124,9 +100,12 @@ import {
   IonContent,
   IonSelect,
   IonSelectOption,
+  IonModal,
+  IonAlert,
 } from "@ionic/vue";
 import "./SignUp.css";
-import { GoRegister2, goBack, goTermsandCondition, goLogin } from "./SignUp-Controller";
+import terms from './Seeker-Terms.vue'
+import { GoBasic, GoRegister2, goBack, goTermsandCondition, goLogin } from "./SignUp-Controller";
 import { useSignupStore } from "@/stores/signupstore";
 import { Firestore } from "firebase/firestore";
 import { checkifregisteredgoogle } from "./Seeker-Model";
@@ -134,9 +113,11 @@ import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } f
 import { auth } from '../firebaseDB';
 import { GoSwipe, GoHome, } from "@/NavBar/NavBar-Controller";
 import { logoGoogle } from "ionicons/icons";
+import { ref } from 'vue';
 
 export default {
   components: {
+    terms,
     IonCheckbox,
     IonPage,
     IonGrid,
@@ -150,8 +131,16 @@ export default {
     IonContent,
     IonSelect,
     IonSelectOption,
+    IonModal,
+    IonAlert
+  },
+  data() {
+    return {
+      isTerms: false,
+    }
   },
   setup() {
+    const alertButtons = ['OK'];
     const signupStore = useSignupStore();
     const formData = {
       fullname: "",
@@ -178,6 +167,14 @@ export default {
 
     };
 
+    const isAlert = ref(false);
+    const alertMessage = ref('');
+
+    const alertbox = (x, message) => {
+      isAlert.value = x;
+      alertMessage.value = message;
+    }
+
     const signInWithGoogle = async () => {
       const provider = new GoogleAuthProvider();
       try {
@@ -193,35 +190,35 @@ export default {
         } else {
           // Email is not registered, proceed with registration.
           signupStore.setGoogle(email, name);
-          signupStore.setjobswipe({jobdid: ""});
+          signupStore.setjobswipe({ jobdid: "" });
           await signupStore.registerUser();
           localStorage.setItem("email", email);
           GoSwipe();
         }
       } catch (error) {
-        console.error('Google Sign-In Error:', error);
-        alert(error);
+        // console.error('Google Sign-In Error:', error);
+        alertbox(true, error)
       }
     };
 
     const submitForm = async () => {
-      const requiredFields = ['fullname', 'email', 'password', 'age', 'dateofb', 'address', 'gender'];
+      const requiredFields = ['fullname', 'email', 'password'];
       let isFormValid = true;
 
       for (const field of requiredFields) {
         if (!formData[field]) {
           isFormValid = false;
-          alert(`Please fill in the ${field} field.`);
+          alertbox(true, `Please fill in the ${field} field.`)
           break;
         }
       }
       if (!isFormValid) {
-        alert("Fill in all the required fields to continue.");
+        alertbox(true, `Fill in all the required fields to continue.`)
         return;
       }
       if (!formData.acceptTerms) {
         isFormValid = false;
-        alert("Accept the terms and conditions to continue.");
+        alertbox(true, `Accept the terms and conditions to continue.`)
       }
 
       if (isFormValid) {
@@ -229,13 +226,15 @@ export default {
           const credential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
           console.log(credential.user);
           signupStore.setFormData(formData);
-          GoRegister2();
+          GoBasic();
         } catch (error) {
-          alert(error.message);
+          alertbox(true, error.message)
+
         }
       }
       else {
-        alert("Fill all the Field to continue")
+        alertbox(true, `Fill all the Field to continue`)
+
       }
     }
 
@@ -244,12 +243,19 @@ export default {
       submitForm,
       logoGoogle,
       formData,
+      alertButtons,
+      isAlert, alertMessage,
+      alertbox,
     }
   },
   methods: {
     GoHome,
     goLogin,
     GoRegister2,
+    modalTerms(x) {
+      this.isTerms = x;
+      this.formData.acceptTerms = true;
+    }
   }
 }
 </script>

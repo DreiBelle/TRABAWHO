@@ -1,12 +1,29 @@
 <template>
   <IonPage>
+    <IonHeader class="jmessage-header">
+      <div class="flexcenter" style="height: 100%; width: 100%;">
+        <div class="jmessage-logo-container">
+          <img class="jmessage-logo" src="../assets/logo/whitefilllogo.png" alt="logo" />
+        </div>
+        <div>
+          <IonText class="jmessage-title">
+
+          </IonText>
+        </div>
+        <div class="jmessage-icons-settings">
+          <IonAlert mode="ios" trigger="showLogout" header="logout" :buttons="alertButtons"></IonAlert>
+          <IonIcon id="showLogout" :icon="logOut"></IonIcon>
+        </div>
+      </div>
+    </IonHeader>
+
     <IonTabs>
       <IonRouterOutlet></IonRouterOutlet>
       <IonTabBar class="navbar-container" slot="bottom">
         <!-- change this button later -->
-        <IonTabButton class="NavBar-Buttons" tab="Logout" @click="handleSignout">
-          <IonIcon :icon="bookmark"></IonIcon>
-          <IonLabel>Boomarks</IonLabel>
+        <IonTabButton class="NavBar-Buttons" tab="Logout" href="/Seeker-List">
+          <IonIcon :icon="list"></IonIcon>
+          <IonLabel>List</IonLabel>
         </IonTabButton>
 
         <IonTabButton class="NavBar-Buttons" tab="Message" href="/Seeker-Message">
@@ -19,7 +36,7 @@
           <IonLabel>Home</IonLabel>
         </IonTabButton>
 
-        <IonTabButton class="NavBar-Buttons" tab="Notification">
+        <IonTabButton class="NavBar-Buttons" tab="Notification" href="/Seeker-Notification">
           <IonIcon :icon="notifications"></IonIcon>
           <IonLabel>Notification</IonLabel>
         </IonTabButton>
@@ -51,10 +68,13 @@ import {
   IonIcon,
   IonLabel,
   IonHeader,
+  IonAlert,
+  IonText,
 } from "@ionic/vue";
 import { GoSwipe, GoMessage, GoProfile, GoHome } from "./NavBar-Controller";
 import "./NavBar.css";
 import "../Swipe/Swipe.css";
+import '../Message/Seeker-Message.css'
 
 import {
   chatbubbles,
@@ -64,6 +84,7 @@ import {
   person,
   settings,
   bookmark,
+  list,
 } from "ionicons/icons";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "@/firebaseDB";
@@ -73,6 +94,7 @@ const isLoggedIn = ref(false);
 
 export default {
   components: {
+    IonText,
     IonButton,
     IonFooter,
     IonGrid,
@@ -89,8 +111,27 @@ export default {
     IonIcon,
     IonLabel,
     IonHeader,
+    IonAlert,
   },
   setup() {
+    const alertButtons = [
+      {
+        text: 'Cancel',
+        role: 'cancel',
+      },
+      {
+        text: 'OK',
+        role: 'confirm',
+        handler: () => {
+          signOut(auth).then(() => {
+            localStorage.removeItem("email");
+            localStorage.removeItem("password");
+            GoHome();
+          });
+        },
+      },
+    ];
+
     onMounted(() => {
       onAuthStateChanged(auth, (user) => {
         if (user) {
@@ -100,7 +141,7 @@ export default {
         }
       });
     });
-    return { bookmark, chatbubbles, home, notifications, logOut, person, settings };
+    return { alertButtons, list, bookmark, chatbubbles, home, notifications, logOut, person, settings };
   },
   methods: {
     handleSignout() {

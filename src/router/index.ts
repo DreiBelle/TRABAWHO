@@ -49,6 +49,18 @@ const routes: Array<RouteRecordRaw> = [
     props: true,
   },
   {
+    path: "/SignUpBasic",
+    name: "SignUpBasic",
+    component: () => import("../SignUp/Seeker-SignUpBasic.vue"),
+    props: true,
+  },
+  {
+    path: "/SignUpPicture",
+    name: "SignUpPicture",
+    component: () => import("../SignUp/Seeker-SignUpPicture.vue"),
+    props: true,
+  },
+  {
     path: "/Swipe",
     component: NavBar,
     meta: {
@@ -75,6 +87,22 @@ const routes: Array<RouteRecordRaw> = [
         path: "/Seeker-Message",
         name: "Seeker-Message",
         component: () => import("../Message/Seeker-Message.vue"),
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: "/Seeker-List",
+        name: "Seeker-List",
+        component: () => import("../List/List.vue"),
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: "/Seeker-Notification",
+        name: "Seeker-Notification",
+        component: () => import("../Notification/Seeker-Notification.vue"),
         meta: {
           requiresAuth: true,
         },
@@ -120,16 +148,6 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       requiresAuth: true,
     },
-  },
-  {
-    path: "/TermsandConditions",
-    name: "TermsandConditions",
-    component: () => import("../SignUp/Seeker-Terms.vue"),
-  },
-  {
-    path: "/TermsandConditionsEmployer",
-    name: "TermsandConditionsEmployer",
-    component: () => import("../SignUp/Employer-Terms.vue"),
   },
   {
     path: "/SignUpEmployer1",
@@ -196,9 +214,11 @@ router.beforeEach(async (to, from, next) => {
 
       // Check the user's type and restrict access accordingly
       if (
-        userType === "jobseeker" &&(
-          to.path.includes("/Swipe") || 
+        userType === "jobseeker" &&
+        (to.path.includes("/Swipe") ||
           to.path.includes("/Seeker-Profile") ||
+          to.path.includes("/Seeker-List") ||
+          to.path.includes("/Seeker-Notification") ||
           to.path.includes("/Seeker-Message"))
       ) {
         next();

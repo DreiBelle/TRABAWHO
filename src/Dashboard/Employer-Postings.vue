@@ -102,13 +102,10 @@
             <IonCol class="flexcenter">
               <IonIcon style="padding-right: 5px" :icon="thumbsUp"></IonIcon> {{ job ? job.likes : "Loading..." }}
             </IonCol>
-            <IonCol class="flexcenter">
-              <IonIcon style="padding-right: 5px" :icon="bookmark"></IonIcon> {{ job ? job.bookmarks : "Loading..." }}
-            </IonCol>
             <IonCol class="flexcenter postings-arhive-container">
               <IonIcon
                 class="postings-arhive-button flexcenter"
-                :icon="archive"
+                :icon="chevronForward"
               ></IonIcon>
             </IonCol>
           </IonRow>
@@ -153,7 +150,7 @@ import {
   IonCardHeader,
   IonModal,
 } from "@ionic/vue";
-import { eyeSharp, thumbsUp, bookmark, close, archive } from "ionicons/icons";
+import { eyeSharp, thumbsUp, bookmark, close, archive, chevronForward } from "ionicons/icons";
 import { getJobPostings } from "@/Dashboard/Dashboard-Model";
 import { getDashboardProfile } from "./Dashboard-Model";
 import { ref, onMounted, onUnmounted } from "vue";
@@ -237,6 +234,7 @@ export default {
       close,
       filterjobPostings,
       archive,
+      chevronForward,
     };
   },
   computed: {

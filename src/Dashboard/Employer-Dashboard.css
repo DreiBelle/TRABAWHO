@@ -553,10 +553,10 @@ IonRouterOutlet
 }
 
 .modal-addjobpost-image {
-  height: 100px;
-  width: 100px;
-  max-height: 100px;
-  max-width: 100px;
+  height: 125px;
+  width: 125px;
+  max-height: 150px;
+  max-width: 150px;
   border-radius: 10px;
   border: 1px solid black;
 }
@@ -671,6 +671,7 @@ IonRouterOutlet
 }
 
 .modal-icon {
+  cursor: pointer;
   scale: 1;
   transition: scale 0.3s ease;
   font-size: 16px;
@@ -723,7 +724,7 @@ IonRouterOutlet
 
 .postings-arhive-container:hover {
   background: #262c5c;
-  color: yellow;
+  color: green;
   transition: color 0.3s ease;
 }
 
@@ -734,14 +735,36 @@ IonRouterOutlet
 }
 
 .modal-editposting-modal {
+  cursor: pointer;
   padding: 5px;
   background-color: #262c5c;
   color: white;
   border-radius: 10px;
   height: 30px;
-  width: 120px;
-  margin: 20px;
+  width: 150px;
+  margin: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.modal-addjobpost-titlediv {
+  font-family: BebasNeue-Regular;
+  font-size: 30px;
+}
+
+.modal-editjobposting-active{
+  font-family: BebasNeue-Regular;
+  font-size: 25px;
+  padding-right: 10px;
+}
+
+.modal-viewjobposting-title{
+  font-family: BebasNeue-Regular;
+  font-size: 22px;
+}
+
+.modal-viewjobposting-text{
+  font-size: 15px;
+  padding-right: 10px;
 }
