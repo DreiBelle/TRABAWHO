@@ -12,14 +12,10 @@ async function getJobs_(chosenInterest, jobtype, loc, yearsofexp) {
             where("yearsofexp", "==", yearsofexp),
             );
 
-        // const q = query(jobpostCollection);
-
-        // Retrieve the documents that match the query
         const querySnapshot = await getDocs(q);
 
         const jobs = [];
 
-        // Loop through the documents and push the data to the jobs array
         querySnapshot.forEach((doc) => {
             if (doc.exists) {
                 const jobdata = doc.data();
@@ -33,7 +29,7 @@ async function getJobs_(chosenInterest, jobtype, loc, yearsofexp) {
         return jobs;
     } catch (error) {
         console.error("Error getting jobs: ", error);
-        throw error; // You can handle the error as needed in your application
+        throw error;
     }
 }
 

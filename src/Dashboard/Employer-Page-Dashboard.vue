@@ -18,9 +18,6 @@
           <IonCard class="dashboard-minidataanalytics-card"> views <IonText style="font-size: 100px;"> {{ views }} </IonText></IonCard>
         </IonCol>
         <IonCol class="flexcenter">
-          <IonCard class="dashboard-minidataanalytics-card"> bookmarks <IonText style="font-size: 100px;"> {{ bookmarks }} </IonText></IonCard>
-        </IonCol>
-        <IonCol class="flexcenter">
           <IonCard class="dashboard-minidataanalytics-card"> Jobpostings <IonText style="font-size: 100px;"> {{ jobPostings.length }} </IonText></IonCard>
         </IonCol>
       </IonRow>
@@ -54,7 +51,10 @@
         </IonCol>
       </IonRow>
       <IonRow>
-        <IonCol class="dashboard-navbar-flexcenter dashboard-navbar-cols">
+        <IonCol 
+           @click="ShowTabs('Home')"
+           class="dashboard-navbar-flexcenter dashboard-navbar-cols"
+          >
           <IonIcon class="dashboard-navbar-icons" :icon="homeOutline"></IonIcon>
           <IonText class="dashboard-navbar-navigations">Home</IonText>
         </IonCol>
@@ -169,6 +169,7 @@ import JobPostings from "./Employer-JobPosting.vue";
 import DataAnalytics from "./Employer-DataAnalytics.vue";
 import Messages from "./Employer-Message.vue";
 import Profile from "./Employer-Profile.vue";
+import Home from "./Employer-Home.vue";
 import Notifications from "./Employer-Notification.vue";
 import AddModal from "./Employer-Dashboard-Modal-AddPostings.vue";
 import { getDashboardProfile, getJobPostings } from "./Dashboard-Model";
@@ -180,6 +181,7 @@ const isLoggedIn = ref(false);
 
 export default {
   components: {
+    Home,
     Profile,
     Notifications,
     Messages,
@@ -207,7 +209,6 @@ export default {
     const jobPostings = ref([]);
     let likes = ref(0);
     let views = ref(0);
-    let bookmarks = ref(0);
 
     onMounted(async () => {
       const userEmail = localStorage.getItem("email");
@@ -223,7 +224,6 @@ export default {
       jobPostings.value.forEach((jobPosting) => {
         likes.value += jobPosting.likes;
         views.value += jobPosting.views;
-        bookmarks.value += jobPosting.bookmarks;
       });
 
       onAuthStateChanged(auth, (user) => {
@@ -247,7 +247,6 @@ export default {
       jobPostings,
       likes,
       views,
-      bookmarks,
     };
   },
   data() {
