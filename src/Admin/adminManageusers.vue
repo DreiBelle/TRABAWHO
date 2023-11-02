@@ -1,8 +1,6 @@
 <template>
     <div class="flexcenter">
-        <IonSearchbar class="dashboard-navbar-topbar-searchbar" v-model="searchTerm">
-
-        </IonSearchbar>
+        <IonSearchbar class="dashboard-navbar-topbar-searchbar" v-model="searchTerm"></IonSearchbar>
         <IonIcon @click="filterModal(true)" class="admin-manageuser-icons admin-manageuser-icons-filter" :icon="filter">
         </IonIcon>
     </div>
@@ -56,9 +54,7 @@
         </IonContent>
     </div>
 
-    <IonModal :is-open="isviewUser" @did-dismiss="viewuserModal(false, '')">
-
-    </IonModal>
+    <IonModal :is-open="isviewUser" @did-dismiss="viewuserModal(false, '')"></IonModal>
 
     <IonModal :is-open="isfilterModal" @did-dismiss="filterModal(false)" style="--width: 40%; --height: 60%;">
         <div>
@@ -69,7 +65,7 @@
             </div>
             <div>
                 <IonSelect class="admin-manageuser-filter-select" label="User Type" interface="popover"
-                    labelPlacement="stacked" fill="outline" v-model="filterJobtype" required>
+                    labelPlacement="stacked" fill="outline" v-model="filtertype" required>
                     <IonSelectOption value="">
                         Show All
                     </IonSelectOption>
@@ -113,7 +109,7 @@ export default {
             users: [],
             currentUser: [],
             searchTerm: "",
-            filterJobtype: "",
+            filtertype: "",
             isfilterModal: false,
             isviewUser: false,
         }
@@ -156,11 +152,11 @@ export default {
             this.isviewUser = x
         },
         applyFilter() {
-            console.log(this.filterJobtype)
+            console.log(this.filtertype)
             this.filterModal(false)
 
             this.users.filter((user) => {
-                return user.type.toLowerCase().includes(this.filterJobtype)
+                return user.type.toLowerCase().includes(this.filtertype)
             })
         }
     },
@@ -168,9 +164,9 @@ export default {
         filteredSearch() {
             return this.users.filter((user) => {
                 const searchTermLower = this.searchTerm.toLowerCase();
-                if (this.filterJobtype) {
+                if (this.filtertype) {
                     if (!this.searchTerm) {
-                        return user.type.toLowerCase().includes(this.filterJobtype);
+                        return user.type.toLowerCase().includes(this.filtertype);
                     } else if (this.searchTerm) {
                         if (user.fullname) {
                             return user.dateCreated.toLowerCase().includes(searchTermLower) || user.type.toLowerCase().includes(searchTermLower) || user.fullname.toLowerCase().includes(searchTermLower);
@@ -180,7 +176,7 @@ export default {
                             return user.dateCreated.toLowerCase().includes(searchTermLower) || user.type.toLowerCase().includes(searchTermLower)
                         }
                     }
-                } else if (!this.filterJobtype) {
+                } else if (!this.filtertype) {
                     if (user.fullname) {
                         return user.dateCreated.toLowerCase().includes(searchTermLower) || user.type.toLowerCase().includes(searchTermLower) || user.fullname.toLowerCase().includes(searchTermLower);
                     } else if (user.businessname) {

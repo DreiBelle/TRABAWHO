@@ -12,15 +12,16 @@
                 </IonRow>
                 <IonRow style="height: 20%; padding-top: 10px;">
                     <IonCol class="flexcenter">
-                        <IonCard class="dashboard-minidataanalytics-card"> likes </IonCard>
+                        <IonCard class="dashboard-minidataanalytics-card"> Users <IonText style="font-size: 100px;"> {{ users.length }} </IonText> </IonCard>
                     </IonCol>
                     <IonCol class="flexcenter">
-                        <IonCard class="dashboard-minidataanalytics-card"> views </IonCard>
+                        <IonCard class="dashboard-minidataanalytics-card"> JobPostings <IonText style="font-size: 100px;"> {{ jobpostings.length }} </IonText> </IonCard>
                     </IonCol>
                     <IonCol class="flexcenter">
-                        <IonCard class="dashboard-minidataanalytics-card">
-                            bookmarks
-                        </IonCard>
+                        <IonCard class="dashboard-minidataanalytics-card"> Employers <IonText style="font-size: 100px;"> {{ employers.length }} </IonText> </IonCard>
+                    </IonCol>
+                    <IonCol class="flexcenter">
+                        <IonCard class="dashboard-minidataanalytics-card"> Jobseekers <IonText style="font-size: 100px;"> {{ jobseekers.length }} </IonText> </IonCard>
                     </IonCol>
                 </IonRow>
                 <IonRow class="page-components-container">
@@ -89,6 +90,7 @@ import Home from './adminHome.vue';
 import ManageUsers from './adminManageusers.vue';
 import ManagePostings from './adminManagejobpostings.vue';
 import Statistics from './adminStatistics.vue';
+import { getJobPostings, getusers, getemployers, getjobseekers } from './admin-Model';
 
 
 const isLoggedIn = ref(false);
@@ -97,10 +99,28 @@ export default {
     components: { Home, ManageUsers, ManagePostings, Statistics, IonPage, IonContent, IonRow, IonGrid, IonCol, IonIcon, IonText, IonCard },
     setup() {
         const user = ref(null);
+        const jobpostings = ref([]);
+        const users = ref([]);
+        const employers = ref([]);
+        const jobseekers = ref([]);
 
         onMounted(async () => {
             const userEmail = localStorage.getItem("email");
             user.value = await getDashboardProfile(userEmail);
+
+            jobpostings.value = await getJobPostings();
+            users.value = await getusers();
+            employers.value = await getemployers();
+            jobseekers.value = await getjobseekers();
+
+            // jobpostings.value.forEach((jobpostings) => {
+            //     console.log(jobpostings);
+            // });
+
+            console.log(jobpostings.value.length);
+            console.log(users.value.length);
+            console.log(employers.value.length);
+            console.log(jobseekers.value.length);
 
             onAuthStateChanged(auth, (user) => {
                 if (user) {
@@ -111,7 +131,7 @@ export default {
             });
         });
         return {
-            personOutline, home, people, briefcase, statsChart, user, logOutOutline
+            personOutline, home, people, briefcase, statsChart, user, logOutOutline, users, jobpostings, employers, jobseekers
         }
     },
     data() {

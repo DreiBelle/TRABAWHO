@@ -270,14 +270,12 @@ export default {
       user.value = await getUserProfile(userEmail);
 
       const chosenInterest = user.value.chosenInterests;
-      const hours = user.value.hours;
       const jobtype = user.value.jobtype;
       const loc = user.value.loc;
       const yearsofexp = user.value.yearsofexp;
       const salary = user.value.salary;
       const jobname = user.value.jobname;
       console.log(chosenInterest);
-      console.log(hours);
       console.log(jobtype);
       console.log(loc);
       console.log(yearsofexp);
@@ -285,11 +283,9 @@ export default {
 
       const jobs = await getJobs(
         chosenInterest,
-        hours,
         jobtype,
         loc,
         yearsofexp,
-        salary,
       );
 
       const filteredJobs = jobs.filter((job) => {

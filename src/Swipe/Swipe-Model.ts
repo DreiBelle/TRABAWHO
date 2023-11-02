@@ -1,17 +1,15 @@
 import { collection, query, where, getDocs, doc, getDoc, deleteDoc, updateDoc } from "firebase/firestore";
 import { db } from "../firebaseDB";
 
-async function getJobs_(chosenInterest, hours, jobtype, loc, yearsofexp, salary) {
+async function getJobs_(chosenInterest, jobtype, loc, yearsofexp) {
     try {
         const jobpostCollection = collection(db, "jobpost"); 
 
         const q = query(jobpostCollection, 
             where("chosenInterests", "array-contains-any", chosenInterest),
-            where("hours", "==", hours),
             where("jobtype", "in", jobtype),
-            where("loc", "==", loc),
+            where("loc", "in", loc),
             where("yearsofexp", "==", yearsofexp),
-            where("salary", "==", salary),
             );
 
         // const q = query(jobpostCollection);

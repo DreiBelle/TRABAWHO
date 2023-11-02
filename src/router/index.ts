@@ -233,6 +233,13 @@ router.beforeEach(async (to, from, next) => {
           to.path.includes("/Employer-Messages"))
       ) {
         next();
+      }  else if (
+        userType === "admin" &&
+        (
+          to.path.includes("/admin")
+        )
+      ) {
+        next();
       } else {
         // Handle unauthorized access for other user types or show an error message
         if (window.innerWidth <= 768) {

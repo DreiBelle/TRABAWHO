@@ -29,7 +29,6 @@ export interface SignupModel {
   seniorhigh: string;
   college: string;
   masteral: string;
-  hours: string;
   yearsofexp: string;
   jobtype: string;
   salary: string;
