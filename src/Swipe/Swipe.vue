@@ -1,63 +1,69 @@
 <template>
   <IonPage>
-    <div v-if="isloading">
-      <IonHeader style="z-index: 1;" class="jmessage-header">
-        <div class="flexcenter" style="height: 100%; width: 100%;">
-          <div class="jmessage-logo-container">
-            <img class="jmessage-logo" src="../assets/logo/whitefilllogo.png" alt="logo" />
-          </div>
-          <div class="jmessage-icons-settings">
-            <IonIcon :icon="logOut"></IonIcon>
-          </div>
-        </div>
-      </IonHeader>
-      <IonProgressBar style="z-index: 2;" type="indeterminate"></IonProgressBar>
-    </div>
-
-    <div v-if="!isloading">
-      <IonPage>
-        <IonHeader class="jmessage-header">
+      <div v-if="isloading">
+        <IonHeader style="z-index: 1;" class="jmessage-header">
           <div class="flexcenter" style="height: 100%; width: 100%;">
             <div class="jmessage-logo-container">
               <img class="jmessage-logo" src="../assets/logo/whitefilllogo.png" alt="logo" />
             </div>
             <div class="jmessage-icons-settings">
-              <IonIcon id="showLogout" :icon="logOut"></IonIcon>
+              <IonIcon :icon="logOut"></IonIcon>
             </div>
           </div>
         </IonHeader>
-        <IonGrid style="height: 100%; width: 100%; background: whitesmoke">
-          <IonRow style="height: 100%">
-            <IonCol>
-              <div class="Swipe-Background" v-if="(cards.length - currentCardIndex) >= 3">
-                <SwipeableCard :item="cards[currentCardIndex]" @swipeLeft="handleSwipeLeft" @swipeRight="handleSwipeRight"
-                  id="mainswiper" class="asd" />
-                <FakeSwipeableCard :item="cards[nextCardIndex]" class="asd2" />
-                <FakeSwipeableCard :item="cards[nextCardIndex + 1]" class="asd3" />
+        <IonProgressBar style="z-index: 2;" type="indeterminate"></IonProgressBar>
+      </div>
+
+    <IonContent class="ion-padding">
+      <ion-refresher slot="fixed" @ionRefresh="handleRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+
+      <div v-if="!isloading">
+        <IonPage>
+          <IonHeader class="jmessage-header">
+            <div class="flexcenter" style="height: 100%; width: 100%;">
+              <div class="jmessage-logo-container">
+                <img class="jmessage-logo" src="../assets/logo/whitefilllogo.png" alt="logo" />
               </div>
-              <div class="Swipe-Background" v-else-if="(cards.length - currentCardIndex) == 2">
-                <SwipeableCard :item="cards[currentCardIndex]" @swipeLeft="handleSwipeLeft" @swipeRight="handleSwipeRight"
-                  id="mainswiper" class="asd" />
-                <FakeSwipeableCard :item="cards[nextCardIndex]" class="asd2" />
+              <div class="jmessage-icons-settings">
+                <IonIcon id="showLogout" :icon="logOut"></IonIcon>
               </div>
-              <div class="Swipe-Background" v-else-if="(cards.length - currentCardIndex) == 1">
-                <SwipeableCard :item="cards[currentCardIndex]" @swipeLeft="handleSwipeLeft" @swipeRight="handleSwipeRight"
-                  style="z-index: 2" id="mainswiper" class="asd" />
-                <IonCard class="Swipe-Swipeable">
-                  no more available jobs
-                </IonCard>
-              </div>
-              <div class="Swipe-Background" v-else>
-                <IonCard class="Swipe-Swipeable">
-                  no more available jobs
-                </IonCard>
-              </div>
-            </IonCol>
-          </IonRow>
-        </IonGrid>
-        <!-- <FloatingButtons style="z-index: 3;"/> -->
-      </IonPage>
-    </div>
+            </div>
+          </IonHeader>
+          <IonGrid style="height: 100%; width: 100%; background: whitesmoke">
+            <IonRow style="height: 100%">
+              <IonCol>
+                <div class="Swipe-Background" v-if="(cards.length - currentCardIndex) >= 3">
+                  <SwipeableCard :item="cards[currentCardIndex]" @swipeLeft="handleSwipeLeft"
+                    @swipeRight="handleSwipeRight" id="mainswiper" class="asd" />
+                  <FakeSwipeableCard :item="cards[nextCardIndex]" class="asd2" />
+                  <FakeSwipeableCard :item="cards[nextCardIndex + 1]" class="asd3" />
+                </div>
+                <div class="Swipe-Background" v-else-if="(cards.length - currentCardIndex) == 2">
+                  <SwipeableCard :item="cards[currentCardIndex]" @swipeLeft="handleSwipeLeft"
+                    @swipeRight="handleSwipeRight" id="mainswiper" class="asd" />
+                  <FakeSwipeableCard :item="cards[nextCardIndex]" class="asd2" />
+                </div>
+                <div class="Swipe-Background" v-else-if="(cards.length - currentCardIndex) == 1">
+                  <SwipeableCard :item="cards[currentCardIndex]" @swipeLeft="handleSwipeLeft"
+                    @swipeRight="handleSwipeRight" style="z-index: 2" id="mainswiper" class="asd" />
+                  <IonCard class="Swipe-Swipeable">
+                    no more available jobs
+                  </IonCard>
+                </div>
+                <div class="Swipe-Background" v-else>
+                  <IonCard class="Swipe-Swipeable">
+                    no more available jobs
+                  </IonCard>
+                </div>
+              </IonCol>
+            </IonRow>
+          </IonGrid>
+          <!-- <FloatingButtons style="z-index: 3;"/> -->
+        </IonPage>
+      </div>
+    </IonContent>
   </IonPage>
 </template>
 
@@ -86,6 +92,9 @@ import {
   IonTabButton,
   IonTabs,
   IonText,
+  IonRefresher,
+  IonRefresherContent,
+RefresherEventDetail,
 } from "@ionic/vue";
 import { db, dbImage } from "@/firebaseDB";
 import { getDownloadURL, ref } from "firebase/storage";
@@ -124,7 +133,9 @@ export default {
     IonRouterOutlet,
     IonLabel,
     IonProgressBar,
-    IonAlert
+    IonAlert,
+    IonRefresher,
+    IonRefresherContent,
   },
   setup() {
     const user = asd(null);
@@ -158,7 +169,14 @@ export default {
       },
     ];
 
-    return { alertButtons, logOut, settings, user, useswipedata, useswipejob, updatelikes, updateviews, updatebookmarks };
+    const handleRefresh = (event: CustomEvent<RefresherEventDetail>) => {
+      setTimeout(() => {
+        location.reload();
+        event.detail.complete();
+      }, 2000);
+    };
+
+    return { alertButtons, logOut, settings, user, useswipedata, useswipejob, updatelikes, updateviews, updatebookmarks, handleRefresh };
   },
   data() {
     return {
