@@ -1,6 +1,6 @@
 <template>
   <IonPage class="signup-ionpage">
-    <IonContent style="--background: none;">
+    <!-- <IonContent style="--background: none;"> -->
       <IonGrid class="signup-grid">
         <IonRow style="height: 100%;">
           <IonCol class="flexcenter">
@@ -15,22 +15,22 @@
               </IonRow>
               <IonRow>
                 <IonCol class="flexcenter">
-                  <IonInput mode="md" type="date" placeholder="Date of Birth" fill="outline" labelPlacement="stacked" label="Birthday"
-                    class="signup-inputs-mobile" required>
+                  <IonInput mode="md" type="date" placeholder="Date of Birth" fill="outline" labelPlacement="stacked"
+                    label="Birthday" class="signup-inputs-mobile" v-model="formData.bday" required>
                   </IonInput>
                 </IonCol>
               </IonRow>
               <IonRow>
                 <IonCol class="flexcenter">
-                  <IonInput mode="md" type="number" placeholder="Phone Number" fill="outline" labelPlacement="stacked" label="Contact Number"
-                    class="signup-inputs-mobile" required>
+                  <IonInput mode="md" type="number" placeholder="Phone Number" fill="outline" labelPlacement="stacked"
+                    label="Contact Number" class="signup-inputs-mobile" v-model="formData.contactno" required>
                   </IonInput>
                 </IonCol>
               </IonRow>
               <IonRow>
                 <IonCol class="flexcenter">
-                  <IonSelect mode="md" label="Gender" placeholder="Select Gender" label-placement="stacked" interface="popover"
-                    fill="outline" class="signup-inputs-mobile" required>
+                  <IonSelect mode="md" label="Gender" placeholder="Select Gender" label-placement="stacked"
+                    interface="popover" fill="outline" class="signup-inputs-mobile" v-model="formData.gender" required>
                     <IonSelectOption value="male">Male</IonSelectOption>
                     <IonSelectOption value="female">Female</IonSelectOption>
                   </IonSelect>
@@ -38,36 +38,36 @@
               </IonRow>
               <IonRow>
                 <IonCol class="flexcenter">
-                  <IonInput mode="md" type="text" placeholder="Province" fill="outline" labelPlacement="stacked" label="Province"
-                    class="signup-inputs-mobile" required>
+                  <IonInput mode="md" type="text" placeholder="Province" fill="outline" labelPlacement="stacked"
+                    label="Province" class="signup-inputs-mobile" v-model="formData.province" required>
                   </IonInput>
                 </IonCol>
               </IonRow>
               <IonRow>
                 <IonCol class="flexcenter">
-                  <IonInput mode="md" type="text" placeholder="City/Town" fill="outline" labelPlacement="stacked" label="City/Town"
-                    class="signup-inputs-mobile" required>
+                  <IonInput mode="md" type="text" placeholder="City/Town" fill="outline" labelPlacement="stacked"
+                    label="City/Town" class="signup-inputs-mobile" v-model="formData.citown" required>
                   </IonInput>
                 </IonCol>
               </IonRow>
               <IonRow>
                 <IonCol class="flexcenter">
-                  <IonInput mode="md" type="text" placeholder="District" fill="outline" labelPlacement="stacked" label="District"
-                    class="signup-inputs-mobile" required>
+                  <IonInput mode="md" type="text" placeholder="District" fill="outline" labelPlacement="stacked"
+                    label="District" class="signup-inputs-mobile" v-model="formData.district" required>
                   </IonInput>
                 </IonCol>
               </IonRow>
               <IonRow>
                 <IonCol class="flexcenter">
-                  <IonInput mode="md" type="text" placeholder="Street" fill="outline" labelPlacement="stacked" label="Street"
-                    class="signup-inputs-mobile" required>
+                  <IonInput mode="md" type="text" placeholder="Street" fill="outline" labelPlacement="stacked"
+                    label="Street" class="signup-inputs-mobile" v-model="formData.street" required>
                   </IonInput>
                 </IonCol>
               </IonRow>
               <IonRow>
                 <IonCol>
                   <div class="flexcenter">
-                    <IonButton @click="GoRegister2" class="signup-button-email-mobile">
+                    <IonButton @click="submitForm()" class="signup-button-email-mobile">
                       Continue
                     </IonButton>
                   </div>
@@ -83,11 +83,11 @@
           </IonCol>
         </IonRow>
       </IonGrid>
-    </IonContent>
+    <!-- </IonContent> -->
   </IonPage>
 </template>
   
-<script lang="ts">
+<script setup lang="ts">
 import {
   IonCheckbox,
   IonPage,
@@ -104,43 +104,73 @@ import {
   IonSelectOption,
 } from "@ionic/vue";
 import "./SignUp.css";
-import { GoRegister2, goBack, goTermsandCondition, goLogin } from "./SignUp-Controller";
+import { GoRegister2, goBack, goLogin } from "./SignUp-Controller";
 import { useSignupStore } from "@/stores/signupstore";
-import { Firestore } from "firebase/firestore";
-import { checkifregisteredgoogle } from "./Seeker-Model";
-import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth } from '../firebaseDB';
-import { GoSwipe, GoHome, } from "@/NavBar/NavBar-Controller";
-import { logoGoogle, arrowBackOutline } from "ionicons/icons";
+import { GoHome } from "@/NavBar/NavBar-Controller";
+import { arrowBackOutline } from "ionicons/icons";
+import { ref } from 'vue';
 
-export default {
-  components: {
-    IonCheckbox,
-    IonPage,
-    IonGrid,
-    IonRow,
-    IonCol,
-    IonInput,
-    IonText,
-    IonProgressBar,
-    IonButton,
-    IonIcon,
-    IonContent,
-    IonSelect,
-    IonSelectOption,
-  },
-  methods: {
-    GoHome,
-    goLogin,
-    GoRegister2,
-    goBack,
-  },
-  setup() {
-    return{
-      arrowBackOutline
+const signupStore = useSignupStore();
+const formData = {
+  bday: "",
+  contactno: "",
+  gender: "",
+  province: "",
+  citown: "",
+  district: "",
+  street: "",
+};
+
+const isAlert = ref(false);
+const alertMessage = ref('');
+
+const alertbox = (x, message) => {
+  isAlert.value = x;
+  alertMessage.value = message;
+}
+
+const submitForm = async () => {
+  const requiredFields = ['bday', 'contactno', 'gender', 'province','citown', 'district','street' ];
+  let isFormValid = true;
+
+  for (const field of requiredFields) {
+    if (!formData[field]) {
+      isFormValid = false;
+      alertbox(true, `Please fill in the ${field} field.`)
+      break;
     }
   }
+  if (!isFormValid) {
+    alertbox(true, `Fill in all the required fields to continue.`)
+    return;
+  }
+
+  if (isFormValid) {
+    signupStore.setFormData({
+      ...sharedFormData,
+      bday: formData.bday,
+      contactno: formData.contactno,
+      gender: formData.gender,
+      province: formData.province,
+      citown: formData.citown,
+      district: formData.district,
+      street: formData.street,
+    });
+
+    GoRegister2()
+  }
+  else {
+    alertbox(true, `Fill all the Field to continue`)
+  }
 }
+
+
+const sharedFormData = signupStore.formData;
+
+console.log(sharedFormData.fullname);
+console.log(sharedFormData.email);
+
+
 </script>
   
   <!-- <style>

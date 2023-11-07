@@ -12,7 +12,7 @@ async function checkifregisteredgoogle_(email) {
   if (!querySnapshot.empty) {
     const docSnap = querySnapshot.docs[0];
     const userDoc = docSnap.data();
-    
+
     alert("Unable to create multiple accounts in one email, but you will continue to log in");
     return true;
   }
@@ -36,9 +36,12 @@ export interface SignupModel {
   dateCreated: string;
   // chosenInterest: any[];
   type: string;
-  age: string,
-  dateofb: string,
-  address: string,
-  gender: string,
-  }
-  
+  bday: string,
+  contactno: string
+  gender: string
+  province: string
+  citown: string
+  district: string
+  street: string
+  pic: string
+}

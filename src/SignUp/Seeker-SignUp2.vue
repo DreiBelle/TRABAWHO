@@ -96,7 +96,6 @@ const formData = {
   seniorhigh: "",
   college: "",
   masteral: "",
-  hours: "",
   yearsofexp: "",
   jobtype: "",
   salary: "",
@@ -162,10 +161,13 @@ const sharedFormData = signupStore.formData;
 
 console.log(sharedFormData.fullname);
 console.log(sharedFormData.email);
-console.log(sharedFormData.age);
-console.log(sharedFormData.dateofb);
-console.log(sharedFormData.address);
+console.log(sharedFormData.bday);
+console.log(sharedFormData.contactno);
 console.log(sharedFormData.gender);
+console.log(sharedFormData.province);
+console.log(sharedFormData.citown);
+console.log(sharedFormData.district);
+console.log(sharedFormData.street);
 
 </script>
 

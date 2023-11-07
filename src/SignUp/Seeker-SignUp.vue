@@ -1,6 +1,6 @@
 <template>
   <IonPage class="signup-ionpage">
-    <IonContent style="--background: none;">
+    <!-- <IonContent style="--background: none;"> -->
       <IonGrid class="signup-grid">
         <IonRow style="height: 100%;">
           <IonCol class="flexcenter">
@@ -77,7 +77,7 @@
           </IonCol>
         </IonRow>
       </IonGrid>
-    </IonContent>
+    <!-- </IonContent> -->
     <terms :is-termsmodal="isTerms" @close-terms-modal="modalTerms(false)"></terms>
 
     <IonAlert mode="ios" :is-open="isAlert" header="Alert" :message=alertMessage :buttons="alertButtons"
@@ -152,7 +152,6 @@ export default {
       seniorhigh: "",
       college: "",
       masteral: "",
-      hours: "",
       yearsofexp: "",
       jobtype: "",
       salary: "",
@@ -160,10 +159,14 @@ export default {
       dateCreated: "",
       // chosenInterest: [],
       type: "",
-      age: "",
-      dateofb: "",
-      address: "",
+      bday: "",
+      contactno: "",
       gender: "",
+      province: "",
+      citown: "",
+      district: "",
+      street: "",
+      pic: "",
 
     };
 

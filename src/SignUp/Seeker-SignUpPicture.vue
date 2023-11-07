@@ -8,19 +8,25 @@
                             :icon="arrowBackOutline"></IonIcon>
                         <IonText>ALMOST DONE!</IonText>
                     </div>
-                    <div class="flexcenter">
+                    <div v-if="!imageUrl" class="flexcenter">
                         <IonAvatar class="jsignup-picture-avatar">
-                            <img src="https://ionicframework.com/docs/img/demos/avatar.svg" alt="image" />
+                            <img src='https://ionicframework.com/docs/img/demos/avatar.svg' alt="image" />
+                        </IonAvatar>
+                    </div>
+                    <div v-else class="flexcenter">
+                        <IonAvatar class="jsignup-picture-avatar">
+                            <img :src=imageUrl alt="image" />
                         </IonAvatar>
                     </div>
                     <div class="flexcenter">
-                        <input id="fileInput" type="file" accept="image/jpeg" ref="myfile" style="display: none" />
+                        <input id="fileInput" type="file" accept="image/jpeg" @change="handleFileChange" ref="myfile"
+                            style="display: none" />
                         <label for="fileInput" class="jsignup-button-picture">
                             ADD A PROFILE
                         </label>
                     </div>
                     <div class="flexcenter">
-                        <IonButton class="jsignup-button-finish">
+                        <IonButton class="jsignup-button-finish" @click="handleSubmit">
                             Finish
                         </IonButton>
                     </div>
@@ -40,64 +46,69 @@ import {
     IonCol,
     IonText,
     IonCard,
-    IonModal,
     IonChip,
     IonIcon,
     IonInput,
     IonSelect,
     IonSelectOption,
     IonAvatar,
-IonAlert,
+    IonAlert,
 } from "@ionic/vue";
 import "./SignUp.css";
 import { goBack, GoSwipe } from "./SignUp-Controller";
 import { useSignupStore } from "@/stores/signupstore";
-import { ref } from "vue"; // Import the ref function
-import ChoiceModal from "@/SignUp/Seeker-InterestModal.vue";
+import { ref } from "vue";
+import { ref as asd, uploadBytes, getDownloadURL } from "firebase/storage";
+import { dbImage, db } from "@/firebaseDB";
 import { goLogin } from '@/SignUp/SignUp-Controller';
 import { addCircleOutline, arrowBackOutline, close } from "ionicons/icons";
 
 export default {
     components: {
-    IonSelect,
-    IonSelectOption,
-    ChoiceModal,
-    IonChip,
-    IonIcon,
-    IonButton,
-    IonPage,
-    IonContent,
-    IonGrid,
-    IonRow,
-    IonCol,
-    IonText,
-    IonCard,
-    IonModal,
-    IonInput,
-    IonAvatar,
-    IonAlert
-},
+        IonSelect,
+        IonSelectOption,
+        IonChip,
+        IonIcon,
+        IonButton,
+        IonPage,
+        IonContent,
+        IonGrid,
+        IonRow,
+        IonCol,
+        IonText,
+        IonCard,
+        IonInput,
+        IonAvatar,
+        IonAlert
+    },
 
     setup() {
         const signupStore = useSignupStore();
         const sharedFormData = signupStore.formData;
 
         const formData = {
-            hours: "",
-            yearsofexp: "",
-            jobtype: "",
-            salary: "",
-            loc: "",
+            pic: "",
         };
 
-        console.log("Page 3");
+        console.log("Page 5");
         console.log(sharedFormData.fullname);
         console.log(sharedFormData.email);
+        console.log(sharedFormData.bday);
+        console.log(sharedFormData.contactno);
+        console.log(sharedFormData.gender);
+        console.log(sharedFormData.province);
+        console.log(sharedFormData.citown);
+        console.log(sharedFormData.district);
+        console.log(sharedFormData.street);
         console.log(sharedFormData.elementary);
         console.log(sharedFormData.juniorhigh);
         console.log(sharedFormData.seniorhigh);
         console.log(sharedFormData.college);
-        console.log(sharedFormData.masteral);
+        console.log(sharedFormData.yearsofexp);
+        console.log(sharedFormData.jobtype);
+        console.log(sharedFormData.salary);
+        console.log(sharedFormData.loc);
+        console.log(sharedFormData.chosenInterests);
 
         return {
             addCircleOutline,
@@ -110,67 +121,68 @@ export default {
 
     data() {
         return {
-            modalOpen: false,
-            modalChoices: [],
-            chosenChoices: [],
-            userswipej: [],
+            imageUrl: null,
+            selectedImage: null,
+            thereisImage: false,
         };
     },
     methods: {
-        removeChoice(choiceId) {
-            this.chosenChoices = this.chosenChoices.filter(
-                (choice) => choice.id !== choiceId
-            );
-        },
-        openModal() {
-            this.modalOpen = true;
-        },
-        closeModal() {
-            this.modalOpen = false;
-        },
-        handleChoiceSelected(choice) {
-            this.chosenChoices.push(choice);
-            this.modalOpen = false;
+        async handleFileChange(event) {
+            const files = event.target.files;
+            console.log(files); // Check if files array is populated
+
+            if (files && files.length > 0) {
+                const file = files[0];
+                console.log("Selected file:", file); // Check the selected file
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    this.imageUrl = e.target.result;
+                };
+                reader.readAsDataURL(file);
+                this.selectedFile = file;
+                this.thereisImage = true;
+            } else {
+                // Handle the case when no files are selected or an error occurred.
+                console.error("No files selected or an error occurred.");
+            }
         },
         async handleSubmit() {
-            const requiredFields = ['hours', 'yearsofexp', 'jobtype', 'salary', 'loc'];
-            let isFormValid = true;
+            let isImageSelected = false;
 
-            for (const field of requiredFields) {
-                if (!this.formData[field]) {
-                    isFormValid = false;
-                    alert(`Please fill in the ${field} field.`);
-                    break;
+            if (this.selectedFile) {
+                isImageSelected = true;
+            }
+
+            if (isImageSelected) {
+                if (this.selectedFile) {
+                    // Upload the selected image to Firebase Storage
+                    const storageRef = asd(
+                        dbImage,
+                        "userpictures/" + this.selectedFile.name
+                    );
+                    try {
+                        await uploadBytes(storageRef, this.selectedFile);
+                        // Get the download URL of the uploaded image
+                        const downloadURL = await getDownloadURL(storageRef);
+                        this.formData.pic = downloadURL;
+                    } catch (error) {
+                        console.error("Error uploading image:", error);
+                        alert("Error uploading image. Please try again.");
+                        return;
+                    }
                 }
-            }
-            if (!isFormValid) {
-                alert("Fill in all the required fields to continue.");
-                return;
-            }
 
-            if (this.chosenChoices.length > 0) {
                 const signupStore = useSignupStore();
                 const sharedFormData = signupStore.formData;
-                this.userswipej.push({ jobdid: "" });
-                signupStore.setChosenInterests(this.chosenChoices);
-                signupStore.setjobswipe(this.userswipej);
                 signupStore.setFormData({
                     ...sharedFormData,
-                    hours: this.formData.hours,
-                    yearsofexp: this.formData.yearsofexp,
-                    jobtype: this.formData.jobtype,
-                    salary: this.formData.salary,
-                    loc: this.formData.loc,
+                    pic: this.formData.pic
                 });
-
-                console.log("Chosen Choices:", this.chosenChoices);
-                await signupStore.registerUser(); // Register the user
-                // GoHomeSwipeJobSeekers()
-                goLogin();
-                alert("Succesfully Registered");
-            }
-            else {
-                alert("Fill all the Field to continue")
+                await signupStore.registerUser();
+                GoSwipe();
+            } else {
+                console.error("Please fill in all required fields.");
+                alert("Please fill in all required fields");
             }
         },
         goBack,

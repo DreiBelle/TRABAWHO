@@ -154,16 +154,22 @@ export default {
     const alertButtons = ['OK'];
 
     const formData = {
-      hours: "",
       yearsofexp: "",
       jobtype: "",
       salary: "",
       loc: "",
     };
 
-    console.log("Page 3");
+    console.log("Page 4");
     console.log(sharedFormData.fullname);
     console.log(sharedFormData.email);
+    console.log(sharedFormData.bday);
+    console.log(sharedFormData.contactno);
+    console.log(sharedFormData.gender);
+    console.log(sharedFormData.province);
+    console.log(sharedFormData.citown);
+    console.log(sharedFormData.district);
+    console.log(sharedFormData.street);
     console.log(sharedFormData.elementary);
     console.log(sharedFormData.juniorhigh);
     console.log(sharedFormData.seniorhigh);
@@ -211,7 +217,7 @@ export default {
       this.modalOpen = false;
     },
     async handleSubmit() {
-      const requiredFields = ['hours', 'yearsofexp', 'jobtype', 'salary', 'loc'];
+      const requiredFields = ['yearsofexp', 'jobtype', 'salary', 'loc'];
       let isFormValid = true;
 
       for (const field of requiredFields) {
@@ -235,7 +241,6 @@ export default {
         signupStore.setjobswipe(this.userswipej);
         signupStore.setFormData({
           ...sharedFormData,
-          hours: this.formData.hours,
           yearsofexp: this.formData.yearsofexp,
           jobtype: this.formData.jobtype,
           salary: this.formData.salary,
@@ -243,10 +248,8 @@ export default {
         });
 
         console.log("Chosen Choices:", this.chosenChoices);
-        await signupStore.registerUser(); // Register the user
-        // GoHomeSwipeJobSeekers()
-        goLogin();
-        this.alertbox(true, `Succesfully Registered`)
+        // await signupStore.registerUser();
+        GoSignupPicture();
 
       }
       else {

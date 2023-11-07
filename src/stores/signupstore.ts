@@ -25,10 +25,14 @@ export const useSignupStore = defineStore("signup", {
       chosenInterests: [],
       type: "",
       swiperjob: [],
-      age: "",
-      dateofb: "",
-      address: "",
+      bday: "",
+      contactno: "",
       gender: "",
+      province: "",
+      citown: "",
+      district: "",
+      street: "",
+      pic: "",
     },
   }),
   actions: {
@@ -82,7 +86,14 @@ export const useSignupStore = defineStore("signup", {
           age: "",
           dateofb: "",
           address: "",
+          bday: "",
+          contactno: "",
           gender: "",
+          province: "",
+          citown: "",
+          district: "",
+          street: "",
+          pic: "",
         };
       } catch (error) {
         console.error("Error registering user:", error);
