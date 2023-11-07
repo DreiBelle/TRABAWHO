@@ -89,6 +89,21 @@
         >Trades & Services</IonSelectOption
       >
     </IonSelect>
+
+    <IonSelect
+      class="modal-addjobpost-input"
+      label-placement="stacked"
+      interface="popover"
+      fill="outline"
+      label="Sub Classification"
+      placeholder="Select Sub Classification"
+      :disabled="true"
+      v-if="!prefferedClassification"
+    >
+      <IonSelectOption value="Accounts Officers/Clerks">
+        Accounts Officers/Clerks
+      </IonSelectOption>
+    </IonSelect>
   
     <IonSelect
       class="modal-addjobpost-input"
@@ -98,6 +113,8 @@
       label="Sub Classification"
       placeholder="Select Sub Classification"
       v-if="prefferedClassification == 'Accounting'"
+      v-model="subclassificationClassification"
+      @ion-change="chosenSubspecial()"
     >
       <IonSelectOption value="Accounts Officers/Clerks">
         Accounts Officers/Clerks
@@ -170,7 +187,9 @@
       fill="outline"
       label="Sub Classification"
       placeholder="Select Sub Classification"
+      v-model="subclassificationClassification"
       v-if="prefferedClassification == 'Administration & Office Support'"
+      @ion-change="chosenSubspecial()"
     >
       <IonSelectOption value="Administrative Assistants">
         Administrative Assistants
@@ -203,7 +222,9 @@
       fill="outline"
       label="Sub Classification"
       placeholder="Select Sub Classification"
+      v-model="subclassificationClassification"
       v-if="prefferedClassification == 'Advertising, Arts & Media'"
+      @ion-change="chosenSubspecial()"
     >
       <IonSelectOption value="Agency Account Management">
         Agency Account Management
@@ -237,7 +258,9 @@
       fill="outline"
       label="Sub Classification"
       placeholder="Select Sub Classification"
+      v-model="subclassificationClassification"
       v-if="prefferedClassification == 'Banking & Financial Services'"
+      @ion-change="chosenSubspecial()"
     >
       <IonSelectOption value="Account & Relationship Management">
         Account & Relationship Management
@@ -284,7 +307,9 @@
       fill="outline"
       label="Sub Classification"
       placeholder="Select Sub Classification"
+      v-model="subclassificationClassification"
       v-if="prefferedClassification == 'Call Centre & Customer Services'"
+      @ion-change="chosenSubspecial()"
     >
       <IonSelectOption value="Collections"> Collections </IonSelectOption>
       <IonSelectOption value="Customer Service - Call Centre">
@@ -312,7 +337,9 @@
       fill="outline"
       label="Sub Classification"
       placeholder="Select Sub Classification"
+      v-model="subclassificationClassification"
       v-if="prefferedClassification == 'CEO & General Management'"
+      @ion-change="chosenSubspecial()"
     >
       <IonSelectOption value="Board Appointments">
         Board Appointments
@@ -331,7 +358,9 @@
       fill="outline"
       label="Sub Classification"
       placeholder="Select Sub Classification"
+      v-model="subclassificationClassification"
       v-if="prefferedClassification == 'Community Services and Development'"
+      @ion-change="chosenSubspecial()"
     >
       <IonSelectOption value="Board Appointments">
         Aged & Disability Support
@@ -365,7 +394,9 @@
       fill="outline"
       label="Sub Classification"
       placeholder="Select Sub Classification"
+      v-model="subclassificationClassification"
       v-if="prefferedClassification == 'Construction'"
+      @ion-change="chosenSubspecial()"
     >
       <IonSelectOption value="Contracts Management">
         Contracts Management
@@ -400,7 +431,9 @@
       fill="outline"
       label="Sub Classification"
       placeholder="Select Sub Classification"
+      v-model="subclassificationClassification"
       v-if="prefferedClassification == 'Consulting & Strategy'"
+      @ion-change="chosenSubspecial()"
     >
       <IonSelectOption value="Analysts"> Analysts </IonSelectOption>
       <IonSelectOption value="Corporate Developement">
@@ -425,7 +458,9 @@
       fill="outline"
       label="Sub Classification"
       placeholder="Select Sub Classification"
+      v-model="subclassificationClassification"
       v-if="prefferedClassification == 'Design & Architecture'"
+      @ion-change="chosenSubspecial()"
     >
       <IonSelectOption value="Architectural Drafting">
         Architectural Drafting
@@ -459,7 +494,9 @@
       fill="outline"
       label="Sub Classification"
       placeholder="Select Sub Classification"
+      v-model="subclassificationClassification"
       v-if="prefferedClassification == 'Education & Training'"
+      @ion-change="chosenSubspecial()"
     >
       <IonSelectOption value="Childcare & Outside School Hours Care">
         Childcare & Outside School Hours Care
@@ -510,7 +547,9 @@
       fill="outline"
       label="Sub Classification"
       placeholder="Select Sub Classification"
+      v-model="subclassificationClassification"
       v-if="prefferedClassification == 'Engineering'"
+      @ion-change="chosenSubspecial()"
     >
       <IonSelectOption value="Aerospace Engineering">
         Aerospace Engineering
@@ -569,7 +608,9 @@
       fill="outline"
       label="Sub Classification"
       placeholder="Select Sub Classification"
+      v-model="subclassificationClassification"
       v-if="prefferedClassification == 'Farming, Animals & Conservation'"
+      @ion-change="chosenSubspecial()"
     >
       <IonSelectOption value="Agronomy & Farm Services">
         Agronomy & Farm Services
@@ -598,7 +639,9 @@
       fill="outline"
       label="Sub Classification"
       placeholder="Select Sub Classification"
+      v-model="subclassificationClassification"
       v-if="prefferedClassification == 'Government & Defence'"
+      @ion-change="chosenSubspecial()"
     >
       <IonSelectOption value="Air Force"> Air Force </IonSelectOption>
       <IonSelectOption value="Army"> Army </IonSelectOption>
@@ -630,7 +673,9 @@
       fill="outline"
       label="Sub Classification"
       placeholder="Select Sub Classification"
+      v-model="subclassificationClassification"
       v-if="prefferedClassification == 'Healthcare & Medical'"
+      @ion-change="chosenSubspecial()"
     >
       <IonSelectOption value="Ambulance/Paramedics">
         Ambulance/Paramedics
@@ -719,7 +764,9 @@
       fill="outline"
       label="Sub Classification"
       placeholder="Select Sub Classification"
+      v-model="subclassificationClassification"
       v-if="prefferedClassification == 'Hospitality & Tourism'"
+      @ion-change="chosenSubspecial()"
     >
       <IonSelectOption value="Airlines"> Airlines </IonSelectOption>
       <IonSelectOption value="Bar & Beverage Staff"> Bar & Beverage Staff </IonSelectOption>
@@ -742,7 +789,9 @@
       fill="outline"
       label="Sub Classification"
       placeholder="Select Sub Classification"
+      v-model="subclassificationClassification"
       v-if="prefferedClassification == 'Human Resources & Recruitment'"
+      @ion-change="chosenSubspecial()"
     >
       <IonSelectOption value="Consulting & Generalist HR"> Consulting & Generalist HR </IonSelectOption>
       <IonSelectOption value="Industrial & Employee Relations"> Industrial & Employee Relations </IonSelectOption>
@@ -763,7 +812,9 @@
       fill="outline"
       label="Sub Classification"
       placeholder="Select Sub Classification"
+      v-model="subclassificationClassification"
       v-if="prefferedClassification == 'Information & Communication Technology'"
+      @ion-change="chosenSubspecial()"
     >
       <IonSelectOption value="Architects"> Architects </IonSelectOption>
       <IonSelectOption value="Business/System Analysts"> Business/System Analysts </IonSelectOption>
@@ -794,7 +845,9 @@
       fill="outline"
       label="Sub Classification"
       placeholder="Select Sub Classification"
+      v-model="subclassificationClassification"
       v-if="prefferedClassification == 'Insurance & Superannuation'"
+      @ion-change="chosenSubspecial()"
     >
       <IonSelectOption value="Actuarial"> Actuarial </IonSelectOption>
       <IonSelectOption value="Assessment"> Assessment </IonSelectOption>
@@ -815,7 +868,9 @@
       fill="outline"
       label="Sub Classification"
       placeholder="Select Sub Classification"
+      v-model="subclassificationClassification"
       v-if="prefferedClassification == 'Legal'"
+      @ion-change="chosenSubspecial()"
     >
       <IonSelectOption value="Banking & Finace Law"> Banking & Finace Law </IonSelectOption>
       <IonSelectOption value="Construction Law"> Construction Law </IonSelectOption>
@@ -844,7 +899,9 @@
       fill="outline"
       label="Sub Classification"
       placeholder="Select Sub Classification"
+      v-model="subclassificationClassification"
       v-if="prefferedClassification == 'Manufacturing, Transport & Logistics'"
+      @ion-change="chosenSubspecial()"
     >
       <IonSelectOption value="Analysis & Reporting"> Analysis & Reporting </IonSelectOption>
       <IonSelectOption value="Assembly & Process Work"> Assembly & Process Work </IonSelectOption>
@@ -874,7 +931,9 @@
       fill="outline"
       label="Sub Classification"
       placeholder="Select Sub Classification"
+      v-model="subclassificationClassification"
       v-if="prefferedClassification == 'Marketing & Communication'"
+      @ion-change="chosenSubspecial()"
     >
       <IonSelectOption value="Brand Management"> Brand Management </IonSelectOption>
       <IonSelectOption value="Digital & Search Marketing"> Digital & Search Marketing </IonSelectOption>
@@ -897,7 +956,9 @@
       fill="outline"
       label="Sub Classification"
       placeholder="Select Sub Classification"
+      v-model="subclassificationClassification"
       v-if="prefferedClassification == 'Mining, Resources & Energy'"
+      @ion-change="chosenSubspecial()"
     >
       <IonSelectOption value="Analysis & Reporting"> Analysis & Reporting </IonSelectOption>
       <IonSelectOption value="Health, Safety & Environment"> Health, Safety & Environment </IonSelectOption>
@@ -924,7 +985,9 @@
       fill="outline"
       label="Sub Classification"
       placeholder="Select Sub Classification"
+      v-model="subclassificationClassification"
       v-if="prefferedClassification == 'Real Estate & Property'"
+      @ion-change="chosenSubspecial()"
     >
       <IonSelectOption value="Administration"> Administration </IonSelectOption>
       <IonSelectOption value="Analyst"> Analyst </IonSelectOption>
@@ -943,7 +1006,9 @@
       fill="outline"
       label="Sub Classification"
       placeholder="Select Sub Classification"
+      v-model="subclassificationClassification"
       v-if="prefferedClassification == 'Retail & Consumer Products'"
+      @ion-change="chosenSubspecial()"
     >
       <IonSelectOption value="Buying"> Buying </IonSelectOption>
       <IonSelectOption value="Management - Area/Multi-site"> Management - Area/Multi-site </IonSelectOption>
@@ -961,7 +1026,9 @@
       fill="outline"
       label="Sub Classification"
       placeholder="Select Sub Classification"
+      v-model="subclassificationClassification"
       v-if="prefferedClassification == 'Sales'"
+      @ion-change="chosenSubspecial()"
     >
       <IonSelectOption value="Account & Relationship Management"> Account & Relationship Management </IonSelectOption>
       <IonSelectOption value="Analysis & Reporting"> Analysis & Reporting </IonSelectOption>
@@ -978,7 +1045,9 @@
       fill="outline"
       label="Sub Classification"
       placeholder="Select Sub Classification"
+      v-model="subclassificationClassification"
       v-if="prefferedClassification == 'Science & Technology'"
+      @ion-change="chosenSubspecial()"
     >
       <IonSelectOption value="Biological & Biomedical Sciences"> Biological & Biomedical Sciences </IonSelectOption>
       <IonSelectOption value="Biotechnology & Genetics"> Biotechnology & Genetics </IonSelectOption>
@@ -999,7 +1068,9 @@
       fill="outline"
       label="Sub Classification"
       placeholder="Select Sub Classification"
+      v-model="subclassificationClassification"
       v-if="prefferedClassification == 'Self Employment'"
+      @ion-change="chosenSubspecial()"
     >
       <IonSelectOption value=""> Self Employment </IonSelectOption>
     </IonSelect>
@@ -1011,7 +1082,9 @@
       fill="outline"
       label="Sub Classification"
       placeholder="Select Sub Classification"
+      v-model="subclassificationClassification"
       v-if="prefferedClassification == 'Sport & Recreation'"
+      @ion-change="chosenSubspecial()"
     >
       <IonSelectOption value="Coaching & Instruction"> Coaching & Instruction </IonSelectOption>
       <IonSelectOption value="Fitness & Personal Training"> Fitness & Personal Training </IonSelectOption>
@@ -1025,7 +1098,9 @@
       fill="outline"
       label="Sub Classification"
       placeholder="Select Sub Classification"
+      v-model="subclassificationClassification"
       v-if="prefferedClassification == 'Trades & Services'"
+      @ion-change="chosenSubspecial()"
     >
       <IonSelectOption value="Air Conditioning & Refrigeration"> Air Conditioning & Refrigeration </IonSelectOption>
       <IonSelectOption value="Automotive Trades"> Automotive Trades </IonSelectOption>
@@ -1060,12 +1135,29 @@
     data() {
       return {
         prefferedClassification: "",
+        subclassificationClassification: "",
       };
     },
+    props:{
+      parentPreffered: {
+        type: String,
+      },
+      parentSubpreffered: {
+        type: String,
+      }
+    },
+    emits:['chosen-special', 'chosen-subspecial'],
     methods:{
       chosenSpecial(){
         this.$emit("chosen-special", this.prefferedClassification);
-      }
+      },
+      chosenSubspecial(){
+        this.$emit("chosen-subspecial", this.subclassificationClassification);
+      },
+    },
+    mounted(){
+      this.prefferedClassification = this.parentPreffered,
+      this.subclassificationClassification = this.parentSubpreffered
     }
   };
   </script>

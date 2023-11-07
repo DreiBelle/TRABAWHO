@@ -44,4 +44,6 @@ export interface SignupModel {
   district: string
   street: string
   pic: string
+  classification: String
+  subclassification: String
 }

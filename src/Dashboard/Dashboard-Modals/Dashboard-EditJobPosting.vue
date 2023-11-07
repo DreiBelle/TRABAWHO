@@ -114,7 +114,7 @@
 
         <div>
           <IonSelect class="modal-addjobpost-input" label="Age" interface="popover" labelPlacement="stacked"
-            fill="outline" placeholder="Select preffered age" required>
+            fill="outline" placeholder="Select preffered age" v-model="formData.age" required>
             <IonSelectOption value="none">none</IonSelectOption>
             <IonSelectOption value="18-25">18-25</IonSelectOption>
             <IonSelectOption value="26-35">26-35</IonSelectOption>
@@ -157,7 +157,24 @@
           </IonText>
         </div>
         <div>
-          <NewTags></NewTags>
+          <NewTags :parent-subpreffered="subclassificationClassification" :parent-preffered="prefferedClassification" v-on:chosen-special="updateChosenspecial" @chosen-subspecial="updatesubChosenspecial"></NewTags>
+        </div>
+        <div class="flexcenter" style="justify-content: left; margin-left: 5px; margin-top: 6px;">
+          <IonChip v-for="choice in chosenChoices" :key="choice.id">
+            {{ choice.label }}
+            <IonIcon class="modal-addjobpost-icon" @click="removeChoice(choice.id)" :icon="close"></IonIcon>
+          </IonChip>
+
+          <div v-if="chosenChoices.length > 0" class="flexcenter">
+            <IonIcon @click="openModal" size="large" :icon="addCircleOutline" class="modal-addjobpost-addicon">
+            </IonIcon>
+          </div>
+          <div v-else class="flexcenter">
+            <IonButton @click="openModal" class="modal-addjobpost-button-button-tags" fill="outline"
+              style="border-radius: 100%">
+              Add Tags
+            </IonButton>
+          </div>
         </div>
 
         <div class="flexcenter" style="margin-top: 10px;">
@@ -168,18 +185,18 @@
 
         <div class="flexcenter">
           <IonInput class="modal-addjobpost-input" label="Province" placeholder="Province" labelPlacement="stacked"
-            fill="outline" type="text">
+            fill="outline" type="text" v-model="formData.province">
           </IonInput>
           <IonInput class="modal-addjobpost-input" label="City/Town" placeholder="City/Town" labelPlacement="stacked"
-            fill="outline" type="text">
+            fill="outline" type="text" v-model="formData.citown">
           </IonInput>
         </div>
         <div class="flexcenter">
           <IonInput class="modal-addjobpost-input" label="District" placeholder="District - Purok"
-            labelPlacement="stacked" fill="outline" type="text">
+            labelPlacement="stacked" fill="outline" type="text" v-model="formData.district">
           </IonInput>
           <IonInput class="modal-addjobpost-input" label="Street" placeholder="Street" labelPlacement="stacked"
-            fill="outline" type="text">
+            fill="outline" type="text" v-model="formData.street">
           </IonInput>
         </div>
 
@@ -318,6 +335,7 @@ export default {
       jobdes: props.jobPosting ? props.jobPosting.jobdes : "",
       salary: props.jobPosting ? props.jobPosting.salary : "",
       hours: props.jobPosting ? props.jobPosting.hours : "",
+      age: props.jobPosting ? props.jobPosting.age : "",
       noofempl: props.jobPosting ? props.jobPosting.noofempl : "",
       loc: props.jobPosting ? props.jobPosting.loc : "",
       reqeduc: props.jobPosting ? props.jobPosting.reqeduc : "",
@@ -325,6 +343,12 @@ export default {
       positionlvl: props.jobPosting ? props.jobPosting.positionlvl : "",
       isactive: props.jobPosting ? props.jobPosting.isactive : "",
       creator: creator.value,
+      province: props.jobPosting ? props.jobPosting.province : "",
+      district: props.jobPosting ? props.jobPosting.district : "",
+      citown: props.jobPosting ? props.jobPosting.citown : "",
+      street: props.jobPosting ? props.jobPosting.street : "",
+      classification: "",
+      subclassification: "",
     }));
 
     return {
@@ -353,9 +377,21 @@ export default {
       selectedImage: null,
       thereisImage: false,
       archive: null,
+      prefferedClassification: props.jobPosting ? props.jobPosting.classification : "",
+      subclassificationClassification: props.jobPosting ? props.jobPosting.subclassification : "",
     };
   },
   methods: {
+    updateChosenspecial(PC){
+      this.prefferedClassification = PC
+      console.log(this.prefferedClassification)
+      this.formData.clasification = this.prefferedClassification
+    },
+    updatesubChosenspecial(PC){
+      this.subclassificationClassification = PC
+      console.log(this.subclassificationClassification)
+      this.formData.subclassification = this.subclassificationClassification
+    },
     convertTorF() {
       if (this.formData.isactive == "activate") {
         this.archive = true

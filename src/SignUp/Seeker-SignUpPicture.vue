@@ -109,6 +109,8 @@ export default {
         console.log(sharedFormData.salary);
         console.log(sharedFormData.loc);
         console.log(sharedFormData.chosenInterests);
+        console.log(sharedFormData.classification);
+        console.log(sharedFormData.subclassification);
 
         return {
             addCircleOutline,

@@ -59,6 +59,11 @@
                   </IonSelect>
                 </IonCol>
               </IonRow>
+              <div class="flexcenter" style="width: 100%;">
+                <div style="width: 100%;">
+                  <NewTags v-on:chosen-special="updateChosenspecial" @chosen-subspecial="updatesubChosenspecial"></NewTags>
+                </div>
+              </div>
               <IonRow style="border-bottom: 1px solid black; padding: 10px;">
                 <IonCol>
                   <div>
@@ -127,9 +132,12 @@ import { ref } from "vue"; // Import the ref function
 import ChoiceModal from "@/SignUp/Seeker-InterestModal.vue";
 import { goLogin } from '@/SignUp/SignUp-Controller';
 import { addCircleOutline, arrowBackOutline, close } from "ionicons/icons";
+import NewTags from "./Mobile-SpecializedField.vue";
+
 
 export default {
   components: {
+    NewTags,
     IonSelect,
     IonSelectOption,
     ChoiceModal,
@@ -158,6 +166,8 @@ export default {
       jobtype: "",
       salary: "",
       loc: "",
+      classification: "",
+      subclassification: "",
     };
 
     console.log("Page 4");
@@ -194,9 +204,21 @@ export default {
       userswipej: [],
       isAlert: false,
       alertMessage: "",
+      prefferedClassification: "",
+      subclassificationClassification: "",
     };
   },
   methods: {
+    updateChosenspecial(PC) {
+      this.prefferedClassification = PC
+      console.log(this.prefferedClassification)
+      this.formData.classification = this.prefferedClassification
+    },
+    updatesubChosenspecial(PC) {
+      this.subclassificationClassification = PC
+      console.log(this.subclassificationClassification)
+      this.formData.subclassification = this.subclassificationClassification
+    },
     alertbox(x, message) {
       this.isAlert = x
       this.alertMessage = message
@@ -217,7 +239,7 @@ export default {
       this.modalOpen = false;
     },
     async handleSubmit() {
-      const requiredFields = ['yearsofexp', 'jobtype', 'salary', 'loc'];
+      const requiredFields = ['yearsofexp', 'jobtype', 'salary', 'loc', 'classification', 'subclassification'];
       let isFormValid = true;
 
       for (const field of requiredFields) {
@@ -245,6 +267,8 @@ export default {
           jobtype: this.formData.jobtype,
           salary: this.formData.salary,
           loc: this.formData.loc,
+          classification: this.formData.classification,
+          subclassification: this.formData.subclassification,
         });
 
         console.log("Chosen Choices:", this.chosenChoices);

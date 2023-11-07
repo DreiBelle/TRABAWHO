@@ -33,6 +33,8 @@ export const useSignupStore = defineStore("signup", {
       district: "",
       street: "",
       pic: "",
+      classification: "",
+      subclassification: "",
     },
   }),
   actions: {
@@ -94,6 +96,8 @@ export const useSignupStore = defineStore("signup", {
           district: "",
           street: "",
           pic: "",
+          classification: "",
+          subclassification: "",
         };
       } catch (error) {
         console.error("Error registering user:", error);

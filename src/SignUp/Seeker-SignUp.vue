@@ -167,6 +167,8 @@ export default {
       district: "",
       street: "",
       pic: "",
+      classification: "",
+      subclassification: "",
 
     };
 

@@ -11,14 +11,8 @@
         <div style="position: absolute; right: 10px">
           <div class="flexcenter">
             <IonText class="modal-editjobposting-active"> Active: </IonText>
-            <IonToggle
-              @ion-change="changeArchive()"
-              v-model="Archive"
-              required
-              mode="ios"
-              :checked="true"
-              :disabled="true"
-            ></IonToggle>
+            <IonToggle @ion-change="changeArchive()" v-model="Archive" required mode="ios" :checked="true"
+              :disabled="true"></IonToggle>
           </div>
         </div>
 
@@ -117,8 +111,7 @@
 
         <div>
           <IonSelect class="modal-addjobpost-input" label="Age" interface="popover" labelPlacement="stacked"
-            fill="outline" placeholder="Select preffered age" required>
-            <IonSelectOption value="none">none</IonSelectOption>
+            fill="outline" placeholder="Select preffered age" v-model="formData.age" required>
             <IonSelectOption value="18-25">18-25</IonSelectOption>
             <IonSelectOption value="26-35">26-35</IonSelectOption>
             <IonSelectOption value="36-45">36-45</IonSelectOption>
@@ -160,7 +153,24 @@
           </IonText>
         </div>
         <div>
-          <NewTags v-on:chosen-special="updateChosenspecial"></NewTags>
+          <NewTags v-on:chosen-special="updateChosenspecial" @chosen-subspecial="updatesubChosenspecial"></NewTags>
+        </div>
+        <div class="flexcenter" style="justify-content: left; margin-left: 5px; margin-top: 6px;">
+          <IonChip v-for="choice in chosenChoices" :key="choice.id">
+            {{ choice.label }}
+            <IonIcon class="modal-addjobpost-icon" @click="removeChoice(choice.id)" :icon="close"></IonIcon>
+          </IonChip>
+
+          <div v-if="chosenChoices.length > 0" class="flexcenter">
+            <IonIcon @click="openModal" size="large" :icon="addCircleOutline" class="modal-addjobpost-addicon">
+            </IonIcon>
+          </div>
+          <div v-else class="flexcenter">
+            <IonButton @click="openModal" class="modal-addjobpost-button-button-tags" fill="outline"
+              style="border-radius: 100%">
+              Add Tags
+            </IonButton>
+          </div>
         </div>
 
 
@@ -172,37 +182,20 @@
 
         <div class="flexcenter">
           <IonInput class="modal-addjobpost-input" label="Province" placeholder="Province" labelPlacement="stacked"
-            fill="outline" type="text">
+            fill="outline" type="text" v-model="formData.province">
           </IonInput>
           <IonInput class="modal-addjobpost-input" label="City/Town" placeholder="City/Town" labelPlacement="stacked"
-            fill="outline" type="text">
+            fill="outline" type="text" v-model="formData.citown">
           </IonInput>
         </div>
         <div class="flexcenter">
-          <IonInput class="modal-addjobpost-input" label="District" placeholder="District - Purok" labelPlacement="stacked"
-            fill="outline" type="text">
+          <IonInput class="modal-addjobpost-input" label="District" placeholder="District - Purok"
+            labelPlacement="stacked" fill="outline" type="text" v-model="formData.district">
           </IonInput>
           <IonInput class="modal-addjobpost-input" label="Street" placeholder="Street" labelPlacement="stacked"
-            fill="outline" type="text">
+            fill="outline" type="text" v-model="formData.street">
           </IonInput>
         </div>
-
-        <!-- <div class="flexcenter" style="justify-content: left; margin-left: 5px">
-          <IonChip v-for="choice in chosenChoices" :key="choice.id">
-            {{ choice.label }}
-            <IonIcon class="modal-addjobpost-icon" @click="removeChoice(choice.id)" :icon="close"></IonIcon>
-          </IonChip>
-
-          <div v-if="chosenChoices.length > 0" class="flexcenter">
-            <IonIcon @click="openModal" size="large" :icon="addCircleOutline" class="modal-addjobpost-addicon"></IonIcon>
-          </div>
-          <div v-else class="flexcenter">
-            <IonButton @click="openModal" class="modal-addjobpost-button-button-tags" fill="outline"
-              style="border-radius: 100%">
-              Add Specialized Fields
-            </IonButton>
-          </div>
-        </div><br /> -->
 
         <!-- <div>
           <ion-radio-group v-model="formData.isactive" required>
@@ -326,9 +319,16 @@ export default {
       reqeduc: "",
       loc: "",
       noofempl: "",
+      age: "",
       company: companyname.value,
       isactive: "activate",
       creator: creator.value,
+      province: "",
+      district: "",
+      citown: "",
+      street: "",
+      classification: "",
+      subclassification: "",
     }));
 
     return {
@@ -349,15 +349,19 @@ export default {
       selectedImage: null,
       thereisImage: false,
       prefferedClassification: "",
+      subclassificationClassification: "",
     };
   },
-  computed:{
-
-  },
   methods: {
-    updateChosenspecial(PC){
+    updateChosenspecial(PC) {
       this.prefferedClassification = PC
       console.log(this.prefferedClassification)
+      this.formData.classification = this.prefferedClassification
+    },
+    updatesubChosenspecial(PC) {
+      this.subclassificationClassification = PC
+      console.log(this.subclassificationClassification)
+      this.formData.subclassification = this.subclassificationClassification
     },
     changeArchive() {
       if (this.archive == true) {
@@ -439,7 +443,10 @@ export default {
         "salary",
         "yearsofexp",
         "reqeduc",
-        "noofempl"
+        "noofempl",
+        "age",
+        "province",
+        "citown",
       ];
       let isFormValid = true;
       let isImageSelected = false;

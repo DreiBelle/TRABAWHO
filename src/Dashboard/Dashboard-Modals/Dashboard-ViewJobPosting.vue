@@ -25,8 +25,10 @@
 
     <IonGrid style="height: 100%; width: 100%">
       <IonRow style="height: 100%;">
-        <IonCol size="5.5" class="flexcenter">
-          <img class="modal-viewjobpost-image" :src="jobPosting ? jobPosting.pic : ''" alt="" />
+        <IonCol size="5.5" class="flexcenter" style="max-height: 550px; border: 1px solid black;">
+          <div class="flexcenter" style="height: 100%; width: 100%;">
+            <img class="modal-viewjobpost-image" :src="jobPosting ? jobPosting.pic : ''" alt="" />
+          </div>
           <div class="swipe-text-preview">
             <div>
               <IonText class="swipe-text-stroke" style="font-size: 35px;"> {{ jobPosting ?

@@ -1,9 +1,10 @@
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../firebaseDB";
-import { GoHomeSwipeJobSeekers, GoEmployerDashboard } from "./Login-Controller";
+import { GoHomeSwipeJobSeekers, GoEmployerDashboard, GoHome } from "./Login-Controller";
 import { onAuthStateChanged, signOut, sendPasswordResetEmail  } from "firebase/auth";
 import { auth } from "@/firebaseDB";
 import { ref, onMounted } from "vue";
+import { GoEmployerHome } from "@/Dashboard/Employer-Dashboard-Controller";
 
 const isLoggedIn = ref(false);
 
@@ -41,6 +42,7 @@ async function UserLogin_(Username) {
     }
   } else {
     console.log("Email not found");
+    GoHome
   }
 }
 
@@ -69,6 +71,7 @@ async function checkgoogle_(email) {
   } else {
     console.log("Username not found");
     alert('Email not found in Firestore.');
+    GoEmployerHome
     signOut(auth).then(() => {
       
     });

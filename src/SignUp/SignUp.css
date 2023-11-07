@@ -229,3 +229,13 @@
 .jsignupModal{
   --border-radius: 30px;
 }
+
+.jsignup-specialFields-input{
+  width: 100% !important;
+  height: 45px;
+  min-height: 10px !important;
+  color: black;
+  --highlight-color-focused: #262c5c;
+  --border-color: black !important;
+  margin: 10px 0 0 5px;
+}
