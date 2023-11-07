@@ -404,8 +404,7 @@ export default {
       this.formData.reqeduc = "";
       this.formData.loc = "";
       this.formData.noofempl = "";
-      this.formData.isactive = "";
-      this.formData.creator = "";
+      this.formData.age = "";
 
       // Clear the image URL and set thereisImage to false
       this.imageUrl = null;

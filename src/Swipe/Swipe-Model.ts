@@ -1,32 +1,174 @@
 import { collection, query, where, getDocs, doc, getDoc, deleteDoc, updateDoc } from "firebase/firestore";
 import { db } from "../firebaseDB";
 
-async function getJobs_(chosenInterest, jobtype, loc, yearsofexp) {
+async function getJobs_(chosenInterest, jobtype, loc, yearsofexp, province) {
+    try {
+        const jobpostCollection = collection(db, "jobpost"); 
+        if(loc == 'Within the province'){
+            const q = query(jobpostCollection, 
+                where("province", "==", province),
+                where("chosenInterests", "array-contains-any", chosenInterest),
+                where("jobtype", "in", jobtype),
+                where("yearsofexp", "==", yearsofexp),
+                );
+    
+            const querySnapshot = await getDocs(q);
+    
+            const jobs = [];
+    
+            querySnapshot.forEach((doc) => {
+                if (doc.exists) {
+                    const jobdata = doc.data();
+                    jobdata.id = doc.id;
+                    jobs.push(jobdata);
+                }
+            });
+    
+            console.log(jobs);
+    
+            return jobs;
+        }
+        else{
+            const q = query(jobpostCollection, 
+                where("province", "!=", province),
+                where("chosenInterests", "array-contains-any", chosenInterest),
+                where("jobtype", "in", jobtype),
+                where("yearsofexp", "==", yearsofexp),
+            );
+    
+            const querySnapshot = await getDocs(q);
+    
+            const jobs = [];
+    
+            querySnapshot.forEach((doc) => {
+                if (doc.exists) {
+                    const jobdata = doc.data();
+                    jobdata.id = doc.id;
+                    jobs.push(jobdata);
+                }
+            });
+    
+            console.log(jobs);
+    
+            return jobs;
+        }
+        
+    } catch (error) {
+        console.error("Error getting jobs: ", error);
+        throw error;
+    }
+}
+
+async function getJobs2_(subclassification, jobtype, loc, yearsofexp, province) {
     try {
         const jobpostCollection = collection(db, "jobpost"); 
 
-        const q = query(jobpostCollection, 
-            where("chosenInterests", "array-contains-any", chosenInterest),
-            where("jobtype", "in", jobtype),
-            where("loc", "in", loc),
-            where("yearsofexp", "==", yearsofexp),
+        if (loc == 'Within the province'){
+            const q = query(jobpostCollection, 
+                where("province", "==", province),
+                where("subclassification", "==", subclassification),
+                where("jobtype", "in", jobtype),
+                where("yearsofexp", "==", yearsofexp),
             );
+    
+            const querySnapshot = await getDocs(q);
+    
+            const jobs = [];
+    
+            querySnapshot.forEach((doc) => {
+                if (doc.exists) {
+                    const jobdata = doc.data();
+                    jobdata.id = doc.id;
+                    jobs.push(jobdata);
+                }
+            });
+    
+            console.log(jobs);
+    
+            return jobs;
+        }
+        else{
+            const q = query(jobpostCollection, 
+                where("province", "!=", province),
+                where("subclassification", "==", subclassification),
+                where("jobtype", "in", jobtype),
+                where("yearsofexp", "==", yearsofexp),
+            );
+    
+            const querySnapshot = await getDocs(q);
+    
+            const jobs = [];
+    
+            querySnapshot.forEach((doc) => {
+                if (doc.exists) {
+                    const jobdata = doc.data();
+                    jobdata.id = doc.id;
+                    jobs.push(jobdata);
+                }
+            });
+    
+            console.log(jobs);
+    
+            return jobs;
+        }
+    } catch (error) {
+        console.error("Error getting jobs: ", error);
+        throw error;
+    }
+}
 
-        const querySnapshot = await getDocs(q);
+async function getJobs3_(classification, jobtype, loc, yearsofexp, province) {
+    try {
+        const jobpostCollection = collection(db, "jobpost"); 
 
-        const jobs = [];
-
-        querySnapshot.forEach((doc) => {
-            if (doc.exists) {
-                const jobdata = doc.data();
-                jobdata.id = doc.id;
-                jobs.push(jobdata);
-            }
-        });
-
-        console.log(jobs);
-
-        return jobs;
+        if (loc == 'Within the province'){
+            const q = query(jobpostCollection, 
+                where("province", "==", province),
+                where("classification", "==", classification),
+                where("jobtype", "in", jobtype),
+                where("yearsofexp", "==", yearsofexp),
+            );
+    
+            const querySnapshot = await getDocs(q);
+    
+            const jobs = [];
+    
+            querySnapshot.forEach((doc) => {
+                if (doc.exists) {
+                    const jobdata = doc.data();
+                    jobdata.id = doc.id;
+                    jobs.push(jobdata);
+                }
+            });
+    
+            console.log(jobs);
+    
+            return jobs;
+        }
+        else{
+            const q = query(jobpostCollection, 
+                where("province", "!=", province),
+                where("classification", "==", classification),
+                where("jobtype", "in", jobtype),
+                where("yearsofexp", "==", yearsofexp),
+            );
+    
+            const querySnapshot = await getDocs(q);
+    
+            const jobs = [];
+    
+            querySnapshot.forEach((doc) => {
+                if (doc.exists) {
+                    const jobdata = doc.data();
+                    jobdata.id = doc.id;
+                    jobs.push(jobdata);
+                }
+            });
+    
+            console.log(jobs);
+    
+            return jobs;
+        }
     } catch (error) {
         console.error("Error getting jobs: ", error);
         throw error;
@@ -109,6 +251,8 @@ async function deleteBlank1_(id) {
 }
 
 export const getJobs = getJobs_;
+export const getJobs2 = getJobs2_;
+export const getJobs3 = getJobs3_;
 export const getjobownerProfile = getjobownerProfile_;
 export const deleteBlank = deleteBlank_;
 export const deleteBlank1 = deleteBlank1_;

@@ -1,18 +1,18 @@
 <template>
   <IonPage>
-      <div v-if="isloading">
-        <IonHeader style="z-index: 1;" class="jmessage-header">
-          <div class="flexcenter" style="height: 100%; width: 100%;">
-            <div class="jmessage-logo-container">
-              <img class="jmessage-logo" src="../assets/logo/whitefilllogo.png" alt="logo" />
-            </div>
-            <div class="jmessage-icons-settings">
-              <IonIcon :icon="logOut"></IonIcon>
-            </div>
+    <div v-if="isloading">
+      <IonHeader style="z-index: 1;" class="jmessage-header">
+        <div class="flexcenter" style="height: 100%; width: 100%;">
+          <div class="jmessage-logo-container">
+            <img class="jmessage-logo" src="../assets/logo/whitefilllogo.png" alt="logo" />
           </div>
-        </IonHeader>
-        <IonProgressBar style="z-index: 2;" type="indeterminate"></IonProgressBar>
-      </div>
+          <div class="jmessage-icons-settings">
+            <IonIcon :icon="logOut"></IonIcon>
+          </div>
+        </div>
+      </IonHeader>
+      <IonProgressBar style="z-index: 2;" type="indeterminate"></IonProgressBar>
+    </div>
 
     <IonContent class="ion-padding">
       <ion-refresher slot="fixed" @ionRefresh="handleRefresh($event)">
@@ -74,7 +74,7 @@ import FloatingButtons from "./Swipe-FloatingButtons.vue";
 import NavBar from "../NavBar/NavBar.vue";
 import "./Swipe.css";
 import { car, card, settings, logOut } from "ionicons/icons";
-import { getJobs, getjobownerProfile, deleteBlank, deleteBlank1 } from "./Swipe-Model";
+import { getJobs, getJobs2, getJobs3, getjobownerProfile, deleteBlank, deleteBlank1 } from "./Swipe-Model";
 import {
   IonAlert,
   IonCard,
@@ -94,7 +94,7 @@ import {
   IonText,
   IonRefresher,
   IonRefresherContent,
-RefresherEventDetail,
+  RefresherEventDetail,
 } from "@ionic/vue";
 import { db, dbImage } from "@/firebaseDB";
 import { getDownloadURL, ref } from "firebase/storage";
@@ -293,25 +293,86 @@ export default {
       const yearsofexp = user.value.yearsofexp;
       const salary = user.value.salary;
       const jobname = user.value.jobname;
+      const classification = user.value.classification;
+      const subclassification = user.value.subclassification;
+      const province = user.value.province;
       console.log(chosenInterest);
       console.log(jobtype);
       console.log(loc);
       console.log(yearsofexp);
       console.log(salary);
+      console.log(classification);
+      console.log(subclassification);
+      console.log(province);
 
       const jobs = await getJobs(
         chosenInterest,
         jobtype,
         loc,
         yearsofexp,
+        province
+      );
+      const jobs2 = await getJobs2(
+        subclassification,
+        jobtype,
+        loc,
+        yearsofexp,
+        province
+      );
+      const jobs3 = await getJobs3(
+        classification,
+        jobtype,
+        loc,
+        yearsofexp,
+        province
       );
 
-      const filteredJobs = jobs.filter((job) => {
-        // icheCheck kung  yung jobid ay nasa user sa swiperjob array
-        return !this.user.swiperjob.some((swiperJob) => swiperJob.jobdid === job.id) && job.isactive == "activate";
-      });
+      // Create a Set to store unique job IDs
+      const uniqueJobIds = new Set();
 
-      // Fetch image URLs from Firebase Storage for each job
+      const filteredJobs = [
+        ...jobs.filter((job) => {
+          const shouldInclude = (
+            !this.user.swiperjob.some((swiperJob) => swiperJob.jobdid === job.id) &&
+            job.isactive === "activate" &&
+            !uniqueJobIds.has(job.id)
+          );
+
+          if (shouldInclude) {
+            uniqueJobIds.add(job.id);
+          }
+
+          return shouldInclude;
+        }),
+        ...jobs2.filter((job) => {
+          const shouldInclude = (
+            !this.user.swiperjob.some((swiperJob) => swiperJob.jobdid === job.id) &&
+            job.isactive === "activate" &&
+            !uniqueJobIds.has(job.id)
+          );
+
+          if (shouldInclude) {
+            uniqueJobIds.add(job.id);
+          }
+
+          return shouldInclude;
+        }),
+        ...jobs3.filter((job) => {
+          const shouldInclude = (
+            !this.user.swiperjob.some((swiperJob) => swiperJob.jobdid === job.id) &&
+            job.isactive === "activate" &&
+            !uniqueJobIds.has(job.id)
+          );
+
+          if (shouldInclude) {
+            uniqueJobIds.add(job.id);
+          }
+
+          return shouldInclude;
+        })
+      ];
+
+
       const jobsWithImages = await Promise.all(
         filteredJobs.map(async (job) => {
           const imageUrl = await getDownloadURL(ref(dbImage, job.pic));
