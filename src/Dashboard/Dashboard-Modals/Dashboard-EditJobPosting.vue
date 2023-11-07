@@ -153,6 +153,15 @@
 
         <div class="flexcenter" style="margin-top: 10px;">
           <IonText class="modal-addjobpost-titlediv">
+            SPECIALIZED FIELDS
+          </IonText>
+        </div>
+        <div>
+          <NewTags></NewTags>
+        </div>
+
+        <div class="flexcenter" style="margin-top: 10px;">
+          <IonText class="modal-addjobpost-titlediv">
             WORK LOCATION
           </IonText>
         </div>
@@ -174,7 +183,7 @@
           </IonInput>
         </div>
 
-        <div class="flexcenter" style="margin-top: 10px;">
+        <!-- <div class="flexcenter" style="margin-top: 10px;">
           <IonText class="modal-addjobpost-titlediv">
             SPECIALIZED FIELDS
           </IonText>
@@ -195,7 +204,7 @@
               Add Specialized Fields
             </IonButton>
           </div>
-        </div><br />
+        </div><br /> -->
 
         <!-- <div>
           <ion-radio-group v-model="formData.isactive" required>
@@ -208,7 +217,7 @@
           </ion-radio-group>
         </div><br /> -->
 
-        <div style="width: 100%" class="flexcenter">
+        <div style="width: 100%; margin-top: 10px;" class="flexcenter">
           <div style="width: 50%">
             <IonButton @click="closeOther" class="modal-addjobpost-button" style="--background: darkred">
               cancel
@@ -260,8 +269,11 @@ import { getDashboardProfile } from "../Dashboard-Model";
 import { ref, onMounted, computed, defineComponent, PropType } from "vue";
 import { addCircleOutline, close } from "ionicons/icons";
 import { IonRadio, IonRadioGroup } from '@ionic/vue';
+import NewTags from "../SpecializedFields.vue";
+
 export default {
   components: {
+    NewTags,
     IonIcon,
     IonTextarea,
     IonGrid,
@@ -425,7 +437,7 @@ export default {
         isImageSelected = true;
       }
 
-      if (isFormValid && this.chosenChoices.length > 0) {
+      if (isFormValid) {
         if (this.selectedFile) {
           // Upload the selected image to Firebase Storage
           const storageRef = asd(

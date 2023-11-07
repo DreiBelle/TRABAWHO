@@ -8,9 +8,19 @@
 
       <div style="padding: 10px">
 
-        <!-- <div>
-          <IonToggle @ion-change="changeArchive()" v-model="Archive" required mode="ios" :checked="true"></IonToggle>
-        </div> -->
+        <div style="position: absolute; right: 10px">
+          <div class="flexcenter">
+            <IonText class="modal-editjobposting-active"> Active: </IonText>
+            <IonToggle
+              @ion-change="changeArchive()"
+              v-model="Archive"
+              required
+              mode="ios"
+              :checked="true"
+              :disabled="true"
+            ></IonToggle>
+          </div>
+        </div>
 
         <div class="flexcenter" v-if="!thereisImage">
           <div>
@@ -144,6 +154,15 @@
           </IonSelect>
         </div>
 
+        <div class="flexcenter" style="margin-top: 10px;">
+          <IonText class="modal-addjobpost-titlediv">
+            SPECIALIZED FIELDS
+          </IonText>
+        </div>
+        <div>
+          <NewTags v-on:chosen-special="updateChosenspecial"></NewTags>
+        </div>
+
 
         <div class="flexcenter" style="margin-top: 10px;">
           <IonText class="modal-addjobpost-titlediv">
@@ -168,13 +187,7 @@
           </IonInput>
         </div>
 
-        <div class="flexcenter" style="margin-top: 10px;">
-          <IonText class="modal-addjobpost-titlediv">
-            SPECIALIZED FIELDS
-          </IonText>
-        </div>
-
-        <div class="flexcenter" style="justify-content: left; margin-left: 5px">
+        <!-- <div class="flexcenter" style="justify-content: left; margin-left: 5px">
           <IonChip v-for="choice in chosenChoices" :key="choice.id">
             {{ choice.label }}
             <IonIcon class="modal-addjobpost-icon" @click="removeChoice(choice.id)" :icon="close"></IonIcon>
@@ -189,7 +202,7 @@
               Add Specialized Fields
             </IonButton>
           </div>
-        </div><br />
+        </div><br /> -->
 
         <!-- <div>
           <ion-radio-group v-model="formData.isactive" required>
@@ -202,7 +215,7 @@
           </ion-radio-group>
         </div><br />  -->
 
-        <div style="width: 100%" class="flexcenter">
+        <div style="width: 100%; margin-top: 10px;" class="flexcenter">
           <div style="width: 50%">
             <IonButton @click="closeOther" class="modal-addjobpost-button" style="--background: darkred" expand="block">
               cancel
@@ -254,8 +267,11 @@ import { getDashboardProfile } from "./Dashboard-Model";
 import { ref, onMounted, computed } from "vue";
 import { addCircleOutline, close, radio } from "ionicons/icons";
 import { IonRadio, IonRadioGroup } from '@ionic/vue';
+import NewTags from "./SpecializedFields.vue";
+
 export default {
   components: {
+    NewTags,
     IonText,
     IonHeader,
     IonIcon,
@@ -332,9 +348,17 @@ export default {
       chosenChoices: [],
       selectedImage: null,
       thereisImage: false,
+      prefferedClassification: "",
     };
   },
+  computed:{
+
+  },
   methods: {
+    updateChosenspecial(PC){
+      this.prefferedClassification = PC
+      console.log(this.prefferedClassification)
+    },
     changeArchive() {
       if (this.archive == true) {
         this.formData.isactive = 'activate'
@@ -431,7 +455,7 @@ export default {
         isImageSelected = true;
       }
 
-      if (isFormValid && this.chosenChoices.length > 0 && isImageSelected) {
+      if (isFormValid && isImageSelected) {
         if (this.selectedFile) {
           // Upload the selected image to Firebase Storage
           const storageRef = asd(

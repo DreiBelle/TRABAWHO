@@ -1,30 +1,47 @@
 <template>
   <IonPage style="background-color: rgb(236, 228, 228); color: black">
     <IonGrid style="height: 10%; width: 100%; padding: 0px 0px 0px 250px">
-      <IonRow style="height: 30px; background: #202651;">
+      <IonRow style="height: 30px; background: #202651">
         <IonCol>
-          <IonText style="color: white; justify-content: right; display: flex;"> 
-            Welcome Back! 
+          <IonText style="color: white; justify-content: right; display: flex">
+            Welcome Back!
             {{ user ? `${user.businessname}` : "Loading..." }}
-            <IonIcon style="padding-left: 5px;" :icon="personOutline"></IonIcon>
+            <IonIcon style="padding-left: 5px" :icon="personOutline"></IonIcon>
           </IonText>
         </IonCol>
       </IonRow>
-      <IonRow style="height: 20%; padding-top: 10px;">
+      <IonRow style="height: 20%; padding-top: 10px">
         <IonCol class="flexcenter">
-          <IonCard class="dashboard-minidataanalytics-card"> likes <IonText style="font-size: 100px;"> {{ likes }} </IonText></IonCard>
+          <IonCard class="dashboard-minidataanalytics-card">
+            <div class="flexcenter">LIKES:</div>
+            <div class="flexcenter">
+              <IonText style="font-size: 50px"> {{ likes }} </IonText>
+            </div>
+          </IonCard>
         </IonCol>
         <IonCol class="flexcenter">
-          <IonCard class="dashboard-minidataanalytics-card"> views <IonText style="font-size: 100px;"> {{ views }} </IonText></IonCard>
+          <IonCard class="dashboard-minidataanalytics-card">
+            <div class="flexcenter">VIEWS:</div>
+            <div class="flexcenter">
+              <IonText style="font-size: 50px"> {{ views }} </IonText>
+            </div>
+          </IonCard>
         </IonCol>
         <IonCol class="flexcenter">
-          <IonCard class="dashboard-minidataanalytics-card"> Jobpostings <IonText style="font-size: 100px;"> {{ jobPostings.length }} </IonText></IonCard>
+          <IonCard class="dashboard-minidataanalytics-card">
+            <div class="flexcenter">JOB POSTINGS:</div>
+            <div class="flexcenter">
+              <IonText style="font-size: 50px">
+                {{ jobPostings.length }}
+              </IonText>
+            </div>
+          </IonCard>
         </IonCol>
       </IonRow>
       <IonRow class="page-components-container">
         <IonCol class="flexcenter">
-          <IonCard style="height: 100%; width: 100%; background-color: azure;">
-            <component :is="Views"/>
+          <IonCard style="height: 100%; width: 100%; background-color: azure">
+            <component :is="Views" />
           </IonCard>
         </IonCol>
       </IonRow>
@@ -51,10 +68,10 @@
         </IonCol>
       </IonRow>
       <IonRow>
-        <IonCol 
-           @click="ShowTabs('Home')"
-           class="dashboard-navbar-flexcenter dashboard-navbar-cols"
-          >
+        <IonCol
+          @click="ShowTabs('Home')"
+          class="dashboard-navbar-flexcenter dashboard-navbar-cols"
+        >
           <IonIcon class="dashboard-navbar-icons" :icon="homeOutline"></IonIcon>
           <IonText class="dashboard-navbar-navigations">Home</IonText>
         </IonCol>
@@ -218,7 +235,7 @@ export default {
       jobPostings.value = await getJobPostings(
         userEmail,
         user.value.businessname,
-        user.value.id,
+        user.value.id
       );
 
       jobPostings.value.forEach((jobPosting) => {
