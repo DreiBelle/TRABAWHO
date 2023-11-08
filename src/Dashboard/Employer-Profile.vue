@@ -2,7 +2,7 @@
   <IonPage>
     <IonContent style="--background: none">
       <div
-        v-if="user && (user.founders && user.businessname && user.email && user.loc && user.businessname && user.number && user.pic && user.bacpic && user.yearsofest)">
+        v-if="user && (user.founders && user.businessname && user.email && user.loc && user.number && user.pic && user.bacpic && user.yearsofest)">
         <IonGrid class="eprofile-grid">
           <IonRow style="height: calc(100% - 55px)">
             <IonCol size="3">

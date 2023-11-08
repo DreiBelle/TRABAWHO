@@ -4,57 +4,45 @@
         <IonIcon @click="filterModal(true)" class="admin-manageuser-icons admin-manageuser-icons-filter" :icon="filter">
         </IonIcon>
     </div>
-    <div style="height: 90%;">
+
+    <div style="height: 100%;">
         <IonContent class="custom-scrollbar">
             <div class="admin-manageuser-cards-container">
-                <IonCard v-for="user in filteredSearch" class="flexcenter admin-manageuser-card"
-                    @click="viewuserModal(true, user.id)">
-                    <IonGrid style="height: 100%; padding: 0;">
-                        <IonRow style="height: 100%;">
-                            <IonCol size="2" style="padding: 0;">
-                                <img class="admin-manageuser-picture" v-if="user.pic" :src="user.pic" alt="picture">
-                                <img class="admin-manageuser-picture" v-if="!user.pic"
-                                    src="https://ionicframework.com/docs/img/demos/avatar.svg" alt="picture">
-                            </IonCol>
-                            <IonCol size="9.3">
-                                <IonRow style="height: 33%;">
-                                    <IonCol class="admin-manageuser-borderbottom" style="border-top: 1px solid grey;">
-                                        <IonText class="admin-manageuser-text" v-if="user.businessname">
-                                            <b>Name:</b> {{ user.businessname }}
-                                        </IonText>
-                                        <IonText class="admin-manageuser-text" v-if="user.fullname">
-                                            <b>Name:</b> {{ user.fullname }}
-                                        </IonText>
-                                    </IonCol>
-                                </IonRow>
-                                <IonRow style="height: 33%;">
-                                    <IonCol class="admin-manageuser-borderbottom">
-                                        <IonText class="admin-manageuser-text">
-                                            <b>Type:</b> {{ user.type }}
-                                        </IonText>
-                                    </IonCol>
-                                </IonRow>
-                                <IonRow style="height: 33%;">
-                                    <IonCol class="admin-manageuser-borderbottom">
-                                        <IonText class="admin-manageuser-text">
-                                            <b>Date Created:</b> {{ user.dateCreated }}
-                                        </IonText>
-                                    </IonCol>
-                                </IonRow>
-                            </IonCol>
-                            <IonCol size=".7" class="flexcenter admin-manageuser-icons admin-manageuser-open">
-                                <IonIcon :icon="chevronForward">
+                <IonCard @click="viewuserModal(true, user.id)" v-for="user in filteredSearch" class="admin-pointer admin-user-cards">
+                    <div class="admin-user-cards-picture">
+                        <img class="admin-manageuser-picture" v-if="user.pic" :src="user.pic" alt="picture">
+                        <img class="admin-manageuser-picture" v-if="!user.pic"
+                            src="https://ionicframework.com/docs/img/demos/avatar.svg" alt="picture">
+                    </div>
+                    <div class="flexcenter" style="height: 40%;">
+                        <div>
+                            <div style="margin: 5px;">
+                                <IonText class="admin-manageuser-text" v-if="user.businessname">
+                                    <b>Name:</b> {{ user.businessname }}
+                                </IonText>
+                                <IonText class="admin-manageuser-text" v-if="user.fullname">
+                                    <b>Name:</b> {{ user.fullname }}
+                                </IonText>
+                            </div>
+                            <div style="margin: 5px;">
+                                <IonText class="admin-manageuser-text">
+                                    <b>Type:</b> {{ user.type }}
+                                </IonText>
 
-                                </IonIcon>
-                            </IonCol>
-                        </IonRow>
-                    </IonGrid>
+                            </div>
+                            <div style="margin: 5px;">
+                                <IonText class="admin-manageuser-text">
+                                    <b>Date Created:</b> {{ user.dateCreated }}
+                                </IonText>
+                            </div>
+                        </div>
+                    </div>
                 </IonCard>
             </div>
         </IonContent>
     </div>
 
-    <IonModal :is-open="isviewUser" @did-dismiss="viewuserModal(false, '')"></IonModal>
+    <viewUser :pass-id="passID" :is-viewmodal="isviewUser" @close-view-modal="viewuserModal(false, '')"></viewUser>
 
     <IonModal :is-open="isfilterModal" @did-dismiss="filterModal(false)" style="--width: 40%; --height: 60%;">
         <div>
@@ -84,9 +72,10 @@
     </IonModal>
 </template>
 <script lang="ts">
-import { IonCard, IonContent, IonList, IonSearchbar, IonPage, IonGrid, IonRow, IonCol, IonIcon, IonText, IonModal, IonSelect, IonSelectOption, IonButton } from '@ionic/vue';
+import { IonCard, IonContent, IonList, IonSearchbar, IonPage, IonGrid, IonRow, IonCol, IonIcon, IonText, IonModal, IonSelect, IonSelectOption, IonButton, IonCardSubtitle, IonCardTitle } from '@ionic/vue';
 import './admin.css'
 import { chevronForward, filter } from 'ionicons/icons';
+import viewUser from './adminModal-ViewUser.vue'
 import {
     collection,
     addDoc,
@@ -103,7 +92,7 @@ import {
 import { db } from "@/firebaseDB";
 
 export default {
-    components: { IonPage, IonSearchbar, IonList, IonCard, IonContent, IonGrid, IonRow, IonCol, IonIcon, IonText, IonModal, IonSelect, IonSelectOption, IonButton },
+    components: { viewUser, IonPage, IonSearchbar, IonList, IonCard, IonContent, IonGrid, IonRow, IonCol, IonIcon, IonText, IonModal, IonSelect, IonSelectOption, IonButton, IonCardSubtitle, IonCardTitle },
     data() {
         return {
             users: [],
@@ -112,6 +101,7 @@ export default {
             filtertype: "",
             isfilterModal: false,
             isviewUser: false,
+            passID: "",
         }
     },
     setup() {
@@ -150,6 +140,7 @@ export default {
         },
         viewuserModal(x, id) {
             this.isviewUser = x
+            this.passID = id
         },
         applyFilter() {
             console.log(this.filtertype)
@@ -165,24 +156,30 @@ export default {
             return this.users.filter((user) => {
                 const searchTermLower = this.searchTerm.toLowerCase();
                 if (this.filtertype) {
-                    if (!this.searchTerm) {
-                        return user.type.toLowerCase().includes(this.filtertype);
-                    } else if (this.searchTerm) {
+                    if (this.searchTerm) {
                         if (user.fullname) {
-                            return user.dateCreated.toLowerCase().includes(searchTermLower) || user.type.toLowerCase().includes(searchTermLower) || user.fullname.toLowerCase().includes(searchTermLower);
-                        } else if (user.businessname) {
-                            return user.dateCreated.toLowerCase().includes(searchTermLower) || user.type.toLowerCase().includes(searchTermLower) || user.businessname.toLowerCase().includes(searchTermLower);
-                        } else {
-                            return user.dateCreated.toLowerCase().includes(searchTermLower) || user.type.toLowerCase().includes(searchTermLower)
+                            return user.fullname.toLowerCase().includes(searchTermLower) && user.type.toLowerCase().includes(this.filtertype)
+                        }
+                        else if (user.businessname) {
+                            return user.businessname.toLowerCase().includes(searchTermLower) && user.type.toLowerCase().includes(this.filtertype)
+                        }
+                    } else {
+                        if (user.fullname) {
+                            return user.fullname.toLowerCase().includes(searchTermLower) && user.type.toLowerCase().includes(this.filtertype)
+                        }
+                        else if (user.businessname) {
+                            return user.businessname.toLowerCase().includes(searchTermLower) && user.type.toLowerCase().includes(this.filtertype)
                         }
                     }
-                } else if (!this.filtertype) {
-                    if (user.fullname) {
-                        return user.dateCreated.toLowerCase().includes(searchTermLower) || user.type.toLowerCase().includes(searchTermLower) || user.fullname.toLowerCase().includes(searchTermLower);
-                    } else if (user.businessname) {
-                        return user.dateCreated.toLowerCase().includes(searchTermLower) || user.type.toLowerCase().includes(searchTermLower) || user.businessname.toLowerCase().includes(searchTermLower);
+                } else {
+                    if (this.searchTerm) {
+                        if (user.fullname) {
+                            return user.fullname.toLowerCase().includes(searchTermLower) && user.type.toLowerCase().includes(this.filtertype)
+                        } else if (user.businessname) {
+                            return user.businessname.toLowerCase().includes(searchTermLower) && user.type.toLowerCase().includes(this.filtertype)
+                        }
                     } else {
-                        return user.dateCreated.toLowerCase().includes(searchTermLower) || user.type.toLowerCase().includes(searchTermLower)
+                        return user.type.toLowerCase().includes(this.filtertype)
                     }
                 }
             });
