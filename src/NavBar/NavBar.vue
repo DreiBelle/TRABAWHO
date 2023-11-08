@@ -1,26 +1,8 @@
 <template>
   <IonPage>
-    <IonHeader class="jmessage-header">
-      <div class="flexcenter" style="height: 100%; width: 100%;">
-        <div class="jmessage-logo-container">
-          <img class="jmessage-logo" src="../assets/logo/whitefilllogo.png" alt="logo" />
-        </div>
-        <div>
-          <IonText class="jmessage-title">
-
-          </IonText>
-        </div>
-        <div class="jmessage-icons-settings">
-          <IonAlert mode="ios" trigger="showLogout" header="logout" :buttons="alertButtons"></IonAlert>
-          <IonIcon id="showLogout" :icon="logOut"></IonIcon>
-        </div>
-      </div>
-    </IonHeader>
-
     <IonTabs>
       <IonRouterOutlet></IonRouterOutlet>
       <IonTabBar class="navbar-container" slot="bottom">
-        <!-- change this button later -->
         <IonTabButton class="NavBar-Buttons" tab="Logout" href="/Seeker-List">
           <IonIcon :icon="list"></IonIcon>
           <IonLabel>List</IonLabel>

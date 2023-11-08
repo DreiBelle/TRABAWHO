@@ -1,67 +1,75 @@
 <template>
   <IonPage>
-    <div v-if="isloading">
-      <IonHeader style="z-index: 1;" class="jmessage-header">
-        <div class="flexcenter" style="height: 100%; width: 100%;">
-          <div class="jmessage-logo-container">
-            <img class="jmessage-logo" src="../assets/logo/whitefilllogo.png" alt="logo" />
+    <IonHeader style="height: 50px">
+      <IonToolbar style="height: 100%; --background: #262c5c">
+        <IonButtons style="padding-left: 10px" slot="start">
+          <div>
+            <img
+              style="height: 30px"
+              src="../assets/logo/whitefilllogo.png"
+              alt="logo"
+            />
           </div>
-          <div class="jmessage-icons-settings">
-            <IonIcon :icon="logOut"></IonIcon>
-          </div>
+        </IonButtons>
+        <IonProgressBar v-if="isloading" type="indeterminate"></IonProgressBar>
+      </IonToolbar>
+    </IonHeader>
+
+    <IonContent v-if="!isloading" style="height: calc(100%-45px)">
+      <div style="height: 0px">
+        <IonRefresher
+          style="background: none; z-index: 3"
+          slot="fixed"
+          @ionRefresh="refresh($event)"
+        >
+          <IonRefresherContent></IonRefresherContent>
+        </IonRefresher>
+      </div>
+      <div class="flexcenter" style="height: 100%">
+        <div
+          class="Swipe-Background"
+          v-if="cards.length - currentCardIndex >= 3"
+        >
+          <SwipeableCard
+            :item="cards[currentCardIndex]"
+            @swipeLeft="handleSwipeLeft"
+            @swipeRight="handleSwipeRight"
+            id="mainswiper"
+            class="asd"
+          />
+          <FakeSwipeableCard :item="cards[nextCardIndex]" class="asd2" />
+          <FakeSwipeableCard :item="cards[nextCardIndex + 1]" class="asd3" />
         </div>
-      </IonHeader>
-      <IonProgressBar style="z-index: 2;" type="indeterminate"></IonProgressBar>
-    </div>
-
-    <IonContent class="ion-padding">
-      <ion-refresher slot="fixed" @ionRefresh="handleRefresh($event)">
-        <ion-refresher-content></ion-refresher-content>
-      </ion-refresher>
-
-      <div v-if="!isloading">
-        <IonPage>
-          <IonHeader class="jmessage-header">
-            <div class="flexcenter" style="height: 100%; width: 100%;">
-              <div class="jmessage-logo-container">
-                <img class="jmessage-logo" src="../assets/logo/whitefilllogo.png" alt="logo" />
-              </div>
-              <div class="jmessage-icons-settings">
-                <IonIcon id="showLogout" :icon="logOut"></IonIcon>
-              </div>
-            </div>
-          </IonHeader>
-          <IonGrid style="height: 100%; width: 100%; background: whitesmoke">
-            <IonRow style="height: 100%">
-              <IonCol>
-                <div class="Swipe-Background" v-if="(cards.length - currentCardIndex) >= 3">
-                  <SwipeableCard :item="cards[currentCardIndex]" @swipeLeft="handleSwipeLeft"
-                    @swipeRight="handleSwipeRight" id="mainswiper" class="asd" />
-                  <FakeSwipeableCard :item="cards[nextCardIndex]" class="asd2" />
-                  <FakeSwipeableCard :item="cards[nextCardIndex + 1]" class="asd3" />
-                </div>
-                <div class="Swipe-Background" v-else-if="(cards.length - currentCardIndex) == 2">
-                  <SwipeableCard :item="cards[currentCardIndex]" @swipeLeft="handleSwipeLeft"
-                    @swipeRight="handleSwipeRight" id="mainswiper" class="asd" />
-                  <FakeSwipeableCard :item="cards[nextCardIndex]" class="asd2" />
-                </div>
-                <div class="Swipe-Background" v-else-if="(cards.length - currentCardIndex) == 1">
-                  <SwipeableCard :item="cards[currentCardIndex]" @swipeLeft="handleSwipeLeft"
-                    @swipeRight="handleSwipeRight" style="z-index: 2" id="mainswiper" class="asd" />
-                  <IonCard class="Swipe-Swipeable">
-                    no more available jobs
-                  </IonCard>
-                </div>
-                <div class="Swipe-Background" v-else>
-                  <IonCard class="Swipe-Swipeable">
-                    no more available jobs
-                  </IonCard>
-                </div>
-              </IonCol>
-            </IonRow>
-          </IonGrid>
-          <!-- <FloatingButtons style="z-index: 3;"/> -->
-        </IonPage>
+        <div
+          class="Swipe-Background"
+          v-else-if="cards.length - currentCardIndex == 2"
+        >
+          <SwipeableCard
+            :item="cards[currentCardIndex]"
+            @swipeLeft="handleSwipeLeft"
+            @swipeRight="handleSwipeRight"
+            id="mainswiper"
+            class="asd"
+          />
+          <FakeSwipeableCard :item="cards[nextCardIndex]" class="asd2" />
+        </div>
+        <div
+          class="Swipe-Background"
+          v-else-if="cards.length - currentCardIndex == 1"
+        >
+          <SwipeableCard
+            :item="cards[currentCardIndex]"
+            @swipeLeft="handleSwipeLeft"
+            @swipeRight="handleSwipeRight"
+            style="z-index: 2"
+            id="mainswiper"
+            class="asd"
+          />
+          <IonCard class="Swipe-Swipeable"> no more available jobs </IonCard>
+        </div>
+        <div class="Swipe-Background" v-else>
+          <IonCard class="Swipe-Swipeable"> no more available jobs </IonCard>
+        </div>
       </div>
     </IonContent>
   </IonPage>
@@ -70,11 +78,17 @@
 <script lang="ts">
 import SwipeableCard from "./Swipe-Tinder.vue";
 import FakeSwipeableCard from "./FakeSwipe-Tinder.vue";
-import FloatingButtons from "./Swipe-FloatingButtons.vue";
 import NavBar from "../NavBar/NavBar.vue";
 import "./Swipe.css";
 import { car, card, settings, logOut } from "ionicons/icons";
-import { getJobs, getJobs2, getJobs3, getjobownerProfile, deleteBlank, deleteBlank1 } from "./Swipe-Model";
+import {
+  getJobs,
+  getJobs2,
+  getJobs3,
+  getjobownerProfile,
+  deleteBlank,
+  deleteBlank1,
+} from "./Swipe-Model";
 import {
   IonAlert,
   IonCard,
@@ -95,12 +109,14 @@ import {
   IonRefresher,
   IonRefresherContent,
   RefresherEventDetail,
+  IonToolbar,
+  IonButtons,
 } from "@ionic/vue";
 import { db, dbImage } from "@/firebaseDB";
 import { getDownloadURL, ref } from "firebase/storage";
 import { ref as asd, onMounted } from "vue";
 import { getUserProfile } from "../Profile/Profile-Model";
-import '../Message/Seeker-Message.css';
+import "../Message/Seeker-Message.css";
 import { getDashboardProfile } from "@/Dashboard/Dashboard-Model";
 import { useSwipedata } from "@/stores/swipedata";
 import { useSwipejob } from "@/stores/userswipejob";
@@ -116,7 +132,6 @@ export default {
   components: {
     IonText,
     FakeSwipeableCard,
-    FloatingButtons,
     SwipeableCard,
     NavBar,
     IonGrid,
@@ -136,8 +151,13 @@ export default {
     IonAlert,
     IonRefresher,
     IonRefresherContent,
+    IonToolbar,
+    IonButtons,
   },
   setup() {
+//new
+
+    //old
     const user = asd(null);
     onMounted(async () => {
       const userEmail = localStorage.getItem("email");
@@ -153,12 +173,12 @@ export default {
 
     const alertButtons = [
       {
-        text: 'Cancel',
-        role: 'cancel',
+        text: "Cancel",
+        role: "cancel",
       },
       {
-        text: 'OK',
-        role: 'confirm',
+        text: "OK",
+        role: "confirm",
         handler: () => {
           signOut(auth).then(() => {
             localStorage.removeItem("email");
@@ -173,10 +193,21 @@ export default {
       setTimeout(() => {
         location.reload();
         event.detail.complete();
-      }, 2000);
+      }, 100);
     };
 
-    return { alertButtons, logOut, settings, user, useswipedata, useswipejob, updatelikes, updateviews, updatebookmarks, handleRefresh };
+    return {
+      alertButtons,
+      logOut,
+      settings,
+      user,
+      useswipedata,
+      useswipejob,
+      updatelikes,
+      updateviews,
+      updatebookmarks,
+      handleRefresh,
+    };
   },
   data() {
     return {
@@ -190,6 +221,136 @@ export default {
     };
   },
   methods: {
+    async refresh(event: CustomEvent<RefresherEventDetail>) {
+      if (this.cards) {
+        const jobIds = [];
+        const user = asd(null);
+        const userEmail = localStorage.getItem("email");
+        // const userPassword = localStorage.getItem("password");
+        user.value = await getUserProfile(userEmail);
+
+        const chosenInterest = user.value.chosenInterests;
+        const jobtype = user.value.jobtype;
+        const loc = user.value.loc;
+        const yearsofexp = user.value.yearsofexp;
+        const salary = user.value.salary;
+        const jobname = user.value.jobname;
+        const classification = user.value.classification;
+        const subclassification = user.value.subclassification;
+        const province = user.value.province;
+        console.log(chosenInterest);
+        console.log(jobtype);
+        console.log(loc);
+        console.log(yearsofexp);
+        console.log(salary);
+        console.log(classification);
+        console.log(subclassification);
+        console.log(province);
+
+        const jobs = await getJobs(
+          chosenInterest,
+          jobtype,
+          loc,
+          yearsofexp,
+          province
+        );
+        const jobs2 = await getJobs2(
+          subclassification,
+          jobtype,
+          loc,
+          yearsofexp,
+          province
+        );
+        const jobs3 = await getJobs3(
+          classification,
+          jobtype,
+          loc,
+          yearsofexp,
+          province
+        );
+
+        // Create a Set to store unique job IDs
+        const uniqueJobIds = new Set();
+
+        const filteredJobs = [
+          ...jobs.filter((job) => {
+            const shouldInclude =
+              !this.user.swiperjob.some(
+                (swiperJob) => swiperJob.jobdid === job.id
+              ) &&
+              job.isactive === "activate" &&
+              !uniqueJobIds.has(job.id);
+
+            if (shouldInclude) {
+              uniqueJobIds.add(job.id);
+            }
+
+            return shouldInclude;
+          }),
+          ...jobs2.filter((job) => {
+            const shouldInclude =
+              !this.user.swiperjob.some(
+                (swiperJob) => swiperJob.jobdid === job.id
+              ) &&
+              job.isactive === "activate" &&
+              !uniqueJobIds.has(job.id);
+
+            if (shouldInclude) {
+              uniqueJobIds.add(job.id);
+            }
+
+            return shouldInclude;
+          }),
+          ...jobs3.filter((job) => {
+            const shouldInclude =
+              !this.user.swiperjob.some(
+                (swiperJob) => swiperJob.jobdid === job.id
+              ) &&
+              job.isactive === "activate" &&
+              !uniqueJobIds.has(job.id);
+
+            if (shouldInclude) {
+              uniqueJobIds.add(job.id);
+            }
+
+            return shouldInclude;
+          }),
+        ];
+
+        const jobsWithImages = await Promise.all(
+          filteredJobs.map(async (job) => {
+            const imageUrl = await getDownloadURL(ref(dbImage, job.pic));
+            return {
+              id: job.id,
+              jobname: job.jobname,
+              pic: imageUrl,
+              jobtype: job.jobtype,
+              jobdes: job.jobdes,
+              company: job.company,
+              hours: job.hours,
+              loc: job.loc,
+              positionlvl: job.positionlvl,
+              reqeduc: job.reqeduc,
+              salary: job.salary,
+              yearsofexp: job.yearsofexp,
+              likes: job.likes,
+              views: job.views,
+              bookmarks: job.bookmarks,
+              creator: job.creator,
+            };
+          })
+        );
+
+        this.cards = jobsWithImages;
+        this.nextCardIndex = 1;
+        this.currentCardIndex = 0;
+        this.isloading = false;
+        event.detail.complete();
+      } else {
+        console.log("wala");
+      }
+    },
+
     async handleSwipeLeft(job) {
       const swiper = document.getElementById("mainswiper");
 
@@ -263,7 +424,7 @@ export default {
       this.updateviews.setviews(newview);
       await this.updateviews.updateviews(job.id);
 
-      deleteBlank(this.user.id)
+      deleteBlank(this.user.id);
       deleteBlank(job.company);
       deleteBlank1(job.company);
 
@@ -332,11 +493,12 @@ export default {
 
       const filteredJobs = [
         ...jobs.filter((job) => {
-          const shouldInclude = (
-            !this.user.swiperjob.some((swiperJob) => swiperJob.jobdid === job.id) &&
+          const shouldInclude =
+            !this.user.swiperjob.some(
+              (swiperJob) => swiperJob.jobdid === job.id
+            ) &&
             job.isactive === "activate" &&
-            !uniqueJobIds.has(job.id)
-          );
+            !uniqueJobIds.has(job.id);
 
           if (shouldInclude) {
             uniqueJobIds.add(job.id);
@@ -345,11 +507,12 @@ export default {
           return shouldInclude;
         }),
         ...jobs2.filter((job) => {
-          const shouldInclude = (
-            !this.user.swiperjob.some((swiperJob) => swiperJob.jobdid === job.id) &&
+          const shouldInclude =
+            !this.user.swiperjob.some(
+              (swiperJob) => swiperJob.jobdid === job.id
+            ) &&
             job.isactive === "activate" &&
-            !uniqueJobIds.has(job.id)
-          );
+            !uniqueJobIds.has(job.id);
 
           if (shouldInclude) {
             uniqueJobIds.add(job.id);
@@ -358,20 +521,20 @@ export default {
           return shouldInclude;
         }),
         ...jobs3.filter((job) => {
-          const shouldInclude = (
-            !this.user.swiperjob.some((swiperJob) => swiperJob.jobdid === job.id) &&
+          const shouldInclude =
+            !this.user.swiperjob.some(
+              (swiperJob) => swiperJob.jobdid === job.id
+            ) &&
             job.isactive === "activate" &&
-            !uniqueJobIds.has(job.id)
-          );
+            !uniqueJobIds.has(job.id);
 
           if (shouldInclude) {
             uniqueJobIds.add(job.id);
           }
 
           return shouldInclude;
-        })
+        }),
       ];
-
 
       const jobsWithImages = await Promise.all(
         filteredJobs.map(async (job) => {
@@ -398,7 +561,6 @@ export default {
       );
 
       this.cards = jobsWithImages;
-
     } catch (error) {
       console.error("Error fetching jobs: ", error);
     }

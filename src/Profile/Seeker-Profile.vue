@@ -1,7 +1,29 @@
 <template>
   <IonPage class="jprofile-contents" ref="page">
-    <IonHeader style="z-index: 1;" class="jprofile-header">
-
+    <IonHeader style="height: 50px">
+      <IonToolbar style="height: 50px; --background: #262c5c">
+        <IonButtons slot="start">
+          <div>
+            <img
+              style="height: 30px"
+              src="../assets/logo/whitefilllogo.png"
+              alt="logo"
+            />
+          </div>
+        </IonButtons> 
+        <IonTitle style="text-align: center; color: white;">
+          PROFILE
+        </IonTitle>
+        <IonButtons slot="end">
+          <div>
+            <IonIcon
+              style="height: 30px; width: 30px; color: white"
+              id="showLogout"
+              :icon="logOut"
+            ></IonIcon>
+          </div>
+        </IonButtons>
+      </IonToolbar>
     </IonHeader>
 
     <IonContent>
@@ -9,10 +31,20 @@
         <div>
           <div class="flexcenter">
             <IonButton class="jprofile-button-editprofile">
-              <IonIcon style="position: absolute; font-size: 16px;" :icon="pencilOutline"></IonIcon>
+              <IonIcon
+                style="position: absolute; font-size: 16px"
+                :icon="pencilOutline"
+              ></IonIcon>
             </IonButton>
             <IonAvatar @click="openEditProfileModal()" class="jprofile-avatar">
-              <img :src="user ? user.pic : 'https://ionicframework.com/docs/img/demos/avatar.svg'" alt="image" />
+              <img
+                :src="
+                  user
+                    ? user.pic
+                    : 'https://ionicframework.com/docs/img/demos/avatar.svg'
+                "
+                alt="image"
+              />
             </IonAvatar>
           </div>
           <div class="flexcenter jprofile-text-name">
@@ -49,9 +81,21 @@
       </div>
       <div v-if="adPremium" class="flexcenter">
         <IonCard class="jprofile-cards-ads">
-          <IonText @click="closeads" style="position: absolute; top: 10px; right: 10px;">x</IonText>
-          <IonText class="flexcenter"
-            style="height: 100%; color: black; font-weight: bold; font-size: 20px; text-align: center;">
+          <IonText
+            @click="closeads"
+            style="position: absolute; top: 10px; right: 10px"
+            >x</IonText
+          >
+          <IonText
+            class="flexcenter"
+            style="
+              height: 100%;
+              color: black;
+              font-weight: bold;
+              font-size: 20px;
+              text-align: center;
+            "
+          >
             SOME ADS TO AVAIL PREM
           </IonText>
         </IonCard>
@@ -59,7 +103,9 @@
       <div class="flexcenter">
         <IonCard class="jprofile-cards">
           <div>
-            <IonText class="flexcenter jprofile-modal-field-text jprofile-title">
+            <IonText
+              class="flexcenter jprofile-modal-field-text jprofile-title"
+            >
               EDUCATION
             </IonText>
           </div>
@@ -88,9 +134,7 @@
             </IonCard>
           </div>
           <div>
-            <IonText class="jprofile-cards-education-text">
-              College
-            </IonText>
+            <IonText class="jprofile-cards-education-text"> College </IonText>
             <IonCard class="jprofile-cards-education">
               {{ user ? `${user.college}` : "..." }}
             </IonCard>
@@ -100,7 +144,9 @@
       <div class="flexcenter">
         <IonCard class="jprofile-cards">
           <div>
-            <IonText class="flexcenter jprofile-modal-field-text jprofile-title">
+            <IonText
+              class="flexcenter jprofile-modal-field-text jprofile-title"
+            >
               PREFERENCES
             </IonText>
           </div>
@@ -108,30 +154,22 @@
             <IonText class="jprofile-cards-education-text">
               Hours of Work
             </IonText>
-            <IonCard class="jprofile-cards-education">
-              ano to??
-            </IonCard>
+            <IonCard class="jprofile-cards-education"> ano to?? </IonCard>
           </div>
           <div>
-            <IonText class="jprofile-cards-education-text">
-              Salary
-            </IonText>
+            <IonText class="jprofile-cards-education-text"> Salary </IonText>
             <IonCard class="jprofile-cards-education">
               {{ user ? `${user.asd}` : "..." }}
             </IonCard>
           </div>
           <div>
-            <IonText class="jprofile-cards-education-text">
-              Job type
-            </IonText>
+            <IonText class="jprofile-cards-education-text"> Job type </IonText>
             <IonCard class="jprofile-cards-education">
               {{ user ? `${user.jobtype}` : "..." }}
             </IonCard>
           </div>
           <div>
-            <IonText class="jprofile-cards-education-text">
-              Location
-            </IonText>
+            <IonText class="jprofile-cards-education-text"> Location </IonText>
             <IonCard class="jprofile-cards-education">
               {{ user ? `${user.street}` : "..." }}
               {{ user ? `${user.district}` : "..." }}
@@ -144,26 +182,31 @@
       <div class="flexcenter">
         <IonCard class="jprofile-cards">
           <div>
-            <IonText class="flexcenter jprofile-modal-field-text jprofile-title">
+            <IonText
+              class="flexcenter jprofile-modal-field-text jprofile-title"
+            >
               SPECIALTY
             </IonText>
           </div>
           <div>
             <template v-if="user && user.chosenInterests">
-              <IonChip v-for="interest in user.chosenInterests" :key="interest"> {{ interest.label }} </IonChip>
+              <IonChip v-for="interest in user.chosenInterests" :key="interest">
+                {{ interest.label }}
+              </IonChip>
             </template>
             <template v-else>
               <!-- Handle the case when user or user.chosenInterests is not defined -->
             </template>
           </div>
-
         </IonCard>
       </div>
     </IonContent>
 
-    <profileModal 
-      :is-profile-editmodal="isEditprofile" :user-data="editedUserData"
-      @close-profile-edit-modal="closeEditProfileModal()" />
+    <profileModal
+      :is-profile-editmodal="isEditprofile"
+      :user-data="editedUserData"
+      @close-profile-edit-modal="closeEditProfileModal()"
+    />
   </IonPage>
 </template>
 
@@ -196,15 +239,26 @@ import "./Seeker-Profile.css";
 import { getUserProfile } from "./Profile-Model";
 import { ref, onMounted, computed } from "vue";
 import { GoLogin, GoHome } from "./Profile-Controller";
-import { close, pricetagOutline, addCircleOutline, filterOutline, informationCircleOutline, pencilOutline, person, phonePortraitOutline, schoolOutline, settingsOutline } from "ionicons/icons";
+import {
+  logOut,
+  close,
+  pricetagOutline,
+  addCircleOutline,
+  filterOutline,
+  informationCircleOutline,
+  pencilOutline,
+  person,
+  phonePortraitOutline,
+  schoolOutline,
+  settingsOutline,
+} from "ionicons/icons";
 import router from "@/router";
-import { settings } from 'ionicons/icons'
+import { settings } from "ionicons/icons";
 import ChoiceModal from "@/SignUp/Seeker-InterestModal.vue";
 import { getDashboardProfile } from "@/Dashboard/Dashboard-Model";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "@/firebaseDB";
-import profileModal from './EditProfile-Modal.vue'
-
+import profileModal from "./EditProfile-Modal.vue";
 
 export default {
   components: {
@@ -231,7 +285,7 @@ export default {
     IonCard,
     IonInput,
     IonCardTitle,
-    IonCardContent
+    IonCardContent,
   },
   setup() {
     const user = ref(null);
@@ -270,6 +324,7 @@ export default {
     }));
 
     return {
+      logOut,
       settings,
       pencilOutline,
       schoolOutline,
@@ -282,7 +337,7 @@ export default {
       close,
       user,
       formData,
-    }
+    };
   },
   data() {
     return {
@@ -292,7 +347,7 @@ export default {
       isModalinterest: false,
       chosenChoices: [],
       adPremium: true,
-    }
+    };
   },
   props: {
     userprof: {
@@ -302,7 +357,7 @@ export default {
   },
   methods: {
     closeads() {
-      this.adPremium = false
+      this.adPremium = false;
     },
     removeChoice(choiceId) {
       this.chosenChoices = this.chosenChoices.filter(
@@ -310,7 +365,7 @@ export default {
       );
     },
     modalInterest(x) {
-      this.isModalinterest = x
+      this.isModalinterest = x;
     },
     handleChoiceSelected(choice) {
       this.chosenChoices.push(choice);
@@ -334,7 +389,7 @@ export default {
     },
   },
   mounted() {
-    `this.presentingElement = this.$refs.page.$el;`
+    `this.presentingElement = this.$refs.page.$el;`;
   },
 };
 </script>
