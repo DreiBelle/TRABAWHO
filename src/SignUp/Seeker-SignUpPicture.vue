@@ -62,6 +62,14 @@ import { ref as asd, uploadBytes, getDownloadURL } from "firebase/storage";
 import { dbImage, db } from "@/firebaseDB";
 import { goLogin } from '@/SignUp/SignUp-Controller';
 import { addCircleOutline, arrowBackOutline, close } from "ionicons/icons";
+import { checkgoogle, UserLogin, updatePassword } from "@/Login/Login-Model";
+import {
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  sendPasswordResetEmail,
+} from "firebase/auth";
+import { auth } from "@/firebaseDB";
 
 export default {
     components: {
@@ -181,6 +189,7 @@ export default {
                     pic: this.formData.pic
                 });
                 await signupStore.registerUser();
+                localStorage.setItem("email", sharedFormData.email);
                 GoSwipe();
             } else {
                 console.error("Please fill in all required fields.");

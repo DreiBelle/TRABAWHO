@@ -12,13 +12,30 @@
         </IonHeader>
 
         <IonContent>
-            <div>
+            <div v-if="!imageUrl">
                 <div class="flexcenter jprofile-avatar-modal-div">
                     <IonAvatar class="jprofile-modal-avatar">
+                        <img :src="imageUrl || 'https://ionicframework.com/docs/img/demos/avatar.svg'" alt="profile" />
                     </IonAvatar>
                 </div>
                 <div class="flexcenter">
-                    <input id="fileInput" type="file" accept="image/jpeg" ref="myfile" style="display: none" />
+                    <input id="fileInput" type="file" accept="image/jpeg" ref="myfile" style="display: none"
+                        @change="addProfilepicture" />
+                    <label for="fileInput" class="jprofile-button-picture">
+                        <IonIcon style="margin-bottom: -2px;" :icon="person"></IonIcon>
+                        Change Profile
+                    </label>
+                </div>
+            </div>
+            <div v-else-if="imageUrl">
+                <div class="flexcenter jprofile-avatar-modal-div">
+                    <IonAvatar class="jprofile-modal-avatar">
+                        <img :src="imageUrl" alt="profile" />
+                    </IonAvatar>
+                </div>
+                <div class="flexcenter">
+                    <input id="fileInput" type="file" accept="image/jpeg" ref="myfile" style="display: none"
+                        @change="addProfilepicture" />
                     <label for="fileInput" class="jprofile-button-picture">
                         <IonIcon style="margin-bottom: -2px;" :icon="person"></IonIcon>
                         Change Profile
@@ -43,11 +60,10 @@
                         labelPlacement="stacked" fill="outline" required>
                     </IonInput>
                     <IonInput type="date" mode="md" class="jprofile-modal-inputs" label="Birthday"
-                        placeholder="Enter Birthday" labelPlacement="stacked" fill="outline" v-model="formData.bday"
-                        required>
+                        placeholder="Enter Birthday" labelPlacement="stacked" fill="outline" v-model="formData.bday" required>
                     </IonInput>
                     <IonInput mode="md" class="jprofile-modal-inputs" label="Address" placeholder="Enter Address"
-                        labelPlacement="stacked" fill="outline" v-model="formData.address" required>
+                        labelPlacement="stacked" fill="outline" required>
                     </IonInput>
                     <IonSelect mode="md" label="Gender" placeholder="Select gender" label-placement="stacked"
                         interface="popover" fill="outline" class="jprofile-modal-inputs" v-model="formData.gender" required>
@@ -86,12 +102,10 @@
                         labelPlacement="stacked" fill="outline" v-model="formData.elementary" required>
                     </IonInput>
                     <IonInput mode="md" class="jprofile-modal-inputs" label="Junior Highschool"
-                        placeholder="Elementary Highschool" labelPlacement="stacked" fill="outline"
-                        v-model="formData.juniorhigh" required>
+                        placeholder="Elementary Highschool" labelPlacement="stacked" fill="outline" v-model="formData.juniorhigh" required>
                     </IonInput>
                     <IonInput mode="md" class="jprofile-modal-inputs" label="Senior Highschool"
-                        placeholder="Senior Highschool" labelPlacement="stacked" fill="outline"
-                        v-model="formData.seniorhigh" required>
+                        placeholder="Senior Highschool" labelPlacement="stacked" fill="outline" v-model="formData.seniorhigh" required>
                     </IonInput>
                     <IonInput mode="md" class="jprofile-modal-inputs" label="College" placeholder="College University"
                         labelPlacement="stacked" fill="outline" v-model="formData.college" required>
@@ -114,8 +128,7 @@
                         <IonSelectOption value="20">20hrs</IonSelectOption>
                     </IonSelect>
                     <IonSelect mode="md" label="years of experience" placeholder="Select years of experience"
-                        label-placement="stacked" interface="popover" fill="outline" class="jprofile-modal-inputs"
-                        v-model="formData.yearsofexp" required>
+                        label-placement="stacked" interface="popover" fill="outline" class="jprofile-modal-inputs" v-model="formData.yearsofexp" required>
                         <IonSelectOption value="0">0</IonSelectOption>
                         <IonSelectOption value="1-5">1-5</IonSelectOption>
                         <IonSelectOption value="6-10">6-10</IonSelectOption>
@@ -125,8 +138,7 @@
                         <IonSelectOption value="24+">24+</IonSelectOption>
                     </IonSelect>
                     <IonSelect mode="md" class="jprofile-modal-inputs" label="Preffered Salary" label-placement="stacked"
-                        interface="popover" fill="outline" placeholder="Input Preffered Salary based on skills"
-                        v-model="formData.salary" required>
+                        interface="popover" fill="outline" placeholder="Input Preffered Salary based on skills" v-model="formData.salary" required>
                         <IonSelectOption value="0php - 5,000php">0php - 5,000php</IonSelectOption>
                         <IonSelectOption value="6,000php - 10,000php">6,000php - 10,000php</IonSelectOption>
                         <IonSelectOption value="11,000php - 50,000php">11,000php - 50,000php</IonSelectOption>
@@ -134,8 +146,7 @@
                         <IonSelectOption value="100,000php and above">100,000php and above</IonSelectOption>
                     </IonSelect>
                     <IonSelect mode="md" class="jprofile-modal-inputs" label="Job Type" label-placement="stacked"
-                        interface="popover" fill="outline" placeholder="Select Preffered Job Type" :multiple="true"
-                        v-model="formData.jobtype" required>
+                        interface="popover" fill="outline" placeholder="Select Preffered Job Type" :multiple="true" v-model="formData.jobtype" required>
                         <IonSelectOption value="Full-Time">Full-Time</IonSelectOption>
                         <IonSelectOption value="Part-Time">Part-Time</IonSelectOption>
                         <IonSelectOption value="Contract">Contract</IonSelectOption>
@@ -143,8 +154,7 @@
                         <IonSelectOption value="Internship">Internship</IonSelectOption>
                     </IonSelect>
                     <IonSelect mode="md" class="jprofile-modal-inputs" label="Location" label-placement="stacked"
-                        interface="popover" fill="outline" placeholder="Select Preffered Location" v-model="formData.loc"
-                        required>
+                        interface="popover" fill="outline" placeholder="Select Preffered Location" v-model="formData.loc" required>
                         <IonSelectOption value="Work From Home">Work from home</IonSelectOption>
                         <IonSelectOption value="Within the province">Within the province</IonSelectOption>
                         <IonSelectOption value="Outside of the province">Outside of the province</IonSelectOption>
@@ -178,7 +188,7 @@
                 </IonCard>
             </div>
             <div>
-                <IonButton expand="block" class="jprofile-modal-button-save">SAVE</IonButton>
+                <IonButton expand="block" @click="additionalprof" class="jprofile-modal-button-save">SAVE</IonButton>
             </div>
         </IonContent>
 
@@ -208,7 +218,11 @@ import {
 import ChoiceModal from '../SignUp/Seeker-InterestModal.vue'
 import { close, pricetagOutline, addCircleOutline, filterOutline, informationCircleOutline, pencilOutline, person, phonePortraitOutline, schoolOutline, settingsOutline } from "ionicons/icons";
 import { ref, onMounted, computed, defineComponent, PropType } from "vue";
-
+import { getDashboardProfile } from '@/Dashboard/Dashboard-Model';
+import { collection, onSnapshot, query, where } from '@firebase/firestore';
+import { db, dbImage } from '@/firebaseDB';
+import { ref as asd, uploadBytes, getDownloadURL } from "firebase/storage";
+import { useUserjStore } from '../stores/updatejobseeker';
 export default {
     components: {
         ChoiceModal,
@@ -228,12 +242,37 @@ export default {
         IonSelectOption,
         IonChip,
     },
+    props: {
+        isProfileEditmodal: {
+            type: Boolean,
+        },
+        userData: {
+            type: Object,
+            default: null,
+        },
+    },
+    data(props) {
+        return {
+            isModalinterest: false,
+            modalChoices: [],
+            presentingElement: null,
+            chosenChoices: props.userData ? props.userData.chosenInterests : "",
+            imageUrl: props.userData ? props.userData.pic : null,
+            thereispic: false,
+        };
+    },
     setup(props) {
+        const user = ref(null);
+
+        onMounted(async () => {
+            const userEmail = localStorage.getItem("email");
+            user.value = await getDashboardProfile(userEmail);
+        });
+
         const formData = computed(() => ({
             pic: props.userData ? props.userData.pic : "",
             fullname: props.userData ? props.userData.fullname : "",
             bday: props.userData ? props.userData.bday : "",
-            address: props.userData ? props.userData.address : "",
             gender: props.userData ? props.userData.gender : "",
             province: props.userData ? props.userData.province : "",
             citown: props.userData ? props.userData.citown : "",
@@ -259,25 +298,8 @@ export default {
             addCircleOutline,
             close,
             formData,
+            user,
         }
-    },
-    data(props) {
-        return {
-            isModalinterest: false,
-            modalChoices: [],
-            chosenChoices: props.userData ? props.userData.chosenInterests : "",
-            presentingElement: null,
-        }
-    },
-    props: {
-        isProfileEditmodal: {
-            type: Boolean,
-            required: true,
-        },
-        userData: {
-            type: Object,
-            default: null,
-        },
     },
     methods: {
         closeEditprofile() {
@@ -294,6 +316,53 @@ export default {
             this.chosenChoices = this.chosenChoices.filter(
                 (choice) => choice.id !== choiceId
             );
+        },
+        async addProfilepicture(event) {
+            const files = event.target.files;
+            console.log(files);
+
+            if (files && files.length > 0) {
+                const file = files[0];
+                console.log("Selected file:", file);
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    this.imageUrl = e.target.result;
+                };
+                reader.readAsDataURL(file);
+                this.selectedpic = file;
+                this.thereispic = true;
+                console.log(file);
+            } else {
+                console.error("No files selected or an error occurred.");
+            }
+        },
+        async additionalprof() {
+            if (this.selectedpic) {
+                // Upload the selected image to Firebase Storage
+                const storageRef = asd(
+                    dbImage,
+                    "userpictures/" + this.selectedpic.name
+                );
+                try {
+                    await uploadBytes(storageRef, this.selectedpic);
+                    // Get the download URL of the uploaded image
+                    const downloadURL = await getDownloadURL(storageRef);
+
+                    // Update the formData with the image URL
+                    this.formData.pic = downloadURL;
+                } catch (error) {
+                    console.error("Error uploading image:", error);
+                    alert("Error uploading image. Please try again.");
+                    return;
+                }
+            }
+
+            const userjstore = useUserjStore();
+            userjstore.setFormData(this.formData);
+            userjstore.setChosenInterests(this.chosenChoices);
+            await userjstore.updateData(this.user.id);
+            this.$emit("close-profile-edit-modal");
+
         },
     }
 }

@@ -179,7 +179,8 @@ const submitForm = async () => {
       signupStore2.setjobdata({ swipedid: "" });
       signupStore2.setswipedata({ jobdid: "" });
       await signupStore2.registerUser();
-      router.push("/LoginComputer");
+      localStorage.setItem("email", formData.email);
+      router.push("/Employer-Dashboard");
       alert("Succesfully Registered");
     } catch (error) {
       alert(error.message);

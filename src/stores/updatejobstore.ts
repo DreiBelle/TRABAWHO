@@ -18,6 +18,8 @@ export const useJobStore = defineStore('jobStore', {
             chosenInterests: [],
             isactive: "",
             creator: "",
+            classification: "",
+            subclassification: "",
         },
     }),
     actions: {
@@ -37,19 +39,21 @@ export const useJobStore = defineStore('jobStore', {
                 console.log("jobpost updated successfully!");
                 // Reset the form data after registration if needed
                 this.formData = {
-                  pic: "",
-                  jobname: "",
-                  jobtype: "",
-                  jobdes: "",
-                  positionlvl: "",
-                  salary: "",
-                  noofempl: "",
-                  yearsofexp: "",
-                  reqeduc: "",
-                  loc: "",
-                  chosenInterests: [],
-                  isactive: "",
-                  creator: "",
+                    pic: "",
+                    jobname: "",
+                    jobtype: "",
+                    jobdes: "",
+                    positionlvl: "",
+                    salary: "",
+                    noofempl: "",
+                    yearsofexp: "",
+                    reqeduc: "",
+                    loc: "",
+                    chosenInterests: [],
+                    isactive: "",
+                    creator: "",
+                    classification: "",
+                    subclassification: "",
                 };
             } catch (error) {
                 console.error('Error updating data:', error);

@@ -26,6 +26,8 @@ export const useJobStore = defineStore("jobpost", {
       likes: 0,
       views: 0,
       bookmarks: 0,
+      classification: "",
+      subclassification: "",
     },
   }),
   actions: {
@@ -47,10 +49,10 @@ export const useJobStore = defineStore("jobpost", {
       this.formData.bookmarks = 0;
 
       try {
-        const usersCollection = collection(db, "jobpost"); 
+        const usersCollection = collection(db, "jobpost");
         await addDoc(usersCollection, this.formData);
         console.log("jobpost registered successfully!");
-        
+
         this.formData = {
           pic: "",
           jobname: "",
@@ -70,6 +72,8 @@ export const useJobStore = defineStore("jobpost", {
           likes: 0,
           views: 0,
           bookmarks: 0,
+          classification: "",
+          subclassification: "",
         };
       } catch (error) {
         console.error("Error registering jobpost:", error);

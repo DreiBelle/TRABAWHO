@@ -36,7 +36,7 @@
                 :icon="pencilOutline"
               ></IonIcon>
             </IonButton>
-            <IonAvatar @click="openEditProfileModal()" class="jprofile-avatar">
+            <IonAvatar @click="openEditProfileModal" class="jprofile-avatar">
               <img
                 :src="
                   user
@@ -202,11 +202,8 @@
       </div>
     </IonContent>
 
-    <profileModal
-      :is-profile-editmodal="isEditprofile"
-      :user-data="editedUserData"
-      @close-profile-edit-modal="closeEditProfileModal()"
-    />
+    <profileModal v-if="user" :is-profile-editmodal="isEditprofile" @close-profile-edit-modal="closeEditProfileModal"
+      @open-profile-edit-modal="openEditProfileModal" :user-data="user" />
   </IonPage>
 </template>
 
@@ -303,26 +300,6 @@ export default {
       });
     });
 
-    const formData = computed(() => ({
-      pic: user.value?.pic || "",
-      fullname: user.value?.fullname || "",
-      bday: user.value?.bday || "",
-      address: user.value?.address || "",
-      gender: user.value?.gender || "",
-      province: user.value?.province || "",
-      citown: user.value?.citown || "",
-      district: user.value?.district || "",
-      street: user.value?.street || "",
-      elementary: user.value?.elementary || "",
-      juniorhigh: user.value?.juniorhigh || "",
-      seniorhigh: user.value?.seniorhigh || "",
-      college: user.value?.college || "",
-      yearsofexp: user.value?.yearsofexp || "",
-      salary: user.value?.salary || "",
-      jobtype: user.value?.jobtype || "",
-      loc: user.value?.loc || "",
-    }));
-
     return {
       logOut,
       settings,
@@ -336,7 +313,6 @@ export default {
       addCircleOutline,
       close,
       user,
-      formData,
     };
   },
   data() {
@@ -345,31 +321,15 @@ export default {
       editedUserData: null,
       presentingElement: null,
       isModalinterest: false,
-      chosenChoices: [],
       adPremium: true,
     };
-  },
-  props: {
-    userprof: {
-      type: Object,
-      default: null,
-    },
   },
   methods: {
     closeads() {
       this.adPremium = false;
     },
-    removeChoice(choiceId) {
-      this.chosenChoices = this.chosenChoices.filter(
-        (choice) => choice.id !== choiceId
-      );
-    },
     modalInterest(x) {
       this.isModalinterest = x;
-    },
-    handleChoiceSelected(choice) {
-      this.chosenChoices.push(choice);
-      this.isModalinterest = false;
     },
     openEditProfileModal() {
       // Set editedUserData to the current user data
@@ -387,9 +347,6 @@ export default {
       localStorage.removeItem("password");
       GoLogin();
     },
-  },
-  mounted() {
-    `this.presentingElement = this.$refs.page.$el;`;
   },
 };
 </script>

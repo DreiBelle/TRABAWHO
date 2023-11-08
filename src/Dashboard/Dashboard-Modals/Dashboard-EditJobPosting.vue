@@ -347,8 +347,8 @@ export default {
       district: props.jobPosting ? props.jobPosting.district : "",
       citown: props.jobPosting ? props.jobPosting.citown : "",
       street: props.jobPosting ? props.jobPosting.street : "",
-      classification: "",
-      subclassification: "",
+      classification: props.jobPosting ? props.jobPosting.classification : "",
+      subclassification: props.jobPosting ? props.jobPosting.subclassification : "",
     }));
 
     return {
@@ -369,6 +369,7 @@ export default {
     },
   },
   data(props) {
+    console.log(props.jobPosting.chosenInterests);
     return {
       imageUrl: props.jobPosting ? props.jobPosting.pic : null,
       modalOpen: false,
@@ -385,7 +386,7 @@ export default {
     updateChosenspecial(PC){
       this.prefferedClassification = PC
       console.log(this.prefferedClassification)
-      this.formData.clasification = this.prefferedClassification
+      this.formData.classification = this.prefferedClassification
     },
     updatesubChosenspecial(PC){
       this.subclassificationClassification = PC

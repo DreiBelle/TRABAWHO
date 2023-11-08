@@ -22,8 +22,8 @@
               </IonRow>
               <IonRow>
                 <IonCol class="flexcenter">
-                  <IonInput mode="md" type="email" placeholder="Valid Email Address" fill="outline"
-                    labelPlacement="stacked" label="Email" class="signup-inputs-mobile" v-model="formData.email" required>
+                  <IonInput mode="md" type="email" placeholder="Valid Email Address" fill="outline" labelPlacement="stacked"
+                  label="Email" class="signup-inputs-mobile" v-model="formData.email" required>
                   </IonInput>
                 </IonCol>
               </IonRow>
@@ -109,11 +109,12 @@ import { GoBasic, GoRegister2, goBack, goTermsandCondition, goLogin } from "./Si
 import { useSignupStore } from "@/stores/signupstore";
 import { Firestore } from "firebase/firestore";
 import { checkifregisteredgoogle } from "./Seeker-Model";
-import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../firebaseDB';
 import { GoSwipe, GoHome, } from "@/NavBar/NavBar-Controller";
 import { logoGoogle } from "ionicons/icons";
 import { ref } from 'vue';
+import { checkgoogle, UserLogin, updatePassword } from "@/Login/Login-Model";
 
 export default {
   components: {

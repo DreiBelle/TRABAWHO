@@ -268,7 +268,7 @@ export default {
   },
   data() {
     return {
-      Views: "JobPostings",
+      Views: "Profile",
     };
   },
   methods: {
