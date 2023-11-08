@@ -1,7 +1,7 @@
 <template>
     <div>
         <IonPage style="background-color: rgb(236, 228, 228);">
-            <IonGrid style="height: 10%; width: 100%; padding: 0px 0px 0px 250px">
+            <IonGrid style="height: 10%; width: 100%; padding: 0px 0px 0px 250px" :fixed="true">
                 <IonRow style="height: 30px; background: #202651;">
                     <IonCol>
                         <IonText style="color: white; justify-content: right; display: flex;">
@@ -10,18 +10,68 @@
                         </IonText>
                     </IonCol>
                 </IonRow>
-                <IonRow style="height: 20%; padding-top: 10px;">
+                <IonRow style="height: 20%; padding-top: 10px; width: 100%;">
                     <IonCol class="flexcenter">
-                        <IonCard class="dashboard-minidataanalytics-card"> Users <IonText style="font-size: 100px;"> {{ users.length }} </IonText> </IonCard>
-                    </IonCol>
-                    <IonCol class="flexcenter">
-                        <IonCard class="dashboard-minidataanalytics-card"> JobPostings <IonText style="font-size: 100px;"> {{ jobpostings.length }} </IonText> </IonCard>
-                    </IonCol>
-                    <IonCol class="flexcenter">
-                        <IonCard class="dashboard-minidataanalytics-card"> Employers <IonText style="font-size: 100px;"> {{ employers.length }} </IonText> </IonCard>
-                    </IonCol>
-                    <IonCol class="flexcenter">
-                        <IonCard class="dashboard-minidataanalytics-card"> Jobseekers <IonText style="font-size: 100px;"> {{ jobseekers.length }} </IonText> </IonCard>
+                        <IonCard class="flexcenter admin-minicards">
+                            <div>
+                                <div class="flexcenter">
+                                    <IonText class="flexcenter admin-minicard-title">
+                                        <IonIcon class="admin-minicard-icon" :icon="person"></IonIcon>
+                                        USERS
+                                    </IonText>
+                                </div>
+                                <div class="flexcenter">
+                                    <IonText class="flexcenter admin-minicard-number">
+                                        {{ users.length }}
+                                    </IonText>
+                                </div>
+                            </div>
+                        </IonCard>
+                        <IonCard class="flexcenter admin-minicards">
+                            <div>
+                                <div class="flexcenter">
+                                    <IonText class="flexcenter admin-minicard-title">
+                                        <IonIcon class="admin-minicard-icon" :icon="clipboard"></IonIcon>
+                                        POSTINGS
+                                    </IonText>
+                                </div>
+                                <div class="flexcenter">
+                                    <IonText class="flexcenter admin-minicard-number">
+                                        {{ jobpostings.length }}
+                                    </IonText>
+                                </div>
+                            </div>
+                        </IonCard>
+                        <IonCard class="flexcenter admin-minicards">
+                            <div>
+                                <div class="flexcenter">
+                                    <IonText class="flexcenter admin-minicard-title" >
+                                        <IonIcon class="admin-minicard-icon" :icon="briefcase"></IonIcon>
+                                        Employers
+                                    </IonText>
+                                </div>
+                                <div class="flexcenter">
+                                    <IonText class="admin-minicard-number">
+                                        {{ employers.length }}
+                                    </IonText>
+                                </div>
+                            </div>
+                        </IonCard>
+                        <IonCard class="flexcenter admin-minicards">
+                            <div>
+                                <div class="flexcenter">
+                                    <IonText class="flexcenter admin-minicard-title">
+                                        <IonIcon class="admin-minicard-icon" :icon="people"></IonIcon>
+                                        Jobseekers
+                                    </IonText>
+                                </div>
+                                <div class="flexcenter">
+                                    <IonText class="flexcenter admin-minicard-number">
+                                        {{ jobseekers.length }}
+                                    </IonText>
+                                </div>
+                            </div>
+                        </IonCard>
                     </IonCol>
                 </IonRow>
                 <IonRow class="page-components-container">
@@ -80,7 +130,8 @@
 <script lang="ts">
 import { IonContent, IonPage, IonRow, IonGrid, IonCol, IonIcon, IonText, IonCard } from '@ionic/vue'
 import "../Dashboard/Employer-Dashboard.css";
-import { personOutline, home, people, briefcase, statsChart, logOutOutline } from 'ionicons/icons'
+import './admin.css'
+import { personOutline, home, people, briefcase, statsChart, logOutOutline, person, clipboard } from 'ionicons/icons'
 import { ref, onMounted } from "vue";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "@/firebaseDB";
@@ -131,7 +182,7 @@ export default {
             });
         });
         return {
-            personOutline, home, people, briefcase, statsChart, user, logOutOutline, users, jobpostings, employers, jobseekers
+            clipboard, person, personOutline, home, people, briefcase, statsChart, user, logOutOutline, users, jobpostings, employers, jobseekers
         }
     },
     data() {

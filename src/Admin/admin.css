@@ -1,26 +1,8 @@
 .admin-manageuser-cards-container {
   display: flex;
+  justify-content: left;
+  align-items: center;
   flex-wrap: wrap;
-  justify-content: space-between;
-  max-width: 100%;
-  height: 100%;
-}
-
-.admin-manageuser-card {
-  width: calc(50% - 20px);
-  margin-bottom: 10px;
-  height: 100px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.admin-manageuser-card:hover {
-  width: calc(50% - 20px);
-  margin-bottom: 10px;
-  height: 100px;
-  cursor: pointer;
-  background-color: rgb(246, 242, 242);
-  transition: all 0.3s ease;
 }
 
 .admin-manageuser-icons {
@@ -47,7 +29,7 @@
 }
 
 .admin-manageuser-picture {
-  height: 100px;
+  height: 100%;
   width: 100%;
   object-fit: cover;
 }
@@ -81,24 +63,93 @@
   width: calc(100% - 10px);
 }
 
-.data-analytics{
+.data-analytics {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
   max-width: 600px;
-  height: auto; 
+  height: auto;
   margin: 0 auto;
-};
+}
 
-.home-analytics{
+.home-analytics {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 500px; 
-  height: auto; 
+  max-width: 500px;
+  height: auto;
   margin: 0 auto;
-};
+}
+
+.admin-minicards {
+  width: 100%;
+  height: 100%;
+  color: black;
+  font-size: 2vh;
+  padding: 5px;
+}
+
+.admin-minicard-number {
+  font-size: 10vh;
+  font-family: BebasNeue-Regular;
+}
+
+.admin-minicard-title {
+  text-align: center;
+}
+
+.admin-minicard-icon {
+  font-size: 2vh;
+  margin-right: 5px;
+}
+
+.admin-user-cards {
+  height: 210px;
+  width: 20%;
+  min-width: 200px;
+  max-width: 350px;
+}
+
+.admin-user-cards-picture {
+  height: 60%;
+  width: 100%;
+}
+
+.admin-view-modal-topProfile {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.admin-view-modal-avatar {
+  height: 125px;
+  width: 125px;
+  margin-right: 10px;
+}
+
+.admin-view-top-info-text-container{
+  background: linear-gradient(to left, #262c5c99, #262c5c);  height: 90px;
+  width: 80%;
+  border-radius: 0 20px 20px 0;
+  position: absolute;
+  left: 90px;
+  z-index: -1;
+
+}
+
+.admin-view-top-info-text{
+  font-size: 16px;
+  color: rgb(255, 255, 255);
+}
+
+.admin-view-modal-header{
+  height: 40px;
+}
+
+.admin-padding-text{
+  padding: 2px;
+}
