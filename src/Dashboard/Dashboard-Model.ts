@@ -213,6 +213,29 @@ async function getswiperProfile_(id) {
     }
 }
 
+async function getsuccessswipe_(username) {
+  try {
+
+
+      const successRef = collection(db, "MessagesUsers");
+      const q = query(successRef, where("EmployerEmail", "==", username));
+
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        console.log("there is successswipes");
+        return querySnapshot.docs.map((doc) => doc.data());
+      } else {
+        console.log("No success swipes found");
+        return [];
+      }
+  } catch (error) {
+    console.error("Error fetching success swipes:", error);
+    return [];
+  }
+}
+
+
 export const getDashboardProfile = getDashboardProfile_;
 export const getJobPostings = getJobPostings_;
 export const getMessages = getMessages_;
@@ -221,6 +244,7 @@ export const getSwipedpostings = getSwipedpostings_;
 export const getswiperProfile = getswiperProfile_;
 export const getlikes = getlikes_;
 export const getviews = getviews_;
+export const getsuccessswipe = getsuccessswipe_;
 export interface JobpostModel {
   jobname: string;
   jobtype: string;

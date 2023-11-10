@@ -602,6 +602,66 @@ async function getjobseekeraglipay_() {
     }
 }
 
+async function getprivate_() {
+    try {
+        const usersRef = collection(db, "users");
+        const q = query(usersRef,
+            where("companytype", "==", "Private"),
+        );
+
+        const querySnapshot = await getDocs(q);
+
+        if (!querySnapshot.empty) {
+            return querySnapshot.docs.map((doc) => doc.data());
+        } else {
+            return [];
+        }
+    } catch (error) {
+        console.error("Error fetching users:", error);
+        return [];
+    }
+}
+
+async function getgovernment_() {
+    try {
+        const usersRef = collection(db, "users");
+        const q = query(usersRef,
+            where("companytype", "==", "Government"),
+        );
+
+        const querySnapshot = await getDocs(q);
+
+        if (!querySnapshot.empty) {
+            return querySnapshot.docs.map((doc) => doc.data());
+        } else {
+            return [];
+        }
+    } catch (error) {
+        console.error("Error fetching users:", error);
+        return [];
+    }
+}
+
+async function getmanpower_() {
+    try {
+        const usersRef = collection(db, "users");
+        const q = query(usersRef,
+            where("companytype", "==", "Manpower"),
+        );
+
+        const querySnapshot = await getDocs(q);
+
+        if (!querySnapshot.empty) {
+            return querySnapshot.docs.map((doc) => doc.data());
+        } else {
+            return [];
+        }
+    } catch (error) {
+        console.error("Error fetching users:", error);
+        return [];
+    }
+}
+
 
 export const getJobPostings = getJobPostings_;
 export const getusers = getusers_;
@@ -632,4 +692,7 @@ export const getjobseekerbambang = getjobseekerbambang_;
 export const getjobseekercabarroguis = getjobseekercabarroguis_;
 export const getjobseekermaddela = getjobseekermaddela_;
 export const getjobseekeraglipay = getjobseekeraglipay_;
+export const getprivate = getprivate_;
+export const getgovernment = getgovernment_;
+export const getmanpower = getmanpower_;
 

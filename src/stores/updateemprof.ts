@@ -15,6 +15,7 @@ export const useUserStore = defineStore('userStore', {
             facebook: "",
             twitter: "",
             instagram: "",
+            companytype: "",
 
         },
     }),
@@ -51,6 +52,7 @@ export const useUserStore = defineStore('userStore', {
                     facebook: "",
                     twitter: "",
                     instagram: "",
+                    companytype: "",
                 };
             } catch (error) {
                 console.error('Error updating data:', error);

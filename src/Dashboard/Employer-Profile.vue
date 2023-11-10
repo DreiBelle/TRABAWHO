@@ -34,6 +34,21 @@
                     <IonRow>
                       <IonCol style="padding-top: 10px">
                         <div class="flexcenter">
+                          <IonText class="eprofile-text"> Company Type </IonText>
+                        </div>
+                        <div class="flexcenter eprofile-text-subtext-container">
+                          <template v-if="user">
+                            <IonText class="eprofile-text-subtext">
+                              {{ user ? `${user.companytype}` : "..." }}
+                            </IonText>
+                          </template>
+                          <template v-else> Loading founders... </template>
+                        </div>
+                      </IonCol>
+                    </IonRow>
+                    <IonRow>
+                      <IonCol style="padding-top: 10px">
+                        <div class="flexcenter">
                           <IonText class="eprofile-text"> Founder/s </IonText>
                         </div>
                         <div class="flexcenter eprofile-text-subtext-container">

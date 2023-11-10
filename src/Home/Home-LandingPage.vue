@@ -8,6 +8,13 @@
             <div class="landingpage-maintitle-container">
               <div style="padding-left: 40px; padding-right: 40px">
                 <IonGrid>
+                  <!-- <IonRow>
+                    <IonCol>
+                      <div class="landingpage-text-subtitle">
+                        <img class="dashboard-navbar-logo" src="../assets/logo/logo1.png" alt="logo" style="max-width: 200px; margin-left: 100px;" />
+                      </div>
+                    </IonCol>
+                  </IonRow> -->
                   <IonRow>
                     <IonCol>
                       <div class="landingpage-text-subtitle">
@@ -31,22 +38,13 @@
                   </IonRow>
                   <IonRow>
                     <IonCol>
-                      <IonButton
-                        @click="GoLoginComputer"
-                        fill="outline"
-                        expand="block"
-                        class="landingpage-buttons"
-                      >
+                      <IonButton @click="GoLoginComputer" fill="outline" expand="block" class="landingpage-buttons">
                         LOG IN
                       </IonButton>
                     </IonCol>
                     <IonCol>
-                      <IonButton
-                        @click="GoEmployer"
-                        style="--background: #262c5c; color: white"
-                        expand="block"
-                        class="landingpage-buttons"
-                      >
+                      <IonButton @click="GoEmployer" style="--background: #262c5c; color: white" expand="block"
+                        class="landingpage-buttons">
                         SIGN UP
                       </IonButton>
                     </IonCol>
@@ -56,7 +54,7 @@
             </div>
           </IonCol>
           <IonCol>
-            <img class="landingpage-picture" src="../assets/landpage2.png" />  
+            <img class="landingpage-picture" src="../assets/landpage2.png" />
           </IonCol>
         </IonRow>
       </IonGrid>

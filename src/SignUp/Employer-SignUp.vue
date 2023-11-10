@@ -43,6 +43,16 @@
                 </IonRow>
                 <IonRow>
                   <IonCol>
+                    <IonSelect mode="md" label="Company Type" placeholder="Select Type of Company" label-placement="stacked"
+                      interface="popover" fill="outline" class="signup-inputs" v-model="formData.companytype" required>
+                      <IonSelectOption value="Government">Government</IonSelectOption>
+                      <IonSelectOption value="Private">Private</IonSelectOption>
+                      <IonSelectOption value="Manpower">Manpower</IonSelectOption>
+                    </IonSelect>
+                  </IonCol>
+                </IonRow>
+                <IonRow>
+                  <IonCol>
                     <IonInput fill="outline" class="signup-inputs" label="Password" labelPlacement="stacked"
                       placeholder="Enter Password" type="password" v-model="formData.password" required>
                     </IonInput>
@@ -103,6 +113,8 @@ import {
   IonCard,
   IonCheckbox,
   IonModal,
+  IonSelect,
+  IonSelectOption,
 } from "@ionic/vue";
 import "./SignUp.css";
 import { GoRegister2, goBack, goTermsandCondition } from "./SignUp-Controller";
@@ -124,6 +136,7 @@ const formData = {
   dateCreated: "",
   type: "",
   acceptTerms: false,
+  companytype: "",
 };
 const signInWithGoogle = async () => {
   const provider = new GoogleAuthProvider();
@@ -152,7 +165,7 @@ const signInWithGoogle = async () => {
   }
 };
 const submitForm = async () => {
-  const requiredFields = ['email', 'contactpn', 'number', 'businessname', 'password'];
+  const requiredFields = ['email', 'contactpn', 'number', 'businessname', 'password', 'companytype'];
   let isFormValid = true;
 
   for (const field of requiredFields) {

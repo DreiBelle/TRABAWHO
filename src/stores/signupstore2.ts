@@ -15,6 +15,7 @@ export const useSignupStore2 = defineStore("signup2", {
       password: "",
       dateCreated: "",
       type: "",
+      companytype: "",
       swiperuser: [],
       swiperjob: [],
     },
@@ -54,6 +55,7 @@ export const useSignupStore2 = defineStore("signup2", {
           password: "",
           dateCreated: "",
           type: "",
+          companytype: "",
           swiperuser: [],
           swiperjob: [],
         };

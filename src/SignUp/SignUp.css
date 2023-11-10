@@ -5,7 +5,7 @@
 }
 
 .signup-card {
-  height: 450px;
+  height: fit-content;
   width: 700px;
   border-radius: 10px;
 }

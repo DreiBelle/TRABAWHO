@@ -47,20 +47,19 @@
           <IonCol class="flexcenter">
             <div v-if="!user.bacpic" style="width: 100%">
               <div class="eprofile-modal-cover-container1">
-                <img class="eprofile-modal-cover-container1 eprofile-coverphoto"
-                  :src=CoverUrl alt="Selected Image" />
+                <img class="eprofile-modal-cover-container1 eprofile-coverphoto" :src=CoverUrl alt="Selected Image" />
                 <div v-if=!CoverUrl class="flexcenter" style="height: 100%;">
                   <label class="eproifle-modal-editpicture2" for="addCover">
                     ADD COVER PHOTO
                   </label>
                 </div>
                 <div v-if=CoverUrl style="margin-top: 10px" class="flexcenter">
-                <label class="eproifle-modal-editpicture" for="addPicture">
-                  Add Picture
-                </label>
-                <input id="addPicture" type="file" accept="image/jpeg" @change="addCoverphoto" ref="myfile"
-                  style="display: none" />
-              </div>
+                  <label class="eproifle-modal-editpicture" for="addPicture">
+                    Add Picture
+                  </label>
+                  <input id="addPicture" type="file" accept="image/jpeg" @change="addCoverphoto" ref="myfile"
+                    style="display: none" />
+                </div>
               </div>
               <div style="margin-top: 10px; justify-content: right" class="flexcenter">
                 <input id="addCover" type="file" accept="image/jpeg" @change="addCoverphoto" ref="myfile"
@@ -87,6 +86,16 @@
             <IonInput placeholder="business name" class="eprofile-editprofile-input" label="Registered Business Name"
               fill="outline" label-placement="stacked" v-model="formData.businessname">
             </IonInput>
+          </IonCol>
+        </IonRow>
+        <IonRow>
+          <IonCol class="flexcenter">
+            <IonSelect mode="md" label="Company Type" placeholder="Select Type of Company" label-placement="stacked"
+              interface="popover" fill="outline" class="eprofile-editprofile-input" v-model="formData.companytype" required>
+              <IonSelectOption value="Government">Government</IonSelectOption>
+              <IonSelectOption value="Private">Private</IonSelectOption>
+              <IonSelectOption value="Manpower">Manpower</IonSelectOption>
+            </IonSelect>
           </IonCol>
         </IonRow>
         <IonRow>
@@ -227,6 +236,7 @@ export default {
 
     const formData = computed(() => ({
       businessname: user.value.businessname || "",
+      companytype: user.value.companytype || "",
       pic: user.value.pic || "",
       bacpic: user.value.bacpic || "",
       noofempl: user.value.noofempl || "",

@@ -11,6 +11,9 @@
                 <canvas id="Empljobseeker"></canvas>
             </div>
             <div class="data-analytics">
+                <canvas id="companytype"></canvas>
+            </div>
+            <div class="data-analytics">
                 <canvas id="pjobseeker"></canvas>
             </div>
             <div class="data-analytics">
@@ -68,6 +71,9 @@ import {
     getjobseekercabarroguis,
     getjobseekermaddela,
     getjobseekeraglipay,
+    getprivate,
+    getgovernment,
+    getmanpower,
 
 } from './admin-Model';
 import { getActivePinia } from 'pinia';
@@ -83,8 +89,8 @@ export default {
         IonSelect,
         IonSelectOption
     },
-    data(){
-        return{
+    data() {
+        return {
             jobs: "",
         }
     },
@@ -126,6 +132,10 @@ export default {
         const jobseekers = ref([]);
         const male = ref([]);
         const female = ref([]);
+
+        const pcompany = ref([]);
+        const gcompany = ref([]);
+        const mcompany = ref([]);
 
         const cagayan = ref([]);
         const isabela = ref([]);
@@ -188,6 +198,10 @@ export default {
             maddela.value = await getjobseekermaddela();
             aglipay.value = await getjobseekeraglipay();
 
+            pcompany.value = await getprivate();
+            gcompany.value = await getgovernment();
+            mcompany.value = await getmanpower();
+
             const labels = Utils.months({ count: 12 });
 
             // bar - users month
@@ -241,6 +255,47 @@ export default {
                 }
             }
 
+            //company type
+
+            const companytype = ['Private', 'Government', 'Manpower'];
+            const companydata = {
+                labels: companytype,
+                datasets: [
+                    {
+                        label: 'Company Types',
+                        data: [pcompany.value.length, gcompany.value.length, mcompany.value.length],
+                        backgroundColor: [
+                            'rgba(153, 102, 255, 0.2)',
+                        ],
+                        borderColor: [
+                            'rgb(153, 102, 255)',
+                        ],
+                        borderWidth: 1,
+                        hoverOffset: 4,
+                    },
+                ],
+            };
+
+            const configcompany: ChartConfiguration = {
+                type: 'bar',
+                data: companydata,
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                        },
+                    },
+                },
+            };
+
+            const canvascompany = document.getElementById('companytype') as HTMLCanvasElement;
+            if (canvascompany) {
+                const ctx = canvascompany.getContext('2d');
+                if (ctx) {
+                    new Chart(ctx, configcompany);
+                }
+            }
+
             //bar - province
 
             const province = ['Cagayan', 'Isabela', 'Nueva Vizcaya', 'Quirino'];
@@ -251,10 +306,10 @@ export default {
                         label: 'Jobseekers in Province',
                         data: [cagayan.value.length, isabela.value.length, nuevavizcaya.value.length, quirino.value.length],
                         backgroundColor: [
-                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(0, 0, 0, 0.2)',
                         ],
                         borderColor: [
-                            'rgb(153, 102, 255)',
+                            'rgb(0, 0, 0)',
                         ],
                         borderWidth: 1,
                         hoverOffset: 4,
@@ -554,8 +609,11 @@ export default {
             cabarroguis,
             maddela,
             aglipay,
+            pcompany,
+            gcompany,
+            mcompany,
         }
-    },
+    }
 };
 </script>
   

@@ -16,6 +16,18 @@
             </div>
 
             <div class="data-analytics">
+                <canvas id="successd"></canvas>
+            </div>
+
+            <div class="data-analytics">
+                <canvas id="successm"></canvas>
+            </div>
+
+            <div class="data-analytics">
+                <canvas id="successy"></canvas>
+            </div>
+
+            <div class="data-analytics">
                 <canvas id="myChart"></canvas>
             </div>
 
@@ -42,7 +54,7 @@ import Chart from 'chart.js/auto';
 import { ref, onMounted } from 'vue';
 import { ChartConfiguration } from 'chart.js';
 import "./dataanalytics.css";
-import { getDashboardProfile, getJobPostings, getlikes, getviews } from './Dashboard-Model';
+import { getDashboardProfile, getJobPostings, getlikes, getviews, getsuccessswipe } from './Dashboard-Model';
 import { collection, getDocs, query, where } from '@firebase/firestore';
 import { db } from '@/firebaseDB';
 
@@ -62,6 +74,7 @@ export default {
 
         const user = ref(null);
         const jobPostings = ref([]);
+        const swipesuccess = ref([]);
         const like = ref(null);
         const view = ref(null);
         let likes = ref(0);
@@ -72,6 +85,10 @@ export default {
         const jobdatad = [];
         const likedatad = [];
         const viewdatad = [];
+        const successdatad = [];
+        const successdatam = [];
+        const successdatay = [];
+        const s = ref([]);
 
         const x1 = ref(0);
         const x2 = ref(0);
@@ -492,6 +509,8 @@ export default {
             const userEmail = localStorage.getItem("email");
             user.value = await getDashboardProfile(userEmail);
 
+            swipesuccess.value = await getsuccessswipe(userEmail);
+
             jobPostings.value = await getJobPostings(
                 userEmail,
                 user.value.businessname,
@@ -580,7 +599,7 @@ export default {
             console.log(viewdatad);
 
             const viewsdatad = {
-                labels: dlike,
+                labels: dview,
                 datasets: [
                     {
                         label: 'View in Daily',
@@ -613,6 +632,171 @@ export default {
                 const ctx = canvasviewd.getContext('2d');
                 if (ctx) {
                     new Chart(ctx, configviewd);
+                }
+            }
+
+            //successswipe day
+
+            const dsuccess = Atils.daysOfWeek({ count: 7 });
+
+            for (const successday of dsuccess) {
+                const successInDay = swipesuccess.value.filter((success) => {
+                    if (success.dateCreated) {
+                        const date = new Date(view.dateCreated);
+                        const successDay = date.toLocaleString('default', { weekday: 'long' });
+                        return successDay === successday;
+                    }
+                    return false;
+                });
+
+                successdatad.push(successInDay.length);
+            }
+            console.log(successdatad);
+
+            const successsdatad = {
+                labels: dsuccess,
+                datasets: [
+                    {
+                        label: 'Success Swipes in Day',
+                        data: successdatad,
+                        backgroundColor: 'rgba(0, 0, 255, 0.6)', // Blue color with adjusted opacity
+                        borderColor: 'rgba(0, 0, 255, 1)', // Border color in blue
+                        borderWidth: 2, // Border width
+                        hoverBackgroundColor: 'rgba(0, 0, 255, 0.8)', // Blue color with adjusted opacity on hover
+                        hoverBorderColor: 'rgba(0, 0, 255, 1)', // Border color in blue on hover
+                        hoverBorderWidth: 2, // Border width on hover
+                        hoverOffset: 6, // Increased hover offset
+                    },
+                ],
+            };
+
+            const configsuccessd: ChartConfiguration = {
+                type: 'line',
+                data: successsdatad,
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                        },
+                    },
+                },
+            };
+
+            const canvassuccessd = document.getElementById('successd') as HTMLCanvasElement;
+            if (canvassuccessd) {
+                const ctx = canvassuccessd.getContext('2d');
+                if (ctx) {
+                    new Chart(ctx, configsuccessd);
+                }
+            }
+
+            //successswipe monthly
+
+            const msuccess = Utils.months({ count: 12 });
+
+            for (const successmonth of msuccess) {
+                const successInMonth = swipesuccess.value.filter((success) => {
+                    if (success.dateCreated) {
+                        const date = new Date(view.dateCreated);
+                        const successMonth = date.toLocaleString('default', { month: 'long' });
+                        return successMonth === successmonth;
+                    }
+                    return false;
+                });
+
+                successdatam.push(successInMonth.length);
+            }
+            console.log(successdatam);
+
+            const successsdatam = {
+                labels: msuccess,
+                datasets: [
+                    {
+                        label: 'Success Swipes in Month',
+                        data: successdatam,
+                        backgroundColor: 'rgba(138, 43, 226, 0.6)', // Violet color with adjusted opacity
+                        borderColor: 'rgba(138, 43, 226, 1)', // Border color in violet
+                        borderWidth: 2, // Border width
+                        hoverBackgroundColor: 'rgba(138, 43, 226, 0.8)', // Violet color with adjusted opacity on hover
+                        hoverBorderColor: 'rgba(138, 43, 226, 1)', // Border color in violet on hover
+                        hoverBorderWidth: 2, // Border width on hover
+                        hoverOffset: 6, // Increased hover offset
+                    },
+                ],
+            };
+
+            const configsuccessm: ChartConfiguration = {
+                type: 'line',
+                data: successsdatam,
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                        },
+                    },
+                },
+            };
+
+            const canvassuccessm = document.getElementById('successm') as HTMLCanvasElement;
+            if (canvassuccessm) {
+                const ctx = canvassuccessm.getContext('2d');
+                if (ctx) {
+                    new Chart(ctx, configsuccessm);
+                }
+            }
+
+            //successswipe yearly
+
+            const ysuccess = Itils.years({ count: 12 });
+
+            for (const successyear of ysuccess) {
+                const successInYear = swipesuccess.value.filter((success) => {
+                    if (success.dateCreated) {
+                        const date = new Date(view.dateCreated);
+                        const successYear = date.toLocaleString('default', { year: 'numeric' });
+                        return successYear === successyear;
+                    }
+                    return false;
+                });
+
+                successdatay.push(successInYear.length);
+            }
+            console.log(successdatay);
+
+            const successsdatay = {
+                labels: ysuccess,
+                datasets: [
+                    {
+                        label: 'Success Swipes in Year',
+                        data: successdatay,
+                        backgroundColor: 'rgba(255, 165, 0, 0.6)', // Orange color with adjusted opacity
+                        borderColor: 'rgba(255, 165, 0, 1)', // Border color in orange
+                        borderWidth: 2, // Border width
+                        hoverBackgroundColor: 'rgba(255, 165, 0, 0.8)', // Orange color with adjusted opacity on hover
+                        hoverBorderColor: 'rgba(255, 165, 0, 1)', // Border color in orange on hover
+                        hoverBorderWidth: 2, // Border width on hover
+                        hoverOffset: 6, // Increased hover offset
+                    },
+                ],
+            };
+
+            const configsuccessy: ChartConfiguration = {
+                type: 'line',
+                data: successsdatay,
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                        },
+                    },
+                },
+            };
+
+            const canvassuccessy = document.getElementById('successy') as HTMLCanvasElement;
+            if (canvassuccessy) {
+                const ctx = canvassuccessy.getContext('2d');
+                if (ctx) {
+                    new Chart(ctx, configsuccessy);
                 }
             }
 
@@ -2356,6 +2540,7 @@ export default {
             bookmarks,
             like,
             view,
+            swipesuccess,
         }
     },
     // watch: {
