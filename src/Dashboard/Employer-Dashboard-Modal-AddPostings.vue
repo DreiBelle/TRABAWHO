@@ -181,12 +181,34 @@
         </div>
 
         <div class="flexcenter">
-          <IonInput class="modal-addjobpost-input" label="Province" placeholder="Province" labelPlacement="stacked"
-            fill="outline" type="text" v-model="formData.province">
-          </IonInput>
-          <IonInput class="modal-addjobpost-input" label="City/Town" placeholder="City/Town" labelPlacement="stacked"
-            fill="outline" type="text" v-model="formData.citown">
-          </IonInput>
+          <IonSelect mode="md" label="Province" placeholder="Select Province" label-placement="stacked" interface="popover"
+            fill="outline" class="modal-addjobpost-input" v-model="formData.province" required>
+            <IonSelectOption value="Cagayan">Cagayan</IonSelectOption>
+            <IonSelectOption value="Isabela">Isabela</IonSelectOption>
+            <IonSelectOption value="Nueva Vizcaya">Nueva Vizcaya</IonSelectOption>
+            <IonSelectOption value="Quirino">Quirino</IonSelectOption>
+          </IonSelect>
+          <IonSelect mode="md" label="City/Town" placeholder="Select City/Town" label-placement="stacked" interface="popover"
+            fill="outline" class="modal-addjobpost-input" v-model="formData.citown" required>
+            <IonSelectOption value="Tuguegarao City">Tuguegarao City</IonSelectOption>
+            <IonSelectOption value="Aparri">Aparri</IonSelectOption>
+            <IonSelectOption value="Lal-lo">Lal-lo</IonSelectOption>
+            <IonSelectOption value="Gattaran">Gattaran</IonSelectOption>
+            <IonSelectOption value="Penablanca">Penablanca</IonSelectOption>
+            <IonSelectOption value="Ilagan City">Ilagan City </IonSelectOption>
+            <IonSelectOption value="Cauayan City">Cauayan City</IonSelectOption>
+            <IonSelectOption value="Santiago City">Santiago City</IonSelectOption>
+            <IonSelectOption value="Alicia">Alicia</IonSelectOption>
+            <IonSelectOption value="Roxas">Roxas</IonSelectOption>
+            <IonSelectOption value="Cabagan">Cabagan</IonSelectOption>
+            <IonSelectOption value="Bayombong">Bayombong</IonSelectOption>
+            <IonSelectOption value="Solano">Solano</IonSelectOption>
+            <IonSelectOption value="Bagabag">Bagabag</IonSelectOption>
+            <IonSelectOption value="Bambang">Bambang</IonSelectOption>
+            <IonSelectOption value="Cabarroguis">Cabarroguis</IonSelectOption>
+            <IonSelectOption value="Maddela">Maddela</IonSelectOption>
+            <IonSelectOption value="Aglipay">Aglipay</IonSelectOption>
+          </IonSelect>
         </div>
         <div class="flexcenter">
           <IonInput class="modal-addjobpost-input" label="District" placeholder="District - Purok"

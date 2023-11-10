@@ -53,6 +53,70 @@ async function getJobPostings_(Username, companyname, id) {
   }
 }
 
+async function getjobs_(id) {
+  try {
+      const jobPostingsRef = collection(db, "jobpost");
+      const q = query(jobPostingsRef, where("company", "==", id));
+
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        console.log("there is job posting ");
+        return querySnapshot.docs.map((doc) => doc.data());
+      } else {
+        console.log("No job postings found for company");
+        return [];
+      }
+  } catch (error) {
+    console.error("Error fetching job postings:", error);
+    return [];
+  }
+}
+
+async function getlikes_(id) {
+  try {
+
+
+      const likesRef = collection(db, "likes");
+      const q = query(likesRef, where("creator", "==", id));
+
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        console.log("there is likes");
+        return querySnapshot.docs.map((doc) => doc.data());
+      } else {
+        console.log("No likes postings found");
+        return [];
+      }
+  } catch (error) {
+    console.error("Error fetching likes:", error);
+    return [];
+  }
+}
+
+async function getviews_(id) {
+  try {
+
+
+      const viewsRef = collection(db, "views");
+      const q = query(viewsRef, where("creator", "==", id));
+
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        console.log("there is views");
+        return querySnapshot.docs.map((doc) => doc.data());
+      } else {
+        console.log("No views postings found");
+        return [];
+      }
+  } catch (error) {
+    console.error("Error fetching views:", error);
+    return [];
+  }
+}
+
 // emman
 async function getMessages_(Sender, Receiver) {
   try {
@@ -155,6 +219,8 @@ export const getMessages = getMessages_;
 export const getReceives = getReceives_;
 export const getSwipedpostings = getSwipedpostings_;
 export const getswiperProfile = getswiperProfile_;
+export const getlikes = getlikes_;
+export const getviews = getviews_;
 export interface JobpostModel {
   jobname: string;
   jobtype: string;

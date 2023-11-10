@@ -42,9 +42,63 @@
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
-                <IonInput mode="md" type="text" placeholder="Masteral" fill="outline" labelPlacement="stacked"
-                  label="Masteral" class="signup-inputs-mobile" v-model="formData.masteral">
-                </IonInput>
+                <IonSelect mode="md" label="Highest Education Attainment" placeholder="Select" label-placement="stacked"
+                  interface="popover" fill="outline" class="signup-inputs-mobile" v-model="formData.higheduc" required>
+                  <IonSelectOption value="Bachelor of Science in Computer Science">Bachelor of Science in Computer Science</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Science in Information Technology">Bachelor of Science in Information Technology</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Science in Nursing">Bachelor of Science in Nursing</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Science in Biology">Bachelor of Science in Biology</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Science in Chemistry">Bachelor of Science in Chemistry</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Science in Physics">Bachelor of Science in Physics</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Science in Mathematics">Bachelor of Science in Mathematics</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Science in Psychology">Bachelor of Science in Psychology</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Science in Environmental Science">Bachelor of Science in Environmental Science</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Science in Electrical Engineering">Bachelor of Science in Electrical Engineering</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Science in Mechanical Engineering">Bachelor of Science in Mechanical Engineering</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Arts in English">Bachelor of Arts in English</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Arts in History">Bachelor of Arts in History</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Arts in Sociology">Bachelor of Arts in Sociology</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Arts in Political Science">Bachelor of Arts in Political Science</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Arts in Economics">Bachelor of Arts in Economics</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Arts in Psychology">Bachelor of Arts in Psychology</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Arts in Anthropology">Bachelor of Arts in Anthropology</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Business Administration">Bachelor of Business Administration</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Commerce">Bachelor of Commerce</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Economics">Bachelor of Economics</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Finance">Bachelor of Finance</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Marketing">Bachelor of Marketing</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Management">Bachelor of Management</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Science in Public Health">Bachelor of Science in Public Health</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Science in Healthcare Administration">Bachelor of Science in Healthcare Administration</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Science in Physical Therapy">Bachelor of Science in Physical Therapy</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Science in Occupational Therapy">Bachelor of Science in Occupational Therapy</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Education">Bachelor of Education</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Arts in Elementary Education">Bachelor of Arts in Elementary Education</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Science in Special Education">Bachelor of Science in Special Education</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Physical Education">Bachelor of Physical Education</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Fine Arts">Bachelor of Fine Arts</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Music">Bachelor of Music</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Film and Media Studies">Bachelor of Film and Media Studies</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Graphic Design">Bachelor of Graphic Design</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Theater Arts">Bachelor of Theater Arts</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Social Work">Bachelor of Social Work</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Philosophy">Bachelor of Philosophy</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Theology">Bachelor of Theology</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Communication Studies">Bachelor of Communication Studies</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Sociology">Bachelor of Sociology</IonSelectOption>
+                  <IonSelectOption value="Bachelor of International Relations">Bachelor of International Relations</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Engineering">Bachelor of Engineering</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Aerospace Engineering">Bachelor of Aerospace Engineering</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Civil Engineering">Bachelor of Civil Engineering</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Environmental Engineering">Bachelor of Environmental Engineering</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Materials Science">Bachelor of Materials Science</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Environmental Science">Bachelor of Environmental Science</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Environmental Studies">Bachelor of Environmental Studies</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Sustainable Agriculture">Bachelor of Sustainable Agriculture</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Arts in Linguistics">Bachelor of Arts in Linguistics</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Modern Languages">Bachelor of Modern Languages</IonSelectOption>
+                  <IonSelectOption value="Bachelor of Translation and Interpretation">Bachelor of Translation and Interpretation</IonSelectOption>
+                </IonSelect>
               </IonCol>
             </IonRow>
             <IonRow>
@@ -79,6 +133,8 @@ import {
   IonLabel,
   IonIcon,
   IonAlert,
+  IonSelect,
+  IonSelectOption,
 } from "@ionic/vue";
 import "./SignUp.css";
 import { GoRegister3, goBack } from "./SignUp-Controller";
@@ -95,12 +151,13 @@ const formData = {
   juniorhigh: "",
   seniorhigh: "",
   college: "",
-  masteral: "",
   yearsofexp: "",
   jobtype: "",
   salary: "",
   loc: "",
+  higheduc: "",
 };
+
 
 const isAlert = ref(false);
 const alertMessage = ref('');
@@ -109,6 +166,7 @@ const alertbox = (x, message) => {
   isAlert.value = x;
   alertMessage.value = message;
 }
+
 
 const submitForm = async () => {
   const requiredFields = ['elementary', 'juniorhigh', 'seniorhigh', 'college'];
@@ -133,7 +191,7 @@ const submitForm = async () => {
       juniorhigh: formData.juniorhigh,
       seniorhigh: formData.seniorhigh,
       college: formData.college,
-      masteral: formData.masteral,
+      higheduc: formData.higheduc,
       dateCreated: "",
       // chosenInterest: [],
       type: "",
@@ -152,7 +210,6 @@ const submitForm = async () => {
   console.log(formData.juniorhigh);
   console.log(formData.seniorhigh);
   console.log(formData.college);
-  console.log(formData.masteral);
 
 }
 

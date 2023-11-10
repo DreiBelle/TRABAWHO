@@ -56,14 +56,8 @@
 
                         BASIC
                     </IonText>
-                    <IonInput type="number" mode="md" class="jprofile-modal-inputs" label="Age" placeholder="Enter Age"
-                        labelPlacement="stacked" fill="outline" required>
-                    </IonInput>
                     <IonInput type="date" mode="md" class="jprofile-modal-inputs" label="Birthday"
                         placeholder="Enter Birthday" labelPlacement="stacked" fill="outline" v-model="formData.bday" required>
-                    </IonInput>
-                    <IonInput mode="md" class="jprofile-modal-inputs" label="Address" placeholder="Enter Address"
-                        labelPlacement="stacked" fill="outline" required>
                     </IonInput>
                     <IonSelect mode="md" label="Gender" placeholder="Select gender" label-placement="stacked"
                         interface="popover" fill="outline" class="jprofile-modal-inputs" v-model="formData.gender" required>
@@ -78,12 +72,35 @@
                         <IonIcon style="margin-bottom: -3px;" :icon="schoolOutline"></IonIcon>
                         LOCATION
                     </IonText>
-                    <IonInput mode="md" class="jprofile-modal-inputs" label="Province" placeholder="Province"
-                        labelPlacement="stacked" fill="outline" v-model="formData.province" required>
-                    </IonInput>
-                    <IonInput mode="md" class="jprofile-modal-inputs" label="City/Town" placeholder="City or Town"
-                        labelPlacement="stacked" fill="outline" v-model="formData.citown" required>
-                    </IonInput>
+                    <IonSelect mode="md" label="Province" placeholder="Select Province" label-placement="stacked"
+                        interface="popover" fill="outline" class="jprofile-modal-inputs" v-model="formData.province"
+                        required>
+                        <IonSelectOption value="Cagayan">Cagayan</IonSelectOption>
+                        <IonSelectOption value="Isabela">Isabela</IonSelectOption>
+                        <IonSelectOption value="Nueva Vizcaya">Nueva Vizcaya</IonSelectOption>
+                        <IonSelectOption value="Quirino">Quirino</IonSelectOption>
+                    </IonSelect>
+                    <IonSelect mode="md" label="City/Town" placeholder="Select City/Town" label-placement="stacked"
+                        interface="popover" fill="outline" class="jprofile-modal-inputs" v-model="formData.citown" required>
+                        <IonSelectOption value="Tuguegarao City">Tuguegarao City</IonSelectOption>
+                        <IonSelectOption value="Aparri">Aparri</IonSelectOption>
+                        <IonSelectOption value="Lal-lo">Lal-lo</IonSelectOption>
+                        <IonSelectOption value="Gattaran">Gattaran</IonSelectOption>
+                        <IonSelectOption value="Penablanca">Penablanca</IonSelectOption>
+                        <IonSelectOption value="Ilagan City">Ilagan City </IonSelectOption>
+                        <IonSelectOption value="Cauayan City">Cauayan City</IonSelectOption>
+                        <IonSelectOption value="Santiago City">Santiago City</IonSelectOption>
+                        <IonSelectOption value="Alicia">Alicia</IonSelectOption>
+                        <IonSelectOption value="Roxas">Roxas</IonSelectOption>
+                        <IonSelectOption value="Cabagan">Cabagan</IonSelectOption>
+                        <IonSelectOption value="Bayombong">Bayombong</IonSelectOption>
+                        <IonSelectOption value="Solano">Solano</IonSelectOption>
+                        <IonSelectOption value="Bagabag">Bagabag</IonSelectOption>
+                        <IonSelectOption value="Bambang">Bambang</IonSelectOption>
+                        <IonSelectOption value="Cabarroguis">Cabarroguis</IonSelectOption>
+                        <IonSelectOption value="Maddela">Maddela</IonSelectOption>
+                        <IonSelectOption value="Aglipay">Aglipay</IonSelectOption>
+                    </IonSelect>
                     <IonInput mode="md" class="jprofile-modal-inputs" label="District" placeholder="District - Purok"
                         labelPlacement="stacked" fill="outline" v-model="formData.district" required>
                     </IonInput>
@@ -119,14 +136,6 @@
 
                         PREFERENCES
                     </IonText>
-                    <IonSelect mode="md" label="Preffered Hours" placeholder="Select Preffered hours of work"
-                        label-placement="stacked" interface="popover" fill="outline" class="jprofile-modal-inputs" required>
-                        <IonSelectOption value="4">4hrs</IonSelectOption>
-                        <IonSelectOption value="8">8hrs</IonSelectOption>
-                        <IonSelectOption value="12">12hrs</IonSelectOption>
-                        <IonSelectOption value="16">16hrs</IonSelectOption>
-                        <IonSelectOption value="20">20hrs</IonSelectOption>
-                    </IonSelect>
                     <IonSelect mode="md" label="years of experience" placeholder="Select years of experience"
                         label-placement="stacked" interface="popover" fill="outline" class="jprofile-modal-inputs" v-model="formData.yearsofexp" required>
                         <IonSelectOption value="0">0</IonSelectOption>

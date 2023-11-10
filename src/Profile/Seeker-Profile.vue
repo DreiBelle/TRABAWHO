@@ -1,28 +1,18 @@
 <template>
   <IonPage class="jprofile-contents" ref="page">
-    <IonAlert mode="ios" trigger="signOut" header="Log Out" :buttons="alertButtons"></IonAlert>
-
     <IonHeader style="height: 50px">
       <IonToolbar style="height: 50px; --background: #262c5c">
-        <IonButtons style="padding-left: 10px" slot="start">
+        <IonButtons slot="start">
           <div>
-            <img
-              style="height: 30px"
-              src="../assets/logo/whitefilllogo.png"
-              alt="logo"
-            />
+            <img style="height: 30px" src="../assets/logo/whitefilllogo.png" alt="logo" />
           </div>
-        </IonButtons> 
-        <IonTitle class="jprofile-header-title" mode="ios">
+        </IonButtons>
+        <IonTitle style="text-align: center; color: white;">
           PROFILE
         </IonTitle>
-        <IonButtons id="signOut" style="padding-right: 10px" slot="end">
+        <IonButtons slot="end">
           <div>
-            <IonIcon
-              style="height: 30px; width: 30px; color: white"
-              id="showLogout"
-              :icon="logOut"
-            ></IonIcon>
+            <IonIcon style="height: 30px; width: 30px; color: white" id="showLogout" :icon="logOut"></IonIcon>
           </div>
         </IonButtons>
       </IonToolbar>
@@ -33,20 +23,14 @@
         <div>
           <div class="flexcenter">
             <IonButton class="jprofile-button-editprofile">
-              <IonIcon
-                style="position: absolute; font-size: 16px"
-                :icon="pencilOutline"
-              ></IonIcon>
+              <IonIcon style="position: absolute; font-size: 16px" :icon="pencilOutline"></IonIcon>
             </IonButton>
             <IonAvatar @click="openEditProfileModal" class="jprofile-avatar">
-              <img
-                :src="
-                  user
-                    ? user.pic
-                    : 'https://ionicframework.com/docs/img/demos/avatar.svg'
-                "
-                alt="image"
-              />
+              <img :src="
+                user
+                  ? user.pic
+                  : 'https://ionicframework.com/docs/img/demos/avatar.svg'
+              " alt="image" />
             </IonAvatar>
           </div>
           <div class="flexcenter jprofile-text-name">
@@ -59,7 +43,8 @@
       <div>
         <div class="flexcenter">
           <IonCard class="flexcenter jprofile-cards">
-            {{ user ? `${user.age}` : "..." }}
+            Age:
+            {{ age }}
           </IonCard>
           <IonCard class="flexcenter jprofile-cards">
             {{ user ? `${user.gender}` : "..." }}
@@ -83,21 +68,14 @@
       </div>
       <div v-if="adPremium" class="flexcenter">
         <IonCard class="jprofile-cards-ads">
-          <IonText
-            @click="closeads"
-            style="position: absolute; top: 10px; right: 10px"
-            >x</IonText
-          >
-          <IonText
-            class="flexcenter"
-            style="
-              height: 100%;
-              color: black;
-              font-weight: bold;
-              font-size: 20px;
-              text-align: center;
-            "
-          >
+          <IonText @click="closeads" style="position: absolute; top: 10px; right: 10px">x</IonText>
+          <IonText class="flexcenter" style="
+                          height: 100%;
+                          color: black;
+                          font-weight: bold;
+                          font-size: 20px;
+                          text-align: center;
+                        ">
             SOME ADS TO AVAIL PREM
           </IonText>
         </IonCard>
@@ -105,9 +83,7 @@
       <div class="flexcenter">
         <IonCard class="jprofile-cards">
           <div>
-            <IonText
-              class="flexcenter jprofile-modal-field-text jprofile-title"
-            >
+            <IonText class="flexcenter jprofile-modal-field-text jprofile-title">
               EDUCATION
             </IonText>
           </div>
@@ -146,22 +122,14 @@
       <div class="flexcenter">
         <IonCard class="jprofile-cards">
           <div>
-            <IonText
-              class="flexcenter jprofile-modal-field-text jprofile-title"
-            >
+            <IonText class="flexcenter jprofile-modal-field-text jprofile-title">
               PREFERENCES
             </IonText>
           </div>
           <div>
-            <IonText class="jprofile-cards-education-text">
-              Hours of Work
-            </IonText>
-            <IonCard class="jprofile-cards-education"> ano to?? </IonCard>
-          </div>
-          <div>
             <IonText class="jprofile-cards-education-text"> Salary </IonText>
             <IonCard class="jprofile-cards-education">
-              {{ user ? `${user.asd}` : "..." }}
+              {{ user ? `${user.salary}` : 0 }}
             </IonCard>
           </div>
           <div>
@@ -184,9 +152,7 @@
       <div class="flexcenter">
         <IonCard class="jprofile-cards">
           <div>
-            <IonText
-              class="flexcenter jprofile-modal-field-text jprofile-title"
-            >
+            <IonText class="flexcenter jprofile-modal-field-text jprofile-title">
               SPECIALTY
             </IonText>
           </div>
@@ -232,7 +198,6 @@ import {
   IonChip,
   IonCardTitle,
   IonCardContent,
-IonAlert,
 } from "@ionic/vue";
 import Navbar from "../NavBar/NavBar.vue";
 import "./Seeker-Profile.css";
@@ -259,8 +224,6 @@ import { getDashboardProfile } from "@/Dashboard/Dashboard-Model";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "@/firebaseDB";
 import profileModal from "./EditProfile-Modal.vue";
-import { signOut } from "firebase/auth";
-import { auth } from "@/firebaseDB";
 
 export default {
   components: {
@@ -288,28 +251,24 @@ export default {
     IonInput,
     IonCardTitle,
     IonCardContent,
-    IonAlert
-},
+  },
   setup() {
     const user = ref(null);
+    const age = ref(0);
 
-    const alertButtons = [
-      {
-        text: 'Cancel',
-        role: 'cancel',
-      },
-      {
-        text: 'OK',
-        role: 'confirm',
-        handler: () => {
-          signOut(auth).then(() => {
-            localStorage.removeItem("email");
-            localStorage.removeItem("password");
-            GoHome();
-          });
-        },
-      },
-    ];
+    const calculateAge = (birthdate) => {
+      const today = new Date();
+      const birthDate = new Date(birthdate);
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const monthDiff = today.getMonth() - birthDate.getMonth();
+
+      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+
+      return age;
+    };
+
 
     onMounted(async () => {
       const userEmail = localStorage.getItem("email");
@@ -322,10 +281,11 @@ export default {
       const userUnsubscribe = onSnapshot(userQuery, (snapshot) => {
         user.value = snapshot.docs[0]?.data();
       });
+
+      age.value = calculateAge(user.value.bday);
     });
 
     return {
-      alertButtons,
       logOut,
       settings,
       pencilOutline,
@@ -338,6 +298,7 @@ export default {
       addCircleOutline,
       close,
       user,
+      age,
     };
   },
   data() {
@@ -347,6 +308,7 @@ export default {
       presentingElement: null,
       isModalinterest: false,
       adPremium: true,
+      aged: 0,
     };
   },
   methods: {

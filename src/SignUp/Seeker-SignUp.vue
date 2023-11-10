@@ -152,7 +152,7 @@ export default {
       juniorhigh: "",
       seniorhigh: "",
       college: "",
-      masteral: "",
+      higheduc: "",
       yearsofexp: "",
       jobtype: "",
       salary: "",

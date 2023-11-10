@@ -184,7 +184,6 @@ export default {
     console.log(sharedFormData.juniorhigh);
     console.log(sharedFormData.seniorhigh);
     console.log(sharedFormData.college);
-    console.log(sharedFormData.masteral);
 
     return {
       addCircleOutline,

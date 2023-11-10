@@ -1,8 +1,20 @@
 <template>
     <IonPage>
         <IonContent>
+            <div>
+                Male Jobseekers: {{ male.length }}
+            </div>
+            <div>
+                Female Jobseekers: {{ female.length }}
+            </div>
             <div class="data-analytics">
                 <canvas id="Empljobseeker"></canvas>
+            </div>
+            <div class="data-analytics">
+                <canvas id="pjobseeker"></canvas>
+            </div>
+            <div class="data-analytics">
+                <canvas id="cjobseeker"></canvas>
             </div>
             <div class="data-analytics">
                 <canvas id="users"></canvas>
@@ -21,13 +33,45 @@
 </template>
   
 <script lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, nextTick } from 'vue';
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import Chart from 'chart.js/auto';
 import { ChartConfiguration } from 'chart.js';
 import { db } from '@/firebaseDB';
-import { IonPage, IonGrid, IonRow, IonCol, IonText, IonContent } from '@ionic/vue';
-import { getJobPostings, getusers, getemployers, getjobseekers } from './admin-Model';
+import { IonPage, IonGrid, IonRow, IonCol, IonText, IonContent, IonSelect, IonSelectOption } from '@ionic/vue';
+import {
+    getJobPostings,
+    getusers,
+    getemployers,
+    getjobseekers,
+    getjobseekermale,
+    getjobseekerfemale,
+    getjobseekercagayan,
+    getjobseekerisabela,
+    getjobseekernuevavizcaya,
+    getjobseekerquirino,
+    getjobseekertuguegarao,
+    getjobseekeraparri,
+    getjobseekerlallo,
+    getjobseekergattaran,
+    getjobseekerpenablanca,
+    getjobseekerilagan,
+    getjobseekercuayan,
+    getjobseekersantiago,
+    getjobseekeralicia,
+    getjobseekerroxas,
+    getjobseekercabagan,
+    getjobseekerbayombong,
+    getjobseekersolano,
+    getjobseekerbagabag,
+    getjobseekerbambang,
+    getjobseekercabarroguis,
+    getjobseekermaddela,
+    getjobseekeraglipay,
+
+} from './admin-Model';
+import { getActivePinia } from 'pinia';
+import { getStorage } from '@firebase/storage';
 export default {
     components: {
         IonPage,
@@ -35,7 +79,14 @@ export default {
         IonRow,
         IonCol,
         IonText,
-        IonContent
+        IonContent,
+        IonSelect,
+        IonSelectOption
+    },
+    data(){
+        return{
+            jobs: "",
+        }
     },
     setup() {
         const Utils = {
@@ -73,6 +124,33 @@ export default {
         const datausery = [];
         const employers = ref([]);
         const jobseekers = ref([]);
+        const male = ref([]);
+        const female = ref([]);
+
+        const cagayan = ref([]);
+        const isabela = ref([]);
+        const nuevavizcaya = ref([]);
+        const quirino = ref([]);
+
+        const tuguegarao = ref([]);
+        const aparri = ref([]);
+        const lallo = ref([]);
+        const gattaran = ref([]);
+        const penablanca = ref([]);
+        const ilagan = ref([]);
+        const cuayan = ref([]);
+        const santiago = ref([]);
+        const alicia = ref([]);
+        const roxas = ref([]);
+        const cabagan = ref([]);
+        const bayombong = ref([]);
+        const solano = ref([]);
+        const bagabag = ref([]);
+        const bambang = ref([]);
+        const cabarroguis = ref([]);
+        const maddela = ref([]);
+        const aglipay = ref([]);
+
         const jobpostings = ref([]);
         const jobdata = [];
         const jobdatay = [];
@@ -84,6 +162,31 @@ export default {
             jobpostings.value = await getJobPostings();
             employers.value = await getemployers();
             jobseekers.value = await getjobseekers();
+            male.value = await getjobseekermale();
+            female.value = await getjobseekerfemale();
+
+            cagayan.value = await getjobseekercagayan();
+            isabela.value = await getjobseekerisabela();
+            nuevavizcaya.value = await getjobseekernuevavizcaya();
+            quirino.value = await getjobseekerquirino();
+
+            aparri.value = await getjobseekeraparri();
+            lallo.value = await getjobseekerlallo();
+            gattaran.value = await getjobseekergattaran();
+            penablanca.value = await getjobseekerpenablanca();
+            ilagan.value = await getjobseekerilagan();
+            cuayan.value = await getjobseekercuayan();
+            santiago.value = await getjobseekersantiago();
+            alicia.value = await getjobseekeralicia();
+            roxas.value = await getjobseekerroxas();
+            cabagan.value = await getjobseekercabagan();
+            bayombong.value = await getjobseekerbayombong();
+            solano.value = await getjobseekersolano();
+            bagabag.value = await getjobseekerbagabag();
+            bambang.value = await getjobseekerbambang();
+            cabarroguis.value = await getjobseekercabarroguis();
+            maddela.value = await getjobseekermaddela();
+            aglipay.value = await getjobseekeraglipay();
 
             const labels = Utils.months({ count: 12 });
 
@@ -111,13 +214,15 @@ export default {
                         label: 'Users in Month',
                         data: data,
                         backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgb(255, 99, 132)',
+                        borderWidth: 1,
                         hoverOffset: 4,
                     },
                 ],
             };
 
             const config: ChartConfiguration = {
-                type: 'bar',
+                type: 'line',
                 data: chartData,
                 options: {
                     scales: {
@@ -136,6 +241,88 @@ export default {
                 }
             }
 
+            //bar - province
+
+            const province = ['Cagayan', 'Isabela', 'Nueva Vizcaya', 'Quirino'];
+            const pdata = {
+                labels: province,
+                datasets: [
+                    {
+                        label: 'Jobseekers in Province',
+                        data: [cagayan.value.length, isabela.value.length, nuevavizcaya.value.length, quirino.value.length],
+                        backgroundColor: [
+                            'rgba(153, 102, 255, 0.2)',
+                        ],
+                        borderColor: [
+                            'rgb(153, 102, 255)',
+                        ],
+                        borderWidth: 1,
+                        hoverOffset: 4,
+                    },
+                ],
+            };
+
+            const configp: ChartConfiguration = {
+                type: 'bar',
+                data: pdata,
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                        },
+                    },
+                },
+            };
+
+            const pjseeker = document.getElementById('pjobseeker') as HTMLCanvasElement;
+            if (pjseeker) {
+                const ctx = pjseeker.getContext('2d');
+                if (ctx) {
+                    new Chart(ctx, configp);
+                }
+            }
+
+            //bar city/town
+
+            const citowm = ['Tuguegarao', 'Aparri', 'Lallo', 'Gattaran', 'Penablanca', 'Ilagan', 'Cauayan', 'Santiago', 'Alicia', 'Roxas', 'Cabagan', 'Bayombong', 'Solano', 'Bagabag', 'Bambang', 'Cabarroguis', 'Maddela', 'Aglipay'];
+            const cdata = {
+                labels: citowm,
+                datasets: [
+                    {
+                        label: 'Jobseekers in City/Town',
+                        data: [tuguegarao.value.length, aparri.value.length, lallo.value.length, gattaran.value.length, penablanca.value.length, ilagan.value.length, cuayan.value.length, santiago.value.length, alicia.value.length, roxas.value.length, cabagan.value.length, bayombong.value.length, solano.value.length, bagabag.value.length, bambang.value.length, cabarroguis.value.length, maddela.value.length, aglipay.value.length],
+                        backgroundColor: [
+                            'rgba(0, 0, 139, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgb(0, 0, 139)'
+                        ],
+                        borderWidth: 1,
+                        hoverOffset: 4,
+                    },
+                ],
+            };
+
+            const configc: ChartConfiguration = {
+                type: 'bar',
+                data: cdata,
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                        },
+                    },
+                },
+            };
+
+            const cjseeker = document.getElementById('cjobseeker') as HTMLCanvasElement;
+            if (cjseeker) {
+                const ctx = cjseeker.getContext('2d');
+                if (ctx) {
+                    new Chart(ctx, configc);
+                }
+            }
+
             // bar - Employers & Jobseekers
 
             const EJ = ['Employers', 'Jobseekers'];
@@ -147,8 +334,9 @@ export default {
                         data: [employers.value.length, jobseekers.value.length],
                         backgroundColor: [
                             'rgba(255, 159, 64, 0.2)',
-                            'rgba(255, 205, 86, 0.2)',
                         ],
+                        borderColor: 'rgb(255, 159, 64)',
+                        borderWidth: 1,
                         hoverOffset: 4,
                     },
                 ],
@@ -202,13 +390,15 @@ export default {
                         label: 'Jobs in Month',
                         data: jobdata,
                         backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgb(75, 192, 192)',
+                        borderWidth: 1,
                         hoverOffset: 4,
                     },
                 ],
             };
 
             const configjob: ChartConfiguration = {
-                type: 'bar',
+                type: 'line',
                 data: jobsdata,
                 options: {
                     scales: {
@@ -253,13 +443,15 @@ export default {
                         label: 'Users in Year',
                         data: datausery,
                         backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgb(54, 162, 235)',
+                        borderWidth: 1,
                         hoverOffset: 4,
                     },
                 ],
             };
 
             const configuser: ChartConfiguration = {
-                type: 'bar',
+                type: 'line',
                 data: userdatay,
                 options: {
                     scales: {
@@ -303,14 +495,16 @@ export default {
                     {
                         label: 'Jobs in Year',
                         data: jobdatay,
-                        backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                        backgroundColor: 'rgba(255, 205, 86, 0.2)',
+                        borderColor: 'rgb(184, 134, 11)',
+                        borderWidth: 1,
                         hoverOffset: 4,
                     },
                 ],
             };
 
             const configjobs: ChartConfiguration = {
-                type: 'bar',
+                type: 'line',
                 data: datajoby,
                 options: {
                     scales: {
@@ -336,6 +530,30 @@ export default {
             jobpostings,
             employers,
             jobseekers,
+            male,
+            female,
+            cagayan,
+            isabela,
+            nuevavizcaya,
+            quirino,
+            tuguegarao,
+            aparri,
+            lallo,
+            gattaran,
+            penablanca,
+            ilagan,
+            cuayan,
+            santiago,
+            alicia,
+            roxas,
+            cabagan,
+            bayombong,
+            solano,
+            bagabag,
+            bambang,
+            cabarroguis,
+            maddela,
+            aglipay,
         }
     },
 };

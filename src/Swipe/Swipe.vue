@@ -4,37 +4,67 @@
       <IonToolbar style="height: 100%; --background: #262c5c">
         <IonButtons style="padding-left: 10px" slot="start">
           <div>
-            <img style="height: 30px" src="../assets/logo/whitefilllogo.png" alt="logo" />
+            <img
+              style="height: 30px"
+              src="../assets/logo/whitefilllogo.png"
+              alt="logo"
+            />
           </div>
         </IonButtons>
-        <IonTitle class="Swipe-header-title" mode="md">
-          TRABAWHO
-        </IonTitle>
         <IonProgressBar v-if="isloading" type="indeterminate"></IonProgressBar>
       </IonToolbar>
     </IonHeader>
 
     <IonContent v-if="!isloading" style="height: calc(100%-45px)">
       <div style="height: 0px">
-        <IonRefresher style="background: none; z-index: 3" slot="fixed" @ionRefresh="refresh($event)">
+        <IonRefresher
+          style="background: none; z-index: 3"
+          slot="fixed"
+          @ionRefresh="refresh($event)"
+        >
           <IonRefresherContent></IonRefresherContent>
         </IonRefresher>
       </div>
       <div class="flexcenter" style="height: 100%">
-        <div class="Swipe-Background" v-if="cards.length - currentCardIndex >= 3">
-          <SwipeableCard :item="cards[currentCardIndex]" @swipeLeft="handleSwipeLeft" @swipeRight="handleSwipeRight"
-            id="mainswiper" class="asd" />
+        <div
+          class="Swipe-Background"
+          v-if="cards.length - currentCardIndex >= 3"
+        >
+          <SwipeableCard
+            :item="cards[currentCardIndex]"
+            @swipeLeft="handleSwipeLeft"
+            @swipeRight="handleSwipeRight"
+            id="mainswiper"
+            class="asd"
+          />
           <FakeSwipeableCard :item="cards[nextCardIndex]" class="asd2" />
           <FakeSwipeableCard :item="cards[nextCardIndex + 1]" class="asd3" />
         </div>
-        <div class="Swipe-Background" v-else-if="cards.length - currentCardIndex == 2">
-          <SwipeableCard :item="cards[currentCardIndex]" @swipeLeft="handleSwipeLeft" @swipeRight="handleSwipeRight"
-            id="mainswiper" class="asd" />
+        <div
+          class="Swipe-Background"
+          v-else-if="cards.length - currentCardIndex == 2"
+        >
+          <SwipeableCard
+            :item="cards[currentCardIndex]"
+            @swipeLeft="handleSwipeLeft"
+            @swipeRight="handleSwipeRight"
+            id="mainswiper"
+            class="asd"
+          />
           <FakeSwipeableCard :item="cards[nextCardIndex]" class="asd2" />
         </div>
-        <div class="Swipe-Background" v-else-if="cards.length - currentCardIndex == 1">
-          <SwipeableCard :item="cards[currentCardIndex]" @swipeLeft="handleSwipeLeft" @swipeRight="handleSwipeRight"
-            style="z-index: 2" id="mainswiper" class="asd" />
+        <div
+          class="Swipe-Background"
+          v-else-if="cards.length - currentCardIndex == 1"
+        >
+          <SwipeableCard
+            :item="cards[currentCardIndex]"
+            @swipeLeft="handleSwipeLeft"
+            @swipeRight="handleSwipeRight"
+            style="z-index: 2"
+            id="mainswiper"
+            class="asd"
+          />
           <IonCard class="Swipe-Swipeable"> no more available jobs </IonCard>
         </div>
         <div class="Swipe-Background" v-else>
@@ -81,7 +111,6 @@ import {
   RefresherEventDetail,
   IonToolbar,
   IonButtons,
-  IonTitle,
 } from "@ionic/vue";
 import { db, dbImage } from "@/firebaseDB";
 import { getDownloadURL, ref } from "firebase/storage";
@@ -98,6 +127,8 @@ import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { GoHome } from "../NavBar/NavBar-Controller";
 import { signOut } from "firebase/auth";
 import { auth } from "@/firebaseDB";
+import { uselike } from "@/stores/likes";
+import { useview } from "@/stores/views";
 
 export default {
   components: {
@@ -124,7 +155,6 @@ export default {
     IonRefresherContent,
     IonToolbar,
     IonButtons,
-    IonTitle
   },
   setup() {
     //new
@@ -142,6 +172,14 @@ export default {
     const updatelikes = useupdatelike();
     const updateviews = useupdateview();
     const updatebookmarks = useupdatebookmark();
+    const uselikes = uselike();
+    const useviews = useview();
+
+    const formData = {
+      creator: "",
+      job: "",
+      swiper: "",
+    };
 
     const alertButtons = [
       {
@@ -179,6 +217,9 @@ export default {
       updateviews,
       updatebookmarks,
       handleRefresh,
+      uselikes,
+      useviews,
+      formData,
     };
   },
   data() {
@@ -341,8 +382,19 @@ export default {
       const newview = oldview + 1;
       console.log(newview);
 
+      this.formData.job = job.id;
+      this.formData.creator = job.company;
+      this.formData.swiper = this.user.id;
+
+      this.useviews.setFormData(this.formData);
+
       this.updateviews.setviews(newview);
       await this.updateviews.updateviews(job.id);
+
+      await this.useviews.registerview();
+      this.formData.job = "";
+      this.formData.creator = "";
+      this.formData.swiper = "";
     },
 
     async handleSwipeRight(job) {
@@ -369,8 +421,8 @@ export default {
       this.swipedata = owner.swiperuser;
       this.jobdata = owner.swiperjob;
 
-      this.swipedata.push({ swipedid: this.user.id });
-      this.jobdata.push({ jobdid: job.id });
+      this.swipedata.push({ swipedid: this.user.id, dateCreated: new Date().toISOString() });
+      this.jobdata.push({ jobdid: job.id, dateCreated: new Date().toISOString() });
 
       this.userswipej = this.user.swiperjob;
       this.userswipej.push({ jobdid: job.id });
@@ -399,6 +451,18 @@ export default {
       deleteBlank(this.user.id);
       deleteBlank(job.company);
       deleteBlank1(job.company);
+
+      this.formData.job = job.id;
+      this.formData.creator = job.company;
+      this.formData.swiper = this.user.id;
+
+      this.uselikes.setFormData(this.formData);
+      await this.uselikes.registerlike();
+      this.formData.job = "";
+      this.formData.creator = "";
+      this.formData.swiper = "";
+
+
 
       this.swipedata = [];
       this.jobdata = [];

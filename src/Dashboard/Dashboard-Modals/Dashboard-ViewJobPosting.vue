@@ -181,8 +181,8 @@
                         </div>
                         <div>
                           <IonText class="modal-viewjobposting-text">
-                            Province
-                            wala pa to
+                            Province:
+                            {{ jobPosting ? jobPosting.province : "Loading..." }}
                           </IonText>
                         </div>
                       </IonCol>
@@ -191,16 +191,8 @@
                       <IonCol>
                         <div>
                           <IonText class="modal-viewjobposting-text">
-                            City/Town
-                            wala pa to </IonText>
-                        </div>
-                      </IonCol>
-                    </IonRow>
-                    <IonRow>
-                      <IonCol>
-                        <div>
-                          <IonText class="modal-viewjobposting-text">
-                            District - Purok
+                            City/Town:
+                            {{ jobPosting ? jobPosting.citown : "Loading..." }}
                           </IonText>
                         </div>
                       </IonCol>
@@ -209,7 +201,18 @@
                       <IonCol>
                         <div>
                           <IonText class="modal-viewjobposting-text">
-                            Street
+                            District:
+                            {{ jobPosting ? jobPosting.district : "Loading..." }}
+                          </IonText>
+                        </div>
+                      </IonCol>
+                    </IonRow>
+                    <IonRow>
+                      <IonCol>
+                        <div>
+                          <IonText class="modal-viewjobposting-text">
+                            Street:
+                            {{ jobPosting ? jobPosting.street : "Loading..." }}
                           </IonText>
                         </div>
                       </IonCol>

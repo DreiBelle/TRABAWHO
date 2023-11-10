@@ -1,88 +1,110 @@
 <template>
   <IonPage class="signup-ionpage">
     <!-- <IonContent style="--background: none;"> -->
-      <IonGrid class="signup-grid">
-        <IonRow style="height: 100%;">
-          <IonCol class="flexcenter">
-            <IonGrid>
-              <IonRow>
-                <IonCol class="flexcenter">
-                  <IonIcon @click="goBack()" class="signup-back-mobile" :icon="arrowBackOutline"></IonIcon>
-                  <IonText class="signup-title-mobile">
-                    BASICS
+    <IonGrid class="signup-grid">
+      <IonRow style="height: 100%;">
+        <IonCol class="flexcenter">
+          <IonGrid>
+            <IonRow>
+              <IonCol class="flexcenter">
+                <IonIcon @click="goBack()" class="signup-back-mobile" :icon="arrowBackOutline"></IonIcon>
+                <IonText class="signup-title-mobile">
+                  BASICS
+                </IonText>
+              </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol class="flexcenter">
+                <IonInput mode="md" type="date" placeholder="Date of Birth" fill="outline" labelPlacement="stacked"
+                  label="Birthday" class="signup-inputs-mobile" v-model="formData.bday" required>
+                </IonInput>
+              </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol class="flexcenter">
+                <IonInput mode="md" type="number" placeholder="Phone Number" fill="outline" labelPlacement="stacked"
+                  label="Contact Number" class="signup-inputs-mobile" v-model="formData.contactno" required>
+                </IonInput>
+              </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol class="flexcenter">
+                <IonSelect mode="md" label="Gender" placeholder="Select Gender" label-placement="stacked"
+                  interface="popover" fill="outline" class="signup-inputs-mobile" v-model="formData.gender" required>
+                  <IonSelectOption value="Male">Male</IonSelectOption>
+                  <IonSelectOption value="Female">Female</IonSelectOption>
+                </IonSelect>
+              </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol class="flexcenter">
+                <IonSelect mode="md" label="Gender" placeholder="Select Province" label-placement="stacked"
+                  interface="popover" fill="outline" class="signup-inputs-mobile" v-model="formData.province" required>
+                  <IonSelectOption value="Cagayan">Cagayan</IonSelectOption>
+                  <IonSelectOption value="Isabela">Isabela</IonSelectOption>
+                  <IonSelectOption value="Nueva Vizcaya">Nueva Vizcaya</IonSelectOption>
+                  <IonSelectOption value="Quirino">Quirino</IonSelectOption>
+                </IonSelect>
+              </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol class="flexcenter">
+                <IonSelect mode="md" label="Gender" placeholder="Select City/Town" label-placement="stacked"
+                  interface="popover" fill="outline" class="signup-inputs-mobile" v-model="formData.citown" required>
+                  <IonSelectOption value="Tuguegarao City">Tuguegarao City</IonSelectOption>
+                  <IonSelectOption value="Aparri">Aparri</IonSelectOption>
+                  <IonSelectOption value="Lal-lo">Lal-lo</IonSelectOption>
+                  <IonSelectOption value="Gattaran">Gattaran</IonSelectOption>
+                  <IonSelectOption value="Penablanca">Penablanca</IonSelectOption>
+                  <IonSelectOption value="Ilagan City">Ilagan City </IonSelectOption>
+                  <IonSelectOption value="Cauayan City">Cauayan City</IonSelectOption>
+                  <IonSelectOption value="Santiago City">Santiago City</IonSelectOption>
+                  <IonSelectOption value="Alicia">Alicia</IonSelectOption>
+                  <IonSelectOption value="Roxas">Roxas</IonSelectOption>
+                  <IonSelectOption value="Cabagan">Cabagan</IonSelectOption>
+                  <IonSelectOption value="Bayombong">Bayombong</IonSelectOption>
+                  <IonSelectOption value="Solano">Solano</IonSelectOption>
+                  <IonSelectOption value="Bagabag">Bagabag</IonSelectOption>
+                  <IonSelectOption value="Bambang">Bambang</IonSelectOption>
+                  <IonSelectOption value="Cabarroguis">Cabarroguis</IonSelectOption>
+                  <IonSelectOption value="Maddela">Maddela</IonSelectOption>
+                  <IonSelectOption value="Aglipay">Aglipay</IonSelectOption>
+                </IonSelect>
+              </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol class="flexcenter">
+                <IonInput mode="md" type="text" placeholder="District" fill="outline" labelPlacement="stacked"
+                  label="District" class="signup-inputs-mobile" v-model="formData.district" required>
+                </IonInput>
+              </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol class="flexcenter">
+                <IonInput mode="md" type="text" placeholder="Street" fill="outline" labelPlacement="stacked"
+                  label="Street" class="signup-inputs-mobile" v-model="formData.street" required>
+                </IonInput>
+              </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol>
+                <div class="flexcenter">
+                  <IonButton @click="submitForm()" class="signup-button-email-mobile">
+                    Continue
+                  </IonButton>
+                </div>
+                <div class="flexcenter">
+                  <IonText class="signup-text-alreadyhave">
+                    Already have an account? <a @click="goLogin()" style="color: #262c5c;">Login</a> | <a
+                      @click="GoHome()" style="color: red;">Cancel</a>
                   </IonText>
-                </IonCol>
-              </IonRow>
-              <IonRow>
-                <IonCol class="flexcenter">
-                  <IonInput mode="md" type="date" placeholder="Date of Birth" fill="outline" labelPlacement="stacked"
-                    label="Birthday" class="signup-inputs-mobile" v-model="formData.bday" required>
-                  </IonInput>
-                </IonCol>
-              </IonRow>
-              <IonRow>
-                <IonCol class="flexcenter">
-                  <IonInput mode="md" type="number" placeholder="Phone Number" fill="outline" labelPlacement="stacked"
-                    label="Contact Number" class="signup-inputs-mobile" v-model="formData.contactno" required>
-                  </IonInput>
-                </IonCol>
-              </IonRow>
-              <IonRow>
-                <IonCol class="flexcenter">
-                  <IonSelect mode="md" label="Gender" placeholder="Select Gender" label-placement="stacked"
-                    interface="popover" fill="outline" class="signup-inputs-mobile" v-model="formData.gender" required>
-                    <IonSelectOption value="male">Male</IonSelectOption>
-                    <IonSelectOption value="female">Female</IonSelectOption>
-                  </IonSelect>
-                </IonCol>
-              </IonRow>
-              <IonRow>
-                <IonCol class="flexcenter">
-                  <IonInput mode="md" type="text" placeholder="Province" fill="outline" labelPlacement="stacked"
-                    label="Province" class="signup-inputs-mobile" v-model="formData.province" required>
-                  </IonInput>
-                </IonCol>
-              </IonRow>
-              <IonRow>
-                <IonCol class="flexcenter">
-                  <IonInput mode="md" type="text" placeholder="City/Town" fill="outline" labelPlacement="stacked"
-                    label="City/Town" class="signup-inputs-mobile" v-model="formData.citown" required>
-                  </IonInput>
-                </IonCol>
-              </IonRow>
-              <IonRow>
-                <IonCol class="flexcenter">
-                  <IonInput mode="md" type="text" placeholder="District" fill="outline" labelPlacement="stacked"
-                    label="District" class="signup-inputs-mobile" v-model="formData.district" required>
-                  </IonInput>
-                </IonCol>
-              </IonRow>
-              <IonRow>
-                <IonCol class="flexcenter">
-                  <IonInput mode="md" type="text" placeholder="Street" fill="outline" labelPlacement="stacked"
-                    label="Street" class="signup-inputs-mobile" v-model="formData.street" required>
-                  </IonInput>
-                </IonCol>
-              </IonRow>
-              <IonRow>
-                <IonCol>
-                  <div class="flexcenter">
-                    <IonButton @click="submitForm()" class="signup-button-email-mobile">
-                      Continue
-                    </IonButton>
-                  </div>
-                  <div class="flexcenter">
-                    <IonText class="signup-text-alreadyhave">
-                      Already have an account? <a @click="goLogin()" style="color: #262c5c;">Login</a> | <a
-                        @click="GoHome()" style="color: red;">Cancel</a>
-                    </IonText>
-                  </div>
-                </IonCol>
-              </IonRow>
-            </IonGrid>
-          </IonCol>
-        </IonRow>
-      </IonGrid>
+                </div>
+              </IonCol>
+            </IonRow>
+          </IonGrid>
+        </IonCol>
+      </IonRow>
+    </IonGrid>
     <!-- </IonContent> -->
   </IonPage>
 </template>
@@ -130,7 +152,7 @@ const alertbox = (x, message) => {
 }
 
 const submitForm = async () => {
-  const requiredFields = ['bday', 'contactno', 'gender', 'province','citown', 'district','street' ];
+  const requiredFields = ['bday', 'contactno', 'gender', 'province', 'citown', 'district', 'street'];
   let isFormValid = true;
 
   for (const field of requiredFields) {
@@ -169,6 +191,23 @@ const sharedFormData = signupStore.formData;
 
 console.log(sharedFormData.fullname);
 console.log(sharedFormData.email);
+console.log(sharedFormData.bday);
+console.log(sharedFormData.contactno);
+console.log(sharedFormData.gender);
+console.log(sharedFormData.province);
+console.log(sharedFormData.citown);
+console.log(sharedFormData.district);
+console.log(sharedFormData.street);
+console.log(sharedFormData.elementary);
+console.log(sharedFormData.juniorhigh);
+console.log(sharedFormData.seniorhigh);
+console.log(sharedFormData.college);
+console.log(sharedFormData.yearsofexp);
+console.log(sharedFormData.jobtype);
+console.log(sharedFormData.salary);
+console.log(sharedFormData.loc);
+console.log(sharedFormData.classification);
+console.log(sharedFormData.subclassification);
 
 
 </script>

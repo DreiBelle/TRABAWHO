@@ -858,7 +858,7 @@
       <IonSelectOption value="Risk Consulting"> Risk Consulting </IonSelectOption>
       <IonSelectOption value="Superannuation"> Superannuation </IonSelectOption>
       <IonSelectOption value="Underwriting"> Underwriting </IonSelectOption>
-      <IonSelectOption value="Workers' Compensation"> Workers' Compensation </IonSelectOption>
+      <IonSelectOption value="Workers' Compensation"> Workers Compensation </IonSelectOption>
     </IonSelect>
   
     <IonSelect
@@ -1120,8 +1120,8 @@
       <IonSelectOption value="Nannies & Babysitters"> Nannies & Babysitters </IonSelectOption>
       <IonSelectOption value="Painters & Sign Writers"> Painters & Sign Writers </IonSelectOption>
       <IonSelectOption value="Plumbers"> Plumbers </IonSelectOption>
-      <IonSelectOption value=""> Printing & Publishing Services </IonSelectOption>
-      <IonSelectOption value="Printing & Publishing Services"> Security Services </IonSelectOption>
+      <IonSelectOption value="Printing & Publishing Services"> Printing & Publishing Services </IonSelectOption>
+      <IonSelectOption value="Security Services"> Security Services </IonSelectOption>
       <IonSelectOption value="Tailor & Dressmakers"> Tailor & Dressmakers </IonSelectOption>
       <IonSelectOption value="Technicians"> Technicians </IonSelectOption>
       <IonSelectOption value="Welders & Boilermakers"> Welders & Boilermakers </IonSelectOption>
