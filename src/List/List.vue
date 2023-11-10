@@ -11,6 +11,9 @@
             />
           </div>
         </IonButtons>
+        <IonTitle class="jlist-header-title" mode="ios">
+          LIST
+        </IonTitle>
       </IonToolbar>
     </IonHeader>
 
@@ -176,6 +179,7 @@ import {
   IonModal,
   IonToolbar,
   IonButtons,
+IonTitle,
 } from "@ionic/vue";
 import "../Profile/Seeker-Profile.css";
 import "../Swipe/Swipe.css";
@@ -195,7 +199,8 @@ export default {
     IonModal,
     IonToolbar,
     IonButtons,
-  },
+    IonTitle
+},
   data() {
     return {
       testdata: ["a", "b", "c"],

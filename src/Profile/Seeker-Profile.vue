@@ -1,8 +1,10 @@
 <template>
   <IonPage class="jprofile-contents" ref="page">
+    <IonAlert mode="ios" trigger="signOut" header="Log Out" :buttons="alertButtons"></IonAlert>
+
     <IonHeader style="height: 50px">
       <IonToolbar style="height: 50px; --background: #262c5c">
-        <IonButtons slot="start">
+        <IonButtons style="padding-left: 10px" slot="start">
           <div>
             <img
               style="height: 30px"
@@ -11,10 +13,10 @@
             />
           </div>
         </IonButtons> 
-        <IonTitle style="text-align: center; color: white;">
+        <IonTitle class="jprofile-header-title" mode="ios">
           PROFILE
         </IonTitle>
-        <IonButtons slot="end">
+        <IonButtons id="signOut" style="padding-right: 10px" slot="end">
           <div>
             <IonIcon
               style="height: 30px; width: 30px; color: white"
@@ -230,6 +232,7 @@ import {
   IonChip,
   IonCardTitle,
   IonCardContent,
+IonAlert,
 } from "@ionic/vue";
 import Navbar from "../NavBar/NavBar.vue";
 import "./Seeker-Profile.css";
@@ -256,6 +259,8 @@ import { getDashboardProfile } from "@/Dashboard/Dashboard-Model";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "@/firebaseDB";
 import profileModal from "./EditProfile-Modal.vue";
+import { signOut } from "firebase/auth";
+import { auth } from "@/firebaseDB";
 
 export default {
   components: {
@@ -283,9 +288,28 @@ export default {
     IonInput,
     IonCardTitle,
     IonCardContent,
-  },
+    IonAlert
+},
   setup() {
     const user = ref(null);
+
+    const alertButtons = [
+      {
+        text: 'Cancel',
+        role: 'cancel',
+      },
+      {
+        text: 'OK',
+        role: 'confirm',
+        handler: () => {
+          signOut(auth).then(() => {
+            localStorage.removeItem("email");
+            localStorage.removeItem("password");
+            GoHome();
+          });
+        },
+      },
+    ];
 
     onMounted(async () => {
       const userEmail = localStorage.getItem("email");
@@ -301,6 +325,7 @@ export default {
     });
 
     return {
+      alertButtons,
       logOut,
       settings,
       pencilOutline,

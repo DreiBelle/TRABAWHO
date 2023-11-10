@@ -1,0 +1,16 @@
+.jnotif-header-title{
+    font-family: BebasNeue-Regular;
+    font-size: 30px;
+    color: white;
+    font-weight: lighter;
+}
+
+.jnotif-list-container{
+    border-bottom: 1px solid lightgrey;
+    padding: 10px;
+}
+
+.jnotif-icons{
+    font-size:30px;
+    color: #262c5c;
+}

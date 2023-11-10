@@ -4,67 +4,37 @@
       <IonToolbar style="height: 100%; --background: #262c5c">
         <IonButtons style="padding-left: 10px" slot="start">
           <div>
-            <img
-              style="height: 30px"
-              src="../assets/logo/whitefilllogo.png"
-              alt="logo"
-            />
+            <img style="height: 30px" src="../assets/logo/whitefilllogo.png" alt="logo" />
           </div>
         </IonButtons>
+        <IonTitle class="Swipe-header-title" mode="md">
+          TRABAWHO
+        </IonTitle>
         <IonProgressBar v-if="isloading" type="indeterminate"></IonProgressBar>
       </IonToolbar>
     </IonHeader>
 
     <IonContent v-if="!isloading" style="height: calc(100%-45px)">
       <div style="height: 0px">
-        <IonRefresher
-          style="background: none; z-index: 3"
-          slot="fixed"
-          @ionRefresh="refresh($event)"
-        >
+        <IonRefresher style="background: none; z-index: 3" slot="fixed" @ionRefresh="refresh($event)">
           <IonRefresherContent></IonRefresherContent>
         </IonRefresher>
       </div>
       <div class="flexcenter" style="height: 100%">
-        <div
-          class="Swipe-Background"
-          v-if="cards.length - currentCardIndex >= 3"
-        >
-          <SwipeableCard
-            :item="cards[currentCardIndex]"
-            @swipeLeft="handleSwipeLeft"
-            @swipeRight="handleSwipeRight"
-            id="mainswiper"
-            class="asd"
-          />
+        <div class="Swipe-Background" v-if="cards.length - currentCardIndex >= 3">
+          <SwipeableCard :item="cards[currentCardIndex]" @swipeLeft="handleSwipeLeft" @swipeRight="handleSwipeRight"
+            id="mainswiper" class="asd" />
           <FakeSwipeableCard :item="cards[nextCardIndex]" class="asd2" />
           <FakeSwipeableCard :item="cards[nextCardIndex + 1]" class="asd3" />
         </div>
-        <div
-          class="Swipe-Background"
-          v-else-if="cards.length - currentCardIndex == 2"
-        >
-          <SwipeableCard
-            :item="cards[currentCardIndex]"
-            @swipeLeft="handleSwipeLeft"
-            @swipeRight="handleSwipeRight"
-            id="mainswiper"
-            class="asd"
-          />
+        <div class="Swipe-Background" v-else-if="cards.length - currentCardIndex == 2">
+          <SwipeableCard :item="cards[currentCardIndex]" @swipeLeft="handleSwipeLeft" @swipeRight="handleSwipeRight"
+            id="mainswiper" class="asd" />
           <FakeSwipeableCard :item="cards[nextCardIndex]" class="asd2" />
         </div>
-        <div
-          class="Swipe-Background"
-          v-else-if="cards.length - currentCardIndex == 1"
-        >
-          <SwipeableCard
-            :item="cards[currentCardIndex]"
-            @swipeLeft="handleSwipeLeft"
-            @swipeRight="handleSwipeRight"
-            style="z-index: 2"
-            id="mainswiper"
-            class="asd"
-          />
+        <div class="Swipe-Background" v-else-if="cards.length - currentCardIndex == 1">
+          <SwipeableCard :item="cards[currentCardIndex]" @swipeLeft="handleSwipeLeft" @swipeRight="handleSwipeRight"
+            style="z-index: 2" id="mainswiper" class="asd" />
           <IonCard class="Swipe-Swipeable"> no more available jobs </IonCard>
         </div>
         <div class="Swipe-Background" v-else>
@@ -111,6 +81,7 @@ import {
   RefresherEventDetail,
   IonToolbar,
   IonButtons,
+  IonTitle,
 } from "@ionic/vue";
 import { db, dbImage } from "@/firebaseDB";
 import { getDownloadURL, ref } from "firebase/storage";
@@ -153,9 +124,10 @@ export default {
     IonRefresherContent,
     IonToolbar,
     IonButtons,
+    IonTitle
   },
   setup() {
-//new
+    //new
 
     //old
     const user = asd(null);

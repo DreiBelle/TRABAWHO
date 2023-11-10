@@ -92,7 +92,6 @@
   max-width: 500px;
   background-color: #262c5c;
   border-radius: 20px;
-
 }
 
 .eprofile-card-messages2 {
@@ -222,8 +221,74 @@
   margin-bottom: 7px;
 }
 
-.emessage-tile{
+.emessage-tile {
   font-size: 30px;
   color: #262c5c;
   font-family: MalbergTrial-Heavy;
+}
+
+.emessage-fab-button {
+  height: 30px;
+  width: 30px;
+  background-color: transparent;
+}
+
+.emessage-fab-button::part(native) {
+  background-color: transparent;
+  box-shadow: none;
+  color: black;
+}
+
+.emessage-fab-button-contents{
+  height: 35px;
+  width: 125px;
+}
+
+.emessage-fab-button-contents::part(native){
+  background-color: darkgreen;
+  color: white;
+  border-radius: 20px;
+  margin-left: -100px;
+  margin-top: -5px;
+}
+
+.emessage-fab-button-contents2{
+  height: 35px;
+  width: 125px;
+}
+
+.emessage-fab-button-contents2::part(native){
+  background-color: darkgoldenrod;
+  color: white;
+  border-radius: 20px;
+  margin-left: -100px;
+}
+
+.emessage-fab-button-contents3{
+  height: 35px;
+  width: 125px;
+}
+
+.emessage-fab-button-contents3::part(native){
+  background-color: darkred;
+  color: white;
+  border-radius: 20px;
+  margin-left: -100px;
+}
+
+.emessage-title-doneornot{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 35px;
+  color: #262c5c;
+  font-family: BebasNeue-Regular;
+  padding: 10px;
+  padding-bottom: 0px;
+}
+
+.emessage-button-markasdone{
+  --background: #262c5c;
+  --border-radius: 100px;
+  font-size: 15px;
 }

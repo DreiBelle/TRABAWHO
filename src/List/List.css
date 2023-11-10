@@ -22,3 +22,10 @@
   color: black;
   font-size: 15px;
 }
+
+.jlist-header-title{
+  font-family: BebasNeue-Regular;
+  font-size: 30px;
+  color: white;
+  font-weight: lighter;
+}

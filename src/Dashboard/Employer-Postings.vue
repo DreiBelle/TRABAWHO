@@ -274,11 +274,11 @@ export default {
   },
   props: {
     searchTerm: {
-      required: true,
       type: String,
     },
   },
   mounted() {
+    // console.log("hello")
     setTimeout(() => {
       this.isLoading = false;
     }, 1000);

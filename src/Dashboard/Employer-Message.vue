@@ -3,33 +3,58 @@
     <IonRow style="height: 100%">
       <IonCol class="emessage-container" size="3">
         <IonRow>
-          <IonCol>
+          <IonCol class="flexcenter" style="justify-content: left;">
+            <div>
+              <IonText class="emessage-tile flexcenter" style="justify-content: left;">
+                <IonIcon style="margin: 5px;" :icon="mail">
 
-            <IonText class="emessage-tile flexcenter" style="justify-content: left;">
-              <IonIcon style="margin: 5px;" :icon="mail">
-
-              </IonIcon>
-              INBOX
-            </IonText>
+                </IonIcon>
+                INBOX
+              </IonText>
+            </div>
+            <div class="flexcenter" style="position: absolute; right: 0;">
+              <IonButton class="emessage-button-markasdone" v-if="markasDone == true" @click="swapViews(false)">Marked as
+                Done</IonButton>
+              <IonButton class="emessage-button-markasdone" v-else-if="markasDone == false" @click="swapViews(true)">
+                Messages</IonButton>
+            </div>
           </IonCol>
         </IonRow>
         <IonRow>
           <IonCol>
             <IonSearchbar class="dashboard-navbar-topbar-searchbar" style="padding: 0;" v-model="searchTerm">
             </IonSearchbar>
+            <div v-if="markasDone == true">
+              <IonText class="emessage-title-doneornot">
+                MESSAGES
+              </IonText>
+            </div>
+            <div v-else-if="markasDone == false">
+              <IonText class="emessage-title-doneornot">
+                MARKED AS DONE
+              </IonText>
+            </div>
           </IonCol>
         </IonRow>
         <IonRow>
           <IonCol class="custom-scrollbar">
-            <div v-for="users in filteredSearch">
-              <div @click="clickUser(users)" class="emessage-persons-tabs flexcenter">
+            <div v-for="chat in filteredSearch">
+              <div
+                @click="clickUser(chat.data.SeekerName, chat.data.SeekerEmail, chat.data.JobSwipe, chat.data.SeekerPicture, chat.id)"
+                class="emessage-persons-tabs flexcenter">
                 <div>
                   <IonAvatar class="emessage-avatar" style="margin-right: 10px">
-                    <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+                    <img :src="chat ? chat.data.SeekerPicture : 'https://ionicframework.com/docs/img/demos/avatar.svg'" />
                   </IonAvatar>
                 </div>
                 <div>
-                  <IonText style="color: black;">{{ users }}</IonText>
+                  <div>
+                    <IonText style="color: black;"><b>{{ chat.data.SeekerName }} | {{ chat.data.JobSwipe }}</b> </IonText>
+                  </div>
+                  <div>
+                    <IonText style="color: black;"> {{ chat.data.latestMessage }} - {{
+                      formatTimestamp(chat.data.latestSent) }} </IonText>
+                  </div>
                 </div>
               </div>
             </div>
@@ -42,24 +67,53 @@
         </IonRow>
         <IonRow v-else style="height: 50px" class="emessage-container2">
           <IonCol class="flexcenter" style="justify-content: left">
-            <div>
+            <div v-if="clickedChat">
               <IonAvatar class="emessage-avatar" style="margin-right: 10px">
-                <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+                <img :src="clickedPicture" />
               </IonAvatar>
             </div>
-            <div>
-              <IonText style="color: black;">{{ clickedChat }}</IonText>
+            <div v-if="clickedChat">
+              <IonText style="color: black;">{{ clickedChat }} | <b> {{ clickedJobSwiped }} </b></IonText>
+            </div>
+            <div class="flexcenter">
+              <!-- <IonButton style="position: absolute; right: 5px; --background: darkgreen; --border-radius: 50px;"> DONE </IonButton> -->
+              <IonFab v-if="clickedChat && markasDone == true" style="position: absolute; right: 5px;">
+                <IonFabButton class="emessage-fab-button">
+                  <IonIcon :icon="chevronDown"></IonIcon>
+                </IonFabButton>
+                <IonFabList side="bottom" class="flexcenter">
+                  <IonFabButton @click="markDoneUndone(false)" class="emessage-fab-button-contents">
+                    <IonIcon style="margin-right: 5px;" :icon="checkmark"></IonIcon>
+                    Mark as Done
+                  </IonFabButton>
+                </IonFabList>
+              </IonFab>
+              <IonFab v-if="clickedChat && markasDone == false" style="position: absolute; right: 5px;">
+                <IonFabButton class="emessage-fab-button">
+                  <IonIcon :icon="chevronDown"></IonIcon>
+                </IonFabButton>
+                <IonFabList side="bottom" class="flexcenter">
+                  <IonFabButton @click="markDoneUndone(true)" class="emessage-fab-button-contents2">
+                    <IonIcon style="margin-right: 5px;" :icon="close"></IonIcon>
+                    Mark Undone
+                  </IonFabButton>
+                  <IonFabButton @click="deleteChats()" class="emessage-fab-button-contents3">
+                    <IonIcon style="margin-right: 5px;" :icon="trash"></IonIcon>
+                    Delete
+                  </IonFabButton>
+                </IonFabList>
+              </IonFab>
             </div>
             <!-- <IonIcon :icon=""></IonIcon> -->
           </IonCol>
         </IonRow>
-        <IonRow v-if="this.isLoading" style="height: calc(100% - 100px)">
+        <IonRow v-if="this.isLoading" style="height: calc(100% - 110px)">
           <IonCol>
             <IonContent style="--background: none">
               <IonSkeletonText :animated="true" class="eprofile-skeleton2"></IonSkeletonText>
               <IonSkeletonText :animated="true" class="eprofile-skeleton2"></IonSkeletonText>
               <div class="flexcenter" style="justify-content: right">
-                <IonSkeletonText :animated="true" s class="eprofile-skeleton"></IonSkeletonText>
+                <IonSkeletonText :animated="true" class="eprofile-skeleton"></IonSkeletonText>
               </div>
               <IonSkeletonText :animated="true" class="eprofile-skeleton"></IonSkeletonText>
               <div class="flexcenter" style="justify-content: right">
@@ -93,8 +147,8 @@
                         </div>
                       </div>
                       <div>
-                        <IonAvatar class="emessage-avatar">
-                          <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+                        <IonAvatar class="emessage-avatar" v-for="user in users">
+                          <img :src="user.data.pic" />
                         </IonAvatar>
                       </div>
                     </div>
@@ -107,7 +161,7 @@
                     <div class="emessage-receiver">
                       <div>
                         <IonAvatar class="emessage-avatar2">
-                          <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+                          <img :src="clickedPicture" />
                         </IonAvatar>
                       </div>
                       <div>
@@ -129,15 +183,18 @@
                   </div>
                 </div>
               </div>
-              <div v-else class="flexcenter">
-                <IonText class="emessage-startmessaging">
+              <div v-else class="flexcenter" style="height: 100%;">
+                <IonText v-if="clickedChat" class="emessage-startmessaging">
                   YOU CAN NOW MESSAGE EACH OTHER
+                </IonText>
+                <IonText v-if="!clickedChat" class="emessage-startmessaging">
+                  CHOOSE A CHAT HEAD
                 </IonText>
               </div>
             </IonContent>
           </IonCol>
         </IonRow>
-        <IonRow class="flexcenter" style="margin: 5px;">
+        <IonRow v-if="markasDone == true" class="flexcenter" style="margin: 5px;">
           <div style="width: 100%;">
             <div style="position: absolute; bottom: 50px; left: 30px;">
               <div v-if="!namePic" style="color: transparent;">
@@ -150,7 +207,7 @@
                 </IonChip>
               </div>
             </div>
-            <div style="height: 40px; width: 100%;" class="flexcenter">
+            <div v-if="clickedChat" style="height: 40px; width: 100%;" class="flexcenter">
               <label for="fileInput">
                 <IonIcon class="emessage-icon-send" :icon="folder"></IonIcon>
               </label>
@@ -192,9 +249,12 @@ import {
   IonAlert,
   IonModal,
   IonChip,
+  IonFab,
+  IonFabButton,
+  IonFabList,
 } from "@ionic/vue";
 import "./message.css";
-import { ellipsisVertical, folder, send, trash, close, mail } from "ionicons/icons";
+import { ellipsisVertical, folder, send, trash, close, mail, chevronDown, checkmark } from "ionicons/icons";
 import {
   collection,
   addDoc,
@@ -206,6 +266,8 @@ import {
   orderBy,
   deleteDoc,
   doc,
+  getDocs,
+  updateDoc,
 } from "firebase/firestore";
 import { db } from "@/firebaseDB";
 import Filter from "bad-words";
@@ -213,6 +275,10 @@ import "./Employer-Dashboard.css";
 import { ref as asd, uploadBytes, getDownloadURL } from "firebase/storage";
 import { dbImage } from "@/firebaseDB";
 import { useUserStore } from "@/stores/updateemprof"
+import { getDashboardProfile } from './Dashboard-Model';
+import { ref, onMounted, onUnmounted } from "vue";
+
+
 
 export default {
   components: {
@@ -233,14 +299,42 @@ export default {
     IonAlert,
     IonModal,
     IonButton,
-    IonChip
+    IonChip,
+    IonFab,
+    IonFabButton,
+    IonFabList
+  },
+  props: {
+    passJob: {
+      type: String
+    },
+    passName: {
+      type: String
+    },
+    passPic: {
+      type: String
+    },
+    passEmail: {
+      type: String
+    },
+    passId: {
+      type: String
+    },
+    passTorF: {
+      type: Boolean
+    },
   },
   data() {
     return {
-      chats: ["dashboard@gmail.com", "capisce@gmail.com", "emman@gmail.com"],
+      users: [],
+      chats: [],
       sender: localStorage.getItem("email"),
       messages: [],
       clickedChat: "",
+      clickedChatEmail: "",
+      clickedJobSwiped: "",
+      clickedPicture: "",
+      clickedId: "",
       contentsMessage: "",
       filteredMessage: "",
       searchTerm: "",
@@ -250,9 +344,10 @@ export default {
       setviewPicturefull: "",
       hovered: false,
       setviewPicture: false,
-      isLoading: true,
+      isLoading: false,
       alertRemove: false,
       unsubscribe: null,
+      markasDone: true,
     };
   },
   setup() {
@@ -262,9 +357,80 @@ export default {
       folder,
       close,
       mail,
+      chevronDown,
+      checkmark,
     };
   },
+  emits: ['goMessages', 'goMessagesData', 'clear-all'],
   methods: {
+    async deleteChats() {
+      const userRef = doc(db, "MessagesUsers", this.clickedId);
+      await updateDoc(userRef, {
+        EmployerActive: "Deleted"
+      });
+    },
+    swapViews(x) {
+      this.markasDone = x
+      this.getChats()
+      this.clearAll()
+      this.clickUser(this.clickedChat, this.clickedChatEmail, this.clickedJobSwiped, this.clickedPicture, this.clickedId)
+    },
+    clearAll() {
+      this.clickedChat = ""
+      this.clickedChatEmail = ""
+      this.clickedJobSwiped = ""
+      this.clickedPicture = ""
+      this.clickedId = ""
+    },
+    async markDoneUndone(x) {
+      const userRef = doc(db, "MessagesUsers", this.clickedId);
+      await updateDoc(userRef, {
+        EmployerActive: x
+      });
+
+      this.clickedChat = ""
+      this.clickedChatEmail = ""
+      this.clickedJobSwiped = ""
+      this.clickedPicture = ""
+      this.clickedId = ""
+
+      this.$emit("clear-all")
+
+      this.clickUser(this.clickedChat, this.clickedChatEmail, this.clickedJobSwiped, this.clickedPicture, this.clickedId)
+      this.getChats()
+    },
+
+    async getChats() {
+      const q = query(collection(db, "MessagesUsers"), where("EmployerEmail", "==", this.sender), where("EmployerActive", "==", this.markasDone), orderBy("latestSent", "desc"));
+
+      const unsubscribe = onSnapshot(q, (snapshot) => {
+        this.chats = []; // Clear existing data
+
+        snapshot.forEach((doc) => {
+          this.chats.push({
+            id: doc.id,
+            data: doc.data(),
+          });
+        });
+      });
+
+      // onUnmounted(unsubscribe);
+    },
+
+    async getEmaildetails() {
+      const usersRef = collection(db, "users");
+
+      const q = query(usersRef, where("email", "==", this.sender));
+      const querySnapshot = await getDocs(q);
+
+      querySnapshot.forEach((doc) => {
+        this.users.push({
+          id: doc.id,
+          data: doc.data(),
+        });
+      });
+    },
+
     openModalviewpicture(x, picture) {
       this.setviewPicture = x;
       this.setviewPicturefull = picture;
@@ -285,8 +451,9 @@ export default {
           const minutes = date.getMinutes();
           const amOrPm = hours >= 12 ? 'PM' : 'AM';
           const formattedHours = (hours % 12) || 12;
+          const formattedMinutes = minutes.toString().padStart(2, "0");
 
-          return `${formattedHours}:${minutes} ${amOrPm}`;
+          return `${formattedHours}:${formattedMinutes} ${amOrPm}`;
         } else {
           const month = String(date.getMonth() + 1).padStart(2, '0');
           const day = String(date.getDate()).padStart(2, '0');
@@ -296,14 +463,47 @@ export default {
           const minutes = date.getMinutes();
           const amOrPm = hours >= 12 ? 'PM' : 'AM';
           const formattedHours = (hours % 12) || 12;
+          const formattedMinutes = minutes.toString().padStart(2, "0");
 
 
-          return `${month}/${day}/${year} ${formattedHours}:${minutes} ${amOrPm}`;
+          return `${month}/${day}/${year} ${formattedHours}:${formattedMinutes} ${amOrPm}`;
         }
       } else {
         return '';
       }
     },
+
+    // async getFirstmessage() {
+    //   this.isLoading = true;
+    //   if (this.unsubscribe) {
+    //     this.unsubscribe();
+    //   }
+
+    //   this.clickedChat = this.chats[0];
+
+    //   const sendq = query(
+    //     collection(db, "Messages"),
+    //     where("receiverEmail", "in", [this.chats[0], this.sender]),
+    //     where("senderEmail", "in", [this.chats[0], this.sender]),
+    //     orderBy("dateSent", "asc"),
+    //     limit(100)
+    //   );
+
+    //   this.unsubscribe = onSnapshot(sendq, (snapshot) => {
+    //     const newMessages = [];
+    //     snapshot.forEach((doc) => {
+    //       const messageData = doc.data();
+    //       const messageId = doc.id;
+    //       const messageWithId = {
+    //         id: messageId,
+    //         ...messageData,
+    //       };
+    //       newMessages.push(messageWithId);
+    //     });
+    //     this.messages = newMessages;
+    //     this.isLoading = false;
+    //   });
+    // },
 
     async addPicturemessage(event) {
       const files = event.target.files;
@@ -332,7 +532,11 @@ export default {
     },
 
     async removeMessage(id) {
-      await deleteDoc(doc(db, "Messages", id));
+      // await deleteDoc(doc(db, "Messages", id));
+      const userRef = doc(db, "Messages", id);
+      await updateDoc(userRef, {
+        Removed: true
+      });
     },
 
     scrollToBottom() {
@@ -342,18 +546,24 @@ export default {
       });
     },
 
-    async clickUser(receiver) {
+    async clickUser(receiver, receiverEmail, jobSwiped, receiverPicture, receiverId) {
       this.isLoading = true;
       if (this.unsubscribe) {
         this.unsubscribe();
       }
 
       this.clickedChat = receiver;
+      this.clickedChatEmail = receiverEmail;
+      this.clickedJobSwiped = jobSwiped;
+      this.clickedPicture = receiverPicture;
+      this.clickedId = receiverId;
 
       const sendq = query(
         collection(db, "Messages"),
-        where("receiverEmail", "in", [receiver, this.sender]),
-        where("senderEmail", "in", [receiver, this.sender]),
+        where("receiverEmail", "in", [receiverEmail, this.sender]),
+        where("senderEmail", "in", [receiverEmail, this.sender]),
+        where("messageJobField", "==", this.clickedJobSwiped),
+        where("Removed", "==", false),
         orderBy("dateSent", "asc"),
         limit(100)
       );
@@ -389,27 +599,64 @@ export default {
         this.messagePic = downloadURL;
       }
 
-      if (this.contentsMessage) {
+      if (this.contentsMessage && this.messagePic) {
         this.filteredMessage = filter.clean(this.contentsMessage);
 
         const docRef = await addDoc(collection(db, "Messages"), {
           dateSent: serverTimestamp(),
-          messageId: this.sender + this.clickedChat,
+          messageId: this.sender + this.clickedChatEmail,
           messageText: this.filteredMessage,
-          receiverEmail: this.clickedChat,
+          messageJobField: this.clickedJobSwiped,
+          receiverEmail: this.clickedChatEmail,
           senderEmail: this.sender,
           messagePicture: this.messagePic,
+          Removed: false,
+        });
+
+        const updateDate = doc(db, "MessagesUsers", this.clickedId);
+        await updateDoc(updateDate, {
+          latestSent: serverTimestamp(),
+          latestMessage: this.contentsMessage,
         });
       }
-      else {
+      else if (!this.contentsMessage && this.messagePic) {
         const docRef = await addDoc(collection(db, "Messages"), {
           dateSent: serverTimestamp(),
-          messageId: this.sender + this.clickedChat,
-          messageText: this.contentsMessage,
-          receiverEmail: this.clickedChat,
+          messageId: this.sender + this.clickedChatEmail,
+          messageText: "",
+          messageJobField: this.clickedJobSwiped,
+          receiverEmail: this.clickedChatEmail,
           senderEmail: this.sender,
           messagePicture: this.messagePic,
+          Removed: false,
         });
+
+        const updateDate = doc(db, "MessagesUsers", this.clickedId);
+        await updateDoc(updateDate, {
+          latestSent: serverTimestamp(),
+          latestMessage: "Sent a Photo.",
+        });
+      } else if (this.contentsMessage && !this.messagePic) {
+        this.filteredMessage = filter.clean(this.contentsMessage);
+
+        const docRef = await addDoc(collection(db, "Messages"), {
+          dateSent: serverTimestamp(),
+          messageId: this.sender + this.clickedChatEmail,
+          messageText: this.filteredMessage,
+          messageJobField: this.clickedJobSwiped,
+          receiverEmail: this.clickedChatEmail,
+          senderEmail: this.sender,
+          messagePicture: "",
+          Removed: false,
+        });
+
+        const updateDate = doc(db, "MessagesUsers", this.clickedId);
+        await updateDoc(updateDate, {
+          latestSent: serverTimestamp(),
+          latestMessage: this.contentsMessage,
+        });
+      } else {
+        console.log("enter contents");
       }
 
       this.contentsMessage = "";
@@ -418,9 +665,28 @@ export default {
       this.messagePic = "";
       this.scrollToBottom();
     },
+    getData() {
+      if (this.passJob && this.passName && this.passPic && this.passId) {
+        this.clickedChat = this.passName
+        this.clickedJobSwiped = this.passJob
+        this.clickedPicture = this.passPic
+        this.clickedChatEmail = this.passEmail
+        this.clickedId = this.passId
+        this.clickUser(this.clickedChat, this.clickedChatEmail, this.clickedJobSwiped, this.clickedPicture, this.clickedId)
+      } else {
+        console.log("wala")
+      }
+    },
   },
   watch: {
-    isLoading(newStatus) {
+    // passJob: function (value) {
+    //   if (value) {
+    //     console.log("meron")
+    //   } else {
+    //     console.log("wala")
+    //   }
+    // },
+    isLoading: function (newStatus) {
       if (!newStatus) {
         setTimeout(() => {
           this.scrollToBottom();
@@ -431,42 +697,33 @@ export default {
   computed: {
     filteredSearch() {
       return this.chats.filter((chat) => {
-        return chat.toLowerCase().includes(this.searchTerm.toLowerCase());
+        const searchTermLower = this.searchTerm.toLowerCase();
+        if (chat.data.SeekerName) {
+          return chat.data.SeekerName.toLowerCase().includes(searchTermLower)
+        }
       });
     },
   },
   mounted() {
-    this.isLoading = true;
-    if (this.unsubscribe) {
-      this.unsubscribe();
+    console.log(this.passTorF)
+    this.markasDone = this.passTorF
+
+    this.getChats()
+    this.getEmaildetails()
+    this.getData()
+
+    if (this.chats) {
+      // this.getFirstmessage()
+      console.log("there are chats")
+    } else {
+      console.log("no chats")
     }
-
-    this.clickedChat = this.chats[0];
-
-    const sendq = query(
-      collection(db, "Messages"),
-      where("receiverEmail", "in", [this.chats[0], this.sender]),
-      where("senderEmail", "in", [this.chats[0], this.sender]),
-      orderBy("dateSent", "asc"),
-      limit(100)
-    );
-
-    this.unsubscribe = onSnapshot(sendq, (snapshot) => {
-      const newMessages = [];
-      snapshot.forEach((doc) => {
-        const messageData = doc.data();
-        const messageId = doc.id;
-        const messageWithId = {
-          id: messageId,
-          ...messageData,
-        };
-        newMessages.push(messageWithId);
-      });
-      this.messages = newMessages;
-      this.isLoading = false;
-    });
+  },
+  unmounted() {
+    this.$emit("clear-all")
   },
 };
+
 </script>
 <style>
 /* ion-col {

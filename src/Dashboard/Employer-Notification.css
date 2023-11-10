@@ -1,0 +1,113 @@
+.enotif-card {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  flex-wrap: nowrap;
+  height: 60px;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  color: black;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+.enotif-card:hover {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  flex-wrap: nowrap;
+  height: 60px;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  color: black;
+  cursor: pointer;
+  transition: all 0.5s ease;
+  background: rgb(243, 243, 243);
+}
+
+.enotif-card-avatar {
+  height: 45px;
+  width: 45px;
+}
+
+.enotif-card-text {
+  padding-left: 10px;
+  font-size: 17px;
+  line-height: 0px;
+}
+
+.enotif-card-icon-chevron {
+  position: absolute;
+  right: 0;
+  font-size: 25px;
+  padding: 5px;
+}
+
+.enotif-title {
+  padding: 10px;
+  font-size: 50px;
+  font-family: BebasNeue-Regular;
+  color: #262c5c;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.enotif-view-modal-topProfile {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.enotif-view-modal-avatar {
+  height: 125px;
+  width: 125px;
+  margin-right: 10px;
+}
+
+.enotif-view-top-info-text-container {
+  background: linear-gradient(to left, #262c5c99, #262c5c);
+  height: 90px;
+  width: 82%;
+  border-radius: 0 20px 20px 0;
+  position: absolute;
+  left: 90px;
+  z-index: -1;
+}
+
+.enotif-padding-text {
+  padding: 2px;
+}
+
+.enotif-view-top-info-text {
+  font-size: 45px;
+  font-family: BebasNeue-Regular;
+  color: white;
+}
+
+.enotif-modal-view-cards {
+  width: 100%;
+  padding: 5px;
+  height: fit-content;
+  color: black;
+}
+
+.enotif-view-modal {
+  --border-radius: 20px;
+}
+
+.enotif-view-modal-header {
+  height: 40px;
+}
+
+.enotif-modal-view-button {
+  width: 100%;
+  --background: #262c5c;
+}
+
+.enotif-pointer{
+    cursor: pointer;
+}

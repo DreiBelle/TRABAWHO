@@ -82,7 +82,7 @@
                     <p><b>Senior Highschool: </b>{{ user.seniorhigh }}</p>
                     <p><b>College: </b>{{ user.email }}</p>
                     <p v-if="user.masteral">
-                      <b>College: </b>{{ user.masteral }}
+                      <b>Masteral: </b>{{ user.masteral }}
                     </p>
                   </IonText>
                 </div>

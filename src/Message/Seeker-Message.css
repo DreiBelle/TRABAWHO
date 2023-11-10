@@ -18,10 +18,8 @@
 }
 
 .jmessage-searchabr {
-  margin-bottom: -20px;
   position: fixed;
-  top: 0;
-  margin-top: 40px;
+  top: 50px;
   z-index: 2;
 }
 
@@ -62,6 +60,13 @@
   font-size: 25px;
   color: #262c5c;
   cursor: pointer;
+}
+
+.jmessage-header-title{
+  font-family: BebasNeue-Regular;
+  font-size: 30px;
+  color: white;
+  font-weight: lighter;
 }
 
 .jmessage-sender {
@@ -153,6 +158,7 @@
   margin: 5px;
   transition: all 0.3s ease;
   cursor: pointer;
+  object-fit: cover;
 }
 
 .jmessage-textdatesent {

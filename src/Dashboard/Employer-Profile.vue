@@ -170,29 +170,11 @@
                     <IonRow style="height: 30px">
                       <IonCol> Recent Postings: </IonCol>
                     </IonRow>
-                    <IonRow style="height: calc(90% - 30px)">
-                      <IonCol class="flexcenter">
-                        <IonCard class="eprofile-cards3">
-                          <IonRow style="height: 100%">
-                            <IonCol size="1"> picture </IonCol>
-                            <IonCol class="eprofile-title-recent-postings" size="8">
-                              jobname
-                            </IonCol>
-                            <IonCol class="flexcenter" size="1">
-                              <IonIcon class="eprofile-icons" :icon="eye">
-                              </IonIcon>
-                              <IonText class="eprofile-text-bookmark">0</IonText>
-                            </IonCol>
-                            <IonCol class="flexcenter" size="1">
-                              <IonIcon class="eprofile-icons" :icon="thumbsUp"></IonIcon>
-                              <IonText class="eprofile-text-bookmark">0</IonText>
-                            </IonCol>
-                            <IonCol class="flexcenter" size="1">
-                              <IonIcon class="eprofile-icons" :icon="bookmark"></IonIcon>
-                              <IonText class="eprofile-text-bookmark">0</IonText>
-                            </IonCol>
-                          </IonRow>
-                        </IonCard>
+                    <IonRow style="height: fit-content">
+                      <IonCol class="flexcenter" style="height:;">
+                        <div style="width: 100%; height: fit-content;">
+                          <JobPostings />
+                        </div>
                       </IonCol>
                     </IonRow>
                   </IonCard>
@@ -279,8 +261,11 @@ import {
 } from "ionicons/icons";
 import { db } from "../firebaseDB";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
+import JobPostings from "./Employer-Profile-JobPostings.vue";
+
 export default {
   components: {
+    JobPostings,
     ProfileModal,
     IonGrid,
     IonCol,

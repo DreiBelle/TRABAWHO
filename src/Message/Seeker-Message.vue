@@ -11,6 +11,9 @@
             />
           </div>
         </IonButtons>
+        <IonTitle class="jmessage-header-title" mode="ios">
+          MESSAGE
+        </IonTitle>
       </IonToolbar>
     </IonHeader>
 
@@ -24,12 +27,12 @@
       </div>
       <div style="margin-top: 30px">
         <div
-          v-for="chat in filteredSearch"
+          v-for="chat in chats"
           class="flexcenter"
           style="margin-bottom: -40px"
         >
           <IonCard
-            @click="chatModal(true, chat)"
+            @click="chatModal(true, chat.data.EmployerName, chat.data.EmployerPicture, chat.data.JobSwipe, chat.data.EmployerEmail, chat.id)"
             mode="ios"
             class="jmessage-chats-card"
           >
@@ -37,15 +40,17 @@
               <div>
                 <IonAvatar>
                   <img
-                    src="https://ionicframework.com/docs/img/demos/avatar.svg"
+                    :src="chat.data.EmployerPicture"
                   />
                 </IonAvatar>
               </div>
               <div style="margin-left: 10px">
                 <div>
-                  <IonText class="jmessage-text">{{ chat }}</IonText>
+                  <IonText class="jmessage-text">{{ chat.data.EmployerName }} | {{ chat.data.JobSwipe }}</IonText>
                 </div>
-                <div>current chat</div>
+                <div>
+                  {{ chat.data.latestMessage }} - {{ formatTimestamp(chat.data.latestSent) }}
+                </div>
               </div>
             </div>
           </IonCard>
@@ -53,18 +58,18 @@
       </div>
     </IonContent>
 
-    <IonModal mode="ios" :is-open="isChat" @did-dismiss="chatModal(false, '')">
+    <IonModal mode="ios" :is-open="isChat" @did-dismiss="chatModal(false, '', '','','','')">
       <div class="flexcenter jmessage-modal-header">
         <div class="flexcenter">
-          <IonIcon @click="chatModal(false, '')" :icon="chevronBack"></IonIcon>
+          <IonIcon @click="chatModal(false, '', '','','','')" :icon="chevronBack"></IonIcon>
         </div>
         <div>
           <IonAvatar class="jmessage-modal-header-avatar">
-            <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+            <img :src="clickedPicture" />
           </IonAvatar>
         </div>
         <div>
-          {{ clickedChat }}
+          {{ clickedChat }} | {{ clickedJobSwiped }}
         </div>
       </div>
       <div style="height: 100%">
@@ -137,7 +142,7 @@
                   <div>
                     <IonAvatar class="jmessage-avatar">
                       <img
-                        src="https://ionicframework.com/docs/img/demos/avatar.svg"
+                        :src="clickedPicture"
                       />
                     </IonAvatar>
                   </div>
@@ -290,6 +295,7 @@ import {
   IonAlert,
   IonToolbar,
   IonButtons,
+IonTitle,
 } from "@ionic/vue";
 import Navbar from "../NavBar/NavBar.vue";
 import "./Seeker-Message.css";
@@ -315,6 +321,7 @@ import {
   orderBy,
   deleteDoc,
   doc,
+  updateDoc,
 } from "firebase/firestore";
 import { db } from "@/firebaseDB";
 import Filter from "bad-words";
@@ -353,23 +360,19 @@ export default {
     IonActionSheet,
     IonAlert,
     IonToolbar,
-  },
+    IonTitle
+},
   data() {
     return {
-      chats: [
-        "dashboard@gmail.com",
-        "capisce@gmail.com",
-        "emman@gmail.com",
-        "dashboard@gmail.com",
-        "capisce@gmail.com",
-        "emman@gmail.com",
-        "dashboard@gmail.com",
-        "capisce@gmail.com",
-        "emman@gmail.com",
-      ],
+      user: "",
+      chats: [],
       messages: [],
       sender: localStorage.getItem("email"),
       clickedChat: "",
+      clickedPicture: "",
+      clickedJobSwiped: "",
+      clickedChatEmail: "",
+      clickedId: "",
       searchTerm: "",
       isChat: false,
       contentsMessage: "",
@@ -398,6 +401,22 @@ export default {
     };
   },
   methods: {
+    async getChats() {
+      const q = query(collection(db, "MessagesUsers"), where("SeekerEmail", "==", this.sender), where("SeekerActive", "==", true), orderBy("latestSent", "desc"));
+
+      const unsubscribe = onSnapshot(q, (snapshot) => {
+        this.chats = []; // Clear existing data
+
+        snapshot.forEach((doc) => {
+          this.chats.push({
+            id: doc.id,
+            data: doc.data(),
+          });
+        });
+      });
+
+      // onUnmounted(unsubscribe);
+    },
     async removeMessage() {
       this.popoverOpen = false;
       this.setviewPicture = false;
@@ -504,29 +523,55 @@ export default {
 
         const docRef = await addDoc(collection(db, "Messages"), {
           dateSent: serverTimestamp(),
-          messageId: this.sender + this.clickedChat,
+          messageId: this.sender + this.clickedChatEmail,
           messageText: this.filteredMessage,
-          receiverEmail: this.clickedChat,
+          messageJobField: this.clickedJobSwiped,
+          receiverEmail: this.clickedChatEmail,
           senderEmail: this.sender,
           messagePicture: this.messagePic,
+          Removed: false,
+        });
+
+        const updateDate = doc(db, "MessagesUsers", this.clickedId);
+        await updateDoc(updateDate, {
+          latestSent: serverTimestamp(),
+          latestMessage: this.contentsMessage,
         });
       } else if (!this.contentsMessage && this.messagePic) {
         const docRef = await addDoc(collection(db, "Messages"), {
           dateSent: serverTimestamp(),
-          messageId: this.sender + this.clickedChat,
-          messageText: this.contentsMessage,
-          receiverEmail: this.clickedChat,
+          messageId: this.sender + this.clickedChatEmail,
+          messageText: "",
+          messageJobField: this.clickedJobSwiped,
+          receiverEmail: this.clickedChatEmail,
           senderEmail: this.sender,
           messagePicture: this.messagePic,
+          Removed: false,
+        });
+
+        const updateDate = doc(db, "MessagesUsers", this.clickedId);
+        await updateDoc(updateDate, {
+          latestSent: serverTimestamp(),
+          latestMessage: "Sent a Photo.",
         });
       } else if (this.contentsMessage && !this.messagePic) {
+        this.filteredMessage = filter.clean(this.contentsMessage);
+
         const docRef = await addDoc(collection(db, "Messages"), {
           dateSent: serverTimestamp(),
-          messageId: this.sender + this.clickedChat,
-          messageText: this.contentsMessage,
-          receiverEmail: this.clickedChat,
+          messageId: this.sender + this.clickedChatEmail,
+          messageText: this.filteredMessage,
+          messageJobField: this.clickedJobSwiped,
+          receiverEmail: this.clickedChatEmail,
           senderEmail: this.sender,
-          messagePicture: this.messagePic,
+          messagePicture: "",
+          Removed: false,
+        });
+
+        const updateDate = doc(db, "MessagesUsers", this.clickedId);
+        await updateDoc(updateDate, {
+          latestSent: serverTimestamp(),
+          latestMessage: this.contentsMessage,
         });
       } else {
         console.log("enter contents");
@@ -539,18 +584,24 @@ export default {
       this.scrollToBottom(500);
     },
 
-    async chatModal(x, receiver) {
+    async chatModal(x, receiver, receiverPic, job, email, clickid) {
       this.isLoading = true;
       if (this.unsubscribe) {
         this.unsubscribe();
       }
 
-      this.clickedChat = receiver;
+      this.clickedChat = receiver
+      this.clickedPicture = receiverPic
+      this.clickedJobSwiped = job
+      this.clickedChatEmail = email
+      this.clickedId = clickid
 
       const sendq = query(
         collection(db, "Messages"),
-        where("receiverEmail", "in", [receiver, this.sender]),
-        where("senderEmail", "in", [receiver, this.sender]),
+        where("receiverEmail", "in", [this.clickedChatEmail, this.sender]),
+        where("senderEmail", "in", [this.clickedChatEmail, this.sender]),
+        where("messageJobField", "==", this.clickedJobSwiped),
+        where("Removed", "==", false),
         orderBy("dateSent", "asc"),
         limit(100)
       );
@@ -584,6 +635,10 @@ export default {
       });
     },
   },
+  mounted() {
+    this.getChats()
+
+  }
 };
 </script>
 

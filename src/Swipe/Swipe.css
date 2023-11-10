@@ -27,6 +27,14 @@
   border-radius: 20px;
 }
 
+.Swipe-header-title{
+  font-family: BebasNeue-Regular;
+  font-size: 30px;
+  color: white;
+  font-weight: lighter;
+  margin-left: -15px;
+}
+
 .Swipe-CardContent {
   padding: 16px;
   text-align: center;
