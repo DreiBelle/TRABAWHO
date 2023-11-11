@@ -1,20 +1,31 @@
 <template>
   <IonPage class="jprofile-contents" ref="page">
-    <IonAlert mode="ios" trigger="signOut" header="Log Out" :buttons="alertButtons"></IonAlert>
+    <IonAlert
+      mode="ios"
+      trigger="signOut"
+      header="Log Out"
+      :buttons="alertButtons"
+    ></IonAlert>
 
     <IonHeader style="height: 50px">
       <IonToolbar style="height: 50px; --background: #262c5c">
         <IonButtons style="padding-left: 10px" slot="start">
           <div>
-            <img style="height: 30px" src="../assets/logo/whitefilllogo.png" alt="logo" />
+            <img
+              style="height: 30px"
+              src="../assets/logo/whitefilllogo.png"
+              alt="logo"
+            />
           </div>
         </IonButtons>
-        <IonTitle class="jprofile-header-title" mode="ios">
-          PROFILE
-        </IonTitle>
+        <IonTitle class="jprofile-header-title" mode="ios"> PROFILE </IonTitle>
         <IonButtons style="padding-right: 10px" slot="end">
           <div id="signOut">
-            <IonIcon style="height: 30px; width: 30px; color: white" id="showLogout" :icon="logOut"></IonIcon>
+            <IonIcon
+              style="height: 30px; width: 30px; color: white"
+              id="showLogout"
+              :icon="logOut"
+            ></IonIcon>
           </div>
         </IonButtons>
       </IonToolbar>
@@ -25,13 +36,20 @@
         <div>
           <div class="flexcenter">
             <IonButton class="jprofile-button-editprofile">
-              <IonIcon style="position: absolute; font-size: 16px" :icon="pencilOutline"></IonIcon>
+              <IonIcon
+                style="position: absolute; font-size: 16px"
+                :icon="pencilOutline"
+              ></IonIcon>
             </IonButton>
             <IonAvatar @click="openEditProfileModal" class="jprofile-avatar">
-              <img :src="user
-                ? user.pic
-                : 'https://ionicframework.com/docs/img/demos/avatar.svg'
-                " alt="image" />
+              <img
+                :src="
+                  user
+                    ? user.pic
+                    : 'https://ionicframework.com/docs/img/demos/avatar.svg'
+                "
+                alt="image"
+              />
             </IonAvatar>
           </div>
           <div class="flexcenter jprofile-text-name">
@@ -44,7 +62,7 @@
       <div>
         <div class="flexcenter">
           <IonCard class="flexcenter jprofile-cards">
-            {{ age }}
+            {{ age }} y/o
           </IonCard>
           <IonCard class="flexcenter jprofile-cards">
             {{ user ? `${user.gender}` : "..." }}
@@ -52,7 +70,10 @@
         </div>
         <div class="flexcenter">
           <IonCard class="flexcenter jprofile-cards">
-            {{ user ? `${user.loc}` : "..." }}
+            {{ user ? `${user.street}` : "..." }},
+            {{ user ? `${user.district}` : "..." }},
+            {{ user ? `${user.citown}` : "..." }},
+            {{ user ? `${user.province}` : "..." }}
           </IonCard>
         </div>
         <div class="flexcenter">
@@ -62,28 +83,37 @@
         </div>
         <div class="flexcenter">
           <IonCard class="flexcenter jprofile-cards">
-            {{ user ? `${user.yearsofexp}` : "..." }}
+            {{ user ? `${user.yearsofexp}` : "..." }} years of experience
           </IonCard>
         </div>
       </div>
-      <div v-if="adPremium" class="flexcenter">
+      <!-- <div v-if="adPremium" class="flexcenter">
         <IonCard class="jprofile-cards-ads">
-          <IonText @click="closeads" style="position: absolute; top: 10px; right: 10px">x</IonText>
-          <IonText class="flexcenter" style="
-                          height: 100%;
-                          color: black;
-                          font-weight: bold;
-                          font-size: 20px;
-                          text-align: center;
-                        ">
+          <IonText
+            @click="closeads"
+            style="position: absolute; top: 10px; right: 10px"
+            >x</IonText
+          >
+          <IonText
+            class="flexcenter"
+            style="
+              height: 100%;
+              color: black;
+              font-weight: bold;
+              font-size: 20px;
+              text-align: center;
+            "
+          >
             SOME ADS TO AVAIL PREM
           </IonText>
         </IonCard>
-      </div>
+      </div> -->
       <div class="flexcenter">
         <IonCard class="jprofile-cards">
           <div>
-            <IonText class="flexcenter jprofile-modal-field-text jprofile-title">
+            <IonText
+              class="flexcenter jprofile-modal-field-text jprofile-title"
+            >
               EDUCATION
             </IonText>
           </div>
@@ -122,7 +152,9 @@
       <div class="flexcenter">
         <IonCard class="jprofile-cards">
           <div>
-            <IonText class="flexcenter jprofile-modal-field-text jprofile-title">
+            <IonText
+              class="flexcenter jprofile-modal-field-text jprofile-title"
+            >
               PREFERENCES
             </IonText>
           </div>
@@ -141,51 +173,116 @@
           <div>
             <IonText class="jprofile-cards-education-text"> Location </IonText>
             <IonCard class="jprofile-cards-education">
-              {{ user ? `${user.street}` : "..." }}
-              {{ user ? `${user.district}` : "..." }}
-              {{ user ? `${user.citown}` : "..." }}
-              {{ user ? `${user.province}` : "..." }}
+              {{ user ? `${user.loc}` : "..." }}
             </IonCard>
           </div>
         </IonCard>
       </div>
       <div class="flexcenter">
         <IonCard class="jprofile-cards">
-          <div>
-            <IonText class="flexcenter jprofile-modal-field-text jprofile-title">
-              EXPERIENCES
-            </IonText>
-          </div>
           <div class="flexcenter">
-            <IonButton class="jprofile-button-add-experience">
-              Add Experiences
-            </IonButton>
+            <div style="width: 100%">
+              <IonText
+                class="flexcenter jprofile-modal-field-text jprofile-title"
+                style="
+                  border-radius: 100px 0 0 100px;
+                  width: 100%;
+                  padding-left: 50px;
+                "
+              >
+                EXPERIENCES
+              </IonText>
+            </div>
+            <div
+              @click="addExpmodal(true)"
+              class="flexcenter jprofile-avatar-add-experience"
+            >
+              <IonIcon
+                class="jprofile-icon-add-experience"
+                :icon="add"
+              ></IonIcon>
+            </div>
           </div>
-          <div style="display: flex; height: fit-content; overflow-x: auto; width: 100%; white-space: nowrap;">
-            <IonCard style="width: 250px; height: fit-content; flex: 0 0 auto; margin-right: 10px; padding: 0;">
-              <div class="flexcenter" style="background-color: #262c5c; color: white; height: 30px;">
-                <IonText style="font-size: 20px; font-family: BebasNeue-Regular;">
-                  Job Title
+          <div
+            style="
+              display: flex;
+              height: fit-content;
+              overflow-x: auto;
+              width: 100%;
+              white-space: nowrap;
+            "
+          >
+            <IonCard
+              v-for="experience in experiences"
+              style="
+                min-width: 300px;
+                width: fit-content;
+                height: fit-content;
+                flex: 1 0 auto;
+                margin: 5px;
+                padding: 0;
+              "
+              @click="
+                editExpmodal(
+                  true,
+                  experience.data.JobTitle,
+                  experience.data.CompanyName,
+                  experience.data.StartDate,
+                  experience.data.EndDate,
+                  experience.data.ResDuty,
+                  experience.data.Skills,
+                  experience.id
+                )
+              "
+            >
+              <div
+                class="flexcenter"
+                style="background-color: #262c5c; color: white; height: 30px"
+              >
+                <IonText
+                  style="font-size: 20px; font-family: BebasNeue-Regular"
+                >
+                  {{ experience.data.JobTitle }}
                 </IonText>
               </div>
-              <div style="padding: 5px;">
-                <IonText style="line-height: 5px; color: black;">
-                  <p><b>Company Name: </b> </p>
-                  <p class="jprofile-text-experience-indent">the name</p>
-                  <p><b>Date of Employment: </b> </p>
-                  <p class="jprofile-text-experience-indent">the date</p>
-                  <p><b>Responsibilities and Duties: </b> </p>
-                  <p class="jprofile-text-experience-indent">the res and duts </p>
-                  <p><b>Skills Utilized: </b> </p>
-                  <p class="jprofile-text-experience-indent">the skills</p>
+              <div style="padding: 5px">
+                <IonText style="color: black">
+                  <p
+                    style="margin-top: 5px"
+                    class="jprofile-text-margin-bottom"
+                  >
+                    <b>Company Name: </b>
+                  </p>
+                  <p
+                    class="jprofile-text-margin-bottom jprofile-text-experience-indent"
+                  >
+                    {{ experience.data.CompanyName }}
+                  </p>
+                  <p class="jprofile-text-margin-bottom">
+                    <b>Date of Employment: </b>
+                  </p>
+                  <p
+                    class="jprofile-text-margin-bottom jprofile-text-experience-indent"
+                  >
+                    {{ experience.data.StartDate }} to
+                    {{ experience.data.EndDate }}
+                  </p>
+                  <p class="jprofile-text-margin-bottom">
+                    <b>Responsibilities and Duties: </b>
+                  </p>
+                  <p
+                    class="jprofile-text-margin-bottom jprofile-text-experience-indent"
+                  >
+                    {{ experience.data.ResDuty }}
+                  </p>
+                  <p class="jprofile-text-margin-bottom">
+                    <b>Skills Utilized: </b>
+                  </p>
+                  <p class="jprofile-text-experience-indent">
+                    {{ experience.data.Skills }}
+                  </p>
                 </IonText>
               </div>
-            </IonCard>
-            <IonCard style="width: 200px; flex: 0 0 auto; margin-right: 10px;">
-              sdasdasd
-            </IonCard>
-            <IonCard style="width: 200px; flex: 0 0 auto; margin-right: 10px;">
-              sdasdasd
             </IonCard>
           </div>
         </IonCard>
@@ -194,12 +291,18 @@
       <div class="flexcenter">
         <IonCard class="jprofile-cards">
           <div>
-            <IonText class="flexcenter jprofile-modal-field-text jprofile-title">
+            <IonText
+              class="flexcenter jprofile-modal-field-text jprofile-title"
+            >
               SPECIALTY
             </IonText>
           </div>
           <div>
-            <IonChip v-if="user && user.chosenInterests" v-for="interest in user.chosenInterests" :key="interest">
+            <IonChip
+              v-if="user && user.chosenInterests"
+              v-for="interest in user.chosenInterests"
+              :key="interest"
+            >
               {{ interest.label }}
             </IonChip>
           </div>
@@ -207,8 +310,30 @@
       </div>
     </IonContent>
 
-    <profileModal v-if="user" :is-profile-editmodal="isEditprofile" @close-profile-edit-modal="closeEditProfileModal"
-      @open-profile-edit-modal="openEditProfileModal" :user-data="user" />
+    <profileModal
+      v-if="user"
+      :is-profile-editmodal="isEditprofile"
+      @close-profile-edit-modal="closeEditProfileModal"
+      @open-profile-edit-modal="openEditProfileModal"
+      :user-data="user"
+    />
+
+    <Expmodal
+      @close-exp-modal="addExpmodal(false)"
+      :is-addexp="isAddexp"
+    ></Expmodal>
+
+    <EditExpmodal
+      @close-exp-edit-modal="editExpmodal(false, '', '', '', '', '', '', '')"
+      :is-editexp="isEditexp"
+      :pass-company-name="CompanyName"
+      :pass-end-date="EndDate"
+      :pass-job-title="JobTitle"
+      :pass-res-duty="ResDuty"
+      :pass-skills="Skills"
+      :pass-start-date="StartDate"
+      :pass-expid="ExpId"
+    ></EditExpmodal>
   </IonPage>
 </template>
 
@@ -254,6 +379,7 @@ import {
   phonePortraitOutline,
   schoolOutline,
   settingsOutline,
+  add,
 } from "ionicons/icons";
 import router from "@/router";
 import { settings } from "ionicons/icons";
@@ -264,9 +390,13 @@ import { db } from "@/firebaseDB";
 import profileModal from "./EditProfile-Modal.vue";
 import { signOut } from "firebase/auth";
 import { auth } from "@/firebaseDB";
+import Expmodal from "./Profile-AddExp.vue";
+import EditExpmodal from "./Profile-EditExp.vue";
 
 export default {
   components: {
+    EditExpmodal,
+    Expmodal,
     profileModal,
     IonChip,
     ChoiceModal,
@@ -291,7 +421,7 @@ export default {
     IonInput,
     IonCardTitle,
     IonCardContent,
-    IonAlert
+    IonAlert,
   },
   setup() {
     const user = ref(null);
@@ -299,12 +429,12 @@ export default {
 
     const alertButtons = [
       {
-        text: 'Cancel',
-        role: 'cancel',
+        text: "Cancel",
+        role: "cancel",
       },
       {
-        text: 'OK',
-        role: 'confirm',
+        text: "OK",
+        role: "confirm",
         handler: () => {
           signOut(auth).then(() => {
             localStorage.removeItem("email");
@@ -321,13 +451,15 @@ export default {
       let age = today.getFullYear() - birthDate.getFullYear();
       const monthDiff = today.getMonth() - birthDate.getMonth();
 
-      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+      if (
+        monthDiff < 0 ||
+        (monthDiff === 0 && today.getDate() < birthDate.getDate())
+      ) {
         age--;
       }
 
       return age;
     };
-
 
     onMounted(async () => {
       const userEmail = localStorage.getItem("email");
@@ -359,19 +491,58 @@ export default {
       close,
       user,
       age,
+      add,
     };
   },
   data() {
     return {
+      loggedUser: localStorage.getItem("email"),
       isEditprofile: false,
       editedUserData: null,
       presentingElement: null,
       isModalinterest: false,
       adPremium: true,
       aged: 0,
+      isAddexp: false,
+      isEditexp: false,
+      experiences: [],
+      JobTitle: "",
+      CompanyName: "",
+      StartDate: "",
+      EndDate: "",
+      ResDuty: "",
+      Skills: "",
+      ExpId: "",
     };
   },
   methods: {
+    getExperiences() {
+      const q = query(
+        collection(db, "Experiences"),
+        where("SeekerId", "==", this.loggedUser),
+        where("Removed", "==", false)
+      );
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        this.experiences = [];
+        querySnapshot.forEach((doc) => {
+          this.experiences.push({ id: doc.id, data: doc.data() });
+        });
+      });
+    },
+    editExpmodal(x, title, name, start, end, res, skill, idexp) {
+      this.JobTitle = title;
+      this.CompanyName = name;
+      this.StartDate = start;
+      this.EndDate = end;
+      this.ResDuty = res;
+      this.Skills = skill;
+      this.ExpId = idexp;
+      this.isEditexp = x;
+      console.log("printing" + this.JobTitle);
+    },
+    addExpmodal(x) {
+      this.isAddexp = x;
+    },
     closeads() {
       this.adPremium = false;
     },
@@ -394,6 +565,9 @@ export default {
       localStorage.removeItem("password");
       GoLogin();
     },
+  },
+  mounted() {
+    this.getExperiences();
   },
 };
 </script>

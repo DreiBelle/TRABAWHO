@@ -13,10 +13,12 @@
               </IonText>
             </div>
             <div class="flexcenter" style="position: absolute; right: 0;">
-              <IonButton class="emessage-button-markasdone" v-if="markasDone == true" @click="swapViews(false)">Marked as
-                Done</IonButton>
+              <IonButton class="emessage-button-markasdone" v-if="markasDone == true" @click="swapViews(false)">
+                <IonIcon :icon="checkmark"></IonIcon>
+              </IonButton>
               <IonButton class="emessage-button-markasdone" v-else-if="markasDone == false" @click="swapViews(true)">
-                Messages</IonButton>
+                <IonIcon :icon="mail"></IonIcon>
+              </IonButton>
             </div>
           </IonCol>
         </IonRow>
