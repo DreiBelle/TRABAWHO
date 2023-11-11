@@ -1,18 +1,20 @@
 <template>
     <IonPage>
         <IonContent>
-            <IonText>Data Analytics</IonText>
-            <div>
+            <!-- <div>
                 <p>Likes this week: {{ likesThisWeek }}</p>
             </div>
             <div>
                 <p>Views this week: {{ viewsThisWeek }}</p>
-            </div>
-            <div class="data-analytics">
-                <canvas id="liked"></canvas>
-            </div>
-            <div class="data-analytics">
-                <canvas id="viewd"></canvas>
+            </div> -->
+
+            <div class="flexcenter">
+                <div>
+                    <canvas width="400" height="100%" class="data-container-graph1" id="liked"></canvas>
+                </div>
+                <div>
+                    <canvas class="data-container-graph1" id="viewd"></canvas>
+                </div>
             </div>
 
             <div class="data-analytics">

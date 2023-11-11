@@ -66,9 +66,10 @@
       <IonRow class="page-components-container">
         <IonCol class="flexcenter">
           <IonCard style="height: 100%; width: 100%; background-color: azure">
-            <component @go-to-posting="goPosting" :is="Views" @clear-all="clearAll()" v-bind:pass-id="passId" v-bind:pass-email="passEmail"
-              v-bind:pass-job="passJob" v-bind:passTorF="ArchiveorNot" v-bind:pass-name="passName"
-              v-bind:pass-pic="passPicture" @go-messages="goMessages" @go-messages-data="getMessagedata" />
+            <component @go-to-posting="goPosting" :is="Views" @clear-all="clearAll()" v-bind:pass-id="passId"
+              v-bind:pass-email="passEmail" v-bind:pass-job="passJob" v-bind:passTorF="ArchiveorNot"
+              v-bind:pass-name="passName" v-bind:pass-pic="passPicture" @go-messages="goMessages"
+              @go-messages-data="getMessagedata" />
           </IonCard>
         </IonCol>
       </IonRow>
@@ -98,7 +99,7 @@
       </IonRow>
       <IonRow>
         <IonCol @click="ShowTabs('JobPostings')" class="dashboard-navbar-flexcenter dashboard-navbar-cols">
-          <IonIcon class="dashboard-navbar-icons" :icon="documentOutline"></IonIcon>
+          <IonIcon class="dashboard-navbar-icons" :icon="briefcaseOutline"></IonIcon>
           <IonText class="dashboard-navbar-navigations">Job Postings</IonText>
         </IonCol>
       </IonRow>
@@ -118,6 +119,12 @@
         <IonCol @click="ShowTabs('Messages')" class="dashboard-navbar-flexcenter dashboard-navbar-cols">
           <IonIcon class="dashboard-navbar-icons" :icon="chatboxEllipsesOutline"></IonIcon>
           <IonText class="dashboard-navbar-navigations">Messages</IonText>
+        </IonCol>
+      </IonRow>
+      <IonRow>
+        <IonCol @click="ShowTabs('Audit')" class="dashboard-navbar-flexcenter dashboard-navbar-cols">
+          <IonIcon class="dashboard-navbar-icons" :icon="documentOutline"></IonIcon>
+          <IonText class="dashboard-navbar-navigations">Audit Logs</IonText>
         </IonCol>
       </IonRow>
       <IonRow>
@@ -159,6 +166,7 @@ import {
   chatboxEllipsesOutline,
   person,
   thumbsUp,
+  briefcaseOutline,
 } from "ionicons/icons";
 import "./Employer-Dashboard.css";
 import SideBar from "./Employer-Sidebar.vue";
@@ -168,6 +176,7 @@ import Messages from "./Employer-Message.vue";
 import Profile from "./Employer-Profile.vue";
 import Home from "./Employer-Home.vue";
 import Notifications from "./Employer-Notification.vue";
+import Audit from './Employer-Audit.vue'
 import AddModal from "./Employer-Dashboard-Modal-AddPostings.vue";
 import { getDashboardProfile, getJobPostings } from "./Dashboard-Model";
 import { ref, onMounted } from "vue";
@@ -178,6 +187,7 @@ const isLoggedIn = ref(false);
 
 export default {
   components: {
+    Audit,
     Home,
     Profile,
     Notifications,
@@ -246,11 +256,12 @@ export default {
       views,
       person,
       thumbsUp,
+      briefcaseOutline,
     };
   },
   data() {
     return {
-      Views: "Profile",
+      Views: "DataAnalytics",
       passName: "",
       passJob: "",
       passPicture: "",
@@ -278,7 +289,7 @@ export default {
       this.Views = "Messages"
       if (x == null) {
         this.ArchiveorNot = true
-      } else if (x != null){
+      } else if (x != null) {
         this.ArchiveorNot = x
       }
     },

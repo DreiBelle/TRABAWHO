@@ -1,6 +1,6 @@
 <template>
   <IonPage style="padding: 5px">
-    <IonContent style="--background: none">
+    <IonContent style="--background: none" >
       <div
         v-if="
           user &&
@@ -298,21 +298,6 @@
                     <div>
                       <JobPostings @go-to-posting="goPostings" />
                     </div>
-                  </IonCard>
-                </IonCol>
-              </IonRow>
-              <IonRow>
-                <IonCol>
-                  <IonCard
-                    class="eprofile-cards"
-                    style="min-height: 120px; height: fit-content; padding: 0"
-                  >
-                    <div class="flexcenter eprofile-cards-title-container">
-                      <IonText class="eprofile-cards-title">
-                        RECENT ACTIVITIES
-                      </IonText>
-                    </div>
-                    <div>Audit to</div>
                   </IonCard>
                 </IonCol>
               </IonRow>
