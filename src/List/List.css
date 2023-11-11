@@ -18,9 +18,10 @@
 
 .list-total-cards {
   padding: 7px;
-  width: fit-content;
+  width: 100%;
   color: black;
-  font-size: 15px;
+  font-size: 24px;
+  font-family:  BebasNeue-Regular;
 }
 
 .jlist-header-title{

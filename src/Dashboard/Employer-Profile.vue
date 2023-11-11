@@ -1,8 +1,8 @@
 <template>
-  <IonPage>
+  <IonPage style="padding: 5px;">
     <IonContent style="--background: none">
       <div
-        v-if="user && (user.founders && user.businessname && user.email && user.loc && user.number && user.pic && user.bacpic && user.yearsofest)">
+        v-if="user && (user.founders && user.businessname && user.email && user.loc && user.number && user.pic && user.yearsofest)">
         <IonGrid class="eprofile-grid">
           <IonRow style="height: calc(100% - 55px)">
             <IonCol size="3">
@@ -18,138 +18,155 @@
               </IonRow>
               <IonRow>
                 <IonCol class="flexcenter">
-                  <IonText class="eprofile-text-title-container" style="font-size: 20px; padding-top: 0">
+                  <IonText class="eprofile-text-title-container" style="font-size: 30px; padding-top: 0">
                     {{ user ? `${user.businessname}` : "..." }}
                   </IonText>
                 </IonCol>
               </IonRow>
               <IonRow>
                 <IonCol>
-                  <IonCard class="eprofile-cards">
-                    <IonRow>
-                      <IonCol class="flexcenter eprofile-text-title-container">
-                        <IonText> COMPANY OVERVIEW </IonText>
-                      </IonCol>
-                    </IonRow>
-                    <IonRow>
-                      <IonCol style="padding-top: 10px">
-                        <div class="flexcenter">
-                          <IonText class="eprofile-text"> Company Type </IonText>
-                        </div>
-                        <div class="flexcenter eprofile-text-subtext-container">
-                          <template v-if="user">
-                            <IonText class="eprofile-text-subtext">
+                  <IonCard class="eprofile-cards" style="padding: 0;">
+                    <div class="flexcenter eprofile-cards-title-container">
+                      <IonText class="eprofile-cards-title">
+                        COMPANY OVERVIEW
+                      </IonText>
+                    </div>
+
+                    <div class="flexcenter">
+                      <IonCard class="flexcenter eprofile-cards-companyoverview">
+                        <div>
+                          <div class="flexcenter">
+                            <IonText class="eprofile-text"> Company Type </IonText>
+                          </div>
+                          <div class="flexcenter eprofile-text-subtext-container">
+                            <IonText v-if="user" class="eprofile-text-subtext">
                               {{ user ? `${user.companytype}` : "..." }}
                             </IonText>
-                          </template>
-                          <template v-else> Loading founders... </template>
+                          </div>
                         </div>
-                      </IonCol>
-                    </IonRow>
-                    <IonRow>
-                      <IonCol style="padding-top: 10px">
-                        <div class="flexcenter">
-                          <IonText class="eprofile-text"> Founder/s </IonText>
-                        </div>
-                        <div class="flexcenter eprofile-text-subtext-container">
-                          <template v-if="user">
+                      </IonCard>
+                      <IonCard class="flexcenter eprofile-cards-companyoverview">
+                        <div>
+                          <div class="flexcenter">
+                            <IonText class="eprofile-text">
+                              Year of establishment
+                            </IonText>
+                          </div>
+                          <div class="flexcenter">
                             <IonText class="eprofile-text-subtext">
+                              {{ user ? `${user.yearsofest}` : "..." }}
+                            </IonText>
+                          </div>
+                        </div>
+                      </IonCard>
+                    </div>
+
+                    <div class="flexcenter">
+                      <IonCard class="flexcenter eprofile-cards-companyoverview">
+                        <div>
+                          <div class="flexcenter">
+                            <IonText class="eprofile-text"> Founder/s </IonText>
+                          </div>
+                          <div class="flexcenter eprofile-text-subtext-container">
+                            <IonText v-if="user" class="eprofile-text-subtext">
                               {{ user ? `${user.founders}` : "..." }}
                             </IonText>
-                          </template>
-                          <template v-else> Loading founders... </template>
+                          </div>
                         </div>
-                      </IonCol>
-                    </IonRow>
-                    <IonRow>
-                      <IonCol style="padding-top: 10px">
-                        <div class="flexcenter">
-                          <IonText class="eprofile-text">
-                            Year of establishment
-                          </IonText>
+                      </IonCard>
+                    </div>
+
+                    <div class="flexcenter">
+                      <IonCard class="flexcenter eprofile-cards-companyoverview">
+                        <div>
+                          <div class="flexcenter">
+                            <IonText class="eprofile-text">
+                              No. of Employees
+                            </IonText>
+                          </div>
+                          <div class="flexcenter">
+                            <IonText class="eprofile-text-subtext">
+                              {{ user ? `${user.noofempl}` : "..." }}
+                            </IonText>
+                          </div>
                         </div>
-                        <div class="flexcenter">
-                          <IonText class="eprofile-text-subtext">
-                            {{ user ? `${user.yearsofest}` : "..." }}
-                          </IonText>
+                      </IonCard>
+                    </div>
+
+                    <div class="flexcenter">
+                      <IonCard class="flexcenter eprofile-cards-companyoverview">
+                        <div>
+                          <div class="flexcenter">
+                            <IonText class="eprofile-text"> Email: </IonText>
+                          </div>
+                          <div class="flexcenter">
+                            <IonText class="eprofile-text-subtext">
+                              {{ user ? `${user.email}` : "..." }}
+                            </IonText>
+                          </div>
                         </div>
-                      </IonCol>
-                    </IonRow>
-                    <IonRow>
-                      <IonCol style="padding-top: 10px">
-                        <div class="flexcenter">
-                          <IonText class="eprofile-text">
-                            No. of Employees
-                          </IonText>
+                      </IonCard>
+                    </div>
+
+                    <div class="flexcenter">
+                      <IonCard class="flexcenter eprofile-cards-companyoverview">
+                        <div>
+                          <div class="flexcenter">
+                            <IonText class="eprofile-text"> Location: </IonText>
+                          </div>
+                          <div class="flexcenter">
+                            <IonText class="eprofile-text-subtext">
+                              {{ user ? `${user.loc}` : "..." }}
+                            </IonText>
+                          </div>
                         </div>
-                        <div class="flexcenter">
-                          <IonText class="eprofile-text-subtext">
-                            {{ user ? `${user.noofempl}` : "..." }}
-                          </IonText>
+                      </IonCard>
+                    </div>
+
+                    <div class="flexcenter">
+                      <IonCard class="flexcenter eprofile-cards-companyoverview">
+                        <div>
+                          <div class="flexcenter">
+                            <IonText class="eprofile-text"> Contact Number: </IonText>
+                          </div>
+                          <div class="flexcenter">
+                            <IonText class="eprofile-text-subtext">
+                              {{ user ? `${user.number}` : "..." }}
+                            </IonText>
+                          </div>
                         </div>
-                      </IonCol>
-                    </IonRow>
-                    <IonRow>
-                      <IonCol>
-                        <div class="flexcenter">
-                          <IonText class="eprofile-text"> Email: </IonText>
-                        </div>
-                        <div class="flexcenter">
-                          <IonText class="eprofile-text-subtext">
-                            {{ user ? `${user.email}` : "..." }}
-                          </IonText>
-                        </div>
-                      </IonCol>
-                    </IonRow>
-                    <IonRow>
-                      <IonCol>
-                        <div class="flexcenter">
-                          <IonText class="eprofile-text"> Location: </IonText>
-                        </div>
-                        <div class="flexcenter">
-                          <IonText class="eprofile-text-subtext">
-                            {{ user ? `${user.loc}` : "..." }}
-                          </IonText>
-                        </div>
-                      </IonCol>
-                    </IonRow>
-                    <IonRow>
-                      <IonCol>
-                        <div class="flexcenter">
-                          <IonText class="eprofile-text"> Contact Number: </IonText>
-                        </div>
-                        <div class="flexcenter">
-                          <IonText class="eprofile-text-subtext">
-                            {{ user ? `${user.number}` : "..." }}
-                          </IonText>
-                        </div>
-                      </IonCol>
-                    </IonRow>
-                    <IonRow>
-                      <IonCol class="flexcenter">
-                        <IonAvatar v-if="user && user.facebook" class="eprofile-avatar-socialmedias">
-                          <a :href="user.facebook" target="_blank" class="flexcenter" style="color: white;">
-                            <IonIcon :icon="logoFacebook"></IonIcon>
-                          </a>
-                        </IonAvatar>
-                        <IonAvatar v-if="user && user.twitter" class="eprofile-avatar-socialmedias">
-                          <a :href="user.twitter" target="_blank" class="flexcenter" style="color: white;">
-                            <IonIcon :icon="logoTwitter"></IonIcon>
-                          </a>
-                        </IonAvatar>
-                        <IonAvatar v-if="user && user.instagram" class="eprofile-avatar-socialmedias">
-                          <a :href="user.instagram" target="_blank" class="flexcenter" style="color: white;">
-                            <IonIcon :icon="logoInstagram"></IonIcon>
-                          </a>
-                        </IonAvatar>
-                      </IonCol>
-                    </IonRow>
+                      </IonCard>
+                    </div>
+
+                    <div class="flexcenter" v-if="user && user.facebook || user.twitter || user.instagram">
+                      <IonAvatar v-if="user && user.facebook" class="eprofile-avatar-socialmedias">
+                        <a :href="user.facebook" target="_blank" class="flexcenter" style="color: white;">
+                          <IonIcon :icon="logoFacebook"></IonIcon>
+                        </a>
+                      </IonAvatar>
+                      <IonAvatar v-if="user && user.twitter" class="eprofile-avatar-socialmedias">
+                        <a :href="user.twitter" target="_blank" class="flexcenter" style="color: white;">
+                          <IonIcon :icon="logoTwitter"></IonIcon>
+                        </a>
+                      </IonAvatar>
+                      <IonAvatar v-if="user && user.instagram" class="eprofile-avatar-socialmedias">
+                        <a :href="user.instagram" target="_blank" class="flexcenter" style="color: white;">
+                          <IonIcon :icon="logoInstagram"></IonIcon>
+                        </a>
+                      </IonAvatar>
+                    </div>
                   </IonCard>
+                  <div class="eprofile-container-button-edit">
+                    <IonButton @click="ocModal(true)" class="eprofile-button-edit">
+                      <IonIcon style="padding-right: 5px" :icon="pencil"></IonIcon>
+                      EDIT PROFILE
+                    </IonButton>
+                  </div>
                 </IonCol>
               </IonRow>
             </IonCol>
             <IonCol size="9">
-              <IonRow>
+              <IonRow v-if="user.bacpic">
                 <IonCol>
                   <div class="flexcenter eprofile-coverpic-container">
                     <img class="flexcenter eprofile-coverpic-container eprofile-coverphoto"
@@ -157,23 +174,15 @@
                   </div>
                 </IonCol>
               </IonRow>
-              <IonRow style="height: 55px">
-                <IonCol class="eprofile-container-button-edit">
-                  <IonButton @click="ocModal(true)" class="eprofile-button-edit">
-                    <IonIcon style="padding-right: 5px" :icon="pencil"></IonIcon>
-                    EDIT PROFILE
-                  </IonButton>
-                </IonCol>
-              </IonRow>
               <IonRow>
                 <IonCol>
-                  <IonCard class="eprofile-cards">
-                    <div class="flexcenter">
+                  <IonCard class="eprofile-cards" style="padding: 0; min-height: 120px;">
+                    <div class="flexcenter eprofile-cards-title-container">
                       <IonText class="eprofile-cards-title">
                         MISSION/VISION
                       </IonText>
                     </div>
-                    <div class="eprofile-cards-text">
+                    <div class="eprofile-cards-text" style="white-space: pre-line;">
                       {{ user ? `${user.mv}` : "..." }}
                     </div>
                   </IonCard>
@@ -181,42 +190,30 @@
               </IonRow>
               <IonRow>
                 <IonCol>
-                  <IonCard class="eprofile-cards2">
-                    <IonRow style="height: 30px">
-                      <IonCol> Recent Postings: </IonCol>
-                    </IonRow>
-                    <IonRow style="height: fit-content">
-                      <IonCol class="flexcenter" style="height:;">
-                        <div style="width: 100%; height: fit-content;">
-                          <JobPostings />
-                        </div>
-                      </IonCol>
-                    </IonRow>
+                  <IonCard class="eprofile-cards"
+                    style="min-height: 300px; height: fit-content; max-height: 500px; padding: 0;">
+                    <div class="flexcenter eprofile-cards-title-container">
+                      <IonText class="eprofile-cards-title">
+                        POSTINGS
+                      </IonText>
+                    </div>
+                    <div>
+                      <JobPostings @go-to-posting="goPostings" />
+                    </div>
                   </IonCard>
                 </IonCol>
               </IonRow>
               <IonRow>
                 <IonCol>
-                  <IonCard class="eprofile-cards2">
-                    <IonRow style="height: 30px">
-                      <IonCol> Recent Activities: </IonCol>
-                    </IonRow>
-                    <IonRow style="height: calc(90% - 30px)">
-                      <IonCol class="flexcenter">
-                        <IonCard class="eprofile-cards3">
-                          <IonRow style="height: 100%">
-                            <IonCol size="1"> Picture </IonCol>
-                            <IonCol class="eprofile-title-recent-postings" size="10">
-                              Nyzuz Damaso liked Carpenter Post
-                            </IonCol>
-                            <IonCol class="flexcenter" size="1">
-                              <IonIcon class="eprofile-icons" :icon="chevronForward">
-                              </IonIcon>
-                            </IonCol>
-                          </IonRow>
-                        </IonCard>
-                      </IonCol>
-                    </IonRow>
+                  <IonCard class="eprofile-cards" style="min-height: 120px; height: fit-content; padding: 0;">
+                    <div class="flexcenter eprofile-cards-title-container">
+                      <IonText class="eprofile-cards-title">
+                        RECENT ACTIVITIES
+                      </IonText>
+                    </div>
+                    <div>
+                      Audit to
+                    </div>
                   </IonCard>
                 </IonCol>
               </IonRow>
@@ -293,6 +290,7 @@ export default {
     IonPage,
     IonContent,
   },
+  emits:["go-to-posting",],
   data() {
     return {
       isProfileOpen: false,
@@ -335,6 +333,9 @@ export default {
     };
   },
   methods: {
+    goPostings() {
+      this.$emit("go-to-posting")
+    },
     ocModal(x) {
       this.isProfileOpen = x;
     },

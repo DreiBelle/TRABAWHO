@@ -129,7 +129,8 @@ export default {
           return await getswiperProfile(swiperusers.swipedid);
         }));
       } catch (error) {
-        console.error('An error occurred:', error);
+        console.log("No Postings")
+        // console.error('An error occurred:', error);
       }
     }
   },

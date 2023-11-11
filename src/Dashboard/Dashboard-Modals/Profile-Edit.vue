@@ -23,7 +23,7 @@
               </div>
               <div style="margin-top: 10px" class="flexcenter">
                 <label class="eproifle-modal-editpicture" for="fileInput">
-                  Add Picture
+                  Choose Picture
                 </label>
                 <input id="fileInput" type="file" accept="image/jpeg" @change="addProfilepicture" ref="myfile"
                   style="display: none" />
@@ -37,7 +37,7 @@
               </div>
               <div style="margin-top: 10px" class="flexcenter">
                 <label class="eproifle-modal-editpicture" for="addPicture">
-                  Add Picture
+                  Choose Picture
                 </label>
                 <input id="addPicture" type="file" accept="image/jpeg" @change="addProfilepicture" ref="myfile"
                   style="display: none" />

@@ -180,3 +180,20 @@
   border-radius: 100px;
   margin-bottom: 5px;
 }
+
+.jprofile-header-title{
+  font-family: BebasNeue-Regular;
+  font-size: 30px;
+  color: white;
+  font-weight: lighter;
+}
+
+.jprofile-text-experience-indent{
+  text-indent: 20px;
+}
+
+.jprofile-button-add-experience{
+  min-height: 0px;
+  width: 90%;
+  --background: #262c5c;
+}

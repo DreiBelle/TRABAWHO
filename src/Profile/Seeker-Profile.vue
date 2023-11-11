@@ -1,17 +1,19 @@
 <template>
   <IonPage class="jprofile-contents" ref="page">
+    <IonAlert mode="ios" trigger="signOut" header="Log Out" :buttons="alertButtons"></IonAlert>
+
     <IonHeader style="height: 50px">
       <IonToolbar style="height: 50px; --background: #262c5c">
-        <IonButtons slot="start">
+        <IonButtons style="padding-left: 10px" slot="start">
           <div>
             <img style="height: 30px" src="../assets/logo/whitefilllogo.png" alt="logo" />
           </div>
         </IonButtons>
-        <IonTitle style="text-align: center; color: white;">
+        <IonTitle class="jprofile-header-title" mode="ios">
           PROFILE
         </IonTitle>
-        <IonButtons slot="end">
-          <div>
+        <IonButtons style="padding-right: 10px" slot="end">
+          <div id="signOut">
             <IonIcon style="height: 30px; width: 30px; color: white" id="showLogout" :icon="logOut"></IonIcon>
           </div>
         </IonButtons>
@@ -26,11 +28,10 @@
               <IonIcon style="position: absolute; font-size: 16px" :icon="pencilOutline"></IonIcon>
             </IonButton>
             <IonAvatar @click="openEditProfileModal" class="jprofile-avatar">
-              <img :src="
-                user
-                  ? user.pic
-                  : 'https://ionicframework.com/docs/img/demos/avatar.svg'
-              " alt="image" />
+              <img :src="user
+                ? user.pic
+                : 'https://ionicframework.com/docs/img/demos/avatar.svg'
+                " alt="image" />
             </IonAvatar>
           </div>
           <div class="flexcenter jprofile-text-name">
@@ -43,7 +44,6 @@
       <div>
         <div class="flexcenter">
           <IonCard class="flexcenter jprofile-cards">
-            Age:
             {{ age }}
           </IonCard>
           <IonCard class="flexcenter jprofile-cards">
@@ -153,18 +153,55 @@
         <IonCard class="jprofile-cards">
           <div>
             <IonText class="flexcenter jprofile-modal-field-text jprofile-title">
+              EXPERIENCES
+            </IonText>
+          </div>
+          <div class="flexcenter">
+            <IonButton class="jprofile-button-add-experience">
+              Add Experiences
+            </IonButton>
+          </div>
+          <div style="display: flex; height: fit-content; overflow-x: auto; width: 100%; white-space: nowrap;">
+            <IonCard style="width: 250px; height: fit-content; flex: 0 0 auto; margin-right: 10px; padding: 0;">
+              <div class="flexcenter" style="background-color: #262c5c; color: white; height: 30px;">
+                <IonText style="font-size: 20px; font-family: BebasNeue-Regular;">
+                  Job Title
+                </IonText>
+              </div>
+              <div style="padding: 5px;">
+                <IonText style="line-height: 5px; color: black;">
+                  <p><b>Company Name: </b> </p>
+                  <p class="jprofile-text-experience-indent">the name</p>
+                  <p><b>Date of Employment: </b> </p>
+                  <p class="jprofile-text-experience-indent">the date</p>
+                  <p><b>Responsibilities and Duties: </b> </p>
+                  <p class="jprofile-text-experience-indent">the res and duts </p>
+                  <p><b>Skills Utilized: </b> </p>
+                  <p class="jprofile-text-experience-indent">the skills</p>
+                </IonText>
+              </div>
+            </IonCard>
+            <IonCard style="width: 200px; flex: 0 0 auto; margin-right: 10px;">
+              sdasdasd
+            </IonCard>
+            <IonCard style="width: 200px; flex: 0 0 auto; margin-right: 10px;">
+              sdasdasd
+            </IonCard>
+          </div>
+        </IonCard>
+      </div>
+
+      <div class="flexcenter">
+        <IonCard class="jprofile-cards">
+          <div>
+            <IonText class="flexcenter jprofile-modal-field-text jprofile-title">
               SPECIALTY
             </IonText>
           </div>
           <div>
-            <template v-if="user && user.chosenInterests">
-              <IonChip v-for="interest in user.chosenInterests" :key="interest">
-                {{ interest.label }}
-              </IonChip>
-            </template>
-            <template v-else>
-              <!-- Handle the case when user or user.chosenInterests is not defined -->
-            </template>
+            <IonChip v-if="user && user.chosenInterests" v-for="interest in user.chosenInterests" :key="interest">
+              {{ interest.label }}
+            </IonChip>
           </div>
         </IonCard>
       </div>
@@ -198,6 +235,7 @@ import {
   IonChip,
   IonCardTitle,
   IonCardContent,
+  IonAlert,
 } from "@ionic/vue";
 import Navbar from "../NavBar/NavBar.vue";
 import "./Seeker-Profile.css";
@@ -224,6 +262,8 @@ import { getDashboardProfile } from "@/Dashboard/Dashboard-Model";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "@/firebaseDB";
 import profileModal from "./EditProfile-Modal.vue";
+import { signOut } from "firebase/auth";
+import { auth } from "@/firebaseDB";
 
 export default {
   components: {
@@ -251,10 +291,29 @@ export default {
     IonInput,
     IonCardTitle,
     IonCardContent,
+    IonAlert
   },
   setup() {
     const user = ref(null);
     const age = ref(0);
+
+    const alertButtons = [
+      {
+        text: 'Cancel',
+        role: 'cancel',
+      },
+      {
+        text: 'OK',
+        role: 'confirm',
+        handler: () => {
+          signOut(auth).then(() => {
+            localStorage.removeItem("email");
+            localStorage.removeItem("password");
+            GoHome();
+          });
+        },
+      },
+    ];
 
     const calculateAge = (birthdate) => {
       const today = new Date();
@@ -286,6 +345,7 @@ export default {
     });
 
     return {
+      alertButtons,
       logOut,
       settings,
       pencilOutline,

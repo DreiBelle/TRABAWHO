@@ -1,11 +1,3 @@
-.Swipe-Background {
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  height: 10%;
-  color: black;
-}
-
 .Swipe-NoMore {
   text-align: center;
   font-size: 18px;
@@ -13,9 +5,9 @@
 }
 
 .Swipe-Swipeable {
+  transition: all 0.5s ease;
   width: 95%;
   height: 90%;
-  margin: 10px;
   background-color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -27,7 +19,22 @@
   border-radius: 20px;
 }
 
-.Swipe-header-title{
+.Fake-Swipe-Swipeable {
+  transition: all 0.5s ease;
+  width: 95%;
+  height: 90%;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease-out;
+  user-select: none;
+  position: absolute;
+  border-radius: 20px;
+}
+
+.Swipe-header-title {
   font-family: BebasNeue-Regular;
   font-size: 30px;
   color: white;
@@ -69,12 +76,6 @@
   align-items: center;
 }
 
-.Swipe-Buttons {
-  position: fixed;
-  width: 100%;
-  top: 65%;
-}
-
 .Swipe-IonButton {
   padding: 0 !important;
   margin: 0 !important;
@@ -97,7 +98,39 @@
 }
 
 .Swipe-Swipeable--animated {
-  transition: transform 0.3s ease; /* Adjust the duration as needed */
+  transition: all 0.5s ease-out;
+  scale: 0.90;
+}
+
+.Swipe-Swipeable--stop {
+  transition: all 0.5s ease-out;
+  height: 90%;
+  width: 95%;
+}
+
+.swipe-text-preview {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  text-align: left;
+  color: white;
+  font-size: 18px;
+  line-height: 20px;
+  letter-spacing: 1px;
+}
+
+.Swipe-Swipeable--text {
+  transition: all 0.5s ease-out;
+  scale: 0.95;
+  line-height: 20px;
+  letter-spacing: 1px;
+}
+
+.Swipe-Swipeable--text-stop {
+  transition: all 0.5s ease-out;
+  scale: 1;
+  line-height: 20px;
+  letter-spacing: 1px;
 }
 
 .Swipe-CardContent2 {
@@ -106,9 +139,6 @@
   color: black;
   height: 100%;
   width: 100%;
-}
-
-.Swipe-Fake-NextCard {
 }
 
 .Swipe-Fake-NextCard-Container {
@@ -123,21 +153,17 @@
 
 .asd {
   z-index: 3;
-  background: white;
+  background: none;
   border-radius: 20px;
+  height: calc(100% - 75px);
 }
 
 .asd2 {
   z-index: 2;
-  background: white;
+  background: none;
   border-radius: 20px;
-  margin-top: 25px;
-}
-.asd3 {
-  z-index: 1;
-  background: white;
-  border-radius: 20px;
-  margin-top: 45px;
+  height: calc(100% - 75px);
+  margin-top: 10px;
 }
 
 .swipe-picture {
@@ -206,7 +232,6 @@
 .swipe-container1 {
   height: 100%;
   padding: 0;
-  margin: 0;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
   border-color: #262c5c;
   border-radius: 20px;
@@ -230,17 +255,6 @@
   color: white;
 }
 
-.swipe-text-preview {
-  position: absolute;
-  bottom: 15px;
-  left: 15px;
-  text-align: left;
-  color: white;
-  font-size: 18px;
-  line-height: 20px;
-  letter-spacing: 1px;
-}
-
 .swipe-text-preview2 {
   position: absolute;
   top: 350px;
@@ -259,9 +273,6 @@
 
 .swipe-icons {
   color: white;
-}
-
-.swipe-modal {
 }
 
 .swipe-icons-container {
@@ -323,9 +334,14 @@
   left: 10px;
 }
 
+.swipe-modal-icon-information{
+  font-size: 20px; 
+  margin-bottom: -1px;
+}
+
 .swipe-modal-cards {
   border-radius: 0px;
-  padding: 0;
+  padding: 10px !important;
   margin: 5px;
   height: fit-content;
   padding: 5px;
@@ -334,17 +350,24 @@
 }
 
 .swipe-modal-text-p {
+  color: black;
   font-size: 14px;
   line-height: normal;
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.swipe-modal-text-title {
+  text-align: center;
+  font-size: 25px;
+  font-family: BebasNeue-Regular;
+  color: black;
+  margin: 5px;
+}
+
 .swipe-modal-buttons {
-  background-color: white;
   height: 50px;
   width: 50px;
   font-size: 30px;
-  color: red;
   margin: 20px 10px 20px 10px;
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
     rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
@@ -376,4 +399,27 @@
   width: 100%;
   object-fit: cover;
   border-radius: 20px;
+}
+
+.Swipe-Help-Buttons {
+  margin-right: auto;
+  height: fit-content;
+  width: fit-content;
+  min-height: 0px;
+  margin-left: auto;
+  --border-radius: 100px;
+  color: white;
+}
+
+.Swipe-Help-Buttons-icons {
+  font-size: 20px;
+  margin-left: 1px;
+  margin-right: 1px;
+}
+
+.Swipe-header-title {
+  font-family: BebasNeue-Regular;
+  font-size: 30px;
+  color: white;
+  font-weight: lighter;
 }

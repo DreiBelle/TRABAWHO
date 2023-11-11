@@ -1,6 +1,6 @@
 .eprofile-profilepic {
-  height: 150px;
-  width: 150px;
+  height: 200px;
+  width: 200px;
 }
 
 .eprofile-coverpic {
@@ -22,7 +22,8 @@
   padding-top: 30px;
   font-size: 30px;
   font-weight: bold;
-  font-family: MalbergTrial-Heavy;
+  font-family: BebasNeue-Regular;
+  letter-spacing: 1px;
   text-align: center;
   color: black;
 }
@@ -32,7 +33,9 @@
 }
 
 .eprofile-button-edit {
+  margin-top: 10px;
   --background: #262c5c;
+  width: 100%;
 }
 
 .eprofile-button-edit2 {
@@ -49,10 +52,9 @@
 }
 
 .eprofile-text {
-  font-size: 18px;
+  font-size: 16px;
   color: black;
   font-weight: bold;
-  padding-top: 10px;
   text-align: center;
 }
 
@@ -80,13 +82,13 @@
   margin-left: 5px;
   margin-right: 5px;
   color: white;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 10px;
+  margin-bottom: 1dvh;
 }
 
 .eprofile-cards-title {
-  font-size: 20px;
-  padding-bottom: 10px;
+  font-size: 30px;
+  font-family: BebasNeue-Regular;
 }
 
 .eprofile-cards-text {
@@ -266,4 +268,29 @@
   text-align: center;
   line-height: 80%;
   font-family: "MalbergTrial-Heavy";
+}
+
+.eprofile-text-nojobpostings{
+  font-family: BebasNeue-Regular;
+}
+
+.eprofile-cards-title-container{
+  background-color: #262c5c;
+  color: white;
+}
+
+.eprofile-button-startposting{
+  --border-radius: 10px;
+  --background: #262c5c;
+  height: 40px;
+  width: 200px;
+  font-size: 15px;
+}
+
+.eprofile-cards-companyoverview{
+  width: 100%;
+  height: fit-content;
+  min-height: 60px;
+  margin: 5px;
+  padding: 5px;
 }

@@ -172,6 +172,7 @@ export default {
                         SeekerPicture: this.pictureViewuser,
                         EmployerName: this.nameEmployer,
                         latestSent: serverTimestamp(),
+                        latestDateCreated: new Date().toISOString(),
                         latestMessage: "Start of Message",
                         EmployerPicture: this.picEmployer,
                         SeekerActive: true,

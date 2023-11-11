@@ -66,7 +66,7 @@
       <IonRow class="page-components-container">
         <IonCol class="flexcenter">
           <IonCard style="height: 100%; width: 100%; background-color: azure">
-            <component :is="Views" @clear-all="clearAll()" v-bind:pass-id="passId" v-bind:pass-email="passEmail"
+            <component @go-to-posting="goPosting" :is="Views" @clear-all="clearAll()" v-bind:pass-id="passId" v-bind:pass-email="passEmail"
               v-bind:pass-job="passJob" v-bind:passTorF="ArchiveorNot" v-bind:pass-name="passName"
               v-bind:pass-pic="passPicture" @go-messages="goMessages" @go-messages-data="getMessagedata" />
           </IonCard>
@@ -281,6 +281,9 @@ export default {
       } else if (x != null){
         this.ArchiveorNot = x
       }
+    },
+    goPosting() {
+      this.Views = "JobPostings"
     },
     closeModal() {
       modalController.dismiss();

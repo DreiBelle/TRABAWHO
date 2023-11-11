@@ -1,5 +1,6 @@
 <template>
-  <div class="Swipe-Swipeable" :class="{ 'Swipe-Swipeable--animated': position !== 0 }"
+  <div class="Swipe-Swipeable"
+    :class="{ 'Swipe-Swipeable--animated': position !== 0, 'Swipe-Swipeable--stop': position === 0 }"
     :style="{ transform: `translateX(${position}px)` }" @mousedown="startSwipe" @mousemove="swipe" @mouseup="endSwipe"
     @touchstart="startSwipe" @touchmove="swipe" @touchend="endSwipe" @click="viewSwipe(true)">
     <div class="Swipe-CardContent" id="card">
@@ -8,14 +9,16 @@
           <img id="picture" class="swipe-image" :src="item.pic" />
         </div>
         <div class="swipe-text-preview">
-          <div>
-            <IonText class="swipe-text-stroke" style="font-size: 35px;"> {{ item.jobname.toUpperCase() }} </IonText>
-          </div>
-          <div>
-            <IonText class="swipe-text-stroke2" style="font-size: 19px;"> Type: {{ item.jobtype }} </IonText>
-          </div>
-          <div>
-            <IonText class="swipe-text-stroke2" style="font-size: 19px;"> Position: {{ item.positionlvl }} </IonText>
+          <div :class="{ 'Swipe-Swipeable--text': position !== 0, 'Swipe-Swipeable--text-stop': position === 0 }">
+            <div>
+              <IonText class=" swipe-text-stroke" style="font-size: 35px;"> {{ item.jobname.toUpperCase() }} </IonText>
+            </div>
+            <div>
+              <IonText class="swipe-text-stroke2" style="font-size: 19px;"> Type: {{ item.jobtype }} </IonText>
+            </div>
+            <div>
+              <IonText class="swipe-text-stroke2" style="font-size: 19px;"> Position: {{ item.positionlvl }} </IonText>
+            </div>
           </div>
         </div>
       </div>
@@ -29,6 +32,7 @@
               {{ item.creator }}
             </IonCard>
           </div>
+
           <div class="swipe-modal-picture">
             <div class="swipe-gradient"></div>
             <img class="swipe-modal-picture" :src="item.pic" />
@@ -36,52 +40,100 @@
               <IonIcon @click="viewSwipe(false)" class="swipe-modal-icon" :icon="chevronBack"></IonIcon>
             </div>
           </div>
+
           <div style="margin-top: 410px;">
             <IonCard class="swipe-modal-cards">
               <IonText style="font-size: 15px; line-height: 10px;">
                 <b class="flexcenter" style="font-size: 18px; color: black;"> {{ item.jobname.charAt(0).toUpperCase() +
                   item.jobname.slice(1) }} </b>
-                <p class="swipe-modal-text-p">Job Type: {{ item.jobtype }}</p>
-                <p class="swipe-modal-text-p">Position Level: {{ item.positionlvl }}</p>
-                <p class="swipe-modal-text-p">Needed Employees: {{ item.noofempl }}</p>
-                <p class="swipe-modal-text-p">Salary: {{ item.salary }}</p>
               </IonText>
             </IonCard>
           </div>
+
           <div>
             <IonCard class="swipe-modal-cards">
               <IonText style="font-size: 15px; line-height: 10px;">
-                <b class="flexcenter" style="font-size: 18px; color: black;">Requirements</b>
-                <p class="swipe-modal-text-p">Education: {{ item.reqeduc }}</p>
-                <p class="swipe-modal-text-p">Years of Experience: {{ item.yearsofexp }}</p>
+                <p class="swipe-modal-text-title">
+                  <IonIcon class="swipe-modal-icon-information" :icon="briefcase"></IonIcon>
+                  Job Information</p>
+                <p class="swipe-modal-text-p"><b>Job Type:</b> {{ item.jobtype }}</p>
+                <p class="swipe-modal-text-p"><b>Position Level:</b> {{ item.positionlvl }}</p>
+                <p class="swipe-modal-text-p"><b>Needed Employees:</b> {{ item.noofempl }} bat wala to</p>
+                <p class="swipe-modal-text-p"><b>Salary:</b> {{ item.salary }}</p>
               </IonText>
             </IonCard>
           </div>
+
           <div>
             <IonCard class="swipe-modal-cards">
               <IonText style="font-size: 15px; line-height: 10px;">
-                <b class="flexcenter" style="font-size: 18px; color: black;">Description</b>
+                <p class="swipe-modal-text-title">
+                  <IonIcon class="swipe-modal-icon-information" :icon="document"></IonIcon>
+                  Description</p>
                 <p class="swipe-modal-text-p" style="line-height: 18px; text-align: center;">{{ item.jobdes }}</p>
               </IonText>
             </IonCard>
           </div>
+
           <div>
             <IonCard class="swipe-modal-cards">
               <IonText style="font-size: 15px; line-height: 10px;">
-                <b class="flexcenter" style="font-size: 18px; color: black;">Location</b>
-                <p>Location: {{ item.loc }}</p>
+                <p class="swipe-modal-text-title">
+                  <IonIcon class="swipe-modal-icon-information" :icon="alert"></IonIcon>
+                  Requirements</p>
+                <p class="swipe-modal-text-p"><b>Education:</b> {{ item.reqeduc }}</p>
+                <p class="swipe-modal-text-p"><b>Years of Experience:</b> {{ item.yearsofexp }} years of experience</p>
+                <p class="swipe-modal-text-p"><b>Age:</b> {{ item.age }} wala dn to</p>
               </IonText>
             </IonCard>
           </div>
+
+          <div>
+            <IonCard class="swipe-modal-cards">
+              <IonText style="font-size: 15px; line-height: 10px;">
+                <p class="swipe-modal-text-title">
+                  <IonIcon class="swipe-modal-icon-information" :icon="location"></IonIcon>
+                  Work Location</p>
+                <p class="swipe-modal-text-p"><b>Province:</b> {{ item.province }} wala to</p>
+                <p class="swipe-modal-text-p"><b>City/Town:</b> {{ item.citown }} wala to</p>
+                <p class="swipe-modal-text-p"><b>District</b> {{ item.district }} wala to</p>
+                <p class="swipe-modal-text-p"><b>Street</b> {{ item.street }} wala to</p>
+              </IonText>
+            </IonCard>
+          </div>
+
+          <div>
+            <IonCard class="swipe-modal-cards">
+              <IonText style="font-size: 15px; line-height: 10px;">
+                <p class="flexcenter swipe-modal-text-title">
+                  <IonIcon class="swipe-modal-icon-information" :icon="information"></IonIcon>
+                  Company Information</p>
+                <p class="swipe-modal-text-p"><b>Company Type:</b> {{ item.companytype }} wala to</p>
+                <p class="swipe-modal-text-p"><b>Location</b> {{ item.loc }} wala to</p>
+                <p class="swipe-modal-text-p"><b>Mision/Vision</b> {{ item.mv }} wala to</p>
+                <p class="swipe-modal-text-title" style="font-size: 20px;">Social Media</p>
+                <p class="swipe-modal-text-p"><b>Facebook:</b> {{ item.facebook }} wala to</p>
+                <p class="swipe-modal-text-p"><b>Twitter</b> {{ item.twitter }} wala to</p>
+                <p class="swipe-modal-text-p"><b>Instagram</b> {{ item.instagram }} wala to</p>
+              </IonText>
+            </IonCard>
+          </div>
+
+          <div>
+            <IonChip>
+              {{ item.chosenInterest }} wala dn to
+            </IonChip>
+          </div>
+
           <div class="flexcenter">
             <div class="flexcenter">
-              <IonAvatar @click="dislike()" class="flexcenter swipe-modal-buttons">
-                <IonIcon :icon="close">
+              <IonAvatar style="background-color: #FF6961;" @click="dislike()" class="flexcenter swipe-modal-buttons">
+                <IonIcon style="color: white;" :icon="thumbsDown">
 
                 </IonIcon>
               </IonAvatar>
-              <IonAvatar @click="like()" class="flexcenter swipe-modal-buttons">
-                <IonIcon style="color: lightblue;" :icon="heart">
+              <IonAvatar style="background-color: #60a05b;" @click="like()" class="flexcenter swipe-modal-buttons">
+                <IonIcon style="color: white;" :icon="thumbsUp">
 
                 </IonIcon>
               </IonAvatar>
@@ -97,6 +149,7 @@
 import {
   IonAvatar,
   IonCard,
+  IonChip,
   IonCol,
   IonContent,
   IonGrid,
@@ -105,13 +158,36 @@ import {
   IonRow,
   IonText,
 } from "@ionic/vue";
-import { chevronBack, close, heart, bookmark } from "ionicons/icons";
+import { chevronBack, close, heart, bookmark, thumbsUp, thumbsDown, briefcase, information, document,alert, location } from "ionicons/icons";
 import "./Swipe.css";
 import { doc } from "firebase/firestore";
+import { validatePassword } from "firebase/auth";
 
 export default {
   props: {
-    item: Object,
+    item: {
+      type: Object,
+    },
+    action: {
+      type: String,
+    }
+  },
+  watch: {
+    action: function (value) {
+      if (value == "left") {
+        console.log("dude swiped left")
+        this.$emit("swipeLeft", this.item);
+      } else if (value == "right") {
+        console.log("dude swiped right")
+        this.$emit("swipeRight", this.item);
+      } else if (value == "info") {
+        console.log("info")
+        this.viewSwipe(true)
+        this.$emit("clear-action");
+      } else {
+        console.log("deleted")
+      }
+    },
   },
   data() {
     return {
@@ -197,11 +273,12 @@ export default {
     IonContent,
     IonModal,
     IonIcon,
-    IonAvatar
+    IonAvatar,
+    IonChip
   },
   setup() {
     return {
-      close, chevronBack, heart, bookmark
+      close, chevronBack, heart, bookmark, thumbsUp, thumbsDown,  briefcase, information, document,alert, location
     };
   },
 };

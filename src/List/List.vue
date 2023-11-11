@@ -4,44 +4,39 @@
       <IonToolbar style="height: 100%; --background: #262c5c">
         <IonButtons style="padding-left: 10px" slot="start">
           <div>
-            <img
-              style="height: 30px"
-              src="../assets/logo/whitefilllogo.png"
-              alt="logo"
-            />
+            <img style="height: 30px" src="../assets/logo/whitefilllogo.png" alt="logo" />
           </div>
         </IonButtons>
         <IonTitle class="jlist-header-title" mode="ios">
           LIST
         </IonTitle>
+        <IonButtons style="padding-right: 10px" slot="end">
+          <div>
+            <IonIcon style="height: 30px; width: 30px; color: white" id="showLogout" :icon="filter"></IonIcon>
+          </div>
+        </IonButtons>
       </IonToolbar>
     </IonHeader>
 
     <IonContent>
       <div class="flexcenter" style="border-bottom: 1px solid lightgrey">
-        <IonCard class="list-total-cards">
+        <IonCard class="flexcenter list-total-cards">
           <IonText>
-            A TOTAL OF <b>{{ testdata.length }}</b> JOBS
+            A TOTAL OF {{ jobs.length }} JOBS
           </IonText>
         </IonCard>
       </div>
-      <div class="flexcenter" v-for="data in testdata">
+
+      <div class="flexcenter" v-for="data in jobs">
         <IonCard @click="modalViewjob(true)" class="flexcenter list-cards">
           <div class="flexcenter" style="height: 100%; width: 100px">
-            <img
-              class="list-cards-image"
-              src="../assets/companybackground.jpg"
-              alt="image"
-            />
+            <img class="list-cards-image" src="../assets/companybackground.jpg" alt="image" />
           </div>
-          <div style="width: 100%; padding: 10px">
-            <div
-              class="flexcenter list-cards-text"
-              style="border-bottom: 1px solid black"
-            >
+          <div style="width: 100%; padding: 10px;">
+            <div class="list-cards-text" style="border-bottom: 1px solid black">
               Name of postings
             </div>
-            <div class="flexcenter list-cards-text">salary(higher or ups)</div>
+            <div class="list-cards-text">salary(higher or ups)</div>
           </div>
           <div class="flexcenter" style="width: 50px">
             <IonIcon style="color: black" :icon="chevronForward"> </IonIcon>
@@ -59,16 +54,9 @@
         </div>
         <div class="swipe-modal-picture">
           <div class="swipe-gradient"></div>
-          <img
-            class="swipe-modal-picture"
-            src="../assets/companybackground.jpg"
-          />
+          <img class="swipe-modal-picture" src="../assets/companybackground.jpg" />
           <div>
-            <IonIcon
-              @click="modalViewjob(false)"
-              class="swipe-modal-icon"
-              :icon="chevronBack"
-            ></IonIcon>
+            <IonIcon @click="modalViewjob(false)" class="swipe-modal-icon" :icon="chevronBack"></IonIcon>
           </div>
         </div>
         <div style="margin-top: 410px">
@@ -101,9 +89,7 @@
         <div>
           <IonCard class="swipe-modal-cards">
             <IonText style="font-size: 15px; line-height: 10px">
-              <b class="flexcenter" style="font-size: 18px; color: black"
-                >Requirements</b
-              >
+              <b class="flexcenter" style="font-size: 18px; color: black">Requirements</b>
               <p class="swipe-modal-text-p">
                 Education:
                 <!-- {{ item.reqeduc }} -->
@@ -118,13 +104,8 @@
         <div>
           <IonCard class="swipe-modal-cards">
             <IonText style="font-size: 15px; line-height: 10px">
-              <b class="flexcenter" style="font-size: 18px; color: black"
-                >Description</b
-              >
-              <p
-                class="swipe-modal-text-p"
-                style="line-height: 18px; text-align: center"
-              >
+              <b class="flexcenter" style="font-size: 18px; color: black">Description</b>
+              <p class="swipe-modal-text-p" style="line-height: 18px; text-align: center">
                 <!-- {{ item.jobdes }} -->
               </p>
             </IonText>
@@ -133,9 +114,7 @@
         <div>
           <IonCard class="swipe-modal-cards">
             <IonText style="font-size: 15px; line-height: 10px">
-              <b class="flexcenter" style="font-size: 18px; color: black"
-                >Location</b
-              >
+              <b class="flexcenter" style="font-size: 18px; color: black">Location</b>
               <p>
                 Location:
                 <!-- {{ item.loc }} -->
@@ -164,6 +143,7 @@ import {
   chevronBack,
   close,
   heart,
+filter,
 } from "ionicons/icons";
 import {
   IonPage,
@@ -179,7 +159,7 @@ import {
   IonModal,
   IonToolbar,
   IonButtons,
-IonTitle,
+  IonTitle,
 } from "@ionic/vue";
 import "../Profile/Seeker-Profile.css";
 import "../Swipe/Swipe.css";
@@ -200,10 +180,10 @@ export default {
     IonToolbar,
     IonButtons,
     IonTitle
-},
+  },
   data() {
     return {
-      testdata: ["a", "b", "c"],
+      jobs: ['a','b','c'],
       isViewjob: false,
     };
   },
@@ -214,6 +194,7 @@ export default {
       chevronBack,
       close,
       heart,
+      filter,
     };
   },
   methods: {

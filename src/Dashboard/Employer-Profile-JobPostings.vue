@@ -23,19 +23,24 @@
             </IonGrid>
         </IonCard>
     </div>
-    <div v-else>No job postings available for your company.</div>
+    <div v-else>
+        <div class="flexcenter" style="height: 260px ;">
+            <IonButton @click="goPostings" class="eprofile-button-startposting" >START POSTING JOBS</IonButton>
+        </div>
+    </div>
 
     <ViewModal :is-viewmodal="isViewmodal" @close-view-modal="CloseViewModal" @open-view-modal="OpenViewModal"
         :is-open="isViewmodal" :job-posting="selectedJobPosting" />
-        
 </template>
 <script lang="ts">
-import { IonCard, IonCol, IonGrid, IonIcon, IonRow } from '@ionic/vue';
+import { IonButton, IonCard, IonCol, IonGrid, IonIcon, IonRow, IonText } from '@ionic/vue';
 import { chevronForward, eyeSharp, thumbsUp } from 'ionicons/icons';
 import { ref, onMounted, onUnmounted } from "vue";
 import { getDashboardProfile } from "./Dashboard-Model";
 import { getJobPostings } from "@/Dashboard/Dashboard-Model";
 import ViewModal from "./Dashboard-Modals/Dashboard-ViewJobPosting.vue";
+import './Employer-Dashboard.css'
+import './Profile.css'
 import {
     collection,
     onSnapshot,
@@ -46,7 +51,8 @@ import {
 import { db } from "../firebaseDB";
 
 export default {
-    components: { IonCard, IonGrid, IonRow, IonCol, IonIcon, ViewModal },
+    components: { IonCard, IonGrid, IonRow, IonCol, IonIcon, ViewModal, IonText, IonButton },
+    emits:["go-to-posting",],
     data() {
         return {
             isLoading: true,
@@ -107,6 +113,9 @@ export default {
         };
     },
     methods: {
+        goPostings(){
+            this.$emit("go-to-posting")
+        },
         OpenViewModal(index) {
             this.isViewmodal = true;
             console.log(index);

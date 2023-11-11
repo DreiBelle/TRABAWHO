@@ -1,5 +1,5 @@
 <template>
-  <div class="Swipe-Swipeable" :class="{ 'Swipe-Swipeable--animated': position !== 0 }"
+  <div class="Fake-Swipe-Swipeable" :class="{ 'Swipe-Swipeable--animated': position !== 0 }"
     :style="{ transform: `translateX(${position}px)` }">
     <div class="Swipe-CardContent" id="card">
       <div class="swipe-container1" id="fakepicture">
@@ -9,13 +9,13 @@
         <div style="height: calc(100% - 75px)"></div>
         <div class="swipe-text-preview">
           <div>
-            <IonText class="swipe-text-stroke" style="font-size: 40px;"> {{ item.jobname.toUpperCase() }} </IonText>
+            <IonText class="swipe-text-stroke" style="font-size: 35px;"> {{ item.jobname.toUpperCase() }} </IonText>
           </div>
           <div>
-            <IonText class="swipe-text-stroke2" style="font-size: 22px;"> Type: {{ item.jobtype }} </IonText>
+            <IonText class="swipe-text-stroke2" style="font-size: 19px;"> Type: {{ item.jobtype }} </IonText>
           </div>
           <div>
-            <IonText class="swipe-text-stroke2" style="font-size: 22px;"> Position {{ item.positionlvl }} </IonText>
+            <IonText class="swipe-text-stroke2" style="font-size: 19px;"> Position: {{ item.positionlvl }} </IonText>
           </div>
         </div>
       </div>

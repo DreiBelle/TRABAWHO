@@ -25,7 +25,7 @@
 
     <IonGrid style="height: 100%; width: 100%">
       <IonRow style="height: 100%;">
-        <IonCol size="5.5" class="flexcenter" style="max-height: 550px; border: 1px solid black;">
+        <IonCol size="5.5" class="flexcenter" style="max-height: 550px;">
           <div class="flexcenter" style="height: 100%; width: 100%;">
             <img class="modal-viewjobpost-image" :src="jobPosting ? jobPosting.pic : ''" alt="" />
           </div>
