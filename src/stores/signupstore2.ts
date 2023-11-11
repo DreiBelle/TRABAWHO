@@ -18,6 +18,7 @@ export const useSignupStore2 = defineStore("signup2", {
       companytype: "",
       swiperuser: [],
       swiperjob: [],
+      aprooved: false,
     },
   }),
   actions: {

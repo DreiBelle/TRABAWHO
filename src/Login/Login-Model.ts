@@ -41,7 +41,7 @@ async function UserLogin_(Username) {
       }
     }
   } else {
-    console.log("Email not found");
+    alert("Email not found");
     GoHome
   }
 }

@@ -68,8 +68,10 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   sendPasswordResetEmail,
+  sendEmailVerification,
 } from "firebase/auth";
 import { auth } from "@/firebaseDB";
+import { GoLogin } from "@/Profile/Profile-Controller";
 
 export default {
     components: {
@@ -112,6 +114,7 @@ export default {
         console.log(sharedFormData.juniorhigh);
         console.log(sharedFormData.seniorhigh);
         console.log(sharedFormData.college);
+        console.log(sharedFormData.higheduc);
         console.log(sharedFormData.yearsofexp);
         console.log(sharedFormData.jobtype);
         console.log(sharedFormData.salary);
@@ -189,8 +192,9 @@ export default {
                     pic: this.formData.pic
                 });
                 await signupStore.registerUser();
-                localStorage.setItem("email", sharedFormData.email);
-                GoSwipe();
+                // localStorage.setItem("email", sharedFormData.email);
+                GoLogin()
+                alert("Succesfully Registered, Please Wait the System Admin to Approve your Account");
             } else {
                 console.error("Please fill in all required fields.");
                 alert("Please fill in all required fields");

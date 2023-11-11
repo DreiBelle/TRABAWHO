@@ -38,7 +38,7 @@
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
-                <IonSelect mode="md" label="Gender" placeholder="Select Province" label-placement="stacked"
+                <IonSelect mode="md" label="Province" placeholder="Select Province" label-placement="stacked"
                   interface="popover" fill="outline" class="signup-inputs-mobile" v-model="formData.province" required>
                   <IonSelectOption value="Cagayan">Cagayan</IonSelectOption>
                   <IonSelectOption value="Isabela">Isabela</IonSelectOption>
@@ -49,7 +49,7 @@
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
-                <IonSelect mode="md" label="Gender" placeholder="Select City/Town" label-placement="stacked"
+                <IonSelect mode="md" label="City/Town" placeholder="Select City/Town" label-placement="stacked"
                   interface="popover" fill="outline" class="signup-inputs-mobile" v-model="formData.citown" required>
                   <IonSelectOption value="Tuguegarao City">Tuguegarao City</IonSelectOption>
                   <IonSelectOption value="Aparri">Aparri</IonSelectOption>
@@ -133,6 +133,7 @@ import { arrowBackOutline } from "ionicons/icons";
 import { ref } from 'vue';
 
 const signupStore = useSignupStore();
+
 const formData = {
   bday: "",
   contactno: "",
@@ -155,6 +156,16 @@ const submitForm = async () => {
   const requiredFields = ['bday', 'contactno', 'gender', 'province', 'citown', 'district', 'street'];
   let isFormValid = true;
 
+  const biday = formData.bday;
+  const today = new Date();
+  const birthDate = new Date(biday);
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const monthDiff = today.getMonth() - birthDate.getMonth();
+
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+  }
+
   for (const field of requiredFields) {
     if (!formData[field]) {
       isFormValid = false;
@@ -167,23 +178,31 @@ const submitForm = async () => {
     return;
   }
 
-  if (isFormValid) {
-    signupStore.setFormData({
-      ...sharedFormData,
-      bday: formData.bday,
-      contactno: formData.contactno,
-      gender: formData.gender,
-      province: formData.province,
-      citown: formData.citown,
-      district: formData.district,
-      street: formData.street,
-    });
+  if (age >= 18) {
+    if (isFormValid) {
+      signupStore.setFormData({
+        ...sharedFormData,
+        bday: formData.bday,
+        contactno: formData.contactno,
+        gender: formData.gender,
+        province: formData.province,
+        citown: formData.citown,
+        district: formData.district,
+        street: formData.street,
+      });
 
-    GoRegister2()
+      GoRegister2()
+    }
+    else {
+      alertbox(true, `Fill all the Field to continue`)
+    }
   }
-  else {
-    alertbox(true, `Fill all the Field to continue`)
+  else{
+    // alertbox(true, `Unfortunately Only 18 Above is allowed to use the system`)
+    alert("You are under 18")
+    GoHome()
   }
+
 }
 
 

@@ -25,8 +25,8 @@
               <IonCol class="flexcenter">
                 <div>
                   <div>
-                    <IonInput mode="md" label="Password" labelPlacement="stacked" placeholder="Enter Password" fill="outline"
-                      class="login-input" type="password" required v-model="Password">
+                    <IonInput mode="md" label="Password" labelPlacement="stacked" placeholder="Enter Password"
+                      fill="outline" class="login-input" type="password" required v-model="Password">
                     </IonInput>
                   </div>
                   <div>
@@ -99,17 +99,26 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   sendPasswordResetEmail,
+  sendEmailVerification,
+  getAuth,
 } from "firebase/auth";
-import { auth } from "@/firebaseDB";
+import { auth, db } from "@/firebaseDB";
 logoGoogle;
 </script>
 
 <script lang="ts">
 import { ref } from "vue";
 import { logoGoogle } from "ionicons/icons";
+import { userInfo } from "os";
+import { getDashboardProfile } from "@/Dashboard/Dashboard-Model";
+import { collection, onSnapshot, query, where } from "@firebase/firestore";
 
 const Username = ref("");
 const Password = ref("");
+
+const user = ref(null);
+
+const authi = getAuth();
 
 const signInWithGoogle = async () => {
   const provider = new GoogleAuthProvider();
@@ -129,14 +138,38 @@ const signInWithGoogle = async () => {
 };
 
 const handleUserLogin = () => {
+  const userQuery = query(
+    collection(db, "users"),
+    where("email", "==", Username.value)
+  );
+  const userUnsubscribe = onSnapshot(userQuery, (snapshot) => {
+    user.value = snapshot.docs[0]?.data();
+  });
   signInWithEmailAndPassword(auth, Username.value, Password.value)
-    .then(() => {
-      localStorage.setItem("email", Username.value);
+    .then((userCredential) => {
+      const users = userCredential.user;
 
-      UserLogin(Username.value);
+      if (users.emailVerified) {
+        localStorage.setItem("email", Username.value);
 
-      Username.value = "";
-      Password.value = "";
+        if (user.value.classification && user.value.subclassification) {
+          if (user.value.aprooved === true) {
+            UserLogin(Username.value);
+            Username.value = "";
+            Password.value = "";
+          }
+          else {
+            alert("Wait for your account to be approved by System Admin");
+          }
+        }
+        else {
+          alert("Insuficient Data");
+          GoHome();
+        }
+      }
+      else {
+        alert("Please verify your email before logging in.");
+      }
     })
     .catch((error) => {
       console.error(error);

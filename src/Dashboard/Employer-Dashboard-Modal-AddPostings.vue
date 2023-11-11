@@ -81,14 +81,9 @@
         </div>
 
         <div>
-          <IonSelect class="modal-addjobpost-input" label="Salary" interface="popover" labelPlacement="stacked"
-            fill="outline" placeholder="Select estimated salary range" v-model="formData.salary" required>
-            <IonSelectOption value="0php - 5,000php">0php - 5,000php</IonSelectOption>
-            <IonSelectOption value="6,000php - 10,000php">6,000php - 10,000php</IonSelectOption>
-            <IonSelectOption value="11,000php - 50,000php">11,000php - 50,000php</IonSelectOption>
-            <IonSelectOption value="51,000php - 100,000php">51,000php - 100,000php</IonSelectOption>
-            <IonSelectOption value="100,000php and above">100,000php and above</IonSelectOption>
-          </IonSelect>
+          <IonInput class="modal-addjobpost-input" label="Salary" placeholder="Input Salary" labelPlacement="stacked"
+            fill="outline" v-model="formData.salary" required>
+          </IonInput>
         </div>
 
         <div>

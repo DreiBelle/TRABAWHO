@@ -246,12 +246,12 @@ router.beforeEach(async (to, from, next) => {
           alert(
             "You do not have access because you are jobseeker, Sign in first!"
           );
-          next("/Swipe");
+          next("/Login");
         } else {
           alert(
             "You do not have access because you are employer, Sign in first!"
           );
-          next("/Employer-Dashboard");
+          next("/LoginComputer");
         }
       }
     } else {

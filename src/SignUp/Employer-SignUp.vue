@@ -30,7 +30,7 @@
                 <IonRow>
                   <IonCol>
                     <IonInput fill="outline" class="signup-inputs" label="Contact Number" labelPlacement="stacked"
-                      placeholder="Enter Contact Number" v-model="formData.number" required>
+                      placeholder="Enter Contact Number" type="number" v-model="formData.number" required>
                     </IonInput>
                   </IonCol>
                 </IonRow>
@@ -43,8 +43,9 @@
                 </IonRow>
                 <IonRow>
                   <IonCol>
-                    <IonSelect mode="md" label="Company Type" placeholder="Select Type of Company" label-placement="stacked"
-                      interface="popover" fill="outline" class="signup-inputs" v-model="formData.companytype" required>
+                    <IonSelect mode="md" label="Company Type" placeholder="Select Type of Company"
+                      label-placement="stacked" interface="popover" fill="outline" class="signup-inputs"
+                      v-model="formData.companytype" required>
                       <IonSelectOption value="Government">Government</IonSelectOption>
                       <IonSelectOption value="Private">Private</IonSelectOption>
                       <IonSelectOption value="Manpower">Manpower</IonSelectOption>
@@ -122,7 +123,7 @@ import { useSignupStore2 } from "@/stores/signupstore2";
 import { Firestore } from "firebase/firestore";
 import { checkifregisteredgoogle } from "./Employer-Model";
 import router from "../router";
-import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, sendEmailVerification } from "firebase/auth";
 import { auth } from '../firebaseDB';
 import { GoEmployerDashboard } from "@/Login/Login-Controller";
 import HomeBar from "../Home/Home-TopBar.vue"
@@ -167,6 +168,12 @@ const signInWithGoogle = async () => {
 const submitForm = async () => {
   const requiredFields = ['email', 'contactpn', 'number', 'businessname', 'password', 'companytype'];
   let isFormValid = true;
+  function isValidPassword(password) {
+    // Customize your password validation rules here
+    // For example, require at least 8 characters and a mix of letters, numbers, and symbols
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+    return passwordRegex.test(password);
+  }
 
   for (const field of requiredFields) {
     if (!formData[field]) {
@@ -186,15 +193,25 @@ const submitForm = async () => {
 
   if (isFormValid) {
     try {
-      const credential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
-      console.log(credential.user);
-      signupStore2.setFormData(formData);
-      signupStore2.setjobdata({ swipedid: "" });
-      signupStore2.setswipedata({ jobdid: "" });
-      await signupStore2.registerUser();
-      localStorage.setItem("email", formData.email);
-      router.push("/Employer-Dashboard");
-      alert("Succesfully Registered");
+      if (isValidPassword(formData.password)) {
+        const credential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+        console.log(credential.user);
+
+        // await sendEmailVerification(credential.user);
+        // alert('Verification email sent');
+
+        signupStore2.setFormData(formData);
+        signupStore2.setjobdata({ swipedid: "" });
+        signupStore2.setswipedata({ jobdid: "" });
+        await signupStore2.registerUser();
+        // localStorage.setItem("email", formData.email);
+        router.push("/LoginComputer");
+        alert("Succesfully Registered, Please Wait the System Admin to Approve your Account");
+      }
+      else {
+        alert("Invalid password. Password must require at least 8 characters and a mix of letters, numbers, and symbols.")
+      }
+
     } catch (error) {
       alert(error.message);
     }

@@ -1,82 +1,82 @@
 <template>
   <IonPage class="signup-ionpage">
     <!-- <IonContent style="--background: none;"> -->
-      <IonGrid class="signup-grid">
-        <IonRow style="height: 100%;">
-          <IonCol class="flexcenter">
-            <IonGrid>
-              <IonRow>
-                <IonCol class="flexcenter">
-                  <IonText class="signup-title-mobile">
-                    Sign Up
-                  </IonText>
-                </IonCol>
-              </IonRow>
-              <IonRow>
-                <IonCol class="flexcenter">
-                  <IonInput mode="md" type="text" placeholder="FirstName/MiddleName/LastName" fill="outline"
-                    labelPlacement="stacked" label="Full Name" class="signup-inputs-mobile" v-model="formData.fullname"
-                    required>
-                  </IonInput>
-                </IonCol>
-              </IonRow>
-              <IonRow>
-                <IonCol class="flexcenter">
-                  <IonInput mode="md" type="email" placeholder="Valid Email Address" fill="outline" labelPlacement="stacked"
+    <IonGrid class="signup-grid">
+      <IonRow style="height: 100%;">
+        <IonCol class="flexcenter">
+          <IonGrid>
+            <IonRow>
+              <IonCol class="flexcenter">
+                <IonText class="signup-title-mobile">
+                  Sign Up
+                </IonText>
+              </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol class="flexcenter">
+                <IonInput mode="md" type="text" placeholder="FirstName/MiddleName/LastName" fill="outline"
+                  labelPlacement="stacked" label="Full Name" class="signup-inputs-mobile" v-model="formData.fullname"
+                  required>
+                </IonInput>
+              </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol class="flexcenter">
+                <IonInput mode="md" type="email" placeholder="Valid Email Address" fill="outline" labelPlacement="stacked"
                   label="Email" class="signup-inputs-mobile" v-model="formData.email" required>
-                  </IonInput>
-                </IonCol>
-              </IonRow>
-              <IonRow>
-                <IonCol class="flexcenter">
-                  <IonInput mode="md" placeholder="Password" type="password" fill="outline" labelPlacement="stacked"
-                    label="Password" class="signup-inputs-mobile" v-model="formData.password" required>
-                  </IonInput>
-                </IonCol>
-              </IonRow>
-              <IonRow>
-                <IonCol class="flexcenter">
-                  <IonCheckbox style="margin-left: 5px;" v-model="formData.acceptTerms"></IonCheckbox>
-                  <IonText class="signup-text-terms">
-                    I have read and accept the
-                    <a @click="modalTerms(true)" style="color: #262c5c;"> terms and conditions</a>
-                  </IonText>
-                </IonCol>
-              </IonRow>
-              <IonRow>
-                <IonCol>
-                  <div class="flexcenter">
-                    <IonButton @click="submitForm" class="signup-button-email-mobile">
-                      Continue
-                    </IonButton>
-                  </div>
-                  <div class="flexcenter">
-                    <IonText class="signup-text-alreadyhave">
-                      Already have an account? <a @click="goLogin()" style="color: #262c5c;">Login</a> | <a
-                        @click="GoHome()" style="color: red;">Cancel</a>
-                    </IonText>
-                  </div>
-                </IonCol>
-              </IonRow>
-              <IonRow>
-                <IonCol style="border-bottom: 1px solid black; margin-bottom: 11px"></IonCol>
-                <IonCol class="flexcenter" size="2" style="font-size: 12px">OR</IonCol>
-                <IonCol style="border-bottom: 1px solid black; margin-bottom: 11px"></IonCol>
-              </IonRow>
-              <IonRow>
-                <IonCol class="flexcenter">
-                  <IonButton @click="signInWithGoogle()" class="signup-button-google">
-                    <IonIcon :icon="logoGoogle"> </IonIcon>
-                    <IonText style="padding-left: 5px;">
-                      Google
-                    </IonText>
+                </IonInput>
+              </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol class="flexcenter">
+                <IonInput mode="md" placeholder="Password" type="password" fill="outline" labelPlacement="stacked"
+                  label="Password" class="signup-inputs-mobile" v-model="formData.password" required>
+                </IonInput>
+              </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol class="flexcenter">
+                <IonCheckbox style="margin-left: 5px;" v-model="formData.acceptTerms"></IonCheckbox>
+                <IonText class="signup-text-terms">
+                  I have read and accept the
+                  <a @click="modalTerms(true)" style="color: #262c5c;"> terms and conditions</a>
+                </IonText>
+              </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol>
+                <div class="flexcenter">
+                  <IonButton @click="submitForm" class="signup-button-email-mobile">
+                    Continue
                   </IonButton>
-                </IonCol>
-              </IonRow>
-            </IonGrid>
-          </IonCol>
-        </IonRow>
-      </IonGrid>
+                </div>
+                <div class="flexcenter">
+                  <IonText class="signup-text-alreadyhave">
+                    Already have an account? <a @click="goLogin()" style="color: #262c5c;">Login</a> | <a
+                      @click="GoHome()" style="color: red;">Cancel</a>
+                  </IonText>
+                </div>
+              </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol style="border-bottom: 1px solid black; margin-bottom: 11px"></IonCol>
+              <IonCol class="flexcenter" size="2" style="font-size: 12px">OR</IonCol>
+              <IonCol style="border-bottom: 1px solid black; margin-bottom: 11px"></IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol class="flexcenter">
+                <IonButton @click="signInWithGoogle()" class="signup-button-google">
+                  <IonIcon :icon="logoGoogle"> </IonIcon>
+                  <IonText style="padding-left: 5px;">
+                    Google
+                  </IonText>
+                </IonButton>
+              </IonCol>
+            </IonRow>
+          </IonGrid>
+        </IonCol>
+      </IonRow>
+    </IonGrid>
     <!-- </IonContent> -->
     <terms :is-termsmodal="isTerms" @close-terms-modal="modalTerms(false)"></terms>
 
@@ -109,7 +109,7 @@ import { GoBasic, GoRegister2, goBack, goTermsandCondition, goLogin } from "./Si
 import { useSignupStore } from "@/stores/signupstore";
 import { Firestore } from "firebase/firestore";
 import { checkifregisteredgoogle } from "./Seeker-Model";
-import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import { auth } from '../firebaseDB';
 import { GoSwipe, GoHome, } from "@/NavBar/NavBar-Controller";
 import { logoGoogle } from "ionicons/icons";
@@ -152,6 +152,7 @@ export default {
       juniorhigh: "",
       seniorhigh: "",
       college: "",
+      masteral: "",
       higheduc: "",
       yearsofexp: "",
       jobtype: "",
@@ -211,6 +212,13 @@ export default {
       const requiredFields = ['fullname', 'email', 'password'];
       let isFormValid = true;
 
+      function isValidPassword(password) {
+        // For example, require at least 8 characters and a mix of letters, numbers, and symbols
+        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{5,}$/;
+
+        return passwordRegex.test(password);
+      }
+
       for (const field of requiredFields) {
         if (!formData[field]) {
           isFormValid = false;
@@ -229,10 +237,20 @@ export default {
 
       if (isFormValid) {
         try {
-          const credential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
-          console.log(credential.user);
-          signupStore.setFormData(formData);
-          GoBasic();
+          if (isValidPassword(formData.password)) {
+
+            const credential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+            console.log(credential.user);
+
+            // await sendEmailVerification(credential.user); wag delete sa email verify to
+            // alert('Verification email sent');
+
+            signupStore.setFormData(formData);
+            GoBasic();
+          }
+          else {
+            alertbox(true, `Invalid password. Password must require at least 8 characters and a mix of letters, numbers, and symbols.`)
+          }
         } catch (error) {
           alertbox(true, error.message)
 

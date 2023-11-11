@@ -33,10 +33,10 @@
                 <IonRow style="border-bottom: 1px solid black">
                   <IonCol>
                     <IonButton class="signup-buttons" expand="block" fill="outline" @click="handleUserLogin" style="
-                        color: #262c5c;
-                        --border-color: #262c5c;
-                        padding-top: 40px;
-                      ">
+                            color: #262c5c;
+                            --border-color: #262c5c;
+                            padding-top: 40px;
+                          ">
                       LOG-IN
                     </IonButton>
                   </IonCol>
@@ -57,7 +57,7 @@
               </IonGrid>
             </IonCol>
             <IonCol class="flexcenter" size="6.5">
-              <img src="../assets/picture2.png" alt="picture" style="height: auto; width: 95%;"/>
+              <img src="../assets/picture2.png" alt="picture" style="height: auto; width: 95%;" />
             </IonCol>
           </IonRow>
         </IonGrid>
@@ -82,15 +82,17 @@ import "./Login.css";
 import { GoRegister, GoHome, GoEmployer, GoEmployerDashboard } from "./Login-Controller";
 import { checkgoogle, UserLogin, updatePassword } from "./Login-Model";
 import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail } from "firebase/auth";
-import { auth } from "@/firebaseDB";
+import { auth, db } from "@/firebaseDB";
 import HomeBar from "../Home/Home-TopBar.vue"
 import "../SignUp/SignUp.css"
 </script>
 
 <script lang="ts">
 import { ref } from "vue";
+import { collection, onSnapshot, query, where } from "@firebase/firestore";
 const Username = ref("");
 const Password = ref("");
+const user = ref(null);
 
 const signInWithGoogle = async () => {
   const provider = new GoogleAuthProvider();
@@ -111,14 +113,24 @@ const signInWithGoogle = async () => {
 };
 
 const handleUserLogin = () => {
+  const userQuery = query(
+    collection(db, "users"),
+    where("email", "==", Username.value)
+  );
+  const userUnsubscribe = onSnapshot(userQuery, (snapshot) => {
+    user.value = snapshot.docs[0]?.data();
+  });
   signInWithEmailAndPassword(auth, Username.value, Password.value)
     .then(() => {
       localStorage.setItem("email", Username.value);
-
-      UserLogin(Username.value);
-
-      Username.value = "";
-      Password.value = "";
+      if (user.value.aprooved === true) {
+        UserLogin(Username.value);
+        Username.value = "";
+        Password.value = "";
+      }
+      else {
+        alert("Wait for your account to be approved by System Admin");
+      }
     })
     .catch((error) => {
       console.error(error);

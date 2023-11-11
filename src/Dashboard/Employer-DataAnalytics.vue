@@ -643,8 +643,8 @@ export default {
 
             for (const successday of dsuccess) {
                 const successInDay = swipesuccess.value.filter((success) => {
-                    if (success.dateCreated) {
-                        const date = new Date(view.dateCreated);
+                    if (success.latestDateCreated) {
+                        const date = new Date(success.latestDateCreated);
                         const successDay = date.toLocaleString('default', { weekday: 'long' });
                         return successDay === successday;
                     }
@@ -698,8 +698,8 @@ export default {
 
             for (const successmonth of msuccess) {
                 const successInMonth = swipesuccess.value.filter((success) => {
-                    if (success.dateCreated) {
-                        const date = new Date(view.dateCreated);
+                    if (success.latestDateCreated) {
+                        const date = new Date(success.latestDateCreated);
                         const successMonth = date.toLocaleString('default', { month: 'long' });
                         return successMonth === successmonth;
                     }
@@ -753,8 +753,8 @@ export default {
 
             for (const successyear of ysuccess) {
                 const successInYear = swipesuccess.value.filter((success) => {
-                    if (success.dateCreated) {
-                        const date = new Date(view.dateCreated);
+                    if (success.latestDateCreated) {
+                        const date = new Date(success.latestDateCreated);
                         const successYear = date.toLocaleString('default', { year: 'numeric' });
                         return successYear === successyear;
                     }

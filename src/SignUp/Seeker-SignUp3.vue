@@ -16,7 +16,7 @@
               <IonRow>
                 <IonCol class="flexcenter">
                   <IonInput mode="md" fill="outline" placeholder="Input Preffered Salary based on skills"
-                    class="signup-inputs-mobile" label="Preffered Salary" label-placement="stacked"
+                    class="signup-inputs-mobile" label="Preffered Salary" label-placement="stacked" type="number"
                     v-model="formData.salary" required>
                   </IonInput>
                 </IonCol>
@@ -128,7 +128,7 @@ import {
 import "./SignUp.css";
 import { goBack, GoSwipe, GoSignupPicture } from "./SignUp-Controller";
 import { useSignupStore } from "@/stores/signupstore";
-import { ref } from "vue"; // Import the ref function
+import { ref } from "vue";
 import ChoiceModal from "@/SignUp/Seeker-InterestModal.vue";
 import { goLogin } from '@/SignUp/SignUp-Controller';
 import { addCircleOutline, arrowBackOutline, close } from "ionicons/icons";
@@ -184,6 +184,8 @@ export default {
     console.log(sharedFormData.juniorhigh);
     console.log(sharedFormData.seniorhigh);
     console.log(sharedFormData.college);
+    console.log(sharedFormData.masteral);
+    console.log(sharedFormData.higheduc);
 
     return {
       addCircleOutline,

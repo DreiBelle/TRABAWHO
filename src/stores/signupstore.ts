@@ -16,6 +16,7 @@ export const useSignupStore = defineStore("signup", {
       juniorhigh: "",
       seniorhigh: "",
       college: "",
+      masteral: "",
       higheduc: "",
       yearsofexp: "",
       jobtype: "",
@@ -35,6 +36,7 @@ export const useSignupStore = defineStore("signup", {
       pic: "",
       classification: "",
       subclassification: "",
+      aprooved: false,
     },
   }),
   actions: {
@@ -76,6 +78,7 @@ export const useSignupStore = defineStore("signup", {
           juniorhigh: "",
           seniorhigh: "",
           college: "",
+          masteral: "",
           higheduc: "",
           yearsofexp: "",
           jobtype: "",
@@ -98,6 +101,7 @@ export const useSignupStore = defineStore("signup", {
           pic: "",
           classification: "",
           subclassification: "",
+          aprooved: false,
         };
       } catch (error) {
         console.error("Error registering user:", error);
