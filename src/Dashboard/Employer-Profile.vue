@@ -382,7 +382,7 @@ export default {
     IonPage,
     IonContent,
   },
-  emits:["go-to-posting",],
+  emits:["go-to-posting"],
   data() {
     return {
       isProfileOpen: false,

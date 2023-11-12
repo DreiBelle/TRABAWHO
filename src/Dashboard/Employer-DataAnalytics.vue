@@ -1,57 +1,93 @@
 <template>
     <IonPage>
-        <IonContent>
-            <!-- <div>
-                <p>Likes this week: {{ likesThisWeek }}</p>
+        <IonContent class="custom-scrollbar">
+            <div class="flexcenter" style="margin-top: 30px;">
+                <IonText style="font-family: BebasNeue-Regular; font-size: 40px;">
+                    GENERAL
+                </IonText>
             </div>
-            <div>
-                <p>Views this week: {{ viewsThisWeek }}</p>
-            </div> -->
+
+            <div class="flexcenter" style="height: 50%; width: 100%;">
+                <div style="height: 100%; width: 50%; margin-top: 20px; margin-left: 30px;">
+                    <canvas style="width: 100%; margin-top: 20px;" id="liked"></canvas>
+                </div>
+                <div class="flexcenter" style="width: 20%;">
+                    <div>
+                        <div class="flexcenter">
+                            <IonCard class="flexcenter" style="width: 150px; height: 100px; color: black; font-size: 15px;">
+                                <IonText style="text-align: center;">
+                                    Likes this week: <br />
+                                    <b style="font-size: 50px;"> {{ likesThisWeek }}</b>
+                                </IonText>
+                            </IonCard>
+                        </div>
+                        <div class="flexcenter">
+                            <IonCard class="flexcenter" style="width: 150px; height: 100px; color: black; font-size: 15px;">
+                                <IonText style="text-align: center;">
+                                    Likes this week: <br />
+                                    <b style="font-size: 50px;"> {{ viewsThisWeek }}</b>
+                                </IonText>
+                            </IonCard>
+                        </div>
+                    </div>
+                </div>
+                <div style="height: 100%; width: 50%; margin-top: 20px; margin-right: 30px;">
+                    <canvas style="width: 100%; margin-top: 20px;" id="viewd"></canvas>
+                </div>
+            </div>
+
+            <div class="flexcenter" style="border-top: 1px solid lightgrey;margin-top: 30px;">
+                <IonText style="font-family: BebasNeue-Regular; font-size: 40px;">
+                    Classifications
+                </IonText>
+            </div>
+
+            <div class="flexcenter" style="height: 100%;">
+                <div class="flexcenter" style="height: 50%; width: 30%;">
+                    <canvas style="width: 25%;" id="myChart"></canvas>
+                </div>
+                <div class="flexcenter" style="height: 50%; width: 30%;">
+                    <canvas style="width: 25%;" id="myCharts"></canvas>
+                </div>
+            </div>
+
+            <div class="flexcenter" style="border-top: 1px solid lightgrey;margin-top: 30px;">
+                <IonText style="font-family: BebasNeue-Regular; font-size: 40px;">
+                    Posted Jobs
+                </IonText>
+            </div>
+
+            <div style="height: 40%; width: 100%;">
+                <canvas style="width: 50%; height: 50%; margin-left: 10px; margin-right: 10px; " id="jobd"></canvas>
+            </div>
+            <div style="height: 40%; width: 100%;">
+                <canvas style="width: 50%; height: 50%;margin-left: 10px; margin-right: 10px; " id="jobsm"></canvas>
+            </div>
+            <div style="height: 40%; width: 100%;">
+                <canvas style="width:50%; height: 50%;margin-left: 10px; margin-right: 10px; " id="jobsy"></canvas>
+            </div>
+
+
+            <div class="flexcenter" style="border-top: 1px solid lightgrey;margin-top: 30px;">
+                <IonText style="font-family: BebasNeue-Regular; font-size: 40px;">
+                    Successful Matches
+                </IonText>
+            </div>
 
             <div class="flexcenter">
-                <div>
-                    <canvas width="400" height="100%" class="data-container-graph1" id="liked"></canvas>
+                <div class="flexcenter" style="height: 50%; width: 100%;">
+                    <canvas style="width: 25%;" id="successd"></canvas>
                 </div>
-                <div>
-                    <canvas class="data-container-graph1" id="viewd"></canvas>
+                <div class="flexcenter" style="height: 50%; width: 100%;">
+                    <canvas style="width: 25%;" id="successy"></canvas>
                 </div>
-            </div>
-
-            <div class="data-analytics">
-                <canvas id="successd"></canvas>
-            </div>
-
-            <div class="data-analytics">
-                <canvas id="successm"></canvas>
-            </div>
-
-            <div class="data-analytics">
-                <canvas id="successy"></canvas>
-            </div>
-
-            <div class="data-analytics">
-                <canvas id="myChart"></canvas>
-            </div>
-
-            <div class="data-analytics">
-                <canvas id="myCharts"></canvas>
-            </div>
-
-            <div class="data-analytics">
-                <canvas id="jobd"></canvas>
-            </div>
-            <div class="data-analytics">
-                <canvas id="jobsm"></canvas>
-            </div>
-            <div class="data-analytics">
-                <canvas id="jobsy"></canvas>
             </div>
         </IonContent>
     </IonPage>
 </template>
   
 <script lang="ts">
-import { IonPage, IonGrid, IonRow, IonCol, IonText, IonContent, IonSelect, IonSelectOption } from '@ionic/vue';
+import { IonPage, IonGrid, IonRow, IonCol, IonText, IonContent, IonSelect, IonSelectOption, IonButton, IonCard } from '@ionic/vue';
 import Chart from 'chart.js/auto';
 import { ref, onMounted } from 'vue';
 import { ChartConfiguration } from 'chart.js';
@@ -69,11 +105,12 @@ export default {
         IonText,
         IonContent,
         IonSelect,
-        IonSelectOption
+        IonSelectOption,
+        IonButton,
+        IonCard
     },
     setup() {
-
-
+        const isLoading = ref(true);
         const user = ref(null);
         const jobPostings = ref([]);
         const swipesuccess = ref([]);
@@ -643,8 +680,8 @@ export default {
 
             for (const successday of dsuccess) {
                 const successInDay = swipesuccess.value.filter((success) => {
-                    if (success.latestDateCreated) {
-                        const date = new Date(success.latestDateCreated);
+                    if (success.dateCreated) {
+                        const date = new Date(view.dateCreated);
                         const successDay = date.toLocaleString('default', { weekday: 'long' });
                         return successDay === successday;
                     }
@@ -659,7 +696,7 @@ export default {
                 labels: dsuccess,
                 datasets: [
                     {
-                        label: 'Success Swipes in Day',
+                        label: 'Daily Successful Matches',
                         data: successdatad,
                         backgroundColor: 'rgba(0, 0, 255, 0.6)', // Blue color with adjusted opacity
                         borderColor: 'rgba(0, 0, 255, 1)', // Border color in blue
@@ -698,8 +735,8 @@ export default {
 
             for (const successmonth of msuccess) {
                 const successInMonth = swipesuccess.value.filter((success) => {
-                    if (success.latestDateCreated) {
-                        const date = new Date(success.latestDateCreated);
+                    if (success.dateCreated) {
+                        const date = new Date(view.dateCreated);
                         const successMonth = date.toLocaleString('default', { month: 'long' });
                         return successMonth === successmonth;
                     }
@@ -753,8 +790,8 @@ export default {
 
             for (const successyear of ysuccess) {
                 const successInYear = swipesuccess.value.filter((success) => {
-                    if (success.latestDateCreated) {
-                        const date = new Date(success.latestDateCreated);
+                    if (success.dateCreated) {
+                        const date = new Date(view.dateCreated);
                         const successYear = date.toLocaleString('default', { year: 'numeric' });
                         return successYear === successyear;
                     }
@@ -769,7 +806,7 @@ export default {
                 labels: ysuccess,
                 datasets: [
                     {
-                        label: 'Success Swipes in Year',
+                        label: 'Yearly Successful Matches',
                         data: successdatay,
                         backgroundColor: 'rgba(255, 165, 0, 0.6)', // Orange color with adjusted opacity
                         borderColor: 'rgba(255, 165, 0, 1)', // Border color in orange
@@ -2388,7 +2425,7 @@ export default {
                 labels: jobdays,
                 datasets: [
                     {
-                        label: 'Jobs in Daily',
+                        label: 'Daily Post',
                         data: jobdatad,
                         backgroundColor: 'rgba(54, 162, 235, 0.6)', // Blue color with adjusted opacity
                         borderColor: 'rgba(54, 162, 235, 1)', // Border color in blue
@@ -2444,7 +2481,7 @@ export default {
                 labels: jobmonths,
                 datasets: [
                     {
-                        label: 'Jobs in Month',
+                        label: 'Montly Post',
                         data: jobdatam,
                         backgroundColor: 'rgba(127, 255, 0, 0.6)', // Apple green color with adjusted opacity
                         borderColor: 'rgba(127, 255, 0, 1)', // Border color in apple green
@@ -2500,7 +2537,7 @@ export default {
                 labels: jobyears,
                 datasets: [
                     {
-                        label: 'Jobs in Year',
+                        label: 'Yearly Post',
                         data: jobdatay,
                         backgroundColor: 'rgba(255, 255, 0, 0.6)', // Yellow color with adjusted opacity
                         borderColor: 'rgba(255, 255, 0, 1)', // Border color in yellow
@@ -2532,9 +2569,12 @@ export default {
                     new Chart(ctx, configjoby);
                 }
             }
+
+            isLoading.value = false;
         });
 
         return {
+            isLoading,
             user,
             jobPostings,
             likes,
@@ -2554,7 +2594,6 @@ export default {
         return {
             likesThisWeek: 0,
             viewsThisWeek: 0,
-            jobs: "",
         };
     },
     methods: {

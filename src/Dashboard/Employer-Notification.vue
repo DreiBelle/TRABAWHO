@@ -73,7 +73,6 @@ export default {
       swiper: [],
       isLoading: true,
       userEmail: localStorage.getItem("email"),
-      userName: "",
       isViewuser: false,
       idViewuser: '',
       nameViewuser: '',
@@ -81,6 +80,7 @@ export default {
       emailViewuser: '',
       pictureViewuser: '',
       userPic: '',
+      userName: '',
     };
   },
   emits: [
@@ -139,7 +139,7 @@ export default {
     setTimeout(() => {
       this.userName = this.user.businessname
       this.userPic = this.user.pic
-    }, 1);
+    }, 500);
   },
   components: {
     IonPage, IonGrid, IonRow, IonCol, IonSkeletonText, IonCard, viewUser,

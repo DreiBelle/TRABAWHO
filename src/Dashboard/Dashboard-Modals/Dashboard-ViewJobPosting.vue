@@ -276,6 +276,9 @@ import {
 import EditModal from "../Dashboard-Modals/Dashboard-EditJobPosting.vue";
 import { useJobStore } from "@/stores/deletejobstore";
 import '@/Swipe/Swipe.css'
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "@/firebaseDB";
+
 export default {
   components: {
     IonModal,
@@ -304,6 +307,7 @@ export default {
   data() {
     return {
       Editmodal: false,
+      EmployerEmail: localStorage.getItem("email")
     };
   },
   setup() {
@@ -338,7 +342,15 @@ export default {
         this.CloseEditModal();
       }
     },
+    async removeAuditlog(jobname) {
+      const docRef = await addDoc(collection(db, "Logs"), {
+        EmployerEmail: this.EmployerEmail,
+        Action: "Removed a job posting " + jobname
+      });
+      console.log("Document written with ID: ", docRef.id);
+    },
     async deletejob() {
+      this.removeAuditlog(this.jobPosting.jobname)
       const jobstore = useJobStore();
       await jobstore.deleteData(this.jobPosting.documentID);
       this.closeViewmodal();

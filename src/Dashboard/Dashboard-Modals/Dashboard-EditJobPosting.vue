@@ -304,6 +304,7 @@ import { ref, onMounted, computed, defineComponent, PropType } from "vue";
 import { addCircleOutline, close } from "ionicons/icons";
 import { IonRadio, IonRadioGroup } from '@ionic/vue';
 import NewTags from "../SpecializedFields.vue";
+import { collection, addDoc } from "firebase/firestore";
 
 export default {
   components: {
@@ -397,9 +398,17 @@ export default {
       archive: null,
       prefferedClassification: props.jobPosting ? props.jobPosting.classification : "",
       subclassificationClassification: props.jobPosting ? props.jobPosting.subclassification : "",
+      EmployerEmail: localStorage.getItem("email")
     };
   },
   methods: {
+    async updateAuditlog(jobname) {
+      const docRef = await addDoc(collection(db, "Logs"), {
+        EmployerEmail: this.EmployerEmail,
+        Action: "Updated a job posting " + jobname
+      });
+      console.log("Document written with ID: ", docRef.id);
+    },
     updateChosenspecial(PC){
       this.prefferedClassification = PC
       console.log(this.prefferedClassification)
@@ -513,6 +522,7 @@ export default {
         }
 
         // All required fields are filled out, proceed with submission
+        this.updateAuditlog(this.formData.jobname)
         const jobstore = useJobStore();
         jobstore.setFormData(this.formData);
         jobstore.setChosenInterests(this.chosenChoices);

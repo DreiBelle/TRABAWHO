@@ -363,7 +363,7 @@ export default {
       checkmark,
     };
   },
-  emits: ['goMessages', 'goMessagesData', 'clear-all'],
+  emits: ['goMessages', 'goMessagesData', 'clear-all', 'go-to-posting'],
   methods: {
     async deleteChats() {
       const userRef = doc(db, "MessagesUsers", this.clickedId);

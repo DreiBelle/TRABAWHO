@@ -33,7 +33,7 @@
             <div>
               <div class="flexcenter">
                 <IonText class="flexcenter dashboard-minicard-title">
-                  <IonIcon class="dashboard-minicard-icon" :icon="thumbsUp"></IonIcon>
+                  <IonIcon class="dashboard-minicard-icon" :icon="eye"></IonIcon>
                   VIEWS
                 </IonText>
               </div>
@@ -50,7 +50,7 @@
             <div>
               <div class="flexcenter">
                 <IonText class="flexcenter dashboard-minicard-title">
-                  <IonIcon class="dashboard-minicard-icon" :icon="thumbsUp"></IonIcon>
+                  <IonIcon class="dashboard-minicard-icon" :icon="briefcase"></IonIcon>
                   POSTINGS
                 </IonText>
               </div>
@@ -124,7 +124,7 @@
       <IonRow>
         <IonCol @click="ShowTabs('Audit')" class="dashboard-navbar-flexcenter dashboard-navbar-cols">
           <IonIcon class="dashboard-navbar-icons" :icon="documentOutline"></IonIcon>
-          <IonText class="dashboard-navbar-navigations">Audit Logs</IonText>
+          <IonText class="dashboard-navbar-navigations">Recent Activities</IonText>
         </IonCol>
       </IonRow>
       <IonRow>
@@ -167,6 +167,8 @@ import {
   person,
   thumbsUp,
   briefcaseOutline,
+eye,
+briefcase,
 } from "ionicons/icons";
 import "./Employer-Dashboard.css";
 import SideBar from "./Employer-Sidebar.vue";
@@ -257,11 +259,14 @@ export default {
       person,
       thumbsUp,
       briefcaseOutline,
+      eye,
+      briefcase,
     };
   },
+  emits:['go-to-posting'],
   data() {
     return {
-      Views: "DataAnalytics",
+      Views: "JobPostings",
       passName: "",
       passJob: "",
       passPicture: "",

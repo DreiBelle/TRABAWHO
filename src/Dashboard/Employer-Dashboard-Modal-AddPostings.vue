@@ -176,15 +176,15 @@
         </div>
 
         <div class="flexcenter">
-          <IonSelect mode="md" label="Province" placeholder="Select Province" label-placement="stacked" interface="popover"
-            fill="outline" class="modal-addjobpost-input" v-model="formData.province" required>
+          <IonSelect mode="md" label="Province" placeholder="Select Province" label-placement="stacked"
+            interface="popover" fill="outline" class="modal-addjobpost-input" v-model="formData.province" required>
             <IonSelectOption value="Cagayan">Cagayan</IonSelectOption>
             <IonSelectOption value="Isabela">Isabela</IonSelectOption>
             <IonSelectOption value="Nueva Vizcaya">Nueva Vizcaya</IonSelectOption>
             <IonSelectOption value="Quirino">Quirino</IonSelectOption>
           </IonSelect>
-          <IonSelect mode="md" label="City/Town" placeholder="Select City/Town" label-placement="stacked" interface="popover"
-            fill="outline" class="modal-addjobpost-input" v-model="formData.citown" required>
+          <IonSelect mode="md" label="City/Town" placeholder="Select City/Town" label-placement="stacked"
+            interface="popover" fill="outline" class="modal-addjobpost-input" v-model="formData.citown" required>
             <IonSelectOption value="Tuguegarao City">Tuguegarao City</IonSelectOption>
             <IonSelectOption value="Aparri">Aparri</IonSelectOption>
             <IonSelectOption value="Lal-lo">Lal-lo</IonSelectOption>
@@ -278,6 +278,7 @@ import { ref, onMounted, computed } from "vue";
 import { addCircleOutline, close, radio } from "ionicons/icons";
 import { IonRadio, IonRadioGroup } from '@ionic/vue';
 import NewTags from "./SpecializedFields.vue";
+import { collection, addDoc } from "firebase/firestore";
 
 export default {
   components: {
@@ -367,9 +368,17 @@ export default {
       thereisImage: false,
       prefferedClassification: "",
       subclassificationClassification: "",
+      EmployerEmail: localStorage.getItem("email")
     };
   },
   methods: {
+    async addAuditlog(jobname) {
+      const docRef = await addDoc(collection(db, "Logs"), {
+        EmployerEmail: this.EmployerEmail,
+        Action: "Added job posting " + jobname
+      });
+      console.log("Document written with ID: ", docRef.id);
+    },
     updateChosenspecial(PC) {
       this.prefferedClassification = PC
       console.log(this.prefferedClassification)
@@ -504,6 +513,7 @@ export default {
         jobstore.setFormData(this.formData);
         jobstore.setChosenInterests(this.chosenChoices);
         await jobstore.postjob();
+        this.addAuditlog(this.formData.jobname)
         modalController.dismiss();
       } else {
         // Handle the case where a required field is empty
