@@ -54,74 +54,41 @@
         </IonRow>
       </IonGrid>
     </IonCard>
-    <IonCard class="dashboard-postedjobs-jobposting" style="margin-right: 25px">
-      <IonGrid style="height: 100%; padding: 0">
-        <IonRow style="height: 100%">
-          <IonCol class="flexcenter" style="padding: 0; justify-content: left">
-            <IonSkeletonText animated style="height: 100%"></IonSkeletonText>
-          </IonCol>
-        </IonRow>
-      </IonGrid>
-    </IonCard>
-    <IonCard class="dashboard-postedjobs-jobposting" style="margin-right: 25px">
-      <IonGrid style="height: 100%; padding: 0">
-        <IonRow style="height: 100%">
-          <IonCol class="flexcenter" style="padding: 0; justify-content: left">
-            <IonSkeletonText animated style="height: 100%"></IonSkeletonText>
-          </IonCol>
-        </IonRow>
-      </IonGrid>
-    </IonCard>
   </div>
-  <div v-else>
+  <div v-else-if="!isLoading">
     <div id="myElement" v-if="jobPostings.length > 0">
-      <IonCard
-        class="dashboard-postedjobs-jobposting"
-        v-for="(job, index) in filteredJobPostings"
-        :key="index"
-        @click="OpenViewModal(index)"
-      >
-        <IonGrid style="height: 100%; padding: 0">
-          <IonRow style="height: 100%">
-            <IonCol
-              class="flexcenter"
-              style="padding: 0; justify-content: left"
-            >
-              <img
-                class="Dashboard-AddJobPostings-Card-Picture"
-                :src="job ? job.pic : ''"
-                alt=""
-              />
-            </IonCol>
-            <IonCol class="flexcenter" style="justify-content: left" size="8">
-              {{ job ? job.jobname : "Loading..." }}
-            </IonCol>
-            <IonCol class="flexcenter">
-              <IonIcon style="padding-right: 5px" :icon="eyeSharp"></IonIcon> {{ job ? job.views : "Loading..." }}
-            </IonCol>
-            <IonCol class="flexcenter">
-              <IonIcon style="padding-right: 5px" :icon="thumbsUp"></IonIcon> {{ job ? job.likes : "Loading..." }}
-            </IonCol>
-            <IonCol class="flexcenter postings-arhive-container">
-              <IonIcon
-                class="postings-arhive-button flexcenter"
-                :icon="chevronForward"
-              ></IonIcon>
-            </IonCol>
-          </IonRow>
-        </IonGrid>
+      <IonCard class="dashboard-postedjobs-jobposting" v-for="(job, index) in filteredJobPostings" :key="index"
+        @click="OpenViewModal(index)">
+        <div class="flexcenter" style="height: 100%; width: 100%;">
+          <div style="width: 150px; height: 100%;">
+            <img class="Dashboard-AddJobPostings-Card-Picture" :src="job ? job.pic : ''" alt="" />
+          </div>
+          <div style="width: calc(100% - 390px); padding-left: 20px; font-weight: bold;">
+            {{ job ? job.jobname : "Loading..." }} 
+          </div>
+          <div class="flexcenter" style="width: 70px;">
+            <IonIcon style="padding-right: 5px; font-size: 19px;" :icon="eyeSharp"></IonIcon> 
+            <IonText style="font-size: 15px;">{{ job ? job.views : "Loading..." }}</IonText>
+          </div>
+          <div  class="flexcenter" style="width: 70px;">
+            <IonIcon style="padding-right: 5px; font-size: 19px;" :icon="thumbsUp"></IonIcon>
+            <IonText style="font-size: 15px;">{{ job ? job.likes : "Loading..." }}</IonText>
+          </div>
+          <div class="flexcenter postings-arhive-container" style="width: 100px; height: 100%;">
+            <IonIcon class="postings-arhive-button flexcenter" :icon="chevronForward"></IonIcon>
+          </div>
+        </div>
       </IonCard>
     </div>
-    <div v-else>No job postings available for your company.</div>
+    <div v-else class="flexcenter">
+      <IonText class="postings-noposting-text" style="margin-top: 50px;">
+        NO POSTINGS
+      </IonText>
+    </div>
   </div>
 
-  <ViewModal
-    :is-viewmodal="isViewmodal"
-    @close-view-modal="CloseViewModal"
-    @open-view-modal="OpenViewModal"
-    :is-open="isViewmodal"
-    :job-posting="selectedJobPosting"
-  />
+  <ViewModal :is-viewmodal="isViewmodal" @close-view-modal="CloseViewModal" @open-view-modal="OpenViewModal"
+    :is-open="isViewmodal" :job-posting="selectedJobPosting" />
 
   <!-- <IonModal
     ref="modal"
@@ -187,12 +154,15 @@ export default {
     const user = ref(null);
     const jobPostings = ref([]);
     const filterjobPostings = ref([]);
+    const isLoading = ref(true)
 
     const updateJobPostings = (snapshot) => {
       jobPostings.value = snapshot.docs.map((doc) => doc.data());
     };
 
     onMounted(async () => {
+      isLoading.value = true
+
       const userEmail = localStorage.getItem("email");
       // const userPassword = localStorage.getItem("password");
       user.value = await getDashboardProfile(userEmail);
@@ -206,8 +176,8 @@ export default {
       console.log(jobPostings.value.length);
 
       const jobPostingsRef = collection(db, "jobpost");
-      const q = query(jobPostingsRef, 
-        where("company", "==", user.value.id), 
+      const q = query(jobPostingsRef,
+        where("company", "==", user.value.id),
         where("isactive", "==", "activate")
       );
 
@@ -223,6 +193,7 @@ export default {
       // Remember to unsubscribe when the component is unmounted
       // onUnmounted(unsubscribe);
       //para san to? -emman may vue warn kasi
+      isLoading.value = false
     });
 
     return {
@@ -235,6 +206,7 @@ export default {
       filterjobPostings,
       archive,
       chevronForward,
+      isLoading,
     };
   },
   computed: {
@@ -248,7 +220,6 @@ export default {
   },
   data() {
     return {
-      isLoading: true,
       isViewmodal: false,
       selectedJobPosting: null,
     };
@@ -276,12 +247,6 @@ export default {
     searchTerm: {
       type: String,
     },
-  },
-  mounted() {
-    // console.log("hello")
-    setTimeout(() => {
-      this.isLoading = false;
-    }, 1000);
   },
 };
 </script>

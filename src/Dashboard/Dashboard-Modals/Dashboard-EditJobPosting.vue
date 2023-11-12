@@ -1,13 +1,14 @@
 <template>
   <IonModal class="modal-addjobpost" :is-open="isEditmodal" @did-dismiss="closeOther"
-    style="background-color: rgba(0, 0, 0, 0.4)">
+    style="background-color: rgba(0, 0, 0, 0.4);">
+    <IonProgressBar v-if="isLoading" type="indeterminate"></IonProgressBar>
     <IonHeader class="modal-editjobposting-header flexcenter">EDIT
 
       <IonIcon @click="closeOther" style="cursor: pointer; position: absolute; top: 10px; right: 15px;" :icon="close">
       </IonIcon>
     </IonHeader>
     <IonContent class="custom-scrollbar">
-      <div style="padding: 10px">
+      <div style="padding: 10px; padding-right: 15px;">
 
         <div style="position: absolute; right: 10px;">
           <div class="flexcenter">
@@ -84,8 +85,14 @@
         </div>
 
         <div>
-          <IonInput class="modal-addjobpost-input" label="Salary" placeholder="Input Salary" labelPlacement="stacked"
-            fill="outline" v-model="formData.salary" required>
+          <IonInput class="modal-addjobpost-input" label="Salary" placeholder="Input Salary in Php"
+            labelPlacement="stacked" fill="outline" v-model="formData.salary" type="number" required>
+          </IonInput>
+        </div>
+
+        <div>
+          <IonInput class="modal-addjobpost-input" label="Estimated working hours" placeholder="Input working hours"
+            labelPlacement="stacked" fill="outline" v-model="formData.hours" type="number" required>
           </IonInput>
         </div>
 
@@ -152,24 +159,13 @@
           </IonText>
         </div>
         <div>
-          <NewTags :parent-subpreffered="subclassificationClassification" :parent-preffered="prefferedClassification" v-on:chosen-special="updateChosenspecial" @chosen-subspecial="updatesubChosenspecial"></NewTags>
+          <NewTags :parent-subpreffered="subclassificationClassification" :parent-preffered="prefferedClassification"
+            v-on:chosen-special="updateChosenspecial" @chosen-subspecial="updatesubChosenspecial"></NewTags>
         </div>
-        <div class="flexcenter" style="justify-content: left; margin-left: 5px; margin-top: 6px;">
-          <IonChip v-for="choice in chosenChoices" :key="choice.id">
-            {{ choice.label }}
-            <IonIcon class="modal-addjobpost-icon" @click="removeChoice(choice.id)" :icon="close"></IonIcon>
-          </IonChip>
-
-          <div v-if="chosenChoices.length > 0" class="flexcenter">
-            <IonIcon @click="openModal" size="large" :icon="addCircleOutline" class="modal-addjobpost-addicon">
-            </IonIcon>
-          </div>
-          <div v-else class="flexcenter">
-            <IonButton @click="openModal" class="modal-addjobpost-button-button-tags" fill="outline"
-              style="border-radius: 100%">
-              Add Tags
-            </IonButton>
-          </div>
+        <div>
+          <IonInput class="modal-addjobpost-input" label="Tags" placeholder="add tags seperated by a comma ','"
+            labelPlacement="stacked" fill="outline" v-model="tagsInput" type="text" required>
+          </IonInput>
         </div>
 
         <div class="flexcenter" style="margin-top: 10px;">
@@ -179,15 +175,15 @@
         </div>
 
         <div class="flexcenter">
-          <IonSelect mode="md" label="Province" placeholder="Select Province" label-placement="stacked" interface="popover"
-            fill="outline" class="modal-addjobpost-input" v-model="formData.province" required>
+          <IonSelect mode="md" label="Province" placeholder="Select Province" label-placement="stacked"
+            interface="popover" fill="outline" class="modal-addjobpost-input" v-model="formData.province" required>
             <IonSelectOption value="Cagayan">Cagayan</IonSelectOption>
             <IonSelectOption value="Isabela">Isabela</IonSelectOption>
             <IonSelectOption value="Nueva Vizcaya">Nueva Vizcaya</IonSelectOption>
             <IonSelectOption value="Quirino">Quirino</IonSelectOption>
           </IonSelect>
-          <IonSelect mode="md" label="City/Town" placeholder="Select City/Town" label-placement="stacked" interface="popover"
-            fill="outline" class="modal-addjobpost-input" v-model="formData.citown" required>
+          <IonSelect mode="md" label="City/Town" placeholder="Select City/Town" label-placement="stacked"
+            interface="popover" fill="outline" class="modal-addjobpost-input" v-model="formData.citown" required>
             <IonSelectOption value="Tuguegarao City">Tuguegarao City</IonSelectOption>
             <IonSelectOption value="Aparri">Aparri</IonSelectOption>
             <IonSelectOption value="Lal-lo">Lal-lo</IonSelectOption>
@@ -294,6 +290,7 @@ import {
   IonIcon,
   IonText,
   IonToggle,
+IonProgressBar,
 } from "@ionic/vue";
 import ChoiceModal from "@/SignUp/Seeker-InterestModal.vue";
 import { useJobStore } from "@/stores/updatejobstore";
@@ -331,10 +328,12 @@ export default {
     IonRadio,
     IonRadioGroup,
     IonToggle,
-  },
+    IonProgressBar
+},
   setup(props) {
     const user = ref(null);
     const creator = ref("Loading...");
+
     onMounted(async () => {
       const userEmail = localStorage.getItem("email");
       // const userPassword = localStorage.getItem("password");
@@ -387,18 +386,18 @@ export default {
     },
   },
   data(props) {
-    console.log(props.jobPosting.chosenInterests);
     return {
+      tagsInput: props.jobPosting ? props.jobPosting.chosenInterests : "",
       imageUrl: props.jobPosting ? props.jobPosting.pic : null,
       modalOpen: false,
       modalChoices: [],
-      chosenChoices: props.jobPosting ? props.jobPosting.chosenInterests : "",
       selectedImage: null,
       thereisImage: false,
       archive: null,
       prefferedClassification: props.jobPosting ? props.jobPosting.classification : "",
       subclassificationClassification: props.jobPosting ? props.jobPosting.subclassification : "",
-      EmployerEmail: localStorage.getItem("email")
+      EmployerEmail: localStorage.getItem("email"),
+      isLoading: false,
     };
   },
   methods: {
@@ -409,12 +408,12 @@ export default {
       });
       console.log("Document written with ID: ", docRef.id);
     },
-    updateChosenspecial(PC){
+    updateChosenspecial(PC) {
       this.prefferedClassification = PC
       console.log(this.prefferedClassification)
       this.formData.classification = this.prefferedClassification
     },
-    updatesubChosenspecial(PC){
+    updatesubChosenspecial(PC) {
       this.subclassificationClassification = PC
       console.log(this.subclassificationClassification)
       this.formData.subclassification = this.subclassificationClassification
@@ -477,6 +476,7 @@ export default {
     },
 
     async handleSubmit(event) {
+      this.isLoading = true
       const requiredFields = [
         "jobname",
         "jobtype",
@@ -521,12 +521,22 @@ export default {
           }
         }
 
+        const tagsArray = ref()
+
+        if (Array.isArray(this.tagsInput)) {
+          const combineTags = this.tagsInput.join(', ')
+          tagsArray.value = combineTags.split(',').map(tag => tag.trim().toLowerCase()).filter(tag => tag !== '');
+        } else if (typeof this.tagsInput === 'string'){
+          tagsArray.value = this.tagsInput.split(',').map(tag => tag.trim().toLowerCase()).filter(tag => tag !== '');
+        }
+
         // All required fields are filled out, proceed with submission
         this.updateAuditlog(this.formData.jobname)
         const jobstore = useJobStore();
         jobstore.setFormData(this.formData);
-        jobstore.setChosenInterests(this.chosenChoices);
+        jobstore.setChosenInterests(tagsArray);
         await jobstore.updateData(this.jobPosting.documentID);
+        this.isLoading = false
         modalController.dismiss();
       } else {
         // Handle the case where a required field is empty

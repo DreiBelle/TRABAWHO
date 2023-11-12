@@ -1,12 +1,13 @@
 <template>
   <IonModal class="modal-addjobpost" @did-dismiss="clearmodal()">
+    <IonProgressBar v-if="isLoading" type="indeterminate"></IonProgressBar>
     <IonHeader class="modal-editjobposting-header flexcenter">ADD POSTINGS
       <IonIcon @click="closeOther" style="cursor: pointer; position: absolute; top: 10px; right: 15px;" :icon="close">
       </IonIcon>
     </IonHeader>
     <IonContent class="custom-scrollbar">
 
-      <div style="padding: 10px">
+      <div style="padding: 10px; padding-right: 15px;">
 
         <div style="position: absolute; right: 10px">
           <div class="flexcenter">
@@ -82,7 +83,13 @@
 
         <div>
           <IonInput class="modal-addjobpost-input" label="Salary" placeholder="Input Salary" labelPlacement="stacked"
-            fill="outline" v-model="formData.salary" required>
+            fill="outline" v-model="formData.salary" type="number" required>
+          </IonInput>
+        </div>
+
+        <div>
+          <IonInput class="modal-addjobpost-input" label="Estimated working hours" placeholder="Input working hours"
+            labelPlacement="stacked" fill="outline" v-model="formData.hours" type="number" required>
           </IonInput>
         </div>
 
@@ -150,22 +157,10 @@
         <div>
           <NewTags v-on:chosen-special="updateChosenspecial" @chosen-subspecial="updatesubChosenspecial"></NewTags>
         </div>
-        <div class="flexcenter" style="justify-content: left; margin-left: 5px; margin-top: 6px;">
-          <IonChip v-for="choice in chosenChoices" :key="choice.id">
-            {{ choice.label }}
-            <IonIcon class="modal-addjobpost-icon" @click="removeChoice(choice.id)" :icon="close"></IonIcon>
-          </IonChip>
-
-          <div v-if="chosenChoices.length > 0" class="flexcenter">
-            <IonIcon @click="openModal" size="large" :icon="addCircleOutline" class="modal-addjobpost-addicon">
-            </IonIcon>
-          </div>
-          <div v-else class="flexcenter">
-            <IonButton @click="openModal" class="modal-addjobpost-button-button-tags" fill="outline"
-              style="border-radius: 100%">
-              Add Tags
-            </IonButton>
-          </div>
+        <div>
+          <IonInput class="modal-addjobpost-input" label="Tags" placeholder="add tags seperated by a comma ','"
+            labelPlacement="stacked" fill="outline" v-model="tagsInput" type="text" required>
+          </IonInput>
         </div>
 
 
@@ -268,6 +263,7 @@ import {
   IonHeader,
   IonText,
   IonToggle,
+IonProgressBar,
 } from "@ionic/vue";
 import ChoiceModal from "@/SignUp/Seeker-InterestModal.vue";
 import { useJobStore } from "@/stores/jobstore";
@@ -304,8 +300,9 @@ export default {
     IonChip,
     IonRadio,
     IonRadioGroup,
-    IonToggle
-  },
+    IonToggle,
+    IonProgressBar
+},
   setup() {
     const user = ref(null);
     const companyname = ref("Loading...");
@@ -347,6 +344,7 @@ export default {
       street: "",
       classification: "",
       subclassification: "",
+      chosenInterests: "",
     }));
 
     return {
@@ -368,7 +366,8 @@ export default {
       thereisImage: false,
       prefferedClassification: "",
       subclassificationClassification: "",
-      EmployerEmail: localStorage.getItem("email")
+      EmployerEmail: localStorage.getItem("email"), tagsInput: "",
+      isLoading: false,
     };
   },
   methods: {
@@ -460,6 +459,7 @@ export default {
     },
 
     async handleSubmit(event) {
+      this.isLoading = true
       const requiredFields = [
         "jobname",
         "jobtype",
@@ -472,6 +472,7 @@ export default {
         "age",
         "province",
         "citown",
+        "hours",
       ];
       let isFormValid = true;
       let isImageSelected = false;
@@ -508,12 +509,16 @@ export default {
           }
         }
 
+        const tagsArray = this.tagsInput.split(',').map(tag => tag.trim().toLowerCase()).filter(tag => tag !== '');
+        console.log(tagsArray)
+
         // All required fields are filled out, proceed with submission
         const jobstore = useJobStore();
         jobstore.setFormData(this.formData);
-        jobstore.setChosenInterests(this.chosenChoices);
+        jobstore.setChosenInterests(tagsArray);
         await jobstore.postjob();
         this.addAuditlog(this.formData.jobname)
+        this.isLoading = false
         modalController.dismiss();
       } else {
         // Handle the case where a required field is empty

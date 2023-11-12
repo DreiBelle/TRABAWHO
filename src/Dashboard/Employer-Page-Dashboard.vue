@@ -1,5 +1,20 @@
 <template>
-  <IonPage style="background-color: rgb(236, 228, 228); color: black">
+  <div v-if="isLoading == true">
+    <div class="flexcenter" style="height: 100vh; width: 100vw; background: linear-gradient(to bottom right, white, #a6aad4)">
+      <div>
+        <div class="flexcenter">
+          <img class="dashboard-TrabaWho-Logo" src="../assets/logo/blackfilllogo.png">
+          <IonText class="dashboard-TrabaWho-text">
+            TRABAWHO
+          </IonText>
+        </div>
+        <div class="flexcenter">
+          <IonSpinner class="dashboard-Loading" name="crescent"></IonSpinner>
+        </div>
+      </div>
+    </div>
+  </div>
+  <IonPage v-else-if="isLoading == false" style="background-color: rgb(236, 228, 228); color: black">
     <IonGrid style="height: 10%; width: 100%; padding: 0px 0px 0px 250px">
       <IonRow style="height: 30px; background: #202651">
         <IonCol>
@@ -155,6 +170,7 @@ import {
   IonSearchbar,
   IonText,
   IonIcon,
+  IonSpinner,
 } from "@ionic/vue";
 import {
   homeOutline,
@@ -167,8 +183,8 @@ import {
   person,
   thumbsUp,
   briefcaseOutline,
-eye,
-briefcase,
+  eye,
+  briefcase,
 } from "ionicons/icons";
 import "./Employer-Dashboard.css";
 import SideBar from "./Employer-Sidebar.vue";
@@ -212,28 +228,44 @@ export default {
     IonModal,
     AddModal,
     IonIcon,
+    IonSpinner
   },
   setup() {
     const user = ref(null);
     const jobPostings = ref([]);
     let likes = ref(0);
     let views = ref(0);
+    const isLoading = ref(true);
 
     onMounted(async () => {
       const userEmail = localStorage.getItem("email");
-      // const userPassword = localStorage.getItem("password");
-      user.value = await getDashboardProfile(userEmail);
+      try {
+        isLoading.value = true
 
-      jobPostings.value = await getJobPostings(
-        userEmail,
-        user.value.businessname,
-        user.value.id
-      );
+        setTimeout(() => {
+          document.querySelector('.dashboard-TrabaWho-Logo')?.classList.add('dashboard-loaded');
+          document.querySelector('.dashboard-TrabaWho-text')?.classList.add('dashboard-loaded');
+        }, 1);
 
-      jobPostings.value.forEach((jobPosting) => {
-        likes.value += jobPosting.likes;
-        views.value += jobPosting.views;
-      });
+        // const userPassword = localStorage.getItem("password");
+        user.value = await getDashboardProfile(userEmail);
+
+        jobPostings.value = await getJobPostings(
+          userEmail,
+          user.value.businessname,
+          user.value.id
+        );
+
+        jobPostings.value.forEach((jobPosting) => {
+          likes.value += jobPosting.likes;
+          views.value += jobPosting.views;
+        });
+
+        isLoading.value = false;
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        isLoading.value = false;
+      }
 
       onAuthStateChanged(auth, (user) => {
         if (user) {
@@ -261,9 +293,10 @@ export default {
       briefcaseOutline,
       eye,
       briefcase,
+      isLoading,
     };
   },
-  emits:['go-to-posting'],
+  emits: ['go-to-posting'],
   data() {
     return {
       Views: "JobPostings",

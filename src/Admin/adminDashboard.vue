@@ -4,14 +4,9 @@
       <IonGrid style="height: 100%; width: 100%; padding: 0px 0px 0px 250px">
         <IonRow style="height: 30px; background: #202651">
           <IonCol>
-            <IonText
-              style="color: white; justify-content: right; display: flex"
-            >
+            <IonText style="color: white; justify-content: right; display: flex">
               Welcome Back Admin!
-              <IonIcon
-                style="padding-left: 5px"
-                :icon="personOutline"
-              ></IonIcon>
+              <IonIcon style="padding-left: 5px" :icon="personOutline"></IonIcon>
             </IonText>
           </IonCol>
         </IonRow>
@@ -21,10 +16,7 @@
               <div>
                 <div class="flexcenter">
                   <IonText class="flexcenter admin-minicard-title">
-                    <IonIcon
-                      class="admin-minicard-icon"
-                      :icon="person"
-                    ></IonIcon>
+                    <IonIcon class="admin-minicard-icon" :icon="person"></IonIcon>
                     USERS
                   </IonText>
                 </div>
@@ -39,10 +31,7 @@
               <div>
                 <div class="flexcenter">
                   <IonText class="flexcenter admin-minicard-title">
-                    <IonIcon
-                      class="admin-minicard-icon"
-                      :icon="clipboard"
-                    ></IonIcon>
+                    <IonIcon class="admin-minicard-icon" :icon="clipboard"></IonIcon>
                     POSTINGS
                   </IonText>
                 </div>
@@ -57,10 +46,7 @@
               <div>
                 <div class="flexcenter">
                   <IonText class="flexcenter admin-minicard-title">
-                    <IonIcon
-                      class="admin-minicard-icon"
-                      :icon="briefcase"
-                    ></IonIcon>
+                    <IonIcon class="admin-minicard-icon" :icon="briefcase"></IonIcon>
                     Employers
                   </IonText>
                 </div>
@@ -75,10 +61,7 @@
               <div>
                 <div class="flexcenter">
                   <IonText class="flexcenter admin-minicard-title">
-                    <IonIcon
-                      class="admin-minicard-icon"
-                      :icon="people"
-                    ></IonIcon>
+                    <IonIcon class="admin-minicard-icon" :icon="people"></IonIcon>
                     Jobseekers
                   </IonText>
                 </div>
@@ -102,74 +85,41 @@
 
       <IonGrid class="dashboard-navbar-container">
         <IonRow>
-          <IonCol
-            class="dashboard-navbar-flexcenter dashboard-navbar-cols"
-            style="height: 70px"
-          >
-            <img
-              class="dashboard-navbar-logo"
-              src="../assets/logo/whitefilllogo.png"
-              alt="logo"
-            />
-            <p
-              style="justify-content: end"
-              class="dashboard-navbar-text-trabawho"
-            >
+          <IonCol class="dashboard-navbar-flexcenter dashboard-navbar-cols" style="height: 70px">
+            <img class="dashboard-navbar-logo" src="../assets/logo/whitefilllogo.png" alt="logo" />
+            <p style="justify-content: end" class="dashboard-navbar-text-trabawho">
               TRABAWHO
             </p>
           </IonCol>
         </IonRow>
         <IonRow>
-          <IonCol
-            @click="ShowTabs('Home')"
-            class="dashboard-navbar-flexcenter dashboard-navbar-cols"
-          >
+          <IonCol @click="ShowTabs('Home')" class="dashboard-navbar-flexcenter dashboard-navbar-cols">
             <IonIcon class="dashboard-navbar-icons" :icon="home"></IonIcon>
             <IonText class="dashboard-navbar-navigations">Home</IonText>
           </IonCol>
         </IonRow>
         <IonRow>
-          <IonCol
-            @click="ShowTabs('ManageUsers')"
-            class="dashboard-navbar-flexcenter dashboard-navbar-cols"
-          >
+          <IonCol @click="ShowTabs('ManageUsers')" class="dashboard-navbar-flexcenter dashboard-navbar-cols">
             <IonIcon class="dashboard-navbar-icons" :icon="people"></IonIcon>
             <IonText class="dashboard-navbar-navigations">Manage Users</IonText>
           </IonCol>
         </IonRow>
         <IonRow>
-          <IonCol
-            @click="ShowTabs('ManagePostings')"
-            class="dashboard-navbar-flexcenter dashboard-navbar-cols"
-          >
+          <IonCol @click="ShowTabs('ManagePostings')" class="dashboard-navbar-flexcenter dashboard-navbar-cols">
             <IonIcon class="dashboard-navbar-icons" :icon="briefcase"></IonIcon>
-            <IonText class="dashboard-navbar-navigations"
-              >Manage Job Postings</IonText
-            >
+            <IonText class="dashboard-navbar-navigations">Manage Job Postings</IonText>
           </IonCol>
         </IonRow>
         <IonRow>
-          <IonCol
-            @click="ShowTabs('Statistics')"
-            class="dashboard-navbar-flexcenter dashboard-navbar-cols"
-          >
-            <IonIcon
-              class="dashboard-navbar-icons"
-              :icon="statsChart"
-            ></IonIcon>
+          <IonCol @click="ShowTabs('Statistics')" class="dashboard-navbar-flexcenter dashboard-navbar-cols">
+            <IonIcon class="dashboard-navbar-icons" :icon="statsChart"></IonIcon>
             <IonText class="dashboard-navbar-navigations">Statistics</IonText>
           </IonCol>
         </IonRow>
         <IonRow>
-          <IonCol
-            @click="handleSignout"
-            class="dashboard-navbar-flexcenter dashboard-navbar-cols"
-            style="position: absolute; bottom: 10px"
-          >
-            <IonIcon
-              class="dashboard-navbar-icons"
-              :icon="logOutOutline"
-            ></IonIcon>
+          <IonCol @click="handleSignout" class="dashboard-navbar-flexcenter dashboard-navbar-cols"
+            style="position: absolute; bottom: 10px">
+            <IonIcon class="dashboard-navbar-icons" :icon="logOutOutline"></IonIcon>
             <IonText class="dashboard-navbar-navigations">Logout</IonText>
           </IonCol>
         </IonRow>

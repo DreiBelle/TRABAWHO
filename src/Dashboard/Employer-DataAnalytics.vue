@@ -1,93 +1,101 @@
 <template>
     <IonPage>
-        <IonContent class="custom-scrollbar">
-            <div class="flexcenter" style="margin-top: 30px;">
-                <IonText style="font-family: BebasNeue-Regular; font-size: 40px;">
-                    GENERAL
-                </IonText>
-            </div>
-
-            <div class="flexcenter" style="height: 50%; width: 100%;">
-                <div style="height: 100%; width: 50%; margin-top: 20px; margin-left: 30px;">
-                    <canvas style="width: 100%; margin-top: 20px;" id="liked"></canvas>
+        <div v-if="isLoading"
+            style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); scale: 3; z-index: 3;">
+            <IonSpinner name="crescent"></IonSpinner>
+        </div>
+        <IonPage class="data-opacity" :class="{ showopacity: !isLoading }">
+            <IonContent class="custom-scrollbar">
+                <div class="flexcenter" style="margin-top: 30px;">
+                    <IonText style="font-family: BebasNeue-Regular; font-size: 40px;">
+                        GENERAL
+                    </IonText>
                 </div>
-                <div class="flexcenter" style="width: 20%;">
-                    <div>
-                        <div class="flexcenter">
-                            <IonCard class="flexcenter" style="width: 150px; height: 100px; color: black; font-size: 15px;">
-                                <IonText style="text-align: center;">
-                                    Likes this week: <br />
-                                    <b style="font-size: 50px;"> {{ likesThisWeek }}</b>
-                                </IonText>
-                            </IonCard>
-                        </div>
-                        <div class="flexcenter">
-                            <IonCard class="flexcenter" style="width: 150px; height: 100px; color: black; font-size: 15px;">
-                                <IonText style="text-align: center;">
-                                    Likes this week: <br />
-                                    <b style="font-size: 50px;"> {{ viewsThisWeek }}</b>
-                                </IonText>
-                            </IonCard>
+
+                <div class="flexcenter" style="height: 50%; width: 100%;">
+                    <div style="height: 100%; width: 50%; margin-top: 20px; margin-left: 30px;">
+                        <canvas style="width: 100%; margin-top: 20px;" id="liked"></canvas>
+                    </div>
+                    <div class="flexcenter" style="width: 20%;">
+                        <div>
+                            <div class="flexcenter">
+                                <IonCard class="flexcenter"
+                                    style="width: 150px; height: 100px; color: black; font-size: 15px;">
+                                    <IonText style="text-align: center;">
+                                        Likes this week: <br />
+                                        <b style="font-size: 50px;"> {{ likesThisWeek }}</b>
+                                    </IonText>
+                                </IonCard>
+                            </div>
+                            <div class="flexcenter">
+                                <IonCard class="flexcenter"
+                                    style="width: 150px; height: 100px; color: black; font-size: 15px;">
+                                    <IonText style="text-align: center;">
+                                        Likes this week: <br />
+                                        <b style="font-size: 50px;"> {{ viewsThisWeek }}</b>
+                                    </IonText>
+                                </IonCard>
+                            </div>
                         </div>
                     </div>
+                    <div style="height: 100%; width: 50%; margin-top: 20px; margin-right: 30px;">
+                        <canvas style="width: 100%; margin-top: 20px;" id="viewd"></canvas>
+                    </div>
                 </div>
-                <div style="height: 100%; width: 50%; margin-top: 20px; margin-right: 30px;">
-                    <canvas style="width: 100%; margin-top: 20px;" id="viewd"></canvas>
+
+                <div class="flexcenter" style="border-top: 1px solid lightgrey;margin-top: 30px;">
+                    <IonText style="font-family: BebasNeue-Regular; font-size: 40px;">
+                        Classifications
+                    </IonText>
                 </div>
-            </div>
 
-            <div class="flexcenter" style="border-top: 1px solid lightgrey;margin-top: 30px;">
-                <IonText style="font-family: BebasNeue-Regular; font-size: 40px;">
-                    Classifications
-                </IonText>
-            </div>
-
-            <div class="flexcenter" style="height: 100%;">
-                <div class="flexcenter" style="height: 50%; width: 30%;">
-                    <canvas style="width: 25%;" id="myChart"></canvas>
+                <div class="flexcenter" style="height: 100%;">
+                    <div class="flexcenter" style="height: 50%; width: 30%;">
+                        <canvas style="width: 25%;" id="myChart"></canvas>
+                    </div>
+                    <div class="flexcenter" style="height: 50%; width: 30%;">
+                        <canvas style="width: 25%;" id="myCharts"></canvas>
+                    </div>
                 </div>
-                <div class="flexcenter" style="height: 50%; width: 30%;">
-                    <canvas style="width: 25%;" id="myCharts"></canvas>
+
+                <div class="flexcenter" style="border-top: 1px solid lightgrey;margin-top: 30px;">
+                    <IonText style="font-family: BebasNeue-Regular; font-size: 40px;">
+                        Posted Jobs
+                    </IonText>
                 </div>
-            </div>
 
-            <div class="flexcenter" style="border-top: 1px solid lightgrey;margin-top: 30px;">
-                <IonText style="font-family: BebasNeue-Regular; font-size: 40px;">
-                    Posted Jobs
-                </IonText>
-            </div>
-
-            <div style="height: 40%; width: 100%;">
-                <canvas style="width: 50%; height: 50%; margin-left: 10px; margin-right: 10px; " id="jobd"></canvas>
-            </div>
-            <div style="height: 40%; width: 100%;">
-                <canvas style="width: 50%; height: 50%;margin-left: 10px; margin-right: 10px; " id="jobsm"></canvas>
-            </div>
-            <div style="height: 40%; width: 100%;">
-                <canvas style="width:50%; height: 50%;margin-left: 10px; margin-right: 10px; " id="jobsy"></canvas>
-            </div>
-
-
-            <div class="flexcenter" style="border-top: 1px solid lightgrey;margin-top: 30px;">
-                <IonText style="font-family: BebasNeue-Regular; font-size: 40px;">
-                    Successful Matches
-                </IonText>
-            </div>
-
-            <div class="flexcenter">
-                <div class="flexcenter" style="height: 50%; width: 100%;">
-                    <canvas style="width: 25%;" id="successd"></canvas>
+                <div style="height: 40%; width: 100%;">
+                    <canvas style="width: 50%; height: 50%; margin-left: 10px; margin-right: 10px; " id="jobd"></canvas>
                 </div>
-                <div class="flexcenter" style="height: 50%; width: 100%;">
-                    <canvas style="width: 25%;" id="successy"></canvas>
+                <div style="height: 40%; width: 100%;">
+                    <canvas style="width: 50%; height: 50%;margin-left: 10px; margin-right: 10px; " id="jobsm"></canvas>
                 </div>
-            </div>
-        </IonContent>
+                <div style="height: 40%; width: 100%;">
+                    <canvas style="width:50%; height: 50%;margin-left: 10px; margin-right: 10px; " id="jobsy"></canvas>
+                </div>
+
+
+                <div class="flexcenter" style="border-top: 1px solid lightgrey;margin-top: 30px;">
+                    <IonText style="font-family: BebasNeue-Regular; font-size: 40px;">
+                        Successful Matches
+                    </IonText>
+                </div>
+
+                <div class="flexcenter">
+                    <div class="flexcenter" style="height: 50%; width: 100%;">
+                        <canvas style="width: 25%;" id="successd"></canvas>
+                    </div>
+                    <div class="flexcenter" style="height: 50%; width: 100%;">
+                        <canvas style="width: 25%;" id="successy"></canvas>
+                    </div>
+                </div>
+            </IonContent>
+        </IonPage>
     </IonPage>
 </template>
   
 <script lang="ts">
-import { IonPage, IonGrid, IonRow, IonCol, IonText, IonContent, IonSelect, IonSelectOption, IonButton, IonCard } from '@ionic/vue';
+import { IonPage, IonGrid, IonRow, IonCol, IonText, IonContent, IonSelect, IonSelectOption, IonButton, IonCard, IonSpinner } from '@ionic/vue';
 import Chart from 'chart.js/auto';
 import { ref, onMounted } from 'vue';
 import { ChartConfiguration } from 'chart.js';
@@ -107,7 +115,8 @@ export default {
         IonSelect,
         IonSelectOption,
         IonButton,
-        IonCard
+        IonCard,
+        IonSpinner
     },
     setup() {
         const isLoading = ref(true);
@@ -128,6 +137,8 @@ export default {
         const successdatam = [];
         const successdatay = [];
         const s = ref([]);
+
+        isLoading.value = true
 
         const x1 = ref(0);
         const x2 = ref(0);
@@ -2596,6 +2607,7 @@ export default {
             viewsThisWeek: 0,
         };
     },
+    emits: ['pass-id'],
     methods: {
         async countLikesThisWeek() {
             const today = new Date();

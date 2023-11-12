@@ -200,5 +200,30 @@
   }
 }
 
+.Login-TrabaWho-Logo{
+  height: 170px;
+  margin-right: 30px;
+  margin-top: -30px;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.Login-TrabaWho-text{
+ color: black;
+ font-size: 200px;
+ font-family: BebasNeue-Regular;
+ opacity: 0;
+ transition: opacity 1s ease-in-out;
+}
+
+.Login-Loading{
+  --color: black;
+  scale: 2;
+}
+
+.Login-loaded {
+  opacity: 1 !important;
+}
+
 
 

@@ -47,14 +47,16 @@
         <IonCol size="6.5" class="flexcenter">
           <IonContent class="custom-scrollbar">
             <div class="flexcenter">
-              <IonCard class="modal-viewjobpost-card-statistics">
+              <IonCard style="color: black;" class="modal-viewjobpost-card-statistics">
                 <IonIcon class="modal-viewjobpost-icon" :icon="eyeSharp"></IonIcon>
-                <IonText style="padding-left: 5px"> {{ jobPosting ? jobPosting.views : "Loading..." }} </IonText>
+                <IonText style="padding-left: 5px" class="modal-viewjobposting-title">{{ jobPosting ? jobPosting.views :
+                  "Loading..." }} VIEWS</IonText>
               </IonCard>
 
-              <IonCard class="modal-viewjobpost-card-statistics">
+              <IonCard style="color: black;" class="modal-viewjobpost-card-statistics">
                 <IonIcon class="modal-viewjobpost-icon" :icon="thumbsUp"></IonIcon>
-                <IonText style="padding-left: 5px"> {{ jobPosting ? jobPosting.likes : "Loading..." }} </IonText>
+                <IonText style="padding-left: 5px" class="modal-viewjobposting-title">{{ jobPosting ? jobPosting.likes :
+                  "Loading..." }} LIKES</IonText>
               </IonCard>
             </div>
             <div>
@@ -68,7 +70,7 @@
                         </div>
                         <div>
                           <IonText class="modal-viewjobposting-text">
-                            Job Title:
+                            <b>Job Title:</b>
                             {{ jobPosting ? jobPosting.jobname : "Loading..." }}
                           </IonText>
                         </div>
@@ -78,8 +80,9 @@
                       <IonCol>
                         <div>
                           <IonText class="modal-viewjobposting-text">
-                            Job Type:
-                            {{ jobPosting ? jobPosting.jobtype : "Loading..." }} </IonText>
+                            <b>Job Type:</b>
+                            {{ jobPosting ? jobPosting.jobtype : "Loading..." }}
+                          </IonText>
                         </div>
                       </IonCol>
                     </IonRow>
@@ -87,8 +90,9 @@
                       <IonCol>
                         <div>
                           <IonText class="modal-viewjobposting-text">
-                            Position level:
-                            {{ jobPosting ? jobPosting.positionlvl : "Loading..." }}</IonText>
+                            <b>Position Level:</b>
+                            {{ jobPosting ? jobPosting.positionlvl : "Loading..." }}
+                          </IonText>
                         </div>
                       </IonCol>
                     </IonRow>
@@ -96,26 +100,20 @@
                       <IonCol>
                         <div>
                           <IonText class="modal-viewjobposting-text">
-                            Salary:
-                            {{ jobPosting ? jobPosting.salary : "Loading..." }}</IonText>
+                            <b>Salary:</b>
+                            {{ jobPosting ? jobPosting.salary : "Loading..." }}
+                            Php
+                          </IonText>
                         </div>
                       </IonCol>
                     </IonRow>
-                  </IonGrid>
-                </IonCard>
-              </div>
-
-              <div class="flexcenter">
-                <IonCard class="modal-viewjobpost-cards" style="height: fit-content">
-                  <IonGrid>
                     <IonRow>
                       <IonCol>
-                        <div class="flexcenter">
-                          <IonText class="modal-viewjobposting-title">DESCRIPTION</IonText>
-                        </div>
                         <div>
                           <IonText class="modal-viewjobposting-text">
-                            {{ jobPosting ? jobPosting.jobdes : "Loading..." }}
+                            <b>Estimated Hours:</b>
+                            {{ jobPosting ? jobPosting.hours : "Loading..." }}
+                            Hours
                           </IonText>
                         </div>
                       </IonCol>
@@ -134,8 +132,10 @@
                         </div>
                         <div>
                           <IonText class="modal-viewjobposting-text">
-                            No. of Employees:
-                            {{ jobPosting ? jobPosting.noofempl : "Loading..." }}
+                            <b>No. of Employees:</b>
+                            Looking for
+                            <b> {{ jobPosting ? jobPosting.noofempl : "Loading..." }} </b>
+                            Job Seekers
                           </IonText>
                         </div>
                       </IonCol>
@@ -144,8 +144,10 @@
                       <IonCol>
                         <div>
                           <IonText class="modal-viewjobposting-text">
-                            Age:
-                            wala pa to </IonText>
+                            <b>Age:</b>
+                            {{ jobPosting ? jobPosting.age : "Loading..." }}
+                            y/o
+                          </IonText>
                         </div>
                       </IonCol>
                     </IonRow>
@@ -153,8 +155,10 @@
                       <IonCol>
                         <div>
                           <IonText class="modal-viewjobposting-text">
-                            Years of Experience:
-                            {{ jobPosting ? jobPosting.yearsofexp : "Loading..." }}</IonText>
+                            <b>Years of Experience:</b>
+                            {{ jobPosting ? jobPosting.yearsofexp : "Loading..." }}
+                            Years of Experience
+                          </IonText>
                         </div>
                       </IonCol>
                     </IonRow>
@@ -162,8 +166,38 @@
                       <IonCol>
                         <div>
                           <IonText class="modal-viewjobposting-text">
-                            Required Educational Attainment:
+                            <b>Educational Attainment:</b>
                             {{ jobPosting ? jobPosting.reqeduc : "Loading..." }}</IonText>
+                        </div>
+                      </IonCol>
+                    </IonRow>
+                  </IonGrid>
+                </IonCard>
+              </div>
+
+              <div class="flexcenter">
+                <IonCard class="modal-viewjobpost-cards" style="height: fit-content">
+                  <IonGrid>
+                    <IonRow>
+                      <IonCol>
+                        <div class="flexcenter">
+                          <IonText class="modal-viewjobposting-title">FIELDS</IonText>
+                        </div>
+                        <div>
+                          <IonText class="modal-viewjobposting-text">
+                            <b>Classification:</b>
+                            {{ jobPosting ? jobPosting.classification : "Loading..." }}
+                          </IonText>
+                        </div>
+                      </IonCol>
+                    </IonRow>
+                    <IonRow>
+                      <IonCol>
+                        <div>
+                          <IonText class="modal-viewjobposting-text">
+                            <b>Sub-Classification:</b>
+                            {{ jobPosting ? jobPosting.subclassification : "Loading..." }}
+                          </IonText>
                         </div>
                       </IonCol>
                     </IonRow>
@@ -181,7 +215,7 @@
                         </div>
                         <div>
                           <IonText class="modal-viewjobposting-text">
-                            Province:
+                            <b>Province:</b>
                             {{ jobPosting ? jobPosting.province : "Loading..." }}
                           </IonText>
                         </div>
@@ -191,7 +225,7 @@
                       <IonCol>
                         <div>
                           <IonText class="modal-viewjobposting-text">
-                            City/Town:
+                            <b>City/Town:</b>
                             {{ jobPosting ? jobPosting.citown : "Loading..." }}
                           </IonText>
                         </div>
@@ -201,7 +235,7 @@
                       <IonCol>
                         <div>
                           <IonText class="modal-viewjobposting-text">
-                            District:
+                            <b>District:</b>
                             {{ jobPosting ? jobPosting.district : "Loading..." }}
                           </IonText>
                         </div>
@@ -211,8 +245,27 @@
                       <IonCol>
                         <div>
                           <IonText class="modal-viewjobposting-text">
-                            Street:
+                            <b>Street:</b>
                             {{ jobPosting ? jobPosting.street : "Loading..." }}
+                          </IonText>
+                        </div>
+                      </IonCol>
+                    </IonRow>
+                  </IonGrid>
+                </IonCard>
+              </div>
+
+              <div class="flexcenter">
+                <IonCard class="modal-viewjobpost-cards" style="height: fit-content">
+                  <IonGrid>
+                    <IonRow>
+                      <IonCol>
+                        <div class="flexcenter">
+                          <IonText class="modal-viewjobposting-title">DESCRIPTION</IonText>
+                        </div>
+                        <div style="text-align: center;">
+                          <IonText class="modal-viewjobposting-text">
+                            {{ jobPosting ? jobPosting.jobdes : "Loading..." }}
                           </IonText>
                         </div>
                       </IonCol>
@@ -227,7 +280,7 @@
                     <IonText class="modal-viewjobposting-title">SPECIALIZED</IonText>
                   </div>
                   <div>
-                    <IonChip v-for="interest in jobPosting.chosenInterests" :key="interest"> {{ interest.label }}
+                    <IonChip v-for="interest in jobPosting.chosenInterests" :key="interest"> {{ interest }}
                     </IonChip>
                   </div>
                 </IonCard>
@@ -301,7 +354,6 @@ export default {
     },
     jobPosting: {
       type: Object,
-      default: null,
     },
   },
   data() {

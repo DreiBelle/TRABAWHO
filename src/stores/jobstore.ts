@@ -28,6 +28,7 @@ export const useJobStore = defineStore("jobpost", {
       bookmarks: 0,
       classification: "",
       subclassification: "",
+      hours: "",
     },
   }),
   actions: {
@@ -46,7 +47,6 @@ export const useJobStore = defineStore("jobpost", {
       this.formData.dateCreated = new Date().toISOString();
       this.formData.likes = 0;
       this.formData.views = 0;
-      this.formData.bookmarks = 0;
 
       try {
         const usersCollection = collection(db, "jobpost");
@@ -64,7 +64,7 @@ export const useJobStore = defineStore("jobpost", {
           reqeduc: "",
           loc: "",
           dateCreated: "",
-          chosenInterests: [],
+          chosenInterests: "",
           company: "",
           noofempl: "",
           isactive: "",
@@ -74,6 +74,7 @@ export const useJobStore = defineStore("jobpost", {
           bookmarks: 0,
           classification: "",
           subclassification: "",
+          hours: "",
         };
       } catch (error) {
         console.error("Error registering jobpost:", error);

@@ -1,7 +1,21 @@
 <template>
-  <IonPage style="background: linear-gradient(to bottom right, white, #a6aad4)">
+  <div v-if="isLoading == true">
+    <div class="flexcenter" style="height: 100vh; width: 100vw; background: linear-gradient(to bottom right, white, #a6aad4)">
+      <div>
+        <div class="flexcenter">
+          <img class="Login-TrabaWho-Logo" src="../assets/logo/blackfilllogo.png">
+          <IonText class="Login-TrabaWho-text">
+            TRABAWHO
+          </IonText>
+        </div>
+        <div class="flexcenter">
+          <IonSpinner class="Login-Loading" name="crescent"></IonSpinner>
+        </div>
+      </div>
+    </div>
+  </div>
+  <IonPage v-if="isLoading == false" style="background: linear-gradient(to bottom right, white, #a6aad4)">
     <HomeBar />
-
     <div class="flexcenter" style="height: 100%">
       <IonCard class="signup-card">
         <IonGrid style="height: 100%; width: 100%; padding: 0">
@@ -77,6 +91,7 @@ import {
   IonInput,
   IonText,
   IonCard,
+  IonSpinner,
 } from "@ionic/vue";
 import "./Login.css";
 import { GoRegister, GoHome, GoEmployer, GoEmployerDashboard } from "./Login-Controller";
@@ -93,6 +108,7 @@ import { collection, onSnapshot, query, where } from "@firebase/firestore";
 const Username = ref("");
 const Password = ref("");
 const user = ref(null);
+const isLoading = ref(false)
 
 const signInWithGoogle = async () => {
   const provider = new GoogleAuthProvider();
@@ -113,6 +129,13 @@ const signInWithGoogle = async () => {
 };
 
 const handleUserLogin = () => {
+  isLoading.value = true
+
+  setTimeout(() => {
+    document.querySelector('.Login-TrabaWho-Logo')?.classList.add('Login-loaded');
+    document.querySelector('.Login-TrabaWho-text')?.classList.add('Login-loaded');
+  }, 1);
+
   const userQuery = query(
     collection(db, "users"),
     where("email", "==", Username.value)
@@ -120,6 +143,7 @@ const handleUserLogin = () => {
   const userUnsubscribe = onSnapshot(userQuery, (snapshot) => {
     user.value = snapshot.docs[0]?.data();
   });
+
   signInWithEmailAndPassword(auth, Username.value, Password.value)
     .then(() => {
       localStorage.setItem("email", Username.value);
@@ -127,14 +151,23 @@ const handleUserLogin = () => {
         UserLogin(Username.value);
         Username.value = "";
         Password.value = "";
-      }
-      else {
+        setTimeout(() => {
+          isLoading.value = false;
+        }, 100);
+      } else {
         alert("Wait for your account to be approved by System Admin");
       }
     })
     .catch((error) => {
       console.error(error);
-      alert(error);
+
+      setTimeout(() => {
+          alert(error);
+        }, 500);
+
+      setTimeout(() => {
+        isLoading.value = false;
+      }, 1000);
     });
 };
 

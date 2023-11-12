@@ -54,6 +54,7 @@ export const useJobStore = defineStore('jobStore', {
                     creator: "",
                     classification: "",
                     subclassification: "",
+                    hours: "",
                 };
             } catch (error) {
                 console.error('Error updating data:', error);

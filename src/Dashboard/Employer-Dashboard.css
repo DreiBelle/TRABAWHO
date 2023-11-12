@@ -555,12 +555,13 @@ IonRouterOutlet
 }
 
 .modal-addjobpost-image {
-  height: 125px;
-  width: 125px;
+  height: 150px;
+  width: 150px;
   max-height: 150px;
   max-width: 150px;
   border-radius: 10px;
   border: 1px solid black;
+  object-fit: cover;
 }
 
 .modal-addjobpost-button-addimage {
@@ -654,8 +655,8 @@ IonRouterOutlet
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  border: 1px solid black;
   object-fit: cover;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .modal-viewjobpost-icon {
@@ -757,27 +758,27 @@ IonRouterOutlet
   font-size: 30px;
 }
 
-.modal-editjobposting-active{
+.modal-editjobposting-active {
   font-family: BebasNeue-Regular;
   font-size: 25px;
   padding-right: 10px;
 }
 
-.modal-viewjobposting-title{
+.modal-viewjobposting-title {
   font-family: BebasNeue-Regular;
   font-size: 22px;
 }
 
-.modal-viewjobposting-text{
+.modal-viewjobposting-text {
   font-size: 15px;
   padding-right: 10px;
 }
 
-.dashboard-minicard-title{
+.dashboard-minicard-title {
   text-align: center;
 }
 
-.dashboard-minicard-icon{
+.dashboard-minicard-icon {
   font-size: 2vh;
   margin-right: 5px;
 }
@@ -785,4 +786,41 @@ IonRouterOutlet
 .dashboard-minicard-number {
   font-size: calc(5vh + 2.5vw);
   font-family: BebasNeue-Regular;
+}
+
+.dashboard-TrabaWho-Logo {
+  height: 170px;
+  margin-right: 30px;
+  margin-top: -30px;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.dashboard-TrabaWho-text {
+  color: black;
+  font-size: 200px;
+  font-family: BebasNeue-Regular;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.dashboard-Loading {
+  --color: black;
+  scale: 2;
+}
+
+.dashboard-loaded {
+  opacity: 1 !important;
+}
+
+.postings-noposting-text {
+  font-size: 50px;
+  font-family: BebasNeue-Regular;
+  letter-spacing: 1px;
+}
+
+.dashboard-posting-minianalytics {
+  align-items: center;
+  justify-content: center;
+  display: flex;
 }
