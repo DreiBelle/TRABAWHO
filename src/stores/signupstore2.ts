@@ -18,7 +18,7 @@ export const useSignupStore2 = defineStore("signup2", {
       companytype: "",
       swiperuser: [],
       swiperjob: [],
-      aprooved: false,
+      aprooved: Boolean,
     },
   }),
   actions: {
@@ -42,6 +42,7 @@ export const useSignupStore2 = defineStore("signup2", {
       this.formData.dateCreated = new Date().toISOString();
       this.formData.type = "employer";
       this.formData.acceptTerms = true;
+      this.formData.aprooved = false;
 
       try {
         const usersCollection = collection(db, "users"); // "users" is the name of the Firestore collection

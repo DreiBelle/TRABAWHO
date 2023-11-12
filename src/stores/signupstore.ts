@@ -36,7 +36,7 @@ export const useSignupStore = defineStore("signup", {
       pic: "",
       classification: "",
       subclassification: "",
-      aprooved: false,
+      aprooved: Boolean,
     },
   }),
   actions: {
@@ -64,9 +64,10 @@ export const useSignupStore = defineStore("signup", {
       this.formData.dateCreated = new Date().toISOString();
       this.formData.type = "jobseeker";
       this.formData.acceptTerms = true;
+      this.formData.aprooved = false;
 
       try {
-        const usersCollection = collection(db, "users"); // "users" is the name of the Firestore collection
+        const usersCollection = collection(db, "users");
         await addDoc(usersCollection, this.formData);
         console.log("User registered successfully!");
         // Reset the form data after registration if needed

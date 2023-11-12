@@ -214,7 +214,7 @@ export default {
 
       function isValidPassword(password) {
         // For example, require at least 8 characters and a mix of letters, numbers, and symbols
-        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{5,}$/;
+        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
 
         return passwordRegex.test(password);
       }
@@ -242,8 +242,8 @@ export default {
             const credential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
             console.log(credential.user);
 
-            // await sendEmailVerification(credential.user); wag delete sa email verify to
-            // alert('Verification email sent');
+            await sendEmailVerification(credential.user);
+            alert('Verification email sent');
 
             signupStore.setFormData(formData);
             GoBasic();

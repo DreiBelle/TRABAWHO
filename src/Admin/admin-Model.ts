@@ -662,6 +662,26 @@ async function getmanpower_() {
     }
 }
 
+async function getuser1_() {
+    try {
+        const usersRef = collection(db, "users");
+        const q = query(usersRef,
+            where("aprooved", "==", false),
+        );
+
+        const querySnapshot = await getDocs(q);
+
+        if (!querySnapshot.empty) {
+            return querySnapshot.docs.map((doc) => doc.data());
+        } else {
+            return [];
+        }
+    } catch (error) {
+        console.error("Error fetching users:", error);
+        return [];
+    }
+}
+
 
 export const getJobPostings = getJobPostings_;
 export const getusers = getusers_;

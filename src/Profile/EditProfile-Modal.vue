@@ -119,13 +119,20 @@
                         labelPlacement="stacked" fill="outline" v-model="formData.elementary" required>
                     </IonInput>
                     <IonInput mode="md" class="jprofile-modal-inputs" label="Junior Highschool"
-                        placeholder="Elementary Highschool" labelPlacement="stacked" fill="outline" v-model="formData.juniorhigh" required>
+                        placeholder="Elementary Highschool" labelPlacement="stacked" fill="outline"
+                        v-model="formData.juniorhigh" required>
                     </IonInput>
                     <IonInput mode="md" class="jprofile-modal-inputs" label="Senior Highschool"
-                        placeholder="Senior Highschool" labelPlacement="stacked" fill="outline" v-model="formData.seniorhigh" required>
+                        placeholder="Senior Highschool" labelPlacement="stacked" fill="outline"
+                        v-model="formData.seniorhigh" required>
                     </IonInput>
-                    <IonInput mode="md" class="jprofile-modal-inputs" label="College" placeholder="College University"
-                        labelPlacement="stacked" fill="outline" v-model="formData.college" required>
+                    <IonInput mode="md" class="jprofile-modal-inputs" label="College"
+                        placeholder="College University" labelPlacement="stacked" fill="outline"
+                        v-model="formData.college" required>
+                    </IonInput>
+                    <IonInput v-if="formData.masteral" mode="md" class="jprofile-modal-inputs" label="Masteral"
+                        placeholder="Masteral University" labelPlacement="stacked" fill="outline"
+                        v-model="formData.masteral" required>
                     </IonInput>
                 </IonCard>
             </div>
@@ -146,14 +153,9 @@
                         <IonSelectOption value="21-23">21-23</IonSelectOption>
                         <IonSelectOption value="24+">24+</IonSelectOption>
                     </IonSelect>
-                    <IonSelect mode="md" class="jprofile-modal-inputs" label="Preffered Salary" label-placement="stacked"
-                        interface="popover" fill="outline" placeholder="Input Preffered Salary based on skills" v-model="formData.salary" required>
-                        <IonSelectOption value="0php - 5,000php">0php - 5,000php</IonSelectOption>
-                        <IonSelectOption value="6,000php - 10,000php">6,000php - 10,000php</IonSelectOption>
-                        <IonSelectOption value="11,000php - 50,000php">11,000php - 50,000php</IonSelectOption>
-                        <IonSelectOption value="51,000php - 100,000php">51,000php - 100,000php</IonSelectOption>
-                        <IonSelectOption value="100,000php and above">100,000php and above</IonSelectOption>
-                    </IonSelect>
+                    <IonInput mode="md" class="jprofile-modal-inputs" label="Salary" placeholder="Enter Preffered Salary"
+                        labelPlacement="stacked" fill="outline" v-model="formData.salary" required>
+                    </IonInput>
                     <IonSelect mode="md" class="jprofile-modal-inputs" label="Job Type" label-placement="stacked"
                         interface="popover" fill="outline" placeholder="Select Preffered Job Type" :multiple="true" v-model="formData.jobtype" required>
                         <IonSelectOption value="Full-Time">Full-Time</IonSelectOption>
@@ -291,6 +293,7 @@ export default {
             juniorhigh: props.userData ? props.userData.juniorhigh : "",
             seniorhigh: props.userData ? props.userData.seniorhigh : "",
             college: props.userData ? props.userData.college : "",
+            masteral: props.userData ? props.userData.masteral : "",
             yearsofexp: props.userData ? props.userData.yearsofexp : "",
             salary: props.userData ? props.userData.salary : "",
             jobtype: props.userData ? props.userData.jobtype : "",

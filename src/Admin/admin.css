@@ -173,3 +173,16 @@
   font-family:  BebasNeue-Regular;
   font-size: 30px;
 }
+
+.page-jobposting-segments {
+  min-height: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(236, 228, 228);
+}
+
+.page-jobposting-segments-buttons {
+  width: 50%;
+  color: black;
+}

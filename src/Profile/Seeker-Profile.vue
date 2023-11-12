@@ -147,6 +147,12 @@
               {{ user ? `${user.college}` : "..." }}
             </IonCard>
           </div>
+          <div>
+            <IonText class="jprofile-cards-education-text"> Masteral </IonText>
+            <IonCard class="jprofile-cards-education">
+              {{ user ? `${user.masteral}` : "..." }}
+            </IonCard>
+          </div>
         </IonCard>
       </div>
       <div class="flexcenter">
