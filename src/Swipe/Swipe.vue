@@ -2,12 +2,14 @@
   <IonPage>
     <IonHeader style="height: 50px">
       <IonToolbar style="height: 100%; --background: #262c5c">
-        <IonTitle class="Swipe-header-title">
-          TRABAWHO
-        </IonTitle>
+        <IonTitle class="Swipe-header-title"> TRABAWHO </IonTitle>
         <IonButtons style="padding-left: 10px" slot="start">
           <div>
-            <img style="height: 30px" src="../assets/logo/whitefilllogo.png" alt="logo" />
+            <img
+              style="height: 30px"
+              src="../assets/logo/whitefilllogo.png"
+              alt="logo"
+            />
           </div>
         </IonButtons>
         <IonProgressBar v-if="isloading" type="indeterminate"></IonProgressBar>
@@ -16,37 +18,81 @@
 
     <IonContent :scroll-y="false" v-if="!isloading" style="background: snow">
       <div>
-        <IonRefresher style="background: none; z-index: 4" slot="fixed" @ionRefresh="refresh($event)">
+        <IonRefresher
+          style="background: none; z-index: 4"
+          slot="fixed"
+          @ionRefresh="refresh($event)"
+        >
           <IonRefresherContent></IonRefresherContent>
         </IonRefresher>
       </div>
-      <div style="height: 100%;">
-        <div class="flexcenter" style="height: calc(100% - 50px);">
+      <div style="height: 100%">
+        <div class="flexcenter" style="height: calc(100% - 50px)">
           <div class="flexcenter" v-if="cards.length - currentCardIndex >= 2">
-            <SwipeableCard @clear-action="clearAction()" :action="actionMade" :item="cards[currentCardIndex]" @swipeLeft="handleSwipeLeft" @swipeRight="handleSwipeRight"
-              id="mainswiper" class="asd" />
+            <SwipeableCard
+              @clear-action="clearAction()"
+              :action="actionMade"
+              :item="cards[currentCardIndex]"
+              @swipeLeft="handleSwipeLeft"
+              @swipeRight="handleSwipeRight"
+              id="mainswiper"
+              class="asd"
+            />
             <FakeSwipeableCard :item="cards[nextCardIndex]" class="asd2" />
           </div>
-          <div class="flexcenter" v-else-if="cards.length - currentCardIndex == 1">
-            <SwipeableCard @clear-action="clearAction()" :action="actionMade" :item="cards[currentCardIndex]" @swipeLeft="handleSwipeLeft" @swipeRight="handleSwipeRight"
-              id="mainswiper" class="asd" />
+          <div
+            class="flexcenter"
+            v-else-if="cards.length - currentCardIndex == 1"
+          >
+            <SwipeableCard
+              @clear-action="clearAction()"
+              :action="actionMade"
+              :item="cards[currentCardIndex]"
+              @swipeLeft="handleSwipeLeft"
+              @swipeRight="handleSwipeRight"
+              id="mainswiper"
+              class="asd"
+            />
             <IonCard class="Swipe-Swipeable"> no more available jobs </IonCard>
           </div>
           <div class="flexcenter" v-else>
             <IonCard class="Swipe-Swipeable"> no more available jobs </IonCard>
           </div>
         </div>
-        <div class="flexcenter" style="height: 50px; width: 100%;">
-          <IonButton class="Swipe-Help-Buttons" @click="passSwipeleft" style="--background: #FF6961;">
-            <IonIcon class="Swipe-Help-Buttons-icons" :icon="arrowBack"></IonIcon>
-            <IonIcon class="Swipe-Help-Buttons-icons" :icon="thumbsDown"></IonIcon>
+        <div class="flexcenter" style="height: 50px; width: 100%">
+          <IonButton
+            class="Swipe-Help-Buttons"
+            @click="passSwipeleft"
+            style="--background: #ff6961"
+          >
+            <IonIcon
+              class="Swipe-Help-Buttons-icons"
+              :icon="arrowBack"
+            ></IonIcon>
+            <IonIcon
+              class="Swipe-Help-Buttons-icons"
+              :icon="thumbsDown"
+            ></IonIcon>
           </IonButton>
           <IonButton class="Swipe-Help-Buttons" @click="openInfo">
-            <IonIcon class="Swipe-Help-Buttons-icons" :icon="informationCircle"></IonIcon>
+            <IonIcon
+              class="Swipe-Help-Buttons-icons"
+              :icon="informationCircle"
+            ></IonIcon>
           </IonButton>
-          <IonButton class="Swipe-Help-Buttons" @click="passSwiperight" style="--background: #60a05b;">
-            <IonIcon class="Swipe-Help-Buttons-icons" :icon="thumbsUp"></IonIcon>
-            <IonIcon class="Swipe-Help-Buttons-icons" :icon="arrowForward"></IonIcon>
+          <IonButton
+            class="Swipe-Help-Buttons"
+            @click="passSwiperight"
+            style="--background: #60a05b"
+          >
+            <IonIcon
+              class="Swipe-Help-Buttons-icons"
+              :icon="thumbsUp"
+            ></IonIcon>
+            <IonIcon
+              class="Swipe-Help-Buttons-icons"
+              :icon="arrowForward"
+            ></IonIcon>
           </IonButton>
         </div>
       </div>
@@ -352,6 +398,8 @@ export default {
               bookmarks: job.bookmarks,
               creator: job.creator,
               citown: job.citown,
+              noofempl: job.noofempl,
+              age: job.age,
             };
           })
         );
@@ -496,15 +544,12 @@ export default {
       const jobname = user.value.jobname;
       const classification = user.value.classification;
       const subclassification = user.value.subclassification;
+      const noofempl= user.value.noofempl;
+      const age = user.value.age;
       const province = user.value.province;
-      console.log(chosenInterest);
-      console.log(jobtype);
-      console.log(loc);
-      console.log(yearsofexp);
-      console.log(salary);
-      console.log(classification);
-      console.log(subclassification);
-      console.log(province);
+      const citown = user.value.citown;
+      const district = user.value.district; 
+      const street = user.value.street;
 
       const jobs = await getJobs(
         chosenInterest,
@@ -596,6 +641,12 @@ export default {
             views: job.views,
             bookmarks: job.bookmarks,
             creator: job.creator,
+            noofempl: job.noofempl,
+            age: job.age,
+            province: job.province,
+            citown: job.citown,
+            district: job.district,
+            street: job.street,
           };
         })
       );

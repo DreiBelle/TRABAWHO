@@ -48,7 +48,7 @@
         <IonSelectOption value="Trades & Services">Trades & Services</IonSelectOption>
     </IonSelect>
 
-    <IonSelect class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
+    <IonSelect style="padding-top: 10px;" class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
         label="Sub Classification" placeholder="Select Sub Classification" :disabled="true" v-if="!prefferedClassification"
         mode="md">
         <IonSelectOption value="Accounts Officers/Clerks">
@@ -56,7 +56,7 @@
         </IonSelectOption>
     </IonSelect>
 
-    <IonSelect class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
+    <IonSelect style="padding-top: 10px;" class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
         label="Sub Classification" placeholder="Select Sub Classification" v-if="prefferedClassification == 'Accounting'"
         v-model="subclassificationClassification" @ion-change="chosenSubspecial()" mode="md">
         <IonSelectOption value="Accounts Officers/Clerks">
@@ -123,7 +123,7 @@
         <IonSelectOption value="Treasury"> Treasury </IonSelectOption>
     </IonSelect>
 
-    <IonSelect class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
+    <IonSelect style="padding-top: 10px;" class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
         label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
         v-if="prefferedClassification == 'Administration & Office Support'" @ion-change="chosenSubspecial()" mode="md">
         <IonSelectOption value="Administrative Assistants">
@@ -150,7 +150,7 @@
         </IonSelectOption>
     </IonSelect>
 
-    <IonSelect class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
+    <IonSelect style="padding-top: 10px;" class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
         label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
         v-if="prefferedClassification == 'Advertising, Arts & Media'" @ion-change="chosenSubspecial()" mode="md">
         <IonSelectOption value="Agency Account Management">
@@ -178,7 +178,7 @@
         <IonSelectOption value="Promotions"> Promotions </IonSelectOption>
     </IonSelect>
 
-    <IonSelect class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
+    <IonSelect style="padding-top: 10px;" class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
         label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
         v-if="prefferedClassification == 'Banking & Financial Services'" @ion-change="chosenSubspecial()" mode="md">
         <IonSelectOption value="Account & Relationship Management">
@@ -219,7 +219,7 @@
         <IonSelectOption value="Treasury"> Treasury </IonSelectOption>
     </IonSelect>
 
-    <IonSelect class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
+    <IonSelect style="padding-top: 10px;" class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
         label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
         v-if="prefferedClassification == 'Call Centre & Customer Services'" @ion-change="chosenSubspecial()" mode="md">
         <IonSelectOption value="Collections"> Collections </IonSelectOption>
@@ -241,7 +241,7 @@
         </IonSelectOption>
     </IonSelect>
 
-    <IonSelect class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
+    <IonSelect style="padding-top: 10px;" class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
         label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
         v-if="prefferedClassification == 'CEO & General Management'" @ion-change="chosenSubspecial()" mode="md">
         <IonSelectOption value="Board Appointments">
@@ -254,7 +254,7 @@
         </IonSelectOption>
     </IonSelect>
 
-    <IonSelect class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
+    <IonSelect style="padding-top: 10px;" class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
         label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
         v-if="prefferedClassification == 'Community Services and Development'" @ion-change="chosenSubspecial()" mode="md">
         <IonSelectOption value="Board Appointments">
@@ -282,7 +282,7 @@
         </IonSelectOption>
     </IonSelect>
 
-    <IonSelect class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
+    <IonSelect style="padding-top: 10px;" class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
         label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
         v-if="prefferedClassification == 'Construction'" @ion-change="chosenSubspecial()" mode="md">
         <IonSelectOption value="Contracts Management">
@@ -311,7 +311,7 @@
         <IonSelectOption value="Surverying"> Surverying</IonSelectOption>
     </IonSelect>
 
-    <IonSelect class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
+    <IonSelect style="padding-top: 10px;" class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
         label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
         v-if="prefferedClassification == 'Consulting & Strategy'" @ion-change="chosenSubspecial()" mode="md">
         <IonSelectOption value="Analysts"> Analysts </IonSelectOption>
@@ -330,7 +330,7 @@
         </IonSelectOption>
     </IonSelect>
 
-    <IonSelect class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
+    <IonSelect style="padding-top: 10px;" class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
         label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
         v-if="prefferedClassification == 'Design & Architecture'" @ion-change="chosenSubspecial()" mode="md">
         <IonSelectOption value="Architectural Drafting">
@@ -358,7 +358,7 @@
         </IonSelectOption>
     </IonSelect>
 
-    <IonSelect class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
+    <IonSelect style="padding-top: 10px;" class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
         label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
         v-if="prefferedClassification == 'Education & Training'" @ion-change="chosenSubspecial()" mode="md">
         <IonSelectOption value="Childcare & Outside School Hours Care">
@@ -403,7 +403,7 @@
         </IonSelectOption>
     </IonSelect>
 
-    <IonSelect class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
+    <IonSelect style="padding-top: 10px;" class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
         label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
         v-if="prefferedClassification == 'Engineering'" @ion-change="chosenSubspecial()" mode="md">
         <IonSelectOption value="Aerospace Engineering">
@@ -456,7 +456,7 @@
         </IonSelectOption>
     </IonSelect>
 
-    <IonSelect class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
+    <IonSelect style="padding-top: 10px;" class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
         label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
         v-if="prefferedClassification == 'Farming, Animals & Conservation'" @ion-change="chosenSubspecial()" mode="md">
         <IonSelectOption value="Agronomy & Farm Services">
@@ -479,7 +479,7 @@
         </IonSelectOption>
     </IonSelect>
 
-    <IonSelect class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
+    <IonSelect style="padding-top: 10px;" class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
         label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
         v-if="prefferedClassification == 'Government & Defence'" @ion-change="chosenSubspecial()" mode="md">
         <IonSelectOption value="Air Force"> Air Force </IonSelectOption>
@@ -505,7 +505,7 @@
         </IonSelectOption>
     </IonSelect>
 
-    <IonSelect class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
+    <IonSelect style="padding-top: 10px;" class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
         label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
         v-if="prefferedClassification == 'Healthcare & Medical'" @ion-change="chosenSubspecial()" mode="md">
         <IonSelectOption value="Ambulance/Paramedics">
@@ -588,7 +588,7 @@
         <IonSelectOption value="Speech Theraphy"> Speech Theraphy </IonSelectOption>
     </IonSelect>
 
-    <IonSelect class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
+    <IonSelect style="padding-top: 10px;" class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
         label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
         v-if="prefferedClassification == 'Hospitality & Tourism'" @ion-change="chosenSubspecial()" mode="md">
         <IonSelectOption value="Airlines"> Airlines </IonSelectOption>
@@ -605,7 +605,7 @@
         <IonSelectOption value="Waiting Staff"> Waiting Staff </IonSelectOption>
     </IonSelect>
 
-    <IonSelect class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
+    <IonSelect style="padding-top: 10px;" class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
         label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
         v-if="prefferedClassification == 'Human Resources & Recruitment'" @ion-change="chosenSubspecial()" mode="md">
         <IonSelectOption value="Consulting & Generalist HR"> Consulting & Generalist HR </IonSelectOption>
@@ -620,7 +620,7 @@
         <IonSelectOption value="Training & Developement"> Training & Developement </IonSelectOption>
     </IonSelect>
 
-    <IonSelect class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
+    <IonSelect style="padding-top: 10px;" class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
         label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
         v-if="prefferedClassification == 'Information & Communication Technology'" @ion-change="chosenSubspecial()"
         mode="md">
@@ -647,7 +647,7 @@
         <IonSelectOption value="Web Development & Production"> Web Development & Production </IonSelectOption>
     </IonSelect>
 
-    <IonSelect class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
+    <IonSelect style="padding-top: 10px;" class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
         label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
         v-if="prefferedClassification == 'Insurance & Superannuation'" @ion-change="chosenSubspecial()" mode="md">
         <IonSelectOption value="Actuarial"> Actuarial </IonSelectOption>
@@ -662,7 +662,7 @@
         <IonSelectOption value="Workers' Compensation"> Workers' Compensation </IonSelectOption>
     </IonSelect>
 
-    <IonSelect class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
+    <IonSelect style="padding-top: 10px;" class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
         label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
         v-if="prefferedClassification == 'Legal'" @ion-change="chosenSubspecial()" mode="md">
         <IonSelectOption value="Banking & Finace Law"> Banking & Finace Law </IonSelectOption>
@@ -686,7 +686,7 @@
         <IonSelectOption value="Tax Law"> Tax Law </IonSelectOption>
     </IonSelect>
 
-    <IonSelect class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
+    <IonSelect style="padding-top: 10px;" class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
         label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
         v-if="prefferedClassification == 'Manufacturing, Transport & Logistics'" @ion-change="chosenSubspecial()" mode="md">
         <IonSelectOption value="Analysis & Reporting"> Analysis & Reporting </IonSelectOption>
@@ -711,7 +711,7 @@
         <IonSelectOption value="Warehousing, Storage & Distribution"> Warehousing, Storage & Distribution </IonSelectOption>
     </IonSelect>
 
-    <IonSelect class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
+    <IonSelect style="padding-top: 10px;" class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
         label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
         v-if="prefferedClassification == 'Marketing & Communication'" @ion-change="chosenSubspecial()" mode="md">
         <IonSelectOption value="Brand Management"> Brand Management </IonSelectOption>
@@ -729,7 +729,7 @@
         <IonSelectOption value="Trade Marketing"> Trade Marketing </IonSelectOption>
     </IonSelect>
 
-    <IonSelect class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
+    <IonSelect style="padding-top: 10px;" class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
         label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
         v-if="prefferedClassification == 'Mining, Resources & Energy'" @ion-change="chosenSubspecial()" mode="md">
         <IonSelectOption value="Analysis & Reporting"> Analysis & Reporting </IonSelectOption>
@@ -752,7 +752,7 @@
         <IonSelectOption value="Surveying"> Surveying </IonSelectOption>
     </IonSelect>
 
-    <IonSelect class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
+    <IonSelect style="padding-top: 10px;" class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
         label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
         v-if="prefferedClassification == 'Real Estate & Property'" @ion-change="chosenSubspecial()" mode="md">
         <IonSelectOption value="Administration"> Administration </IonSelectOption>
@@ -768,7 +768,7 @@
         <IonSelectOption value="Valuation"> Valuation </IonSelectOption>
     </IonSelect>
 
-    <IonSelect class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
+    <IonSelect style="padding-top: 10px;" class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
         label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
         v-if="prefferedClassification == 'Retail & Consumer Products'" @ion-change="chosenSubspecial()" mode="md">
         <IonSelectOption value="Buying"> Buying </IonSelectOption>
@@ -780,7 +780,7 @@
         <IonSelectOption value="Retail Assistants"> Retail Assistants </IonSelectOption>
     </IonSelect>
 
-    <IonSelect class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
+    <IonSelect style="padding-top: 10px;" class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
         label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
         v-if="prefferedClassification == 'Sales'" @ion-change="chosenSubspecial()" mode="md">
         <IonSelectOption value="Account & Relationship Management"> Account & Relationship Management </IonSelectOption>
@@ -791,7 +791,7 @@
         <IonSelectOption value="Sales Representatives/Consultants"> Sales Representatives/Consultants </IonSelectOption>
     </IonSelect>
 
-    <IonSelect class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
+    <IonSelect style="padding-top: 10px;" class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
         label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
         v-if="prefferedClassification == 'Science & Technology'" @ion-change="chosenSubspecial()" mode="md">
         <IonSelectOption value="Biological & Biomedical Sciences"> Biological & Biomedical Sciences </IonSelectOption>
@@ -807,13 +807,13 @@
         <IonSelectOption value="Quality Assurance & Control"> Quality Assurance & Control </IonSelectOption>
     </IonSelect>
 
-    <IonSelect class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
+    <IonSelect style="padding-top: 10px;" class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
         label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
         v-if="prefferedClassification == 'Self Employment'" @ion-change="chosenSubspecial()" mode="md">
         <IonSelectOption value=""> Self Employment </IonSelectOption>
     </IonSelect>
 
-    <IonSelect class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
+    <IonSelect style="padding-top: 10px;" class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
         label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
         v-if="prefferedClassification == 'Sport & Recreation'" @ion-change="chosenSubspecial()" mode="md">
         <IonSelectOption value="Coaching & Instruction"> Coaching & Instruction </IonSelectOption>
@@ -821,7 +821,7 @@
         <IonSelectOption value="Management"> Management </IonSelectOption>
     </IonSelect>
 
-    <IonSelect class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
+    <IonSelect style="padding-top: 10px;" class="signup-inputs-mobile" label-placement="stacked" interface="popover" fill="outline"
         label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
         v-if="prefferedClassification == 'Trades & Services'" @ion-change="chosenSubspecial()" mode="md">
         <IonSelectOption value="Air Conditioning & Refrigeration"> Air Conditioning & Refrigeration </IonSelectOption>

@@ -6,6 +6,7 @@ import {
   orderBy,
   limit,
   doc,
+  onSnapshot,
   getDoc,
 } from "firebase/firestore";
 import { db } from "../firebaseDB";
@@ -55,18 +56,18 @@ async function getJobPostings_(Username, companyname, id) {
 
 async function getjobs_(id) {
   try {
-      const jobPostingsRef = collection(db, "jobpost");
-      const q = query(jobPostingsRef, where("company", "==", id));
+    const jobPostingsRef = collection(db, "jobpost");
+    const q = query(jobPostingsRef, where("company", "==", id));
 
-      const querySnapshot = await getDocs(q);
+    const querySnapshot = await getDocs(q);
 
-      if (!querySnapshot.empty) {
-        console.log("there is job posting ");
-        return querySnapshot.docs.map((doc) => doc.data());
-      } else {
-        console.log("No job postings found for company");
-        return [];
-      }
+    if (!querySnapshot.empty) {
+      console.log("there is job posting ");
+      return querySnapshot.docs.map((doc) => doc.data());
+    } else {
+      console.log("No job postings found for company");
+      return [];
+    }
   } catch (error) {
     console.error("Error fetching job postings:", error);
     return [];
@@ -75,20 +76,18 @@ async function getjobs_(id) {
 
 async function getlikes_(id) {
   try {
+    const likesRef = collection(db, "likes");
+    const q = query(likesRef, where("creator", "==", id));
 
+    const querySnapshot = await getDocs(q);
 
-      const likesRef = collection(db, "likes");
-      const q = query(likesRef, where("creator", "==", id));
-
-      const querySnapshot = await getDocs(q);
-
-      if (!querySnapshot.empty) {
-        console.log("there is likes");
-        return querySnapshot.docs.map((doc) => doc.data());
-      } else {
-        console.log("No likes postings found");
-        return [];
-      }
+    if (!querySnapshot.empty) {
+      console.log("there is likes");
+      return querySnapshot.docs.map((doc) => doc.data());
+    } else {
+      console.log("No likes postings found");
+      return [];
+    }
   } catch (error) {
     console.error("Error fetching likes:", error);
     return [];
@@ -97,20 +96,18 @@ async function getlikes_(id) {
 
 async function getviews_(id) {
   try {
+    const viewsRef = collection(db, "views");
+    const q = query(viewsRef, where("creator", "==", id));
 
+    const querySnapshot = await getDocs(q);
 
-      const viewsRef = collection(db, "views");
-      const q = query(viewsRef, where("creator", "==", id));
-
-      const querySnapshot = await getDocs(q);
-
-      if (!querySnapshot.empty) {
-        console.log("there is views");
-        return querySnapshot.docs.map((doc) => doc.data());
-      } else {
-        console.log("No views postings found");
-        return [];
-      }
+    if (!querySnapshot.empty) {
+      console.log("there is views");
+      return querySnapshot.docs.map((doc) => doc.data());
+    } else {
+      console.log("No views postings found");
+      return [];
+    }
   } catch (error) {
     console.error("Error fetching views:", error);
     return [];
@@ -200,41 +197,38 @@ async function getSwipedpostings_(id) {
 async function getswiperProfile_(id) {
   const userDocRef = doc(db, "users", id);
   try {
-      const docSnap = await getDoc(userDocRef);
-      if (docSnap.exists()) {
-        const userDoc = docSnap.data();
-        userDoc.id = docSnap.id;
-        return userDoc;
-      } else {
-        console.log("Document not found");
-      }
-    } catch (error) {
-      console.error("Error getting document:", error);
+    const docSnap = await getDoc(userDocRef);
+    if (docSnap.exists()) {
+      const userDoc = docSnap.data();
+      userDoc.id = docSnap.id;
+      return userDoc;
+    } else {
+      console.log("Document not found");
     }
+  } catch (error) {
+    console.error("Error getting document:", error);
+  }
 }
 
 async function getsuccessswipe_(username) {
   try {
+    const successRef = collection(db, "MessagesUsers");
+    const q = query(successRef, where("EmployerEmail", "==", username));
 
+    const querySnapshot = await getDocs(q);
 
-      const successRef = collection(db, "MessagesUsers");
-      const q = query(successRef, where("EmployerEmail", "==", username));
-
-      const querySnapshot = await getDocs(q);
-
-      if (!querySnapshot.empty) {
-        console.log("there is successswipes");
-        return querySnapshot.docs.map((doc) => doc.data());
-      } else {
-        console.log("No success swipes found");
-        return [];
-      }
+    if (!querySnapshot.empty) {
+      console.log("there is successswipes");
+      return querySnapshot.docs.map((doc) => doc.data());
+    } else {
+      console.log("No success swipes found");
+      return [];
+    }
   } catch (error) {
     console.error("Error fetching success swipes:", error);
     return [];
   }
 }
-
 
 export const getDashboardProfile = getDashboardProfile_;
 export const getJobPostings = getJobPostings_;

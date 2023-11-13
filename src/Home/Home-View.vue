@@ -1,8 +1,13 @@
 <template>
-  <IonPage style="background: linear-gradient(to bottom right, white, #a6aad4); color: black;">
-    <div v-if="screenSize <= 768"> 
-      <IonPage >
-        <IonGrid style="height: 100%; width: 100%;">
+  <IonPage
+    style="
+      background: linear-gradient(to bottom right, white, #a6aad4);
+      color: black;
+    "
+  >
+    <div v-if="screenSize <= 425">
+      <IonPage>
+        <IonGrid style="height: 100%; width: 100%">
           <IonRow style="height: 100%">
             <IonCol class="flexcenter">
               <IonGrid>
@@ -47,7 +52,8 @@
         </IonGrid>
       </IonPage>
     </div>
-    <div v-else>
+    <div v-if="screenSize >= 426">
+      <!-- Your large screen content -->
       <landingPage />
     </div>
   </IonPage>
@@ -55,35 +61,31 @@
 
 <script lang="ts">
 import {
-  IonButton,
   IonPage,
-  IonContent,
   IonGrid,
   IonRow,
   IonCol,
   IonText,
-  IonInput,
+  IonButton,
 } from "@ionic/vue";
-import "./Home.css";
+import { defineComponent, ref, watch } from "vue";
+import landingPage from "./Home-LandingPage.vue";
 import {
   GoEmployer,
   GoRegister,
   GoLogin,
   GoLoginComputer,
 } from "./Home-Controller";
-import landingPage from "./Home-LandingPage.vue";
 
-export default {
+export default defineComponent({
   components: {
     landingPage,
-    IonButton,
     IonPage,
-    IonContent,
     IonGrid,
     IonRow,
     IonCol,
     IonText,
-    IonInput,
+    IonButton,
   },
   data() {
     return {
@@ -92,29 +94,34 @@ export default {
   },
   methods: {
     Register() {
-      if (window.innerWidth <= 768) {
+      if (this.screenSize <= 425) {
         GoRegister();
       } else {
         GoEmployer();
       }
     },
-
     Login() {
-      if (window.innerWidth <= 768) {
+      if (this.screenSize <= 425) {
         GoLogin();
       } else {
         GoLoginComputer();
       }
     },
+    updateScreenSize() {
+      this.screenSize = window.innerWidth;
+    },
   },
+
   mounted() {
-    console.log(this.screenSize);
+    this.updateScreenSize();
+    window.addEventListener("resize", this.updateScreenSize);
   },
-};
+  beforeUnmount() {
+    window.removeEventListener("resize", this.updateScreenSize);
+  },
+});
 </script>
 
 <style>
-/* ion-col {
-  border: 1px solid black;
-} */
+/* Your styles here */
 </style>

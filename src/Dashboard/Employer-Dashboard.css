@@ -579,7 +579,7 @@ IonRouterOutlet
   color: black;
   --highlight-color-focused: #262c5c;
   --border-color: black !important;
-  margin: 10px 0 0 5px;
+  margin: 10px 0 0 5px;;
 }
 
 .modal-addjobpost-button {
