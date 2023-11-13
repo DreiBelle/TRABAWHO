@@ -5,6 +5,7 @@ import { doc, deleteDoc } from 'firebase/firestore';
 export const useJobStore = defineStore('jobStore', {
     actions: {
         async deleteData(jobPostId) {
+          console.log("Delete")
             try {
               const jobPostRef = doc(db, 'jobpost', jobPostId);
               await deleteDoc(jobPostRef);

@@ -538,6 +538,7 @@ export default {
         await jobstore.updateData(this.jobPosting.documentID);
         this.isLoading = false
         modalController.dismiss();
+        this.closeOther()
       } else {
         // Handle the case where a required field is empty
         console.error("Please fill in all required fields.");

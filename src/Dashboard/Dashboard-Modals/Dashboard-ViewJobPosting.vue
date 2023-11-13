@@ -1,5 +1,5 @@
 <template>
-  <IonModal class="modal-viewjobpost" @did-dismiss="closeViewmodal" id="modalView">
+  <IonModal class="modal-viewjobpost" @did-dismiss="closeView" :is-open="isViewmodal">
     <IonHeader style="background: #262c5c; color: white">
       <IonGrid>
         <IonRow>
@@ -10,14 +10,14 @@
             {{ jobPosting ? jobPosting.jobname : "Loading..." }}
           </IonCol>
           <IonCol size="1">
-            <IonIcon class="modal-icon" style="color: green" @click="OpenEditModal" :icon="pencilOutline">
+            <IonIcon class="modal-icon" style="color: lightgreen" @click="OpenEditModal" :icon="pencilOutline">
             </IonIcon>
           </IonCol>
           <IonCol size="1">
-            <IonIcon class="modal-icon" style="color: red" @click="deletejob" :icon="trashOutline"></IonIcon>
+            <IonIcon class="modal-icon" style="color: #FF7276" @click="deletejob" :icon="trashOutline"></IonIcon>
           </IonCol>
           <IonCol size="1">
-            <IonIcon class="modal-icon" @click="closeViewmodal" :icon="close"></IonIcon>
+            <IonIcon class="modal-icon" @click="closeView" :icon="close"></IonIcon>
           </IonCol>
         </IonRow>
       </IonGrid>
@@ -167,7 +167,8 @@
                         <div>
                           <IonText class="modal-viewjobposting-text">
                             <b>Educational Attainment:</b>
-                            {{ jobPosting ? jobPosting.reqeduc : "Loading..." }}</IonText>
+                            {{ jobPosting ? jobPosting.reqeduc : "Loading..." }}
+                          </IonText>
                         </div>
                       </IonCol>
                     </IonRow>
@@ -329,7 +330,7 @@ import {
 import EditModal from "../Dashboard-Modals/Dashboard-EditJobPosting.vue";
 import { useJobStore } from "@/stores/deletejobstore";
 import '@/Swipe/Swipe.css'
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, updateDoc, doc } from "firebase/firestore";
 import { db } from "@/firebaseDB";
 
 export default {
@@ -373,10 +374,7 @@ export default {
     };
   },
   methods: {
-    openViewmodal() {
-      this.$emit("open-view-modal");
-    },
-    closeViewmodal() {
+    closeView() {
       this.$emit("close-view-modal");
     },
     OpenEditModal() {
@@ -385,6 +383,7 @@ export default {
     },
     CloseEditModal() {
       this.Editmodal = false;
+      this.$emit("close-view-modal");
       // document.removeEventListener("click", this.handleClickOutside);
     },
 
@@ -403,9 +402,14 @@ export default {
     },
     async deletejob() {
       this.removeAuditlog(this.jobPosting.jobname)
-      const jobstore = useJobStore();
-      await jobstore.deleteData(this.jobPosting.documentID);
-      this.closeViewmodal();
+      // const jobstore = useJobStore();
+      // await jobstore.deleteData(this.jobPosting.documentID);
+      const jobPostRef = doc(db, 'jobpost', this.jobPosting.documentID);
+      await updateDoc(jobPostRef, {
+        isactive: "Removed"
+      });
+      console.log("Job post deleted successfully!");
+      this.closeView();
     },
   },
 };

@@ -33,6 +33,7 @@ export const useJobStore = defineStore('jobStore', {
             return this.formData.chosenInterests;
         },
         async updateData(jobPostId) {
+            console.log("update")
             try {
                 const jobPostRef = doc(db, 'jobpost', jobPostId);
                 await updateDoc(jobPostRef, this.formData);
