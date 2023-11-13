@@ -1,31 +1,19 @@
 <template>
-  <div
-    class="Swipe-Swipeable"
-    :class="{
-      'Swipe-Swipeable--animated': position !== 0,
-      'Swipe-Swipeable--stop': position === 0,
-    }"
-    :style="{ transform: `translateX(${position}px)` }"
-    @mousedown="startSwipe"
-    @mousemove="swipe"
-    @mouseup="endSwipe"
-    @touchstart="startSwipe"
-    @touchmove="swipe"
-    @touchend="endSwipe"
-    @click="viewSwipe(true)"
-  >
+  <div class="Swipe-Swipeable" :class="{
+    'Swipe-Swipeable--animated': position !== 0,
+    'Swipe-Swipeable--stop': position === 0,
+  }" :style="{ transform: `translateX(${position}px)` }" @mousedown="startSwipe" @mousemove="swipe" @mouseup="endSwipe"
+    @touchstart="startSwipe" @touchmove="swipe" @touchend="endSwipe" @click="viewSwipe(true)">
     <div class="Swipe-CardContent" id="card">
       <div class="swipe-container1">
         <div class="swipe-image-container">
           <img id="picture" class="swipe-image" :src="item.pic" />
         </div>
         <div class="swipe-text-preview">
-          <div
-            :class="{
-              'Swipe-Swipeable--text': position !== 0,
-              'Swipe-Swipeable--text-stop': position === 0,
-            }"
-          >
+          <div :class="{
+            'Swipe-Swipeable--text': position !== 0,
+            'Swipe-Swipeable--text-stop': position === 0,
+          }">
             <div>
               <IonText class="swipe-text-stroke" style="font-size: 35px">
                 {{ item.jobname.toUpperCase() }}
@@ -47,12 +35,7 @@
     </div>
 
     <div class="flexcenter">
-      <IonModal
-        mode="ios"
-        class="swipe-modal"
-        :is-open="openView"
-        @did-dismiss="viewSwipe(false)"
-      >
+      <IonModal mode="ios" class="swipe-modal" :is-open="openView" @did-dismiss="viewSwipe(false)">
         <IonContent style="--background: white">
           <div class="flexcenter">
             <IonCard class="swipe-modal-card-company">
@@ -64,11 +47,7 @@
             <div class="swipe-gradient"></div>
             <img class="swipe-modal-picture" :src="item.pic" />
             <div>
-              <IonIcon
-                @click="viewSwipe(false)"
-                class="swipe-modal-icon"
-                :icon="chevronBack"
-              ></IonIcon>
+              <IonIcon @click="viewSwipe(false)" class="swipe-modal-icon" :icon="chevronBack"></IonIcon>
             </div>
           </div>
 
@@ -88,10 +67,7 @@
             <IonCard class="swipe-modal-cards">
               <IonText style="font-size: 15px; line-height: 10px">
                 <p class="swipe-modal-text-title">
-                  <IonIcon
-                    class="swipe-modal-icon-information"
-                    :icon="briefcase"
-                  ></IonIcon>
+                  <IonIcon class="swipe-modal-icon-information" :icon="briefcase"></IonIcon>
                   Job Information
                 </p>
                 <p class="swipe-modal-text-p">
@@ -114,16 +90,10 @@
             <IonCard class="swipe-modal-cards">
               <IonText style="font-size: 15px; line-height: 10px">
                 <p class="swipe-modal-text-title">
-                  <IonIcon
-                    class="swipe-modal-icon-information"
-                    :icon="document"
-                  ></IonIcon>
+                  <IonIcon class="swipe-modal-icon-information" :icon="document"></IonIcon>
                   Description
                 </p>
-                <p
-                  class="swipe-modal-text-p"
-                  style="line-height: 18px; text-align: center"
-                >
+                <p class="swipe-modal-text-p" style="line-height: 18px; text-align: center">
                   {{ item.jobdes }}
                 </p>
               </IonText>
@@ -134,10 +104,7 @@
             <IonCard class="swipe-modal-cards">
               <IonText style="font-size: 15px; line-height: 10px">
                 <p class="swipe-modal-text-title">
-                  <IonIcon
-                    class="swipe-modal-icon-information"
-                    :icon="alert"
-                  ></IonIcon>
+                  <IonIcon class="swipe-modal-icon-information" :icon="alert"></IonIcon>
                   Requirements
                 </p>
                 <p class="swipe-modal-text-p">
@@ -156,10 +123,7 @@
             <IonCard class="swipe-modal-cards">
               <IonText style="font-size: 15px; line-height: 10px">
                 <p class="swipe-modal-text-title">
-                  <IonIcon
-                    class="swipe-modal-icon-information"
-                    :icon="location"
-                  ></IonIcon>
+                  <IonIcon class="swipe-modal-icon-information" :icon="location"></IonIcon>
                   Work Location
                 </p>
                 <p class="swipe-modal-text-p">
@@ -178,59 +142,49 @@
             </IonCard>
           </div>
 
-          <div>
+          <div v-for="info in employerInfo">
             <IonCard class="swipe-modal-cards">
               <IonText style="font-size: 15px; line-height: 10px">
                 <p class="flexcenter swipe-modal-text-title">
-                  <IonIcon
-                    class="swipe-modal-icon-information"
-                    :icon="information"
-                  ></IonIcon>
+                  <IonIcon class="swipe-modal-icon-information" :icon="information"></IonIcon>
                   Company Information
                 </p>
                 <p class="swipe-modal-text-p">
-                  <b>Company Type:</b> {{ item.companytype }} wala to
+                  <b>Company Type:</b> {{ info.companytype }} wala to
                 </p>
                 <p class="swipe-modal-text-p">
-                  <b>Location</b> {{ item.loc }} wala to
+                  <b>Location</b> {{ info.loc }} wala to
                 </p>
                 <p class="swipe-modal-text-p">
-                  <b>Mision/Vision</b> {{ item.mv }} wala to
+                  <b>Mision/Vision</b> {{ info.mv }}
                 </p>
-                <p class="swipe-modal-text-title" style="font-size: 20px">
+                <p v-if="info.facebook || info.twitter || info.instagram" class="swipe-modal-text-title"
+                  style="font-size: 20px">
                   Social Media
                 </p>
-                <p class="swipe-modal-text-p">
-                  <b>Facebook:</b> {{ item.facebook }} wala to
+                <p v-if="info.facebook" class="swipe-modal-text-p">
+                  <b>Facebook:</b> {{ info.facebook }}
                 </p>
-                <p class="swipe-modal-text-p">
-                  <b>Twitter</b> {{ item.twitter }} wala to
+                <p v-if="info.twitter" class="swipe-modal-text-p">
+                  <b>Twitter</b> {{ info.twitter }}
                 </p>
-                <p class="swipe-modal-text-p">
-                  <b>Instagram</b> {{ item.instagram }} wala to
+                <p v-if="info.instagram" class="swipe-modal-text-p">
+                  <b>Instagram</b> {{ info.instagram }}
                 </p>
               </IonText>
             </IonCard>
           </div>
 
-          <div>
-            <IonChip> {{ item.chosenInterest }} wala dn to </IonChip>
+          <div v-for="spe in item.chosenInterests">
+            <IonChip> {{spe}} </IonChip>
           </div>
 
           <div class="flexcenter">
             <div class="flexcenter">
-              <IonAvatar
-                style="background-color: #ff6961"
-                @click="dislike()"
-                class="flexcenter swipe-modal-buttons"
-              >
+              <IonAvatar style="background-color: #ff6961" @click="dislike()" class="flexcenter swipe-modal-buttons">
                 <IonIcon style="color: white" :icon="thumbsDown"> </IonIcon>
               </IonAvatar>
-              <IonAvatar
-                style="background-color: #60a05b"
-                @click="like()"
-                class="flexcenter swipe-modal-buttons"
-              >
+              <IonAvatar style="background-color: #60a05b" @click="like()" class="flexcenter swipe-modal-buttons">
                 <IonIcon style="color: white" :icon="thumbsUp"> </IonIcon>
               </IonAvatar>
             </div>
@@ -268,8 +222,9 @@ import {
   location,
 } from "ionicons/icons";
 import "./Swipe.css";
-import { doc } from "firebase/firestore";
 import { validatePassword } from "firebase/auth";
+import { db } from "@/firebaseDB";
+import { doc, getDoc, collection, query, where, getDocs } from "firebase/firestore";
 
 export default {
   props: {
@@ -305,6 +260,7 @@ export default {
       position: 0,
       openView: false,
       imageUrl: "",
+      employerInfo: [],
     };
   },
   methods: {
@@ -320,7 +276,7 @@ export default {
         this.$emit("swipeRight", this.item);
       }, 100);
     },
-    bookmark() {},
+    bookmark() { },
     // getPicture() {
     //   const picture1 = document.getElementById("picture");
     //   // this.imageUrl = this.item.pic;
@@ -366,10 +322,18 @@ export default {
         this.position = 0;
       }
     },
+    async getEmployer() {
+      const docRef = doc(db, "users", this.item.company);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        this.employerInfo.push(docSnap.data())
+      } else {
+        // docSnap.data() will be undefined in this case
+        console.log("No such document!");
+      }
+    }
   },
-  // mounted() {
-  //   this.getPicture();
-  // },
   components: {
     IonGrid,
     IonRow,
@@ -397,6 +361,9 @@ export default {
       location,
     };
   },
+  mounted() {
+    this.getEmployer()
+  }
 };
 </script>
 

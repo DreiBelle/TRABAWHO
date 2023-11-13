@@ -5,11 +5,7 @@
         <IonTitle class="Swipe-header-title"> TRABAWHO </IonTitle>
         <IonButtons style="padding-left: 10px" slot="start">
           <div>
-            <img
-              style="height: 30px"
-              src="../assets/logo/whitefilllogo.png"
-              alt="logo"
-            />
+            <img style="height: 30px" src="../assets/logo/whitefilllogo.png" alt="logo" />
           </div>
         </IonButtons>
         <IonProgressBar v-if="isloading" type="indeterminate"></IonProgressBar>
@@ -18,41 +14,20 @@
 
     <IonContent :scroll-y="false" v-if="!isloading" style="background: snow">
       <div>
-        <IonRefresher
-          style="background: none; z-index: 4"
-          slot="fixed"
-          @ionRefresh="refresh($event)"
-        >
+        <IonRefresher style="background: none; z-index: 4" slot="fixed" @ionRefresh="refresh($event)">
           <IonRefresherContent></IonRefresherContent>
         </IonRefresher>
       </div>
       <div style="height: 100%">
         <div class="flexcenter" style="height: calc(100% - 50px)">
           <div class="flexcenter" v-if="cards.length - currentCardIndex >= 2">
-            <SwipeableCard
-              @clear-action="clearAction()"
-              :action="actionMade"
-              :item="cards[currentCardIndex]"
-              @swipeLeft="handleSwipeLeft"
-              @swipeRight="handleSwipeRight"
-              id="mainswiper"
-              class="asd"
-            />
+            <SwipeableCard @clear-action="clearAction()" :action="actionMade" :item="cards[currentCardIndex]"
+              @swipeLeft="handleSwipeLeft" @swipeRight="handleSwipeRight" id="mainswiper" class="asd" />
             <FakeSwipeableCard :item="cards[nextCardIndex]" class="asd2" />
           </div>
-          <div
-            class="flexcenter"
-            v-else-if="cards.length - currentCardIndex == 1"
-          >
-            <SwipeableCard
-              @clear-action="clearAction()"
-              :action="actionMade"
-              :item="cards[currentCardIndex]"
-              @swipeLeft="handleSwipeLeft"
-              @swipeRight="handleSwipeRight"
-              id="mainswiper"
-              class="asd"
-            />
+          <div class="flexcenter" v-else-if="cards.length - currentCardIndex == 1">
+            <SwipeableCard @clear-action="clearAction()" :action="actionMade" :item="cards[currentCardIndex]"
+              @swipeLeft="handleSwipeLeft" @swipeRight="handleSwipeRight" id="mainswiper" class="asd" />
             <IonCard class="Swipe-Swipeable"> no more available jobs </IonCard>
           </div>
           <div class="flexcenter" v-else>
@@ -60,39 +35,16 @@
           </div>
         </div>
         <div class="flexcenter" style="height: 50px; width: 100%">
-          <IonButton
-            class="Swipe-Help-Buttons"
-            @click="passSwipeleft"
-            style="--background: #ff6961"
-          >
-            <IonIcon
-              class="Swipe-Help-Buttons-icons"
-              :icon="arrowBack"
-            ></IonIcon>
-            <IonIcon
-              class="Swipe-Help-Buttons-icons"
-              :icon="thumbsDown"
-            ></IonIcon>
+          <IonButton class="Swipe-Help-Buttons" @click="passSwipeleft" style="--background: #ff6961">
+            <IonIcon class="Swipe-Help-Buttons-icons" :icon="arrowBack"></IonIcon>
+            <IonIcon class="Swipe-Help-Buttons-icons" :icon="thumbsDown"></IonIcon>
           </IonButton>
           <IonButton class="Swipe-Help-Buttons" @click="openInfo">
-            <IonIcon
-              class="Swipe-Help-Buttons-icons"
-              :icon="informationCircle"
-            ></IonIcon>
+            <IonIcon class="Swipe-Help-Buttons-icons" :icon="informationCircle"></IonIcon>
           </IonButton>
-          <IonButton
-            class="Swipe-Help-Buttons"
-            @click="passSwiperight"
-            style="--background: #60a05b"
-          >
-            <IonIcon
-              class="Swipe-Help-Buttons-icons"
-              :icon="thumbsUp"
-            ></IonIcon>
-            <IonIcon
-              class="Swipe-Help-Buttons-icons"
-              :icon="arrowForward"
-            ></IonIcon>
+          <IonButton class="Swipe-Help-Buttons" @click="passSwiperight" style="--background: #60a05b">
+            <IonIcon class="Swipe-Help-Buttons-icons" :icon="thumbsUp"></IonIcon>
+            <IonIcon class="Swipe-Help-Buttons-icons" :icon="arrowForward"></IonIcon>
           </IonButton>
         </div>
       </div>
@@ -137,7 +89,7 @@ import {
   RefresherEventDetail,
   IonToolbar,
   IonButtons,
-IonTitle,
+  IonTitle,
 } from "@ionic/vue";
 import { db, dbImage } from "@/firebaseDB";
 import { getDownloadURL, ref } from "firebase/storage";
@@ -152,7 +104,7 @@ import { useupdateview } from "@/stores/updateviews";
 import { useupdatebookmark } from "@/stores/updatebookmarks";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { GoHome } from "../NavBar/NavBar-Controller";
-import { signOut } from "firebase/auth";
+import { User, signOut } from "firebase/auth";
 import { auth } from "@/firebaseDB";
 import { uselike } from "@/stores/likes";
 import { useview } from "@/stores/views";
@@ -184,7 +136,7 @@ export default {
     IonToolbar,
     IonButtons,
     IonTitle
-},
+  },
   setup() {
     //new
 
@@ -266,19 +218,20 @@ export default {
       userswipej: [],
       isloading: true,
       actionMade: "",
+      employerID: "",
     };
   },
   methods: {
-    openInfo(){
+    openInfo() {
       this.actionMade = "info"
     },
-    clearAction(){
+    clearAction() {
       this.actionMade = ""
     },
-    passSwiperight(){
+    passSwiperight() {
       this.actionMade = "right"
     },
-    passSwipeleft(){
+    passSwipeleft() {
       this.actionMade = "left"
     },
     async refresh(event: CustomEvent<RefresherEventDetail>) {
@@ -400,6 +353,10 @@ export default {
               citown: job.citown,
               noofempl: job.noofempl,
               age: job.age,
+              province: job.province,
+              district: job.district,
+              street: job.street,
+              chosenInterests: job.chosenInterests
             };
           })
         );
@@ -514,8 +471,6 @@ export default {
       this.formData.creator = "";
       this.formData.swiper = "";
 
-
-
       this.swipedata = [];
       this.jobdata = [];
       this.userswipej = [];
@@ -535,7 +490,7 @@ export default {
       const userEmail = localStorage.getItem("email");
       // const userPassword = localStorage.getItem("password");
       user.value = await getUserProfile(userEmail);
-
+      const id = user.value.id;
       const chosenInterest = user.value.chosenInterests;
       const jobtype = user.value.jobtype;
       const loc = user.value.loc;
@@ -544,12 +499,15 @@ export default {
       const jobname = user.value.jobname;
       const classification = user.value.classification;
       const subclassification = user.value.subclassification;
-      const noofempl= user.value.noofempl;
+      const noofempl = user.value.noofempl;
       const age = user.value.age;
       const province = user.value.province;
       const citown = user.value.citown;
-      const district = user.value.district; 
+      const district = user.value.district;
       const street = user.value.street;
+      const chosenInterests = user.value.chosenInterests;
+
+      this.employerID = id
 
       const jobs = await getJobs(
         chosenInterest,
@@ -647,6 +605,7 @@ export default {
             citown: job.citown,
             district: job.district,
             street: job.street,
+            chosenInterests: job.chosenInterests
           };
         })
       );
