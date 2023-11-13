@@ -7,7 +7,7 @@
       :buttons="alertButtons"
     ></IonAlert>
 
-    <IonHeader style="height: 50px">
+    <IonHeader mode="md" style="height: 50px">
       <IonToolbar style="height: 50px; --background: #262c5c">
         <IonButtons style="padding-left: 10px" slot="start">
           <div>
@@ -61,9 +61,7 @@
       </div>
       <div>
         <div class="flexcenter">
-          <IonCard class="flexcenter jprofile-cards">
-            {{ age }} y/o
-          </IonCard>
+          <IonCard class="flexcenter jprofile-cards"> {{ age }} y/o </IonCard>
           <IonCard class="flexcenter jprofile-cards">
             {{ user ? `${user.gender}` : "..." }}
           </IonCard>
@@ -147,12 +145,6 @@
               {{ user ? `${user.college}` : "..." }}
             </IonCard>
           </div>
-          <div>
-            <IonText class="jprofile-cards-education-text"> Masteral </IonText>
-            <IonCard class="jprofile-cards-education">
-              {{ user ? `${user.masteral}` : "..." }}
-            </IonCard>
-          </div>
         </IonCard>
       </div>
       <div class="flexcenter">
@@ -184,6 +176,7 @@
           </div>
         </IonCard>
       </div>
+
       <div class="flexcenter">
         <IonCard class="jprofile-cards">
           <div class="flexcenter">
@@ -243,7 +236,7 @@
             >
               <div
                 class="flexcenter"
-                style="background-color: #262c5c; color: white; height: 30px"
+                style="background-color: #515782; color: white; height: 30px"
               >
                 <IonText
                   style="font-size: 20px; font-family: BebasNeue-Regular"
@@ -257,35 +250,110 @@
                     style="margin-top: 5px"
                     class="jprofile-text-margin-bottom"
                   >
-                    <b>Company Name: </b>
+                    <b>Company Name: </b> {{ experience.data.CompanyName }}
                   </p>
-                  <p
-                    class="jprofile-text-margin-bottom jprofile-text-experience-indent"
-                  >
-                    {{ experience.data.CompanyName }}
-                  </p>
+
                   <p class="jprofile-text-margin-bottom">
                     <b>Date of Employment: </b>
-                  </p>
-                  <p
-                    class="jprofile-text-margin-bottom jprofile-text-experience-indent"
-                  >
                     {{ experience.data.StartDate }} to
                     {{ experience.data.EndDate }}
                   </p>
+
                   <p class="jprofile-text-margin-bottom">
                     <b>Responsibilities and Duties: </b>
-                  </p>
-                  <p
-                    class="jprofile-text-margin-bottom jprofile-text-experience-indent"
-                  >
                     {{ experience.data.ResDuty }}
                   </p>
-                  <p class="jprofile-text-margin-bottom">
-                    <b>Skills Utilized: </b>
+
+                  <p
+                    class="jprofile-text-margin-bottom"
+                    style="padding-bottom: 10px"
+                  >
+                    <b>Skills Utilized: </b> {{ experience.data.Skills }}
                   </p>
-                  <p class="jprofile-text-experience-indent">
-                    {{ experience.data.Skills }}
+                </IonText>
+              </div>
+            </IonCard>
+          </div>
+        </IonCard>
+      </div>
+
+      <div class="flexcenter">
+        <IonCard class="jprofile-cards">
+          <div class="flexcenter">
+            <div style="width: 100%">
+              <IonText
+                class="flexcenter jprofile-modal-field-text jprofile-title"
+                style="
+                  border-radius: 100px 0 0 100px;
+                  width: 100%;
+                  padding-left: 50px;
+                "
+              >
+                AWARDS
+              </IonText>
+            </div>
+            <div
+              @click="addAwardsmodal(true)"
+              class="flexcenter jprofile-avatar-add-experience"
+            >
+              <IonIcon
+                class="jprofile-icon-add-experience"
+                :icon="add"
+              ></IonIcon>
+            </div>
+          </div>
+          <div
+            style="
+              display: flex;
+              height: fit-content;
+              overflow-x: auto;
+              width: 100%;
+              white-space: nowrap;
+            "
+          >
+            <IonCard
+              v-for="award in awards"
+              style="
+                min-width: 300px;
+                width: fit-content;
+                height: fit-content;
+                flex: 1 0 auto;
+                margin: 5px;
+                padding: 0;
+              "
+              @click="
+                editAwardmodal(
+                  true,
+                  award.data.AwardName,
+                  award.data.AwardWhere,
+                  award.data.AwardWhen,
+                  award.id
+                )
+              "
+            >
+              <div
+                class="flexcenter"
+                style="background-color: #515782; color: white; height: 30px"
+              >
+                <IonText
+                  style="font-size: 20px; font-family: BebasNeue-Regular"
+                >
+                  {{ award.data.AwardName }}
+                </IonText>
+              </div>
+              <div style="padding: 5px">
+                <IonText style="color: black">
+                  <p
+                    style="margin-top: 5px"
+                    class="jprofile-text-margin-bottom"
+                  >
+                    <b>Where: </b> {{ award.data.AwardWhere }}
+                  </p>
+                  <p
+                    class="jprofile-text-margin-bottom"
+                    style="padding-bottom: 10px"
+                  >
+                    <b>When: </b> {{ award.data.AwardWhen }}
                   </p>
                 </IonText>
               </div>
@@ -304,12 +372,28 @@
             </IonText>
           </div>
           <div>
+            <div>
+              <IonText class="jprofile-cards-education-text">
+                <b>Preffered Classification </b> 
+              </IonText>
+              <IonCard class="jprofile-cards-education">
+                {{ user ? `${user.classification}` : "..." }}
+              </IonCard>
+            </div>
+            <div>
+              <IonText class="jprofile-cards-education-text">
+                <b>Sub-Classification</b>
+              </IonText>
+              <IonCard class="jprofile-cards-education">
+                {{ user ? `${user.subclassification}` : "..." }}
+              </IonCard>
+            </div>
             <IonChip
               v-if="user && user.chosenInterests"
               v-for="interest in user.chosenInterests"
               :key="interest"
             >
-              {{ interest.label }}
+              {{ interest }}
             </IonChip>
           </div>
         </IonCard>
@@ -329,6 +413,11 @@
       :is-addexp="isAddexp"
     ></Expmodal>
 
+    <Awardmodal
+      @close-award-modal="addAwardsmodal(false)"
+      :is-addaward="isAddaward"
+    ></Awardmodal>
+
     <EditExpmodal
       @close-exp-edit-modal="editExpmodal(false, '', '', '', '', '', '', '')"
       :is-editexp="isEditexp"
@@ -340,6 +429,15 @@
       :pass-start-date="StartDate"
       :pass-expid="ExpId"
     ></EditExpmodal>
+
+    <EditAwardmodal
+      @close-award-edit-modal="editAwardmodal(false, '', '', '', '')"
+      :is-editaward="isEditaward"
+      :pass-award-name="AwardName"
+      :pass-award-when="AwardWhen"
+      :pass-award-where="AwardWhere"
+      :pass-award-id="AwardId"
+    ></EditAwardmodal>
   </IonPage>
 </template>
 
@@ -397,10 +495,14 @@ import profileModal from "./EditProfile-Modal.vue";
 import { signOut } from "firebase/auth";
 import { auth } from "@/firebaseDB";
 import Expmodal from "./Profile-AddExp.vue";
+import Awardmodal from "./Profile-AddAward.vue";
 import EditExpmodal from "./Profile-EditExp.vue";
+import EditAwardmodal from "./Profile-EditAward.vue";
 
 export default {
   components: {
+    EditAwardmodal,
+    Awardmodal,
     EditExpmodal,
     Expmodal,
     profileModal,
@@ -519,9 +621,20 @@ export default {
       ResDuty: "",
       Skills: "",
       ExpId: "",
+
+      isAddaward: false,
+      isEditaward: false,
+      awards: [],
+      AwardName: "",
+      AwardWhere: "",
+      AwardWhen: "",
+      AwardId: "",
     };
   },
   methods: {
+    addAwardsmodal(x) {
+      this.isAddaward = x;
+    },
     getExperiences() {
       const q = query(
         collection(db, "Experiences"),
@@ -535,6 +648,19 @@ export default {
         });
       });
     },
+    getAwards() {
+      const q = query(
+        collection(db, "Awards"),
+        where("SeekerId", "==", this.loggedUser),
+        where("Removed", "==", false)
+      );
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        this.awards = [];
+        querySnapshot.forEach((doc) => {
+          this.awards.push({ id: doc.id, data: doc.data() });
+        });
+      });
+    },
     editExpmodal(x, title, name, start, end, res, skill, idexp) {
       this.JobTitle = title;
       this.CompanyName = name;
@@ -545,6 +671,13 @@ export default {
       this.ExpId = idexp;
       this.isEditexp = x;
       console.log("printing" + this.JobTitle);
+    },
+    editAwardmodal(x, name, where, when, id) {
+      this.AwardName = name;
+      this.AwardWhere = where;
+      this.AwardWhen = when;
+      this.AwardId = id;
+      this.isEditaward = x;
     },
     addExpmodal(x) {
       this.isAddexp = x;
@@ -574,6 +707,7 @@ export default {
   },
   mounted() {
     this.getExperiences();
+    this.getAwards();
   },
 };
 </script>

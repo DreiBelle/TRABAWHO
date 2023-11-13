@@ -11,9 +11,7 @@
             />
           </div>
         </IonButtons>
-        <IonTitle class="jmessage-header-title" mode="ios">
-          MESSAGE
-        </IonTitle>
+        <IonTitle class="jmessage-header-title" mode="ios"> MESSAGE </IonTitle>
       </IonToolbar>
     </IonHeader>
 
@@ -25,31 +23,42 @@
           class="jmessage-searchabr"
         ></IonSearchbar>
       </div>
-      <div style="margin-top: 30px">
+      <div style="margin-top: 35px">
         <div
           v-for="chat in chats"
           class="flexcenter"
           style="margin-bottom: -40px"
         >
           <IonCard
-            @click="chatModal(true, chat.data.EmployerName, chat.data.EmployerPicture, chat.data.JobSwipe, chat.data.EmployerEmail, chat.id)"
+            @click="
+              chatModal(
+                true,
+                chat.data.EmployerName,
+                chat.data.EmployerPicture,
+                chat.data.JobSwipe,
+                chat.data.EmployerEmail,
+                chat.id
+              )
+            "
             mode="ios"
             class="jmessage-chats-card"
           >
             <div class="jmeesage-chats-container">
               <div>
                 <IonAvatar>
-                  <img
-                    :src="chat.data.EmployerPicture"
-                  />
+                  <img :src="chat.data.EmployerPicture" />
                 </IonAvatar>
               </div>
               <div style="margin-left: 10px">
                 <div>
-                  <IonText class="jmessage-text">{{ chat.data.EmployerName }} | {{ chat.data.JobSwipe }}</IonText>
+                  <IonText class="jmessage-text"
+                    >{{ chat.data.EmployerName }} |
+                    {{ chat.data.JobSwipe }}</IonText
+                  >
                 </div>
                 <div>
-                  {{ chat.data.latestMessage }} - {{ formatTimestamp(chat.data.latestSent) }}
+                  {{ chat.data.latestMessage }} -
+                  {{ formatTimestamp(chat.data.latestSent) }}
                 </div>
               </div>
             </div>
@@ -58,19 +67,24 @@
       </div>
     </IonContent>
 
-    <IonModal mode="ios" :is-open="isChat" @did-dismiss="chatModal(false, '', '','','','')">
+    <IonModal
+      mode="ios"
+      :is-open="isChat"
+      @did-dismiss="chatModal(false, '', '', '', '', '')"
+    >
       <div class="flexcenter jmessage-modal-header">
         <div class="flexcenter">
-          <IonIcon @click="chatModal(false, '', '','','','')" :icon="chevronBack"></IonIcon>
+          <IonIcon
+            @click="chatModal(false, '', '', '', '', '')"
+            :icon="chevronBack"
+          ></IonIcon>
         </div>
         <div>
           <IonAvatar class="jmessage-modal-header-avatar">
             <img :src="clickedPicture" />
           </IonAvatar>
         </div>
-        <div>
-          {{ clickedChat }} | {{ clickedJobSwiped }}
-        </div>
+        <div>{{ clickedChat }} | {{ clickedJobSwiped }}</div>
       </div>
       <div style="height: 100%">
         <IonContent ref="content">
@@ -78,7 +92,7 @@
             <div v-for="(message, index) in messages">
               <div
                 v-if="message.senderEmail === sender"
-                style="width: 50%; margin-left: 50%"
+                style="width: 100%; padding-right: 5px"
               >
                 <!-- sender -->
                 <div>
@@ -141,9 +155,7 @@
                 <div class="jmessage-receiver">
                   <div>
                     <IonAvatar class="jmessage-avatar">
-                      <img
-                        :src="clickedPicture"
-                      />
+                      <img :src="clickedPicture" />
                     </IonAvatar>
                   </div>
                   <div>
@@ -295,7 +307,7 @@ import {
   IonAlert,
   IonToolbar,
   IonButtons,
-IonTitle,
+  IonTitle,
 } from "@ionic/vue";
 import Navbar from "../NavBar/NavBar.vue";
 import "./Seeker-Message.css";
@@ -360,8 +372,8 @@ export default {
     IonActionSheet,
     IonAlert,
     IonToolbar,
-    IonTitle
-},
+    IonTitle,
+  },
   data() {
     return {
       user: "",
@@ -401,8 +413,16 @@ export default {
     };
   },
   methods: {
+    scrollToBottom() {
+      this.$refs.content.$el.scrollToBottom(500);
+    },
     async getChats() {
-      const q = query(collection(db, "MessagesUsers"), where("SeekerEmail", "==", this.sender), where("SeekerActive", "==", true), orderBy("latestSent", "desc"));
+      const q = query(
+        collection(db, "MessagesUsers"),
+        where("SeekerEmail", "==", this.sender),
+        where("SeekerActive", "==", true),
+        orderBy("latestSent", "desc")
+      );
 
       const unsubscribe = onSnapshot(q, (snapshot) => {
         this.chats = []; // Clear existing data
@@ -498,11 +518,6 @@ export default {
         console.error("No files selected or an error occurred.");
       }
     },
-
-    scrollToBottom(x) {
-      const container = this.$refs.content;
-    },
-
     async sendMessage() {
       const filter = new Filter();
 
@@ -581,7 +596,7 @@ export default {
       this.namePic = "";
       this.selectedpic = "";
       this.messagePic = "";
-      this.scrollToBottom(500);
+      this.scrollToBottom();
     },
 
     async chatModal(x, receiver, receiverPic, job, email, clickid) {
@@ -590,11 +605,11 @@ export default {
         this.unsubscribe();
       }
 
-      this.clickedChat = receiver
-      this.clickedPicture = receiverPic
-      this.clickedJobSwiped = job
-      this.clickedChatEmail = email
-      this.clickedId = clickid
+      this.clickedChat = receiver;
+      this.clickedPicture = receiverPic;
+      this.clickedJobSwiped = job;
+      this.clickedChatEmail = email;
+      this.clickedId = clickid;
 
       const sendq = query(
         collection(db, "Messages"),
@@ -621,7 +636,7 @@ export default {
         this.isLoading = false;
 
         setTimeout(() => {
-          this.scrollToBottom(500);
+          this.scrollToBottom();
         }, 150);
       });
 
@@ -636,9 +651,8 @@ export default {
     },
   },
   mounted() {
-    this.getChats()
-
-  }
+    this.getChats();
+  },
 };
 </script>
 

@@ -128,6 +128,7 @@
                     fill="outline"
                     v-model="tagsInput"
                     type="text"
+                    mode="md"
                     required
                     style="margin-top: 10px;"
                   >
@@ -268,6 +269,7 @@ export default {
       alertMessage: "",
       prefferedClassification: "",
       subclassificationClassification: "",
+      tagsInput: "",
     };
   },
   methods: {
@@ -324,11 +326,14 @@ export default {
         return;
       }
 
-      if (this.chosenChoices.length > 0) {
+      const tagsArray = this.tagsInput.split(',').map(tag => tag.trim().toLowerCase()).filter(tag => tag !== '');
+        console.log(tagsArray)
+
+      // if (this.chosenChoices.length > 0) {
         const signupStore = useSignupStore();
         const sharedFormData = signupStore.formData;
         this.userswipej.push({ jobdid: "" });
-        signupStore.setChosenInterests(this.chosenChoices);
+        signupStore.setChosenInterests(tagsArray);
         signupStore.setjobswipe(this.userswipej);
         signupStore.setFormData({
           ...sharedFormData,
@@ -343,9 +348,9 @@ export default {
         console.log("Chosen Choices:", this.chosenChoices);
         // await signupStore.registerUser();
         GoSignupPicture();
-      } else {
-        this.alertbox(true, `Fill all the Field to continue`);
-      }
+      // } else {
+      //   this.alertbox(true, `Fill all the Field to continue`);
+      // }
     },
     goBack,
     GoSignupPicture,

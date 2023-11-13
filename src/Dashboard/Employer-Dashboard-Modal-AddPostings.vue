@@ -366,7 +366,8 @@ export default {
       thereisImage: false,
       prefferedClassification: "",
       subclassificationClassification: "",
-      EmployerEmail: localStorage.getItem("email"), tagsInput: "",
+      EmployerEmail: localStorage.getItem("email"), 
+      tagsInput: "",
       isLoading: false,
     };
   },

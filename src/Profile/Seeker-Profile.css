@@ -162,7 +162,8 @@
   width: 100%;
   margin: 5px;
   padding: 5px;
-}
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+  rgba(0, 0, 0, 0.08) 0px 0px 0px 1px; }
 
 .jprofile-cards-ads {
   height: 100px;
@@ -174,6 +175,8 @@
   color: black;
   margin: 5px 0 5px 0;
   padding: 5px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+  rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 }
 
 .jprofile-cards-education-text {
@@ -252,7 +255,7 @@
   --border-radius: 10px;
 }
 
-.jprofile-modal-buttons-alert{
+.jprofile-modal-buttons-alert {
   min-height: 0;
   height: 35px;
   --border-radius: 10px;

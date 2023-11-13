@@ -160,14 +160,6 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("../Login/LoginComputer-View.vue"),
   },
   {
-    path: "/Seeker-Message2",
-    name: "Seeker-Message2",
-    component: () => import("../Message/Seeker-Chatbox.vue"),
-    meta: {
-      requiresAuth: true,
-    },
-  },
-  {
     path: "/LandingPage",
     name: "LandingPage",
     component: () => import("../Home/Home-LandingPage.vue"),

@@ -6,7 +6,7 @@
     "
   >
     <div v-if="screenSize <= 425">
-      <IonPage>
+      <div style="height: 100vh;">
         <IonGrid style="height: 100%; width: 100%">
           <IonRow style="height: 100%">
             <IonCol class="flexcenter">
@@ -50,7 +50,7 @@
             </IonCol>
           </IonRow>
         </IonGrid>
-      </IonPage>
+      </div>
     </div>
     <div v-if="screenSize >= 426">
       <!-- Your large screen content -->

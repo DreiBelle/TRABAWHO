@@ -2,7 +2,7 @@
   <IonModal
     :initial-breakpoint="0.5"
     :breakpoints="[0.3, 0.5, 0.5, 1]"
-    :is-open="isAddexp"
+    :is-open="isAddaward"
     @did-dismiss="closeExpmodal()"
   >
     <div>
@@ -10,18 +10,18 @@
         class="flexcenter"
         style="margin-top: 20px; font-family: BebasNeue-Regular"
       >
-        <IonText style="font-size: 25px"> ADD EXPERIENCES </IonText>
+        <IonText style="font-size: 25px"> ADD AWARDS </IonText>
       </div>
       <div style="width: 100%">
         <div class="flexcenter" style="width: 100%; margin-bottom: -10px">
           <IonInput
             mode="md"
             class="jprofile-modal-inputs3"
-            label="Job Title"
-            placeholder="Enter Job title"
+            label="Award Name"
+            placeholder="Enter the name of the award"
             labelPlacement="stacked"
             fill="outline"
-            v-model="JobTitle"
+            v-model="AwardName"
             required
           >
           </IonInput>
@@ -30,11 +30,11 @@
           <IonInput
             mode="md"
             class="jprofile-modal-inputs3"
-            label="Company Name"
-            placeholder="Enter past Company Name of experience"
+            label="Where"
+            placeholder="place you got the award from"
             labelPlacement="stacked"
             fill="outline"
-            v-model="CompanyName"
+            v-model="AwardWhere"
             required
           >
           </IonInput>
@@ -43,51 +43,12 @@
           <IonInput
             mode="md"
             class="jprofile-modal-inputs3"
-            label="Start Date"
-            placeholder="Enter Start Date"
+            label="When"
+            placeholder="the date you got the award"
             labelPlacement="stacked"
             fill="outline"
             type="date"
-            v-model="StartDate"
-            required
-          >
-          </IonInput>
-          -
-          <IonInput
-            mode="md"
-            class="jprofile-modal-inputs3"
-            label="End Date"
-            placeholder="Enter End Date"
-            labelPlacement="stacked"
-            fill="outline"
-            type="date"
-            v-model="EndDate"
-            required
-          >
-          </IonInput>
-        </div>
-        <div class="flexcenter" style="width: 100%; margin-bottom: -10px;s">
-          <IonTextarea
-            mode="md"
-            class="jprofile-modal-inputs2"
-            label="Responsibilities and Duties"
-            placeholder="Enter Responsibilities and Duties of experience"
-            labelPlacement="stacked"
-            fill="outline"
-            v-model="ResDuty"
-            required
-          >
-          </IonTextarea>
-        </div>
-        <div class="flexcenter" style="width: 100%; margin-bottom: -10px">
-          <IonInput
-            mode="md"
-            class="jprofile-modal-inputs3"
-            label="Skills"
-            placeholder="Enter Skills seperated by ','"
-            labelPlacement="stacked"
-            fill="outline"
-            v-model="Skills"
+            v-model="AwardWhen"
             required
           >
           </IonInput>
@@ -148,7 +109,7 @@ export default {
     IonTextarea,
   },
   props: {
-    isAddexp: {
+    isAddaward: {
       type: Boolean,
       required: true,
     },
@@ -167,6 +128,10 @@ export default {
       Skills: "",
       isAlert: false,
       isAlertmessage: "",
+
+      AwardName: "",
+      AwardWhere: "",
+      AwardWhen: "",
     };
   },
   setup() {
@@ -181,52 +146,26 @@ export default {
       this.isAlertmessage = message;
     },
     async handleSaveexp() {
-      if (
-        this.UserEmail &&
-        this.JobTitle &&
-        this.CompanyName &&
-        this.StartDate &&
-        this.EndDate &&
-        this.ResDuty &&
-        this.Skills
-      ) {
-        const docRef = await addDoc(collection(db, "Experiences"), {
+      if (this.AwardName && this.AwardWhere && this.AwardWhen) {
+        const docRef = await addDoc(collection(db, "Awards"), {
           SeekerId: this.UserEmail,
-          JobTitle: this.JobTitle,
-          CompanyName: this.CompanyName,
-          StartDate: this.StartDate,
-          EndDate: this.EndDate,
-          ResDuty: this.ResDuty,
-          Skills: this.Skills,
+          AwardName: this.AwardName,
+          AwardWhere: this.AwardWhere,
+          AwardWhen: this.AwardWhen,
           DateCreated: serverTimestamp(),
           Removed: false,
         });
         console.log("Document written with ID: ", docRef.id);
-        this.JobTitle = "";
-        this.CompanyName = "";
-        this.StartDate = "";
-        this.EndDate = "";
-        this.ResDuty = "";
-        this.Skills = "";
+        this.AwardName = "";
+        this.AwardWhere = "";
+        this.AwardWhen = "";
         this.closeExpmodal();
       } else {
         this.modalAlert(true, "Fill all Fields!");
       }
     },
     closeExpmodal() {
-      this.$emit("close-exp-modal");
-    },
-    modalInterest(x) {
-      this.isModalinterest = x;
-    },
-    handleChoiceSelected(choice) {
-      this.chosenChoices.push(choice);
-      this.isModalinterest = false;
-    },
-    removeChoice(choiceId) {
-      this.chosenChoices = this.chosenChoices.filter(
-        (choice) => choice.id !== choiceId
-      );
+      this.$emit("close-award-modal");
     },
   },
 };

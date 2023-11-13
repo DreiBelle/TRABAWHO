@@ -150,10 +150,10 @@
                   Company Information
                 </p>
                 <p class="swipe-modal-text-p">
-                  <b>Company Type:</b> {{ info.companytype }} wala to
+                  <b>Company Type:</b> {{ info.companytype }}
                 </p>
                 <p class="swipe-modal-text-p">
-                  <b>Location</b> {{ info.loc }} wala to
+                  <b>Location</b> {{ info.loc }}
                 </p>
                 <p class="swipe-modal-text-p">
                   <b>Mision/Vision</b> {{ info.mv }}
@@ -175,8 +175,8 @@
             </IonCard>
           </div>
 
-          <div v-for="spe in item.chosenInterests">
-            <IonChip> {{spe}} </IonChip>
+          <div style="flex-wrap: wrap;" >
+            <IonChip  v-for="spe in item.chosenInterests" > {{spe}} </IonChip>
           </div>
 
           <div class="flexcenter">

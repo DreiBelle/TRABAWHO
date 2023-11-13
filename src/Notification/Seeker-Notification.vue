@@ -1,6 +1,6 @@
 <template>
     <IonPage>
-        <IonHeader style="height: 50px">
+        <IonHeader mode="md" style="height: 50px">
             <IonToolbar style="height: 100%; --background: #262c5c">
                 <IonButtons style="padding-left: 10px" slot="start">
                     <div>

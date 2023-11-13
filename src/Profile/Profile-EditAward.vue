@@ -2,7 +2,7 @@
   <IonModal
     :initial-breakpoint="0.5"
     :breakpoints="[0.3, 0.5, 0.5, 1]"
-    :is-open="isEditexp"
+    :is-open="isEditaward"
     @did-dismiss="closeExpmodal()"
   >
     <div>
@@ -17,11 +17,11 @@
           <IonInput
             mode="md"
             class="jprofile-modal-inputs3"
-            label="Job Title"
-            placeholder="Enter Job title"
+            label="Award Name"
+            placeholder="Enter the name of the award"
             labelPlacement="stacked"
             fill="outline"
-            v-model="JobTitle"
+            v-model="AwardName"
             required
           >
           </IonInput>
@@ -30,11 +30,11 @@
           <IonInput
             mode="md"
             class="jprofile-modal-inputs3"
-            label="Company Name"
-            placeholder="Enter past Company Name of experience"
+            label="Where"
+            placeholder="place you got the award from"
             labelPlacement="stacked"
             fill="outline"
-            v-model="CompanyName"
+            v-model="AwardWhere"
             required
           >
           </IonInput>
@@ -43,52 +43,12 @@
           <IonInput
             mode="md"
             class="jprofile-modal-inputs3"
-            label="Start Date"
-            placeholder="Enter Start Date"
+            label="When"
+            placeholder="the date you got the award"
             labelPlacement="stacked"
             fill="outline"
             type="date"
-            v-model="StartDate"
-            required
-          >
-          </IonInput>
-          -
-          <IonInput
-            mode="md"
-            class="jprofile-modal-inputs3"
-            label="End Date"
-            placeholder="Enter End Date"
-            labelPlacement="stacked"
-            fill="outline"
-            type="date"
-            v-model="EndDate"
-            required
-          >
-          </IonInput>
-        </div>
-        <div class="flexcenter" style="width: 100%; margin-bottom: -10px;s">
-          <IonTextarea
-            mode="md"
-            class="jprofile-modal-inputs2"
-            label="Responsibilities and Duties"
-            placeholder="Enter Responsibilities and Duties of experience"
-            labelPlacement="stacked"
-            fill="outline"
-            v-model="ResDuty"
-            required
-          >
-          </IonTextarea>
-        </div>
-
-        <div class="flexcenter" style="width: 100%; margin-bottom: -10px">
-          <IonInput
-            mode="md"
-            class="jprofile-modal-inputs3"
-            label="Skills"
-            placeholder="Enter Skills seperated by ','"
-            labelPlacement="stacked"
-            fill="outline"
-            v-model="Skills"
+            v-model="AwardWhen"
             required
           >
           </IonInput>
@@ -164,48 +124,33 @@ export default {
     IonTextarea,
   },
   props: {
-    isEditexp: {
+    isEditaward: {
       type: Boolean,
       required: true,
     },
-    passJobTitle: {
+    passAwardName: {
       type: String,
       required: true,
     },
-    passCompanyName: {
+    passAwardWhere: {
       type: String,
       required: true,
     },
-    passStartDate: {
+    passAwardWhen: {
       type: String,
       required: true,
     },
-    passEndDate: {
-      type: String,
-      required: true,
-    },
-    passResDuty: {
-      type: String,
-      required: true,
-    },
-    passSkills: {
-      type: String,
-      required: true,
-    },
-    passExpid: {
+    passAwardId: {
       type: String,
       required: true,
     },
   },
   watch: {
-    passJobTitle: function (value) {
+    passAwardName: function (value) {
       if (value) {
-        this.JobTitle = this.passJobTitle;
-        this.CompanyName = this.passCompanyName;
-        this.StartDate = this.passStartDate;
-        this.EndDate = this.passEndDate;
-        this.ResDuty = this.passResDuty;
-        this.Skills = this.passSkills;
+        this.AwardName = this.passAwardName;
+        this.AwardWhere = this.passAwardWhere;
+        this.AwardWhen = this.passAwardWhen;
         console.log("pass");
       } else if (!value) {
         console.log("none");
@@ -214,15 +159,9 @@ export default {
   },
   data() {
     return {
-      isModalinterest: false,
-      modalChoices: [],
-      chosenChoices: [],
-      JobTitle: "",
-      CompanyName: "",
-      StartDate: "",
-      EndDate: "",
-      ResDuty: "",
-      Skills: "",
+      AwardName: "",
+      AwardWhere: "",
+      AwardWhen: "",
       isAlert: false,
     };
   },
@@ -239,57 +178,43 @@ export default {
       this.isAlertmessage = message;
     },
     clearFields() {
-      this.JobTitle = "";
-      this.CompanyName = "";
-      this.StartDate = "";
-      this.EndDate = "";
-      this.ResDuty = "";
-      this.Skills = "";
+      this.AwardName = "";
+      this.AwardWhen = "";
+      this.AwardWhere = "";
     },
     async handleRemove() {
-      const updateFields = doc(db, "Experiences", this.passExpid);
+      const updateFields = doc(db, "Awards", this.passAwardId);
 
       await updateDoc(updateFields, {
         Removed: true,
       });
 
       this.clearFields();
-      this.$emit("close-exp-edit-modal");
+      this.$emit("close-award-edit-modal");
     },
     async handleEdit() {
-      if (this.CompanyName && this.JobTitle && this.StartDate && this.EndDate && this.ResDuty && this.Skills) {
-        const updateFields = doc(db, "Experiences", this.passExpid);
+      if (
+        this.AwardName &&
+        this.AwardWhere &&
+        this.AwardWhen
+      ) {
+        const updateFields = doc(db, "Awards", this.passAwardId);
 
         await updateDoc(updateFields, {
-          CompanyName: this.CompanyName,
-          JobTitle: this.JobTitle,
-          StartDate: this.StartDate,
-          EndDate: this.EndDate,
-          ResDuty: this.ResDuty,
-          Skills: this.Skills,
+            AwardName: this.AwardWhen,
+            AwardWhere: this.AwardWhere,
+            AwardWhen: this.AwardWhen,
         });
 
         this.clearFields();
-        this.$emit("close-exp-edit-modal");
+        this.$emit("close-award-edit-modal");
       } else {
-        this.modalAlert(true, "Fill all fields!")
+        this.modalAlert(true, "Fill all fields!");
       }
     },
     closeExpmodal() {
       this.clearFields();
-      this.$emit("close-exp-edit-modal");
-    },
-    modalInterest(x) {
-      this.isModalinterest = x;
-    },
-    handleChoiceSelected(choice) {
-      this.chosenChoices.push(choice);
-      this.isModalinterest = false;
-    },
-    removeChoice(choiceId) {
-      this.chosenChoices = this.chosenChoices.filter(
-        (choice) => choice.id !== choiceId
-      );
+      this.$emit("close-award-edit-modal");
     },
   },
 };

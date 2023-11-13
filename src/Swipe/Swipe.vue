@@ -1,8 +1,8 @@
 <template>
   <IonPage>
-    <IonHeader style="height: 50px">
+    <IonHeader mode="md" style="height: 50px">
       <IonToolbar style="height: 100%; --background: #262c5c">
-        <IonTitle class="Swipe-header-title"> TRABAWHO </IonTitle>
+        <IonTitle mode="md" class="Swipe-header-title"> TRABAWHO </IonTitle>
         <IonButtons style="padding-left: 10px" slot="start">
           <div>
             <img style="height: 30px" src="../assets/logo/whitefilllogo.png" alt="logo" />
