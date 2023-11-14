@@ -1,19 +1,18 @@
 <template>
-  <IonModal
-    :is-open="isViewmodal"
-    @did-dismiss="closeModal"
-    style="--border-radius: 20px"
-  >
+  <IonModal :is-open="isViewmodal" @did-dismiss="closeModal" style="--border-radius: 20px">
     <div v-for="user in users" style="height: 100%">
       <IonContent>
-        <IonHeader class="flexcenter admin-view-modal-header"
-          >{{ passId }}
+        <IonHeader class="flexcenter admin-view-modal-header">{{ passId }}
           <div style="z-index: 1; position: absolute; right: 20px">
-            <IonIcon
-              @click="closeModal"
-              class="admin-pointer"
-              :icon="close"
-            ></IonIcon>
+            <IonIcon v-if="user.aprooved === true" @click="disaproove(passId)" class="admin-pointer" :icon="radioButtonOnOutline"></IonIcon>
+            <IonIcon v-if="user.aprooved === false" @click="aproove" class="admin-pointer" :icon="radioButtonOffOutline"></IonIcon><br/>
+            <IonIcon v-if="user.type == 'employer'" @click="OpenEditModal(true, user.id)" class="admin-pointer"
+              :icon="pencil" style="margin-right: 30px;"></IonIcon>
+            <IonIcon v-if="user.type == 'jobseeker'" @click="OpenEditjModal(true, user.id)" class="admin-pointer"
+              :icon="pencil" style="margin-right: 30px;"></IonIcon>
+            <IonIcon @click="" class="admin-pointer" :icon="trash" style="margin-right: 30px;"></IonIcon>
+            <IonIcon v-if="user.type == 'employer'" @click="OpenEditModal" class="admin-pointer" :icon="close"></IonIcon>
+            <IonIcon v-if="user.type == 'jobseeker'" @click="OpenEditModal" class="admin-pointer" :icon="close"></IonIcon>
           </div>
         </IonHeader>
         <div v-if="user.type == 'jobseeker'" style="padding: 10px">
@@ -32,18 +31,14 @@
             <div>
               <div class="admin-padding-text">
                 <IonText class="admin-view-top-info-text">
-                  <b>Name: </b> {{ user.fullname }}</IonText
-                >
+                  <b>Name: </b> {{ user.fullname }}
+                </IonText>
               </div>
               <div class="admin-padding-text">
-                <IonText class="admin-view-top-info-text"
-                  ><b>Type: </b> {{ user.type }}</IonText
-                >
+                <IonText class="admin-view-top-info-text"><b>Type: </b> {{ user.type }}</IonText>
               </div>
               <div class="admin-padding-text">
-                <IonText class="admin-view-top-info-text"
-                  ><b>Contact No.: </b> {{ user.contactno }}</IonText
-                >
+                <IonText class="admin-view-top-info-text"><b>Contact No.: </b> {{ user.contactno }}</IonText>
               </div>
             </div>
           </div>
@@ -51,11 +46,7 @@
             <IonCard class="admin-modal-view-cards">
               <div>
                 <div style="justify-content: left">
-                  <IonText
-                    class="flexcenter"
-                    style="font-size: 20px; font-weight: bold"
-                    >Personal</IonText
-                  >
+                  <IonText class="flexcenter" style="font-size: 20px; font-weight: bold">Personal</IonText>
                   <IonText>
                     <p><b>Birthday: </b>{{ user.bday }}</p>
                     <p><b>Gender: </b>{{ user.gender }}</p>
@@ -71,11 +62,7 @@
             <IonCard class="admin-modal-view-cards">
               <div>
                 <div>
-                  <IonText
-                    class="flexcenter"
-                    style="font-size: 20px; font-weight: bold"
-                    >Education</IonText
-                  >
+                  <IonText class="flexcenter" style="font-size: 20px; font-weight: bold">Education</IonText>
                   <IonText>
                     <p><b>Elementary: </b>{{ user.elementary }}</p>
                     <p><b>Highschool: </b>{{ user.juniorhigh }}</p>
@@ -93,11 +80,7 @@
             <IonCard class="admin-modal-view-cards" style="height: fit-content">
               <div>
                 <div style="justify-content: left">
-                  <IonText
-                    class="flexcenter"
-                    style="font-size: 20px; font-weight: bold"
-                    >Preferences</IonText
-                  >
+                  <IonText class="flexcenter" style="font-size: 20px; font-weight: bold">Preferences</IonText>
                   <IonText>
                     <p><b>Years of Experience: </b>{{ user.yearsofexp }}</p>
                     <p><b>Classification: </b>{{ user.classification }}</p>
@@ -128,10 +111,7 @@
                 <img :src="user.pic" alt="image" />
               </IonAvatar>
               <IonAvatar class="admin-view-modal-avatar" v-else-if="!user.pic">
-                <img
-                  src="https://ionicframework.com/docs/img/demos/avatar.svg"
-                  alt="image"
-                />
+                <img src="https://ionicframework.com/docs/img/demos/avatar.svg" alt="image" />
               </IonAvatar>
             </div>
 
@@ -140,18 +120,14 @@
             <div>
               <div class="admin-padding-text">
                 <IonText class="admin-view-top-info-text">
-                  <b>Name: </b> {{ user.businessname }}</IonText
-                >
+                  <b>Name: </b> {{ user.businessname }}
+                </IonText>
               </div>
               <div class="admin-padding-text">
-                <IonText class="admin-view-top-info-text"
-                  ><b>Type: </b> {{ user.type }}</IonText
-                >
+                <IonText class="admin-view-top-info-text"><b>Type: </b> {{ user.type }}</IonText>
               </div>
               <div class="admin-padding-text">
-                <IonText class="admin-view-top-info-text"
-                  ><b>Contact No.: </b> {{ user.number }}</IonText
-                >
+                <IonText class="admin-view-top-info-text"><b>Contact No.: </b> {{ user.number }}</IonText>
               </div>
             </div>
           </div>
@@ -159,11 +135,7 @@
             <IonCard class="admin-modal-view-cards" style="height: fit-content;">
               <div>
                 <div style="justify-content: left">
-                  <IonText
-                    class="flexcenter"
-                    style="font-size: 20px; font-weight: bold"
-                    >MISION/VISION</IonText
-                  >
+                  <IonText class="flexcenter" style="font-size: 20px; font-weight: bold">MISION/VISION</IonText>
                   <IonText>
                     <p>{{ user.mv }}</p>
                   </IonText>
@@ -175,11 +147,7 @@
             <IonCard class="admin-modal-view-cards">
               <div>
                 <div style="justify-content: left">
-                  <IonText
-                    class="flexcenter"
-                    style="font-size: 20px; font-weight: bold"
-                    >COMPANY</IonText
-                  >
+                  <IonText class="flexcenter" style="font-size: 20px; font-weight: bold">COMPANY</IonText>
                   <IonText>
                     <p><b>Contact Person Name: </b>{{ user.contactpn }}</p>
                     <p><b>Email: </b>{{ user.email }}</p>
@@ -191,11 +159,7 @@
             <IonCard class="admin-modal-view-cards">
               <div>
                 <div>
-                  <IonText
-                    class="flexcenter"
-                    style="font-size: 20px; font-weight: bold"
-                    >FOUNDERS</IonText
-                  >
+                  <IonText class="flexcenter" style="font-size: 20px; font-weight: bold">FOUNDERS</IonText>
                   <IonText class="flexcenter">
                     <p style="white-space: pre-line; text-align: center">
                       {{ user.founders }}
@@ -209,15 +173,11 @@
             <IonCard class="admin-modal-view-cards" style="height: fit-content">
               <div>
                 <div style="justify-content: left">
-                  <IonText
-                    class="flexcenter"
-                    style="font-size: 20px; font-weight: bold"
-                    >Social Media</IonText
-                  >
+                  <IonText class="flexcenter" style="font-size: 20px; font-weight: bold">Social Media</IonText>
                   <IonText>
-                   <IonChip v-if="user.twitter">{{ user.twitter }}</IonChip>
-                   <IonChip v-if="user.facebook">{{ user.facebook }}</IonChip>
-                   <IonChip v-if="user.instagram">{{ user.instagram }}</IonChip>
+                    <IonChip v-if="user.twitter">{{ user.twitter }}</IonChip>
+                    <IonChip v-if="user.facebook">{{ user.facebook }}</IonChip>
+                    <IonChip v-if="user.instagram">{{ user.instagram }}</IonChip>
                   </IonText>
                 </div>
               </div>
@@ -225,13 +185,16 @@
           </div>
           <div v-if="!user.contactpn || !user.email || !user.loc || !user.founders || !user.mv">
             <IonText class="flexcenter admin-bebufont">
-                Not Finish setting up profile
+              Not Finish setting up profile
             </IonText>
           </div>
         </div>
       </IonContent>
     </div>
   </IonModal>
+
+  <edituser :is-editmodal="Editmodal" :pass-id="this.passId" @close-edit-modal="CloseEditModal" />
+  <editjuser :is-editmodal="Editjmodal" :pass-id="this.passId" @close-edit-modal="CloseEditjModal" />
 </template>
 <script lang="ts">
 import {
@@ -243,12 +206,17 @@ import {
   IonIcon,
   IonModal,
   IonText,
+  IonButton,
 } from "@ionic/vue";
 import { db } from "@/firebaseDB";
-import { doc, getDoc } from "firebase/firestore";
-import { close } from "ionicons/icons";
-
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { arrowForwardOutline, close, pencil, trash, radioButtonOffOutline, radioButtonOnOutline } from "ionicons/icons";
+import { aprooveUserStore } from "@/stores/approve"
+import { ref } from "vue";
+import edituser from './adminModal-EditUser.vue';
+import editjuser from './adminModal-EditJobseeker.vue';
 export default {
+  emits: ['close-view-modal'],
   components: {
     IonModal,
     IonAvatar,
@@ -258,15 +226,25 @@ export default {
     IonContent,
     IonIcon,
     IonChip,
+    IonButton,
+    edituser,
+    editjuser,
+
   },
   data() {
     return {
+      Editmodal: false,
+      Editjmodal: false,
       users: [],
     };
   },
   setup() {
     return {
       close,
+      pencil,
+      trash,
+      radioButtonOnOutline,
+      radioButtonOffOutline,
     };
   },
   props: {
@@ -289,6 +267,24 @@ export default {
     },
   },
   methods: {
+    OpenEditjModal(x, id) {
+      this.Editjmodal = x;
+      this.passID = id;
+      // document.addEventListener("click", this.handleClickOutside);
+    },
+    CloseEditjModal() {
+      this.Editjmodal = false;
+      // document.removeEventListener("click", this.handleClickOutside);
+    },
+    OpenEditModal(x, id) {
+      this.Editmodal = x;
+      this.passID = id;
+      // document.addEventListener("click", this.handleClickOutside);
+    },
+    CloseEditModal() {
+      this.Editmodal = false;
+      // document.removeEventListener("click", this.handleClickOutside);
+    },
     closeModal() {
       this.$emit("close-view-modal");
     },
@@ -302,6 +298,20 @@ export default {
       } else {
         console.log("No such document!");
       }
+    },
+    async aproove() {
+      const aprov = aprooveUserStore()
+
+      await aprov.updateData(this.passId)
+      this.$emit("close-view-modal");
+    },
+    async disaproove(id) {
+      const userPostRef = doc(db, 'users', id);
+      await updateDoc(userPostRef, {
+        isactive: false
+      });
+      console.log("user post dissapproved successfully!");
+      this.closeModal();
     },
   },
 };

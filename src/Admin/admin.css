@@ -186,3 +186,22 @@
   width: 50%;
   color: black;
 }
+
+.modal-edituser-input {
+  width: 95%;
+}
+
+.admin-adduser{
+  margin-left: 80%;
+}
+.eprofile-modal-cover-container{
+  color: whitesmoke;
+  font-size: 30px;
+}
+.eprofile-modal-cover-container1{
+  height: 125px;
+  border: 1px solid black;
+  border-radius: 20px;
+  width: 100%;
+  transition: all .3s ease;
+}

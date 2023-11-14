@@ -153,7 +153,7 @@ const alertbox = (x, message) => {
 }
 
 const submitForm = async () => {
-  const requiredFields = ['bday', 'contactno', 'gender', 'province', 'citown', 'district', 'street'];
+  const requiredFields = ['bday', 'contactno', 'gender', 'province', 'citown', 'street'];
   let isFormValid = true;
 
   const biday = formData.bday;

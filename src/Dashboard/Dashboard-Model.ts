@@ -33,7 +33,7 @@ async function getJobPostings_(Username, companyname, id) {
 
     if (userDoc && userDoc.businessname === companyname) {
       const jobPostingsRef = collection(db, "jobpost");
-      const q = query(jobPostingsRef, where("company", "==", id));
+      const q = query(jobPostingsRef, where("company", "==", id), where("isactive","==","activate"));
 
       const querySnapshot = await getDocs(q);
 

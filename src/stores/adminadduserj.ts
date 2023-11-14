@@ -5,7 +5,7 @@ import { addDoc, collection } from "firebase/firestore";
 
 import { SignupModel } from "@/SignUp/Seeker-Model";
 
-export const useSignupStore = defineStore("signup", {
+export const useadminaddj = defineStore("useraddj", {
   state: () => ({
     formData: {
       fullname: "",
@@ -34,13 +34,13 @@ export const useSignupStore = defineStore("signup", {
       district: "",
       street: "",
       pic: "",
+      aprooved: "",
       classification: "",
       subclassification: "",
-      aprooved: null,
     },
   }),
   actions: {
-    setFormData(data: SignupModel) {
+    setFormData(data) {
       this.formData = { ...data };
       delete this.formData.password;
     },

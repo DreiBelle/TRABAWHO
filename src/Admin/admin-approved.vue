@@ -13,8 +13,11 @@
                         <IonText class="admin-manageuser-text" v-if="user.businessname">
                             <b>Name:</b> {{ user.businessname }}
                         </IonText>
-                        <IonText class="admin-manageuser-text" v-if="user.fullname">
+                        <IonText class="admin-manageuser-text" v-else-if="user.fullname">
                             <b>Name:</b> {{ user.fullname }}
+                        </IonText>
+                        <IonText class="admin-manageuser-text" v-else-if="user.contactpn">
+                            <b>Name:</b> {{ user.contactpn }}
                         </IonText>
                     </div>
                     <div style="margin: 5px;">

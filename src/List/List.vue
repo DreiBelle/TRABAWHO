@@ -4,11 +4,7 @@
       <IonToolbar style="height: 100%; --background: #262c5c">
         <IonButtons style="padding-left: 10px" slot="start">
           <div>
-            <img
-              style="height: 30px"
-              src="../assets/logo/whitefilllogo.png"
-              alt="logo"
-            />
+            <img style="height: 30px" src="../assets/logo/whitefilllogo.png" alt="logo" />
           </div>
         </IonButtons>
         <IonTitle class="jlist-header-title" mode="ios"> LIST </IonTitle>
@@ -26,11 +22,7 @@
     </IonHeader>
 
     <IonContent>
-      <IonRefresher
-        style="background: none; z-index: 4"
-        slot="fixed"
-        @ionRefresh="handleRefresh($event)"
-      >
+      <IonRefresher style="background: none; z-index: 4" slot="fixed" @ionRefresh="handleRefresh($event)">
         <IonRefresherContent></IonRefresherContent>
       </IonRefresher>
       <div class="flexcenter" style="border-bottom: 1px solid lightgrey">
@@ -41,24 +33,15 @@
         </IonCard>
       </div>
       <div class="flexcenter" v-for="data in jobs">
-        <IonCard
-          @click="modalViewjob(true, data.id, data.company)"
-          class="flexcenter list-cards"
-        >
+        <IonCard @click="modalViewjob(true, data.id, data.company)" class="flexcenter list-cards">
           <div class="flexcenter" style="height: 100%; width: 100px">
             <img class="list-cards-image" :src="data.pic" alt="image" />
           </div>
           <div style="width: 100%; padding: 10px">
-            <div
-              class="flexcenter list-cards-text"
-              style="border-bottom: 1px solid black; justify-content: left"
-            >
+            <div class="flexcenter list-cards-text" style="border-bottom: 1px solid black; justify-content: left">
               <b>{{ data.jobname }}</b>
             </div>
-            <div
-              class="flexcenter list-cards-text"
-              style="justify-content: left"
-            >
+            <div class="flexcenter list-cards-text" style="justify-content: left">
               Salary({{ data.salaryexp }})
             </div>
           </div>
@@ -70,13 +53,8 @@
     </IonContent>
 
     <div class="flexcenter">
-      <IonModal
-        mode="ios"
-        class="swipe-modal"
-        :is-open="isViewjob"
-        @did-dismiss="modalViewjob(false, '', '')"
-        v-for="item in filterClick"
-      >
+      <IonModal mode="ios" class="swipe-modal" :is-open="isViewjob" @did-dismiss="modalViewjob(false, '', '')"
+        v-for="item in filterClick">
         <IonContent style="--background: white">
           <div class="flexcenter">
             <IonCard class="swipe-modal-card-company">
@@ -88,11 +66,7 @@
             <div class="swipe-gradient"></div>
             <img class="swipe-modal-picture" :src="item.pic" />
             <div>
-              <IonIcon
-                @click="modalViewjob(false, '', '')"
-                class="swipe-modal-icon"
-                :icon="chevronBack"
-              ></IonIcon>
+              <IonIcon @click="modalViewjob(false, '', '')" class="swipe-modal-icon" :icon="chevronBack"></IonIcon>
             </div>
           </div>
 
@@ -112,10 +86,7 @@
             <IonCard class="swipe-modal-cards">
               <IonText style="font-size: 15px; line-height: 10px">
                 <p class="swipe-modal-text-title">
-                  <IonIcon
-                    class="swipe-modal-icon-information"
-                    :icon="briefcase"
-                  ></IonIcon>
+                  <IonIcon class="swipe-modal-icon-information" :icon="briefcase"></IonIcon>
                   Job Information
                 </p>
                 <p class="swipe-modal-text-p">
@@ -138,16 +109,10 @@
             <IonCard class="swipe-modal-cards">
               <IonText style="font-size: 15px; line-height: 10px">
                 <p class="swipe-modal-text-title">
-                  <IonIcon
-                    class="swipe-modal-icon-information"
-                    :icon="document"
-                  ></IonIcon>
+                  <IonIcon class="swipe-modal-icon-information" :icon="document"></IonIcon>
                   Description
                 </p>
-                <p
-                  class="swipe-modal-text-p"
-                  style="line-height: 18px; text-align: center"
-                >
+                <p class="swipe-modal-text-p" style="line-height: 18px; text-align: center">
                   {{ item.jobdes }}
                 </p>
               </IonText>
@@ -158,10 +123,7 @@
             <IonCard class="swipe-modal-cards">
               <IonText style="font-size: 15px; line-height: 10px">
                 <p class="swipe-modal-text-title">
-                  <IonIcon
-                    class="swipe-modal-icon-information"
-                    :icon="alert"
-                  ></IonIcon>
+                  <IonIcon class="swipe-modal-icon-information" :icon="alert"></IonIcon>
                   Requirements
                 </p>
                 <p class="swipe-modal-text-p">
@@ -180,10 +142,7 @@
             <IonCard class="swipe-modal-cards">
               <IonText style="font-size: 15px; line-height: 10px">
                 <p class="swipe-modal-text-title">
-                  <IonIcon
-                    class="swipe-modal-icon-information"
-                    :icon="location"
-                  ></IonIcon>
+                  <IonIcon class="swipe-modal-icon-information" :icon="location"></IonIcon>
                   Work Location
                 </p>
                 <p class="swipe-modal-text-p">
@@ -206,10 +165,7 @@
             <IonCard class="swipe-modal-cards">
               <IonText style="font-size: 15px; line-height: 10px">
                 <p class="flexcenter swipe-modal-text-title">
-                  <IonIcon
-                    class="swipe-modal-icon-information"
-                    :icon="information"
-                  ></IonIcon>
+                  <IonIcon class="swipe-modal-icon-information" :icon="information"></IonIcon>
                   Company Information
                 </p>
                 <p class="swipe-modal-text-p">
@@ -219,11 +175,8 @@
                 <p class="swipe-modal-text-p">
                   <b>Mision/Vision</b> {{ info.mv }}
                 </p>
-                <p
-                  v-if="info.facebook || info.twitter || info.instagram"
-                  class="swipe-modal-text-title"
-                  style="font-size: 20px"
-                >
+                <p v-if="info.facebook || info.twitter || info.instagram" class="swipe-modal-text-title"
+                  style="font-size: 20px">
                   Social Media
                 </p>
                 <p v-if="info.facebook" class="swipe-modal-text-p">
@@ -243,22 +196,19 @@
             <IonChip v-for="spe in item.chosenInterests"> {{ spe }} </IonChip>
           </div>
 
-          <div class="flexcenter">
+          <div class="flexcenter" v-for="data in jobs">
             <div class="flexcenter">
-              <IonAvatar
-                style="background-color: #ff6961"
-                @click="dislike()"
-                class="flexcenter swipe-modal-buttons"
-              >
-                <IonIcon style="color: white" :icon="thumbsDown"> </IonIcon>
-              </IonAvatar>
-              <IonAvatar
-                style="background-color: #60a05b"
-                @click="like()"
-                class="flexcenter swipe-modal-buttons"
-              >
-                <IonIcon style="color: white" :icon="thumbsUp"> </IonIcon>
-              </IonAvatar>
+              <IonButtons @click="handleswipeleft(data)">
+                <IonAvatar class="flexcenter swipe-modal-buttons">
+                  <IonIcon :icon="close"> </IonIcon>
+                </IonAvatar>
+              </IonButtons>
+
+              <IonButtons @click="handleswiperight(data)">
+                <IonAvatar class="flexcenter swipe-modal-buttons">
+                  <IonIcon style="color: lightblue" :icon="heart"> </IonIcon>
+                </IonAvatar>
+              </IonButtons>
             </div>
           </div>
         </IonContent>
@@ -308,11 +258,19 @@ import "../Swipe/Swipe.css";
 import "./List.css";
 import { ref as asd, onMounted } from "vue";
 import { getUserProfile } from "@/Profile/Profile-Model";
-import { getJobs, getJobs2, getJobs3 } from "@/Swipe/Swipe-Model";
+import { getJobs, getJobs2, getJobs3, deleteBlank, deleteBlank1, getjobownerProfile } from "@/Swipe/Swipe-Model";
 import { getDownloadURL, ref } from "@firebase/storage";
 import { db, dbImage } from "@/firebaseDB";
 import { getDashboardProfile } from "@/Dashboard/Dashboard-Model";
 import { doc, getDoc } from "firebase/firestore";
+
+import { useSwipedata } from "@/stores/swipedata";
+import { useSwipejob } from "@/stores/userswipejob";
+import { useupdatelike } from "@/stores/updatelikes";
+import { useupdateview } from "@/stores/updateviews";
+import { uselike } from "@/stores/likes";
+import { useview } from "@/stores/views";
+
 export default {
   components: {
     IonChip,
@@ -342,10 +300,25 @@ export default {
       employerInfo: [],
       passEmpId: "",
       isLoading: true,
+      swipedata: [],
+      jobdata: [],
+      userswipej: [],
     };
   },
   setup() {
     const user = asd(null);
+    const formData = {
+      creator: "",
+      job: "",
+      swiper: "",
+    };
+
+    const useswipedata = useSwipedata();
+    const useswipejob = useSwipejob();
+    const updatelikes = useupdatelike();
+    const updateviews = useupdateview();
+    const uselikes = uselike();
+    const useviews = useview();
 
     onMounted(async () => {
       const userEmail = localStorage.getItem("email");
@@ -366,9 +339,104 @@ export default {
       briefcase,
       thumbsUp,
       thumbsDown,
+      formData,
+      useswipedata,
+      useswipejob,
+      updatelikes,
+      updateviews,
+      uselikes,
+      useviews,
+      user,
     };
   },
   methods: {
+    async handleswipeleft(job) {
+
+      console.log("swipe left");
+      console.log(job.id);
+
+      const oldview = job.views;
+      const newview = oldview + 1;
+      console.log(newview)
+      console.log(oldview)
+      console.log(job.id)
+      console.log(job.company)
+      console.log(this.user.id)
+
+      this.formData.job = job.id;
+      this.formData.creator = job.company;
+      this.formData.swiper = this.user.id;
+
+      this.useviews.setFormData(this.formData);
+
+      this.updateviews.setviews(newview);
+      await this.updateviews.updateviews(job.id);
+
+      await this.useviews.registerview();
+      this.formData.job = "";
+      this.formData.creator = "";
+      this.formData.swiper = "";
+      this.actionMade = ""
+
+      this.modalViewjob(false)
+    },
+    async handleswiperight(job) {
+      console.log("swipe Right");
+
+      const jobowner = job.company;
+      const owner = await getjobownerProfile(jobowner);
+
+      this.swipedata = owner.swiperuser;
+      this.jobdata = owner.swiperjob;
+
+      this.swipedata.push({ swipedid: this.user.id, dateCreated: new Date().toISOString() });
+      this.jobdata.push({ jobdid: job.id, dateCreated: new Date().toISOString() });
+
+      this.userswipej = this.user.swiperjob;
+      this.userswipej.push({ jobdid: job.id });
+
+      this.useswipedata.setswipedata(this.swipedata);
+      this.useswipedata.setjobdata(this.jobdata);
+      this.useswipejob.setjobswipe(this.userswipej);
+
+      await this.useswipedata.updateswipedata(job.company);
+      await this.useswipejob.updateuserswipedata(this.user.id);
+
+      const oldlike = job.likes;
+      const newlike = oldlike + 1;
+      console.log(newlike);
+
+      this.updatelikes.setlikes(newlike);
+      await this.updatelikes.updatelikes(job.id);
+
+      const oldview = job.views;
+      const newview = oldview + 1;
+      console.log(newview);
+
+      this.updateviews.setviews(newview);
+      await this.updateviews.updateviews(job.id);
+
+      deleteBlank(this.user.id);
+      deleteBlank(job.company);
+      deleteBlank1(job.company);
+
+      this.formData.job = job.id;
+      this.formData.creator = job.company;
+      this.formData.swiper = this.user.id;
+
+      this.uselikes.setFormData(this.formData);
+      await this.uselikes.registerlike();
+      this.formData.job = "";
+      this.formData.creator = "";
+      this.formData.swiper = "";
+
+      this.swipedata = [];
+      this.jobdata = [];
+      this.userswipej = [];
+
+      this.modalViewjob(false)
+
+    },
     async handleRefresh(event: CustomEvent<RefresherEventDetail>) {
       this.isLoading = true;
       const user = asd(null);

@@ -153,14 +153,17 @@ const handleUserLogin = () => {
         localStorage.setItem("email", Username.value);
 
         if (user.value.classification && user.value.subclassification) {
-          if (user.value.aprooved === true) {
-            UserLogin(Username.value);
-            Username.value = "";
-            Password.value = "";
-          }
-          else {
-            alert("Wait for your account to be approved by System Admin");
-          }
+          // if (user.value.aprooved === true) {
+          //   UserLogin(Username.value);
+          //   Username.value = "";
+          //   Password.value = "";
+          // }
+          // else {
+          //   alert("Wait for your account to be approved by System Admin");
+          // }
+          UserLogin(Username.value);
+          Username.value = "";
+          Password.value = "";
         }
         else {
           alert("Insuficient Data");

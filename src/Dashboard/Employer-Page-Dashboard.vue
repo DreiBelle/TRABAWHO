@@ -286,8 +286,9 @@ import AddModal from "./Employer-Dashboard-Modal-AddPostings.vue";
 import { getDashboardProfile, getJobPostings } from "./Dashboard-Model";
 import { ref, onMounted } from "vue";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { auth } from "@/firebaseDB";
+import { auth, db } from "@/firebaseDB";
 import { GoHome } from "./Employer-Dashboard-Controller";
+import { collection, onSnapshot, query, where } from "@firebase/firestore";
 const isLoggedIn = ref(false);
 
 export default {
@@ -324,6 +325,10 @@ export default {
     let views = ref(0);
     const isLoading = ref(true);
 
+    const updateJobPostings = (snapshot) => {
+      jobPostings.value = snapshot.docs.map((doc) => doc.data());
+    };
+
     onMounted(async () => {
       const userEmail = localStorage.getItem("email");
       try {
@@ -346,6 +351,20 @@ export default {
           user.value.businessname,
           user.value.id
         );
+
+        const jobPostingsRef = collection(db, "jobpost");
+        const q = query(jobPostingsRef,
+          where("company", "==", user.value.id),
+          where("isactive", "==", "activate")
+        );
+
+        const unsubscribe = onSnapshot(q, (snapshot) => {
+          updateJobPostings(snapshot);
+          jobPostings.value = snapshot.docs.map((doc) => ({
+            documentID: doc.id, // Add the document ID to each job posting
+            ...doc.data(), // Include other document data
+          }));
+        });
 
         jobPostings.value.forEach((jobPosting) => {
           likes.value += jobPosting.likes;

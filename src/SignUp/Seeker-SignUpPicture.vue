@@ -194,7 +194,6 @@ export default {
                 await signupStore.registerUser();
                 // localStorage.setItem("email", sharedFormData.email);
                 GoLogin()
-                alert("Succesfully Registered, Please Wait the System Admin to Approve your Account");
             } else {
                 console.error("Please fill in all required fields.");
                 alert("Please fill in all required fields");

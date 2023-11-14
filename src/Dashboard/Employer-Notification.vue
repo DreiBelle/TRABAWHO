@@ -120,6 +120,8 @@ import {
 } from "./Dashboard-Model";
 import { chevronForward, notifications, settingsOutline } from "ionicons/icons";
 import viewUser from "./Dashboard-Modals/Notification-ViewSeeker.vue";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { db } from "@/firebaseDB";
 
 export default {
   setup() {
@@ -178,6 +180,15 @@ export default {
     },
 
     async getSwipes() {
+      const userEmail = localStorage.getItem("email");
+      this.user = await getDashboardProfile(this.userEmail);
+      const userQuery = query(
+        collection(db, "users"),
+        where("email", "==", userEmail)
+      );
+      const userUnsubscribe = onSnapshot(userQuery, (snapshot) => {
+        this.user.value = snapshot.docs[0]?.data();
+      });
       this.isLoading = true;
       this.user = await getDashboardProfile(this.userEmail);
       try {
@@ -202,6 +213,13 @@ export default {
   },
   mounted() {
     this.getSwipes();
+
+    this.intervalId = setInterval(() => {
+      this.getSwipes();
+      this.userName = this.user.businessname;
+      this.userPic = this.user.pic;
+    }, 6);
+    
     setTimeout(() => {
       this.userName = this.user.businessname;
       this.userPic = this.user.pic;

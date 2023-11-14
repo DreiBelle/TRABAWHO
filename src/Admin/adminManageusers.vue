@@ -11,6 +11,13 @@
     </div>
 
     <div class="flexcenter">
+        <IonButton @click="adduserModal(true)" class="admin-adduser">Add Employer</IonButton>
+    </div>
+    <div class="flexcenter">
+        <IonButton @click="adduserModal2(true)" class="admin-adduser">Add Jobseeker</IonButton>
+    </div>
+
+    <div class="flexcenter">
         <IonSearchbar class="dashboard-navbar-topbar-searchbar" v-model="searchTerm"></IonSearchbar>
         <IonIcon @click="filterModal(true)" class="admin-manageuser-icons admin-manageuser-icons-filter" :icon="filter">
         </IonIcon>
@@ -22,7 +29,7 @@
                 <approved :search-term="searchTerm" :filtertype="filtertype"></approved>
             </div>
             <div v-else-if="Views == 'Pending'">
-                <pending :search-term="searchTerm"></pending>
+                <pending :search-term="searchTerm" :filtertype="filtertype"></pending>
             </div>
         </IonContent>
     </div>
@@ -53,6 +60,8 @@
             </div>
         </div>
     </IonModal>
+    <adduser :is-addmodal="isaddUser" @close-add-modal="adduserModal(false)"></adduser>
+    <useradd :is-addmodal2="isaddUser2" @close-add-modal2="adduserModal2(false)"></useradd>
 </template>
 <script lang="ts">
 import { IonCard, IonContent, IonList, IonSearchbar, IonPage, IonGrid, IonRow, IonCol, IonIcon, IonText, IonModal, IonSelect, IonSelectOption, IonButton, IonCardSubtitle, IonCardTitle, IonSegment, IonSegmentButton, IonLabel } from '@ionic/vue';
@@ -60,9 +69,11 @@ import './admin.css'
 import { chevronForward, filter } from 'ionicons/icons';
 import approved from './admin-approved.vue'
 import pending from './admin-pending.vue'
+import adduser from './adminModal-AddUser.vue';
+import useradd from './adminModal-Addjobseeker.vue';
 
 export default {
-    components: { approved, pending, IonPage, IonSearchbar, IonList, IonCard, IonContent, IonGrid, IonRow, IonCol, IonIcon, IonText, IonModal, IonSelect, IonSelectOption, IonButton, IonCardSubtitle, IonCardTitle, IonSegment, IonSegmentButton, IonLabel },
+    components: { approved, pending, IonPage, IonSearchbar, IonList, IonCard, IonContent, IonGrid, IonRow, IonCol, IonIcon, IonText, IonModal, IonSelect, IonSelectOption, IonButton, IonCardSubtitle, IonCardTitle, IonSegment, IonSegmentButton, IonLabel, adduser, useradd },
     data() {
         return {
             users: [],
@@ -73,6 +84,8 @@ export default {
             approved: "",
             pending: "",
             Views: "Pending",
+            isaddUser: false,
+            isaddUser2: false,
         }
     },
     setup() {
@@ -82,6 +95,12 @@ export default {
         }
     },
     methods: {
+        adduserModal(x) {
+            this.isaddUser = x   
+        },
+        adduserModal2(x) {
+            this.isaddUser2 = x   
+        },
         ShowTabs(View) {
             this.Views = View;
         },

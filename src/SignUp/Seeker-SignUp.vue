@@ -243,7 +243,7 @@ export default {
             console.log(credential.user);
 
             await sendEmailVerification(credential.user);
-            alert('Verification email sent');
+            alertbox(true, 'Verification email sent');
 
             signupStore.setFormData(formData);
             GoBasic();
@@ -270,6 +270,7 @@ export default {
       alertButtons,
       isAlert, alertMessage,
       alertbox,
+      signupStore,
     }
   },
   methods: {
