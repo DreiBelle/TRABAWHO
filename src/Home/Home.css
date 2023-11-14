@@ -130,6 +130,19 @@
   border-radius: 200px 200px 200px 0 ;
 } */
 
+.aboutus-big {
+  scale: 1;
+  transition: all 0.5s ease;
+  cursor: pointer;
+  color: white;
+}
+
+.aboutus-big:hover {
+  scale: 1.1;
+  transition: all 0.5s ease;
+  cursor: pointer;
+}
+
 @media (max-width: 1025px) {
   .home-logo {
     height: 200px;
@@ -187,7 +200,6 @@
   font-family: MalbergTrial-Regular;
   src: url(../assets/fonts/MalbergTrial-Regular.ttf);
 }
-
 
 /* @keyframes colorChange {
   0% {
@@ -250,10 +262,10 @@
   height: 35px;
 }
 
-.landingpage-picture{
+.landingpage-picture {
   position: absolute;
   right: 0;
-  bottom: 3vh ;
+  bottom: 3vh;
   height: 90%;
   width: auto;
 }

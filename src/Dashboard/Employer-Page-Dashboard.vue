@@ -1,12 +1,20 @@
 <template>
   <div v-if="isLoading == true">
-    <div class="flexcenter" style="height: 100vh; width: 100vw; background: linear-gradient(to bottom right, white, #a6aad4)">
+    <div
+      class="flexcenter"
+      style="
+        height: 100vh;
+        width: 100vw;
+        background: linear-gradient(to bottom right, white, #a6aad4);
+      "
+    >
       <div>
         <div class="flexcenter">
-          <img class="dashboard-TrabaWho-Logo" src="../assets/logo/blackfilllogo.png">
-          <IonText class="dashboard-TrabaWho-text">
-            TRABAWHO
-          </IonText>
+          <img
+            class="dashboard-TrabaWho-Logo"
+            src="../assets/logo/blackfilllogo.png"
+          />
+          <IonText class="dashboard-TrabaWho-text"> TRABAWHO </IonText>
         </div>
         <div class="flexcenter">
           <IonSpinner class="dashboard-Loading" name="crescent"></IonSpinner>
@@ -14,7 +22,10 @@
       </div>
     </div>
   </div>
-  <IonPage v-else-if="isLoading == false" style="background-color: rgb(236, 228, 228); color: black">
+  <IonPage
+    v-else-if="isLoading == false"
+    style="background-color: rgb(236, 228, 228); color: black"
+  >
     <IonGrid style="height: 10%; width: 100%; padding: 0px 0px 0px 250px">
       <IonRow style="height: 30px; background: #202651">
         <IonCol>
@@ -25,13 +36,16 @@
           </IonText>
         </IonCol>
       </IonRow>
-      <IonRow style="height: 20%;">
+      <IonRow style="height: 20%">
         <IonCol class="flexcenter">
           <IonCard class="flexcenter dashboard-minidataanalytics-card">
             <div>
               <div class="flexcenter">
                 <IonText class="flexcenter dashboard-minicard-title">
-                  <IonIcon class="dashboard-minicard-icon" :icon="thumbsUp"></IonIcon>
+                  <IonIcon
+                    class="dashboard-minicard-icon"
+                    :icon="thumbsUp"
+                  ></IonIcon>
                   LIKES
                 </IonText>
               </div>
@@ -48,7 +62,10 @@
             <div>
               <div class="flexcenter">
                 <IonText class="flexcenter dashboard-minicard-title">
-                  <IonIcon class="dashboard-minicard-icon" :icon="eye"></IonIcon>
+                  <IonIcon
+                    class="dashboard-minicard-icon"
+                    :icon="eye"
+                  ></IonIcon>
                   VIEWS
                 </IonText>
               </div>
@@ -65,7 +82,10 @@
             <div>
               <div class="flexcenter">
                 <IonText class="flexcenter dashboard-minicard-title">
-                  <IonIcon class="dashboard-minicard-icon" :icon="briefcase"></IonIcon>
+                  <IonIcon
+                    class="dashboard-minicard-icon"
+                    :icon="briefcase"
+                  ></IonIcon>
                   POSTINGS
                 </IonText>
               </div>
@@ -81,10 +101,19 @@
       <IonRow class="page-components-container">
         <IonCol class="flexcenter">
           <IonCard style="height: 100%; width: 100%; background-color: azure">
-            <component @go-to-posting="goPosting" :is="Views" @clear-all="clearAll()" v-bind:pass-id="passId"
-              v-bind:pass-email="passEmail" v-bind:pass-job="passJob" v-bind:passTorF="ArchiveorNot"
-              v-bind:pass-name="passName" v-bind:pass-pic="passPicture" @go-messages="goMessages"
-              @go-messages-data="getMessagedata" />
+            <component
+              @go-to-posting="goPosting"
+              :is="Views"
+              @clear-all="clearAll()"
+              v-bind:pass-id="passId"
+              v-bind:pass-email="passEmail"
+              v-bind:pass-job="passJob"
+              v-bind:passTorF="ArchiveorNot"
+              v-bind:pass-name="passName"
+              v-bind:pass-pic="passPicture"
+              @go-messages="goMessages"
+              @go-messages-data="getMessagedata"
+            />
           </IonCard>
         </IonCol>
       </IonRow>
@@ -93,59 +122,117 @@
     <!-- navbar to -->
     <IonGrid class="dashboard-navbar-container">
       <IonRow>
-        <IonCol class="dashboard-navbar-flexcenter dashboard-navbar-cols" style="height: 70px">
-          <img class="dashboard-navbar-logo" src="../assets/logo/whitefilllogo.png" alt="logo" />
-          <p style="justify-content: end" class="dashboard-navbar-text-trabawho">
+        <IonCol
+          class="dashboard-navbar-flexcenter dashboard-navbar-cols"
+          style="height: 70px"
+        >
+          <img
+            class="dashboard-navbar-logo"
+            src="../assets/logo/whitefilllogo.png"
+            alt="logo"
+          />
+          <p
+            style="justify-content: end"
+            class="dashboard-navbar-text-trabawho"
+          >
             TRABAWHO
           </p>
         </IonCol>
       </IonRow>
       <IonRow>
-        <IonCol @click="ShowTabs('Home')" class="dashboard-navbar-flexcenter dashboard-navbar-cols">
+        <IonCol
+          @click="ShowTabs('Home')"
+          class="dashboard-navbar-flexcenter dashboard-navbar-cols"
+        >
           <IonIcon class="dashboard-navbar-icons" :icon="homeOutline"></IonIcon>
           <IonText class="dashboard-navbar-navigations">Home</IonText>
         </IonCol>
       </IonRow>
       <IonRow>
-        <IonCol @click="ShowTabs('Profile')" class="dashboard-navbar-flexcenter dashboard-navbar-cols">
-          <IonIcon class="dashboard-navbar-icons" :icon="personOutline"></IonIcon>
+        <IonCol
+          @click="ShowTabs('Profile')"
+          class="dashboard-navbar-flexcenter dashboard-navbar-cols"
+        >
+          <IonIcon
+            class="dashboard-navbar-icons"
+            :icon="personOutline"
+          ></IonIcon>
           <IonText class="dashboard-navbar-navigations">Profile</IonText>
         </IonCol>
       </IonRow>
       <IonRow>
-        <IonCol @click="ShowTabs('JobPostings')" class="dashboard-navbar-flexcenter dashboard-navbar-cols">
-          <IonIcon class="dashboard-navbar-icons" :icon="briefcaseOutline"></IonIcon>
+        <IonCol
+          @click="ShowTabs('JobPostings')"
+          class="dashboard-navbar-flexcenter dashboard-navbar-cols"
+        >
+          <IonIcon
+            class="dashboard-navbar-icons"
+            :icon="briefcaseOutline"
+          ></IonIcon>
           <IonText class="dashboard-navbar-navigations">Job Postings</IonText>
         </IonCol>
       </IonRow>
       <IonRow>
-        <IonCol @click="ShowTabs('DataAnalytics')" class="dashboard-navbar-flexcenter dashboard-navbar-cols">
-          <IonIcon class="dashboard-navbar-icons" :icon="analyticsOutline"></IonIcon>
+        <IonCol
+          @click="ShowTabs('DataAnalytics')"
+          class="dashboard-navbar-flexcenter dashboard-navbar-cols"
+        >
+          <IonIcon
+            class="dashboard-navbar-icons"
+            :icon="analyticsOutline"
+          ></IonIcon>
           <IonText class="dashboard-navbar-navigations">Data Analytics</IonText>
         </IonCol>
       </IonRow>
       <IonRow>
-        <IonCol @click="ShowTabs('Notifications')" class="dashboard-navbar-flexcenter dashboard-navbar-cols">
-          <IonIcon class="dashboard-navbar-icons" :icon="notificationsOutline"></IonIcon>
+        <IonCol
+          @click="ShowTabs('Notifications')"
+          class="dashboard-navbar-flexcenter dashboard-navbar-cols"
+        >
+          <IonIcon
+            class="dashboard-navbar-icons"
+            :icon="notificationsOutline"
+          ></IonIcon>
           <IonText class="dashboard-navbar-navigations">Notification</IonText>
         </IonCol>
       </IonRow>
       <IonRow>
-        <IonCol @click="ShowTabs('Messages')" class="dashboard-navbar-flexcenter dashboard-navbar-cols">
-          <IonIcon class="dashboard-navbar-icons" :icon="chatboxEllipsesOutline"></IonIcon>
+        <IonCol
+          @click="ShowTabs('Messages')"
+          class="dashboard-navbar-flexcenter dashboard-navbar-cols"
+        >
+          <IonIcon
+            class="dashboard-navbar-icons"
+            :icon="chatboxEllipsesOutline"
+          ></IonIcon>
           <IonText class="dashboard-navbar-navigations">Messages</IonText>
         </IonCol>
       </IonRow>
       <IonRow>
-        <IonCol @click="ShowTabs('Audit')" class="dashboard-navbar-flexcenter dashboard-navbar-cols">
-          <IonIcon class="dashboard-navbar-icons" :icon="documentOutline"></IonIcon>
-          <IonText class="dashboard-navbar-navigations">Recent Activities</IonText>
+        <IonCol
+          @click="ShowTabs('Audit')"
+          class="dashboard-navbar-flexcenter dashboard-navbar-cols"
+        >
+          <IonIcon
+            class="dashboard-navbar-icons"
+            :icon="documentOutline"
+          ></IonIcon>
+          <IonText class="dashboard-navbar-navigations"
+            >Recent Activities</IonText
+          >
         </IonCol>
       </IonRow>
       <IonRow>
-        <IonCol @click="handleSignout" class="dashboard-navbar-flexcenter dashboard-navbar-cols"
-          style="position: absolute; bottom: 10px">
-          <IonIcon class="dashboard-navbar-icons" :icon="logOutOutline"></IonIcon>
+        <IonCol
+          @click="handleSignout"
+          id="signout"
+          class="dashboard-navbar-flexcenter dashboard-navbar-cols"
+          style="position: absolute; bottom: 10px"
+        >
+          <IonIcon
+            class="dashboard-navbar-icons"
+            :icon="logOutOutline"
+          ></IonIcon>
           <IonText class="dashboard-navbar-navigations">Logout</IonText>
         </IonCol>
       </IonRow>
@@ -194,7 +281,7 @@ import Messages from "./Employer-Message.vue";
 import Profile from "./Employer-Profile.vue";
 import Home from "./Employer-Home.vue";
 import Notifications from "./Employer-Notification.vue";
-import Audit from './Employer-Audit.vue'
+import Audit from "./Employer-Audit.vue";
 import AddModal from "./Employer-Dashboard-Modal-AddPostings.vue";
 import { getDashboardProfile, getJobPostings } from "./Dashboard-Model";
 import { ref, onMounted } from "vue";
@@ -228,7 +315,7 @@ export default {
     IonModal,
     AddModal,
     IonIcon,
-    IonSpinner
+    IonSpinner,
   },
   setup() {
     const user = ref(null);
@@ -240,11 +327,15 @@ export default {
     onMounted(async () => {
       const userEmail = localStorage.getItem("email");
       try {
-        isLoading.value = true
+        isLoading.value = true;
 
         setTimeout(() => {
-          document.querySelector('.dashboard-TrabaWho-Logo')?.classList.add('dashboard-loaded');
-          document.querySelector('.dashboard-TrabaWho-text')?.classList.add('dashboard-loaded');
+          document
+            .querySelector(".dashboard-TrabaWho-Logo")
+            ?.classList.add("dashboard-loaded");
+          document
+            .querySelector(".dashboard-TrabaWho-text")
+            ?.classList.add("dashboard-loaded");
         }, 1);
 
         // const userPassword = localStorage.getItem("password");
@@ -296,7 +387,7 @@ export default {
       isLoading,
     };
   },
-  emits: ['go-to-posting'],
+  emits: ["go-to-posting"],
   data() {
     return {
       Views: "JobPostings",
@@ -310,29 +401,29 @@ export default {
   },
   methods: {
     clearAll() {
-      this.passName = ""
-      this.passJob = ""
-      this.passPicture = ""
-      this.passEmail = ""
-      this.passId = ""
+      this.passName = "";
+      this.passJob = "";
+      this.passPicture = "";
+      this.passEmail = "";
+      this.passId = "";
     },
     getMessagedata(name, job, picture, email, id) {
-      this.passName = name
-      this.passJob = job
-      this.passPicture = picture
-      this.passEmail = email
-      this.passId = id
+      this.passName = name;
+      this.passJob = job;
+      this.passPicture = picture;
+      this.passEmail = email;
+      this.passId = id;
     },
     goMessages(x) {
-      this.Views = "Messages"
+      this.Views = "Messages";
       if (x == null) {
-        this.ArchiveorNot = true
+        this.ArchiveorNot = true;
       } else if (x != null) {
-        this.ArchiveorNot = x
+        this.ArchiveorNot = x;
       }
     },
     goPosting() {
-      this.Views = "JobPostings"
+      this.Views = "JobPostings";
     },
     closeModal() {
       modalController.dismiss();

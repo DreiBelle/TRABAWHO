@@ -38,11 +38,14 @@
           <IonCard class="enotif-modal-view-cards">
             <div>
               <div style="justify-content: left">
-                <IonText
-                  class="flexcenter"
-                  style="font-size: 20px; font-weight: bold"
-                  >PERSONAL</IonText
-                >
+                <div style="width: 100%">
+                  <IonText
+                    class="flexcenter jprofile-modal-field-text jprofile-title"
+                    style="border-radius: 100px; width: 100%"
+                  >
+                    PERSONAL
+                  </IonText>
+                </div>
                 <IonText>
                   <p><b>Birthday: </b>{{ user.bday }}</p>
                   <p><b>Gender: </b>{{ user.gender }}</p>
@@ -55,11 +58,14 @@
           <IonCard class="enotif-modal-view-cards">
             <div>
               <div>
-                <IonText
-                  class="flexcenter"
-                  style="font-size: 20px; font-weight: bold"
-                  >EDUCATION</IonText
-                >
+                <div style="width: 100%">
+                  <IonText
+                    class="flexcenter jprofile-modal-field-text jprofile-title"
+                    style="border-radius: 100px; width: 100%"
+                  >
+                    EDUCATION
+                  </IonText>
+                </div>
                 <IonText>
                   <p><b>Elementary: </b>{{ user.elementary }}</p>
                   <p><b>Highschool: </b>{{ user.juniorhigh }}</p>
@@ -73,15 +79,20 @@
             </div>
           </IonCard>
         </div>
+
         <div class="flexcenter">
           <IonCard class="enotif-modal-view-cards" style="height: fit-content">
             <div>
               <div style="justify-content: left">
-                <IonText
-                  class="flexcenter"
-                  style="font-size: 20px; font-weight: bold"
-                  >SKILLS</IonText
-                >
+                <div style="width: 100%">
+                  <IonText
+                    class="flexcenter jprofile-modal-field-text jprofile-title"
+                    style="border-radius: 100px; width: 100%"
+                  >
+                    SKILLS
+                  </IonText>
+                </div>
+
                 <IonText>
                   <p><b>Years of Experience: </b>{{ user.yearsofexp }}</p>
                   <p><b>Classification: </b>{{ user.classification }}</p>
@@ -89,7 +100,7 @@
                   <p>
                     <b>Specialties: </b>
                     <IonChip v-for="chose in user.chosenInterests">{{
-                      chose.label
+                      chose
                     }}</IonChip>
                   </p>
                 </IonText>
@@ -97,8 +108,143 @@
             </div>
           </IonCard>
         </div>
-        <div v-for="experience in experiences">
-            {{ experience.JobTitle }}
+
+        <div v-if="this.experiences.length != 0" class="flexcenter">
+          <IonCard class="jprofile-cards">
+            <div class="flexcenter">
+              <div style="width: 100%">
+                <IonText
+                  class="flexcenter jprofile-modal-field-text jprofile-title"
+                  style="border-radius: 100px; width: 100%"
+                >
+                  EXPERIENCES
+                </IonText>
+              </div>
+            </div>
+            <div
+              style="
+                display: flex;
+                height: fit-content;
+                overflow-x: auto;
+                width: 100%;
+                white-space: nowrap;
+              "
+            >
+              <IonCard
+                v-for="experience in experiences"
+                style="
+                  min-width: 300px;
+                  width: fit-content;
+                  height: fit-content;
+                  flex: 1 0 auto;
+                  margin: 5px;
+                  padding: 0;
+                "
+              >
+                <div
+                  class="flexcenter"
+                  style="background-color: #515782; color: white; height: 30px"
+                >
+                  <IonText
+                    style="font-size: 20px; font-family: BebasNeue-Regular"
+                  >
+                    {{ experience.data.JobTitle }}
+                  </IonText>
+                </div>
+                <div style="padding: 5px">
+                  <IonText style="color: black">
+                    <p
+                      style="margin-top: 5px"
+                      class="jprofile-text-margin-bottom"
+                    >
+                      <b>Company Name: </b> {{ experience.data.CompanyName }}
+                    </p>
+
+                    <p class="jprofile-text-margin-bottom">
+                      <b>Date of Employment: </b>
+                      {{ experience.data.StartDate }} to
+                      {{ experience.data.EndDate }}
+                    </p>
+
+                    <p class="jprofile-text-margin-bottom">
+                      <b>Responsibilities and Duties: </b>
+                      {{ experience.data.ResDuty }}
+                    </p>
+
+                    <p
+                      class="jprofile-text-margin-bottom"
+                      style="padding-bottom: 10px"
+                    >
+                      <b>Skills Utilized: </b> {{ experience.data.Skills }}
+                    </p>
+                  </IonText>
+                </div>
+              </IonCard>
+            </div>
+          </IonCard>
+        </div>
+
+        <div v-if="this.awards.length != 0" class="flexcenter">
+          <IonCard class="jprofile-cards">
+            <div class="flexcenter">
+              <div style="width: 100%">
+                <IonText
+                  class="flexcenter jprofile-modal-field-text jprofile-title"
+                  style="border-radius: 100px; width: 100%"
+                >
+                  AWARDS
+                </IonText>
+              </div>
+            </div>
+            <div
+              style="
+                display: flex;
+                height: fit-content;
+                overflow-x: auto;
+                width: 100%;
+                white-space: nowrap;
+              "
+            >
+              <IonCard
+                v-for="award in awards"
+                style="
+                  min-width: 300px;
+                  width: fit-content;
+                  height: fit-content;
+                  flex: 1 0 auto;
+                  margin: 5px;
+                  padding: 0;
+                "
+              >
+                <div
+                  class="flexcenter"
+                  style="background-color: #515782; color: white; height: 30px"
+                >
+                  <IonText
+                    style="font-size: 20px; font-family: BebasNeue-Regular"
+                  >
+                    {{ award.data.AwardName }}
+                  </IonText>
+                </div>
+                <div style="padding: 5px">
+                  <IonText style="color: black">
+                    <p
+                      style="margin-top: 5px"
+                      class="jprofile-text-margin-bottom"
+                    >
+                      <b>Where: </b> {{ award.data.AwardWhere }}
+                    </p>
+                    <p
+                      class="jprofile-text-margin-bottom"
+                      style="padding-bottom: 10px"
+                    >
+                      <b>When: </b> {{ award.data.AwardWhen }}
+                    </p>
+                  </IonText>
+                </div>
+              </IonCard>
+            </div>
+          </IonCard>
         </div>
         <div class="flexcenter">
           <IonButton @click="startMessaging()" class="enotif-modal-view-button">
@@ -157,6 +303,7 @@ export default {
       userID: "",
       awards: [],
       experiences: [],
+      emailClicked: "",
     };
   },
   setup() {
@@ -202,8 +349,7 @@ export default {
     idViewuser: function (value) {
       if (value) {
         this.getDetails();
-        this.getExperiences(value);
-        this.getAwards(value);
+        this.getUser(value);
       } else if (!value) {
         this.users = [];
       }
@@ -211,10 +357,22 @@ export default {
   },
   emits: ["go-messages", "close-view-modal", "go-messages-data"],
   methods: {
-    getExperiences(theid) {
+    async getUser(theid) {
+      const docRef = doc(db, "users", theid);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        this.emailClicked = docSnap.data().email;
+        this.getExperiences();
+        this.getAwards();
+      } else {
+        console.log("No such document!");
+      }
+    },
+    getExperiences() {
       const q = query(
         collection(db, "Experiences"),
-        where("SeekerId", "==", theid),
+        where("SeekerId", "==", this.emailClicked),
         where("Removed", "==", false)
       );
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -227,7 +385,7 @@ export default {
     getAwards(theid) {
       const q = query(
         collection(db, "Awards"),
-        where("SeekerId", "==", theid),
+        where("SeekerId", "==", this.emailClicked),
         where("Removed", "==", false)
       );
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
