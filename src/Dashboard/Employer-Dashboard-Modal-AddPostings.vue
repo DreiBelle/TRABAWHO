@@ -163,7 +163,6 @@
           </IonInput>
         </div>
 
-
         <div class="flexcenter" style="margin-top: 10px;">
           <IonText class="modal-addjobpost-titlediv">
             WORK LOCATION
@@ -274,7 +273,7 @@ import { ref, onMounted, computed } from "vue";
 import { addCircleOutline, close, radio } from "ionicons/icons";
 import { IonRadio, IonRadioGroup } from '@ionic/vue';
 import NewTags from "./SpecializedFields.vue";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 export default {
   components: {
@@ -375,7 +374,8 @@ export default {
     async addAuditlog(jobname) {
       const docRef = await addDoc(collection(db, "Logs"), {
         EmployerEmail: this.EmployerEmail,
-        Action: "Added job posting " + jobname
+        Action: "Added job posting " + jobname,
+        DateCreated: serverTimestamp(),
       });
       console.log("Document written with ID: ", docRef.id);
     },
@@ -431,6 +431,14 @@ export default {
       this.formData.loc = "";
       this.formData.noofempl = "";
       this.formData.age = "";
+      this.formData.province= "";
+      this.formData.district= "";
+      this.formData.citown= "";
+      this.formData.street= "";
+      this.formData.classification= "";
+      this.formData.subclassification= "";
+      this.tagsInput="";
+
 
       // Clear the image URL and set thereisImage to false
       this.imageUrl = null;

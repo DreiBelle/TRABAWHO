@@ -1,20 +1,5 @@
 <template>
-  <div v-if="isLoading == true">
-    <div class="flexcenter" style="height: 100vh; width: 100vw; background: linear-gradient(to bottom right, white, #a6aad4)">
-      <div>
-        <div class="flexcenter">
-          <img class="Login-TrabaWho-Logo" src="../assets/logo/blackfilllogo.png">
-          <IonText class="Login-TrabaWho-text">
-            TRABAWHO
-          </IonText>
-        </div>
-        <div class="flexcenter">
-          <IonSpinner class="Login-Loading" name="crescent"></IonSpinner>
-        </div>
-      </div>
-    </div>
-  </div>
-  <IonPage v-if="isLoading == false" style="background: linear-gradient(to bottom right, white, #a6aad4)">
+  <IonPage style="background: linear-gradient(to bottom right, white, #a6aad4)">
     <HomeBar />
     <div class="flexcenter" style="height: 100%">
       <IonCard class="signup-card">

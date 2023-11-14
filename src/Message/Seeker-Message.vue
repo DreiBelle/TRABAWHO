@@ -1,6 +1,6 @@
 <template>
   <IonPage>
-    <IonHeader style="height: 50px">
+    <IonHeader mode="md" style="height: 50px">
       <IonToolbar style="height: 100%; --background: #262c5c">
         <IonButtons style="padding-left: 10px" slot="start">
           <div>
@@ -16,6 +16,13 @@
     </IonHeader>
 
     <IonContent>
+      <IonRefresher
+        style="background: none; z-index: 4"
+        slot="fixed"
+        @ionRefresh="handleRefresh($event)"
+      >
+        <IonRefresherContent></IonRefresherContent>
+      </IonRefresher>
       <div>
         <IonSearchbar
           mode="ios"
@@ -25,7 +32,7 @@
       </div>
       <div style="margin-top: 35px">
         <div
-          v-for="chat in chats"
+          v-for="chat in filteredSearch"
           class="flexcenter"
           style="margin-bottom: -40px"
         >
@@ -123,6 +130,17 @@
                       {{ messages ? `${message.messageText}` : "..." }}
                     </IonCard>
                   </div>
+                  <div
+                    class="jmessage-sender"
+                    style="margin-right: 10px"
+                    v-if="messages ? `${message.messagePdf}` : '...'"
+                  >
+                    <a :href="messages ? `${message.messagePdf}` : '...'">
+                      <IonCard class="jprofile-card-messages">
+                        {{ messages ? `${message.messagePdfname}` : "..." }}
+                      </IonCard>
+                    </a>
+                  </div>
                   <IonPopover
                     @click="removeMessage()"
                     class="jmessage-popover-button"
@@ -187,6 +205,22 @@
                         {{ messages ? `${message.messageText}` : "..." }}
                       </IonCard>
                     </div>
+                    <div
+                      class="jmessage-receiver"
+                      style="margin-left: 10px"
+                      v-if="messages ? `${message.messagePdf}` : '...'"
+                    >
+                      <a
+                        :href="messages ? `${message.messagePdf}` : '...'"
+                        :download="
+                          messages ? `${message.messagePdfname}` : '...'
+                        "
+                      >
+                        <IonCard class="jprofile-card-messages">
+                          {{ messages ? `${message.messagePdfname}` : "..." }}
+                        </IonCard>
+                      </a>
+                    </div>
                   </div>
                 </div>
                 <div class="jmessage-textdatesent2" style="margin: 0 0 0 10px">
@@ -229,7 +263,7 @@
             <input
               id="fileInput"
               type="file"
-              accept="image/jpeg"
+              accept="image/jpeg, application/pdf"
               ref="myfile"
               style="display: none"
               @change="addPicturemessage"
@@ -276,6 +310,8 @@
       </IonIcon>
       <img class="jmessage-pictureSentFull" :src="setviewPicturefull" />
     </IonModal>
+
+    <toastMessage></toastMessage>
   </IonPage>
 </template>
 
@@ -308,6 +344,9 @@ import {
   IonToolbar,
   IonButtons,
   IonTitle,
+  IonRefresher,
+  IonRefresherContent,
+  RefresherEventDetail,
 } from "@ionic/vue";
 import Navbar from "../NavBar/NavBar.vue";
 import "./Seeker-Message.css";
@@ -342,6 +381,7 @@ import { dbImage } from "@/firebaseDB";
 import { GoHome } from "../NavBar/NavBar-Controller";
 import { signOut } from "firebase/auth";
 import { auth } from "@/firebaseDB";
+import toastMessage from "../Swipe/Swipe-Toast-Message.vue";
 
 export default {
   components: {
@@ -373,6 +413,9 @@ export default {
     IonAlert,
     IonToolbar,
     IonTitle,
+    toastMessage,
+    IonRefresher,
+    IonRefresherContent,
   },
   data() {
     return {
@@ -397,6 +440,7 @@ export default {
       event: null,
       popOverId: "",
       noDel: "",
+      pdfUrl: "",
     };
   },
   setup() {
@@ -413,6 +457,12 @@ export default {
     };
   },
   methods: {
+    handleRefresh(event: CustomEvent<RefresherEventDetail>) {
+      this.getChats();
+      setTimeout(() => {
+        event.detail.complete();
+      }, 500);
+    },
     scrollToBottom() {
       this.$refs.content.$el.scrollToBottom(500);
     },
@@ -495,25 +545,35 @@ export default {
     },
 
     removePicture() {
-      this.namePic = "";
       this.selectedpic = "";
+      this.selectedPdf = "";
+      this.namePic = "";
     },
 
     async addPicturemessage(event) {
       const files = event.target.files;
-      console.log(files);
 
       if (files && files.length > 0) {
         const file = files[0];
+
         console.log("Selected file:", file);
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          this.imageUrl = e.target.result;
-        };
-        reader.readAsDataURL(file);
-        this.selectedpic = file;
-        this.namePic = file.name;
-        console.log(file);
+
+        if (file.type.startsWith("image/")) {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            this.imageUrl = e.target.result;
+          };
+          reader.readAsDataURL(file);
+          this.selectedpic = file;
+          this.namePic = file.name;
+        } else if (file.type === "application/pdf") {
+          this.selectedPdf = file;
+          this.namePic = file.name;
+        } else {
+          console.error(
+            "Unsupported file type. Please select an image (JPEG) or a PDF file."
+          );
+        }
       } else {
         console.error("No files selected or an error occurred.");
       }
@@ -531,9 +591,16 @@ export default {
         const downloadURL = await getDownloadURL(storageRef);
 
         this.messagePic = downloadURL;
+      } else if (this.selectedPdf) {
+        const storageRef = asd(dbImage, "messagePdf/" + this.selectedPdf.name);
+
+        await uploadBytes(storageRef, this.selectedPdf);
+        const downloadURL = await getDownloadURL(storageRef);
+
+        this.pdfUrl = downloadURL;
       }
 
-      if (this.contentsMessage && this.messagePic) {
+      if (this.contentsMessage && this.selectedpic && !this.selectedPdf) {
         this.filteredMessage = filter.clean(this.contentsMessage);
 
         const docRef = await addDoc(collection(db, "Messages"), {
@@ -544,7 +611,10 @@ export default {
           receiverEmail: this.clickedChatEmail,
           senderEmail: this.sender,
           messagePicture: this.messagePic,
+          messagePdf: "",
+          messagePdfname: "",
           Removed: false,
+          Read: false,
         });
 
         const updateDate = doc(db, "MessagesUsers", this.clickedId);
@@ -552,24 +622,11 @@ export default {
           latestSent: serverTimestamp(),
           latestMessage: this.contentsMessage,
         });
-      } else if (!this.contentsMessage && this.messagePic) {
-        const docRef = await addDoc(collection(db, "Messages"), {
-          dateSent: serverTimestamp(),
-          messageId: this.sender + this.clickedChatEmail,
-          messageText: "",
-          messageJobField: this.clickedJobSwiped,
-          receiverEmail: this.clickedChatEmail,
-          senderEmail: this.sender,
-          messagePicture: this.messagePic,
-          Removed: false,
-        });
-
-        const updateDate = doc(db, "MessagesUsers", this.clickedId);
-        await updateDoc(updateDate, {
-          latestSent: serverTimestamp(),
-          latestMessage: "Sent a Photo.",
-        });
-      } else if (this.contentsMessage && !this.messagePic) {
+      } else if (
+        this.selectedPdf &&
+        this.contentsMessage &&
+        !this.selectedpic
+      ) {
         this.filteredMessage = filter.clean(this.contentsMessage);
 
         const docRef = await addDoc(collection(db, "Messages"), {
@@ -580,13 +637,89 @@ export default {
           receiverEmail: this.clickedChatEmail,
           senderEmail: this.sender,
           messagePicture: "",
+          messagePdf: this.pdfUrl,
+          messagePdfname: this.selectedPdf.name,
           Removed: false,
+          Read: false,
         });
 
         const updateDate = doc(db, "MessagesUsers", this.clickedId);
         await updateDoc(updateDate, {
           latestSent: serverTimestamp(),
           latestMessage: this.contentsMessage,
+        });
+      } else if (
+        !this.contentsMessage &&
+        this.messagePic &&
+        !this.selectedPdf
+      ) {
+        const docRef = await addDoc(collection(db, "Messages"), {
+          dateSent: serverTimestamp(),
+          messageId: this.sender + this.clickedChatEmail,
+          messageText: "",
+          messageJobField: this.clickedJobSwiped,
+          receiverEmail: this.clickedChatEmail,
+          senderEmail: this.sender,
+          messagePicture: this.messagePic,
+          messagePdf: "",
+          messagePdfname: "",
+          Removed: false,
+          Read: false,
+        });
+        const updateDate = doc(db, "MessagesUsers", this.clickedId);
+        await updateDoc(updateDate, {
+          latestSent: serverTimestamp(),
+          latestMessage: "Sent a Photo.",
+        });
+      } else if (
+        this.contentsMessage &&
+        !this.selectedpic &&
+        !this.selectedPdf
+      ) {
+        this.filteredMessage = filter.clean(this.contentsMessage);
+
+        const docRef = await addDoc(collection(db, "Messages"), {
+          dateSent: serverTimestamp(),
+          messageId: this.sender + this.clickedChatEmail,
+          messageText: this.filteredMessage,
+          messageJobField: this.clickedJobSwiped,
+          receiverEmail: this.clickedChatEmail,
+          senderEmail: this.sender,
+          messagePicture: "",
+          messagePdf: "",
+          messagePdfname: "",
+          Removed: false,
+          Read: false,
+        });
+
+        const updateDate = doc(db, "MessagesUsers", this.clickedId);
+        await updateDoc(updateDate, {
+          latestSent: serverTimestamp(),
+          latestMessage: this.contentsMessage,
+        });
+      } else if (
+        !this.contentsMessage &&
+        !this.selectedpic &&
+        this.selectedPdf
+      ) {
+        const docRef = await addDoc(collection(db, "Messages"), {
+          dateSent: serverTimestamp(),
+          messageId: this.sender + this.clickedChatEmail,
+          messageText: "",
+          messageJobField: this.clickedJobSwiped,
+          receiverEmail: this.clickedChatEmail,
+          senderEmail: this.sender,
+          messagePicture: "",
+          messagePdf: this.pdfUrl,
+          messagePdfname: this.selectedPdf.name,
+          Removed: false,
+          Read: false,
+        });
+
+        const updateDate = doc(db, "MessagesUsers", this.clickedId);
+        await updateDoc(updateDate, {
+          latestSent: serverTimestamp(),
+          latestMessage: "Sent a file",
         });
       } else {
         console.log("enter contents");
@@ -595,6 +728,8 @@ export default {
       this.contentsMessage = "";
       this.namePic = "";
       this.selectedpic = "";
+      this.selectedPdf = "";
+      this.pdfUrl = "";
       this.messagePic = "";
       this.scrollToBottom();
     },
@@ -634,19 +769,27 @@ export default {
         });
         this.messages = newMessages;
         this.isLoading = false;
-
-        setTimeout(() => {
-          this.scrollToBottom();
-        }, 150);
       });
 
       this.isChat = x;
+      if (this.isChat == true) {
+        setTimeout(() => {
+          this.scrollToBottom();
+        }, 250);
+      }
     },
   },
   computed: {
     filteredSearch() {
       return this.chats.filter((chat) => {
-        return chat.toLowerCase().includes(this.searchTerm.toLowerCase());
+        return (
+          chat.data.EmployerName.toLowerCase().includes(
+            this.searchTerm.toLowerCase()
+          ) ||
+          chat.data.JobSwipe.toLowerCase().includes(
+            this.searchTerm.toLowerCase()
+          )
+        );
       });
     },
   },

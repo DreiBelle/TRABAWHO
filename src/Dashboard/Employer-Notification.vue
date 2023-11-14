@@ -1,9 +1,17 @@
 <template>
   <IonPage>
-    <div v-if="!user && !jobpost" style="height: 100%;">
-      hello
+    <div v-if="isLoading" style="height: 100%">
+      <IonProgressBar type="indeterminate"></IonProgressBar>
     </div>
-    <div v-else-if="user && jobpost" style="height: 100%;">
+    <div
+      class="Employer-NoNotification"
+      v-else-if="!isLoading && jobpost.length == 0"
+    >
+      <IonText style="color: #262c5c;" class="flexcenter enotif-nonotif-text"> 
+        <IonIcon :icon="notifications"></IonIcon>
+        No Notifications </IonText>
+    </div>
+    <div v-else-if="!isLoading" style="height: 100%">
       <div>
         <IonText class="enotif-title">
           <IonIcon :icon="notifications"></IonIcon>
@@ -11,60 +19,114 @@
         </IonText>
       </div>
       <IonContent>
-        <div class="flexcenter" v-for="(post, index) in jobpost" :key="post.jobdid">
+        <div
+          class="flexcenter"
+          v-for="(post, index) in jobpost"
+          :key="post.jobdid"
+        >
           <IonCard
-            @click="viewUsermodal(true, swiper[index] ? swiper[index].id : '...', swiper[index] ? swiper[index].fullname : '...', post.jobname, swiper[index] ? swiper[index].email : '...', swiper[index] ? swiper[index].pic : '...')"
-            class="enotif-card">
+            @click="
+              viewUsermodal(
+                true,
+                swiper[index] ? swiper[index].id : '...',
+                swiper[index] ? swiper[index].fullname : '...',
+                post.jobname,
+                swiper[index] ? swiper[index].email : '...',
+                swiper[index] ? swiper[index].pic : '...'
+              )
+            "
+            class="enotif-card"
+          >
             <div>
-              <IonAvatar v-if="swiper[index] ? swiper[index].pic : '...'" class="enotif-card-avatar">
-                <img :src="swiper[index] ? swiper[index].pic : 'https://ionicframework.com/docs/img/demos/avatar.svg'" />
+              <IonAvatar
+                v-if="swiper[index] ? swiper[index].pic : '...'"
+                class="enotif-card-avatar"
+              >
+                <img
+                  :src="
+                    swiper[index]
+                      ? swiper[index].pic
+                      : 'https://ionicframework.com/docs/img/demos/avatar.svg'
+                  "
+                />
               </IonAvatar>
             </div>
             <div>
               <div class="enotif-card-text">
                 <IonText>
                   <p>
-                    Job Seeker <b> {{ swiper[index] ? swiper[index].fullname : '...' }} </b> just swiped your job posting
+                    Job Seeker
                     <b>
-                      {{ post.jobname }}</b>!
+                      {{ swiper[index] ? swiper[index].fullname : "..." }}
+                    </b>
+                    just swiped your job posting <b> {{ post.jobname }}</b
+                    >!
                   </p>
-                  <p style="font-size: 12px ;">
+                  <p style="font-size: 12px">
                     {{ formattedDate(post.dateCreated) }}
                   </p>
                 </IonText>
               </div>
             </div>
             <div class="flexcenter">
-              <IonIcon class="enotif-card-icon-chevron" :icon="chevronForward"></IonIcon>
+              <IonIcon
+                class="enotif-card-icon-chevron"
+                :icon="chevronForward"
+              ></IonIcon>
             </div>
           </IonCard>
         </div>
-        <viewUser :pic-employer="userPic" :name-employer="userName" @go-messages-data="goMessagesdata" @go-messages="goMessages" :picture-viewuser="pictureViewuser"
-          :name-viewuser="nameViewuser" :email-viewuser="emailViewuser" :job-viewuser="jobViewuser"
-          :id-viewuser="idViewuser" :is-viewuser="isViewuser"
-          @close-view-modal="viewUsermodal(false, '', '', '', '', '')">
+        <viewUser
+          :pic-employer="userPic"
+          :name-employer="userName"
+          @go-messages-data="goMessagesdata"
+          @go-messages="goMessages"
+          :picture-viewuser="pictureViewuser"
+          :name-viewuser="nameViewuser"
+          :email-viewuser="emailViewuser"
+          :job-viewuser="jobViewuser"
+          :id-viewuser="idViewuser"
+          :is-viewuser="isViewuser"
+          @close-view-modal="viewUsermodal(false, '', '', '', '', '')"
+        >
         </viewUser>
       </IonContent>
     </div>
   </IonPage>
 </template>
-    
-    
+
 <script lang="ts">
-import "./Employer-Notification.css"
-import { useSwipedata } from '@/stores/swipedata';
-import { IonPage, IonGrid, IonRow, IonCol, IonCard, IonSkeletonText, IonContent, IonText, IonAvatar, IonIcon, } from '@ionic/vue';
-import { onMounted, ref } from 'vue';
-import { getDashboardProfile, getJobPostings, getSwipedpostings, getswiperProfile } from './Dashboard-Model';
+import "./Employer-Notification.css";
+import { useSwipedata } from "@/stores/swipedata";
+import {
+  IonPage,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonCard,
+  IonSkeletonText,
+  IonContent,
+  IonText,
+  IonAvatar,
+  IonIcon,
+  IonProgressBar,
+} from "@ionic/vue";
+import { onMounted, ref } from "vue";
+import {
+  getDashboardProfile,
+  getJobPostings,
+  getSwipedpostings,
+  getswiperProfile,
+} from "./Dashboard-Model";
 import { chevronForward, notifications, settingsOutline } from "ionicons/icons";
-import viewUser from './Dashboard-Modals/Notification-ViewSeeker.vue'
+import viewUser from "./Dashboard-Modals/Notification-ViewSeeker.vue";
 
 export default {
   setup() {
     return {
       chevronForward,
-      notifications
-    }
+      notifications,
+    };
   },
   data() {
     return {
@@ -74,25 +136,22 @@ export default {
       isLoading: true,
       userEmail: localStorage.getItem("email"),
       isViewuser: false,
-      idViewuser: '',
-      nameViewuser: '',
-      jobViewuser: '',
-      emailViewuser: '',
-      pictureViewuser: '',
-      userPic: '',
-      userName: '',
+      idViewuser: "",
+      nameViewuser: "",
+      jobViewuser: "",
+      emailViewuser: "",
+      pictureViewuser: "",
+      userPic: "",
+      userName: "",
     };
   },
-  emits: [
-    "go-messages",
-    'go-messages-data',
-  ],
+  emits: ["go-messages", "go-messages-data"],
   methods: {
     goMessages(x) {
-      this.$emit("go-messages", x)
+      this.$emit("go-messages", x);
     },
     goMessagesdata(name, job, picture, email, id) {
-      this.$emit("go-messages-data", name, job, picture, email, id)
+      this.$emit("go-messages-data", name, job, picture, email, id);
     },
     formattedDate(timestamp) {
       const date = new Date(timestamp);
@@ -110,46 +169,59 @@ export default {
       return `${month} ${day}, ${year} | ${formattedHours}:${formattedMinutes} ${ampm}`;
     },
     viewUsermodal(x, id, name, job, email, picture) {
-      this.isViewuser = x
-      this.idViewuser = id
-      this.nameViewuser = name
-      this.jobViewuser = job
-      this.emailViewuser = email
-      this.pictureViewuser = picture
+      this.isViewuser = x;
+      this.idViewuser = id;
+      this.nameViewuser = name;
+      this.jobViewuser = job;
+      this.emailViewuser = email;
+      this.pictureViewuser = picture;
     },
 
     async getSwipes() {
+      this.isLoading = true;
       this.user = await getDashboardProfile(this.userEmail);
       try {
-        this.jobpost = await Promise.all(this.user.swiperjob.map(async (swiperjobs) => {
-          return await getSwipedpostings(swiperjobs.jobdid);
-        }));
+        this.jobpost = await Promise.all(
+          this.user.swiperjob.map(async (swiperjobs) => {
+            return await getSwipedpostings(swiperjobs.jobdid);
+          })
+        );
 
-        this.swiper = await Promise.all(this.user.swiperuser.map(async (swiperusers) => {
-          return await getswiperProfile(swiperusers.swipedid);
-        }));
+        this.swiper = await Promise.all(
+          this.user.swiperuser.map(async (swiperusers) => {
+            return await getswiperProfile(swiperusers.swipedid);
+          })
+        );
       } catch (error) {
-        console.log("No Postings")
+        console.log("No Postings");
         // console.error('An error occurred:', error);
       }
-    }
+
+      this.isLoading = false;
+    },
   },
   mounted() {
-    this.getSwipes()
+    this.getSwipes();
     setTimeout(() => {
-      this.userName = this.user.businessname
-      this.userPic = this.user.pic
+      this.userName = this.user.businessname;
+      this.userPic = this.user.pic;
     }, 500);
   },
   components: {
-    IonPage, IonGrid, IonRow, IonCol, IonSkeletonText, IonCard, viewUser,
+    IonPage,
+    IonGrid,
+    IonRow,
+    IonCol,
+    IonSkeletonText,
+    IonCard,
+    viewUser,
     IonContent,
     IonText,
     IonAvatar,
-    IonIcon
-  }
-}
+    IonIcon,
+    IonProgressBar,
+  },
+};
 </script>
-    
+
 <style></style>
-    

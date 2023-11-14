@@ -1,5 +1,6 @@
 <template>
   <IonModal class="modal-viewjobpost" @did-dismiss="closeView" :is-open="isViewmodal">
+    <IonProgressBar v-if="isLoading" type="indeterminate"></IonProgressBar>
     <IonHeader style="background: #262c5c; color: white">
       <IonGrid>
         <IonRow>
@@ -318,6 +319,7 @@ import {
   IonContent,
   IonHeader,
   IonInput,
+IonProgressBar,
 } from "@ionic/vue";
 import {
   eyeSharp,
@@ -330,7 +332,7 @@ import {
 import EditModal from "../Dashboard-Modals/Dashboard-EditJobPosting.vue";
 import { useJobStore } from "@/stores/deletejobstore";
 import '@/Swipe/Swipe.css'
-import { collection, addDoc, updateDoc, doc } from "firebase/firestore";
+import { collection, addDoc, updateDoc, doc, serverTimestamp } from "firebase/firestore";
 import { db } from "@/firebaseDB";
 
 export default {
@@ -346,8 +348,9 @@ export default {
     IonText,
     IonIcon,
     IonHeader,
-    IonInput
-  },
+    IonInput,
+    IonProgressBar
+},
   props: {
     isViewmodal: {
       type: Boolean,
@@ -360,7 +363,8 @@ export default {
   data() {
     return {
       Editmodal: false,
-      EmployerEmail: localStorage.getItem("email")
+      EmployerEmail: localStorage.getItem("email"),
+      isLoading: false,
     };
   },
   setup() {
@@ -394,11 +398,14 @@ export default {
       }
     },
     async removeAuditlog(jobname) {
+      this.isLoading = true
       const docRef = await addDoc(collection(db, "Logs"), {
         EmployerEmail: this.EmployerEmail,
-        Action: "Removed a job posting " + jobname
+        Action: "Removed a job posting " + jobname,
+        DateCreated: serverTimestamp(),
       });
       console.log("Document written with ID: ", docRef.id);
+      this.isLoading = false
     },
     async deletejob() {
       this.removeAuditlog(this.jobPosting.jobname)

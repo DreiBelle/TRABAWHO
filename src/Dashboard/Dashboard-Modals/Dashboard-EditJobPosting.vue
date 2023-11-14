@@ -301,7 +301,7 @@ import { ref, onMounted, computed, defineComponent, PropType } from "vue";
 import { addCircleOutline, close } from "ionicons/icons";
 import { IonRadio, IonRadioGroup } from '@ionic/vue';
 import NewTags from "../SpecializedFields.vue";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 export default {
   components: {
@@ -404,7 +404,9 @@ export default {
     async updateAuditlog(jobname) {
       const docRef = await addDoc(collection(db, "Logs"), {
         EmployerEmail: this.EmployerEmail,
-        Action: "Updated a job posting " + jobname
+        Action: "Updated a job posting " + jobname,
+        DateCreated: serverTimestamp(),
+
       });
       console.log("Document written with ID: ", docRef.id);
     },

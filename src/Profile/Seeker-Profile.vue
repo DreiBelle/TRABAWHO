@@ -29,9 +29,17 @@
           </div>
         </IonButtons>
       </IonToolbar>
+      <IonProgressBar v-if="isLoading" type="indeterminate"></IonProgressBar>
     </IonHeader>
 
     <IonContent>
+      <IonRefresher
+        style="background: none; z-index: 4"
+        slot="fixed"
+        @ionRefresh="handleRefresh($event)"
+      >
+        <IonRefresherContent></IonRefresherContent>
+      </IonRefresher>
       <div class="flexcenter jprofile-avatar-div">
         <div>
           <div class="flexcenter">
@@ -374,7 +382,7 @@
           <div>
             <div>
               <IonText class="jprofile-cards-education-text">
-                <b>Preffered Classification </b> 
+                <b>Preffered Classification </b>
               </IonText>
               <IonCard class="jprofile-cards-education">
                 {{ user ? `${user.classification}` : "..." }}
@@ -465,6 +473,10 @@ import {
   IonCardTitle,
   IonCardContent,
   IonAlert,
+  IonRefresher,
+  IonRefresherContent,
+  RefresherEventDetail,
+  IonProgressBar,
 } from "@ionic/vue";
 import Navbar from "../NavBar/NavBar.vue";
 import "./Seeker-Profile.css";
@@ -530,6 +542,9 @@ export default {
     IonCardTitle,
     IonCardContent,
     IonAlert,
+    IonProgressBar,
+    IonRefresher,
+    IonRefresherContent,
   },
   setup() {
     const user = ref(null);
@@ -629,9 +644,20 @@ export default {
       AwardWhere: "",
       AwardWhen: "",
       AwardId: "",
+
+      isLoading: false,
     };
   },
   methods: {
+    handleRefresh(event: CustomEvent<RefresherEventDetail>) {
+      this.isLoading = true;
+      this.getExperiences();
+      this.getAwards();
+      setTimeout(() => {
+        event.detail.complete();
+      }, 500);
+      this.isLoading = false;
+    },
     addAwardsmodal(x) {
       this.isAddaward = x;
     },

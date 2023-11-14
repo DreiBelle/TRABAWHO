@@ -108,6 +108,21 @@
   --background: #262c5c;
 }
 
-.enotif-pointer{
-    cursor: pointer;
+.enotif-pointer {
+  cursor: pointer;
+}
+
+.Employer-NoNotification {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  color: black;
+  height: 100%;
+  width: 100%;
+}
+
+.enotif-nonotif-text{
+  font-family: BebasNeue-Regular;
+  font-size: 50px;
 }

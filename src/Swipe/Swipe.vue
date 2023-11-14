@@ -8,8 +8,9 @@
             <img style="height: 30px" src="../assets/logo/whitefilllogo.png" alt="logo" />
           </div>
         </IonButtons>
-        <IonProgressBar v-if="isloading" type="indeterminate"></IonProgressBar>
       </IonToolbar>
+      <IonProgressBar v-if="isloading" type="indeterminate"></IonProgressBar>
+
     </IonHeader>
 
     <IonContent :scroll-y="false" v-if="!isloading" style="background: snow">
@@ -235,6 +236,7 @@ export default {
       this.actionMade = "left"
     },
     async refresh(event: CustomEvent<RefresherEventDetail>) {
+      this.isloading = true;
       if (this.cards) {
         const jobIds = [];
         const user = asd(null);

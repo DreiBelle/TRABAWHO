@@ -16,13 +16,7 @@
               <IonText  class="landingpage-logo-name"> TRABAWHO </IonText>
             </div>
           </IonCol>
-          <IonCol size="6"></IonCol>
-          <IonCol size="1.5" class="flexcenter">
-            <a class="landingpage-navigations">ABOUT</a>
-          </IonCol>
-          <IonCol size="1.5" class="flexcenter">
-            <a class="landingpage-navigations">TUTORIALS</a>
-          </IonCol>
+          <IonCol size="9"></IonCol>
         </IonRow>
       </IonGrid>
     </IonHeader>
