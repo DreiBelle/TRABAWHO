@@ -1,11 +1,15 @@
 <template>
     <IonPage>
         <IonContent>
-            <div>
-                Male Jobseekers: {{ male.length }}
+            <div class="analytics-box"
+                :style="{ 'box-shadow': male.length > 0 ? 'rgba(0, 0, 0, 0.24) 0px 3px 8px' : 'none' }">
+                Male Jobseekers<br>
+                <span class="analytics-number" style="font-size: 32px; font-weight: bold;">{{ male.length }}</span>
             </div>
-            <div>
-                Female Jobseekers: {{ female.length }}
+            <div class="analytics-box"
+                :style="{ 'box-shadow': female.length > 0 ? 'rgba(0, 0, 0, 0.24) 0px 3px 8px' : 'none' }">
+                Female Jobseekers<br>
+                <span class="analytics-number" style="font-size: 32px; font-weight: bold;">{{ female.length }}</span>
             </div>
             <div class="data-analytics">
                 <canvas id="Empljobseeker"></canvas>
@@ -616,4 +620,22 @@ export default {
     }
 };
 </script>
+<style scoped>
+.analytics-box {
+    width: 200px;
+    height: 100px;
+    margin: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    overflow: hidden;
+    display: inline-block;
+    text-align: center;
+    margin-left: 300px;
+}
+
+.analytics-number {
+    font-size: 100px;
+    font-weight: bold;
+}
+</style>
   

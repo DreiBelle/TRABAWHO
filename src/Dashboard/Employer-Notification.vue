@@ -1,17 +1,14 @@
 <template>
   <IonPage>
-    <div v-if="isLoading" style="height: 100%">
-      <IonProgressBar type="indeterminate"></IonProgressBar>
-    </div>
-    <div
+    <!-- <div
       class="Employer-NoNotification"
       v-else-if="!isLoading && jobpost.length == 0"
     >
       <IonText style="color: #262c5c;" class="flexcenter enotif-nonotif-text"> 
         <IonIcon :icon="notifications"></IonIcon>
         No Notifications </IonText>
-    </div>
-    <div v-else-if="!isLoading" style="height: 100%">
+    </div> -->
+    <div style="height: 100%">
       <div>
         <IonText class="enotif-title">
           <IonIcon :icon="notifications"></IonIcon>
@@ -135,7 +132,6 @@ export default {
       user: "",
       jobpost: [],
       swiper: [],
-      isLoading: true,
       userEmail: localStorage.getItem("email"),
       isViewuser: false,
       idViewuser: "",
@@ -189,7 +185,6 @@ export default {
       const userUnsubscribe = onSnapshot(userQuery, (snapshot) => {
         this.user.value = snapshot.docs[0]?.data();
       });
-      this.isLoading = true;
       this.user = await getDashboardProfile(this.userEmail);
       try {
         this.jobpost = await Promise.all(
@@ -207,8 +202,6 @@ export default {
         console.log("No Postings");
         // console.error('An error occurred:', error);
       }
-
-      this.isLoading = false;
     },
   },
   mounted() {

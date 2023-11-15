@@ -234,7 +234,6 @@ export default {
                 this.formData.companytype = user.companytype
                 this.formData.yearsofest = user.yearsofest
                 this.formData.noofempl = user.noofempl
-                this.formData.yearsofest = user.yearsofest
                 this.formData.mv = user.mv
                 this.formData.founders = user.founders
                 this.formData.number = user.number

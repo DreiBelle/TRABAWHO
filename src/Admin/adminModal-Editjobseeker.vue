@@ -193,7 +193,7 @@
                         <IonButton @click="closeModal">Cancel</IonButton>
                     </IonCol>
                     <IonCol class="flexcenter">
-                        <IonButton @click="closeModal">Cancel</IonButton>
+                        <IonButton @click="handlesubmit">Save</IonButton>
                     </IonCol>
                 </IonRow>
             </IonContent>

@@ -9,7 +9,6 @@
             </IonSegmentButton>
         </IonSegment>
     </div>
-
     <div class="flexcenter">
         <IonButton @click="adduserModal(true)" class="admin-adduser">Add Employer</IonButton>
     </div>
@@ -122,4 +121,5 @@ export default {
 <style>
 /* ion-col {
     border: 1px solid black;
-} */</style>
+} */
+</style>

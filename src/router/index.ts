@@ -168,6 +168,9 @@ const routes: Array<RouteRecordRaw> = [
     path: "/admin",
     name: "admin",
     component: () => import("../Admin/adminDashboard.vue"),
+    // meta: {
+    //   requiresAuth: true,
+    // },
   },
   {
     path: "/AboutUs",

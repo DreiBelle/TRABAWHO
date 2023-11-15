@@ -51,7 +51,6 @@
             </div>
         </IonContent>
     </div>
-
     <addjob :is-addjobmodal="isjob" @close-add-job="addjobModal(false)"></addjob>
 
     <viewjob :pass-id="passID" :is-viewmodal="isviewJob" @close-view-modal="viewjobModal(false, '')"></viewjob>
@@ -65,14 +64,13 @@ import {
     onSnapshot,
     query,
     orderBy,
-    where,
+where,
 } from "firebase/firestore";
 import { db } from "@/firebaseDB";
 import { ref, onMounted } from 'vue';
 import addjob from './adminModal-Addjobpost.vue'
 import viewjob from './adminModal-Viewjob.vue'
 import { getJobPostings } from './admin-Model';
-
 export default {
     components: { IonPage, IonSearchbar, IonList, IonCard, IonContent, IonGrid, IonRow, IonCol, IonIcon, IonText, IonModal, IonSelect, IonSelectOption, IonButton, addjob, viewjob },
     setup() {
@@ -93,7 +91,7 @@ export default {
                 }));
             });
 
-            
+
         });
 
         return {

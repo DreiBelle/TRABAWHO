@@ -213,8 +213,8 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { arrowForwardOutline, close, pencil, trash, radioButtonOffOutline, radioButtonOnOutline } from "ionicons/icons";
 import { aprooveUserStore } from "@/stores/approve"
 import { ref } from "vue";
-import edituser from './adminModal-EditUser.vue';
-import editjuser from './adminModal-EditJobseeker.vue';
+import edituser from './adminModal-Edituser.vue';
+import editjuser from './adminModal-Editjobseeker.vue';
 export default {
   emits: ['close-view-modal'],
   components: {
