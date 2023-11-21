@@ -47,4 +47,5 @@ export interface SignupModel {
   pic: string
   classification: String
   subclassification: String
+  pwd: String
 }

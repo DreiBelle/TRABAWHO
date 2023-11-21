@@ -24,7 +24,7 @@
             </div>
             <div>
               <input id="fileInput" type="file" accept="image/jpeg" @change="handleFileChange" ref="myfile"
-                style="display: none" />
+                style="display: none" /><ion-text color="danger">*</ion-text>
               <label for="fileInput" class="modal-editposting-modal">
                 Choose Picture
               </label>
@@ -53,14 +53,14 @@
         </div>
 
         <div>
-          <IonInput class="modal-addjobpost-input" label="Job Title" placeholder="Title" labelPlacement="stacked"
-            fill="outline" v-model="formData.jobname" required>
+          <IonInput class="modal-addjobpost-input" placeholder="Title" labelPlacement="stacked"
+            fill="outline" v-model="formData.jobname" required><div slot="label">Job Tittle<ion-text color="danger">*</ion-text></div>
           </IonInput>
         </div>
 
         <div>
-          <IonSelect class="modal-addjobpost-input" label="Job Type" interface="popover" labelPlacement="stacked"
-            v-model="formData.jobtype" fill="outline" placeholder="Select Job Type" required>
+          <IonSelect class="modal-addjobpost-input" interface="popover" labelPlacement="stacked"
+            v-model="formData.jobtype" fill="outline" placeholder="Select Job Type" required><div slot="label">Job Type<ion-text color="danger">*</ion-text></div>
             <IonSelectOption value="Full-Time">Full-Time</IonSelectOption>
             <IonSelectOption value="Part-Time">Part-Time</IonSelectOption>
             <IonSelectOption value="Contract">Contract</IonSelectOption>
@@ -70,8 +70,8 @@
         </div>
 
         <div>
-          <IonSelect class="modal-addjobpost-input" label="Position Level" label-placement="stacked" interface="popover"
-            fill="outline" v-model="formData.positionlvl" placeholder="Select Position Level" required>
+          <IonSelect class="modal-addjobpost-input" label-placement="stacked" interface="popover"
+            fill="outline" v-model="formData.positionlvl" placeholder="Select Position Level" required><div slot="label">Position Level<ion-text color="danger">*</ion-text></div>
             <IonSelectOption value="CEO/SVP/AVP/VP/Director">CEO/SVP/AVP/VP/Director</IonSelectOption>
             <IonSelectOption value="Assistant Manager/Manager">Assistant Manager/Manager</IonSelectOption>
             <IonSelectOption value="Supervisor/5 Years & Up Experience Employee">Supervisor/5 Years & Up Experience
@@ -82,8 +82,8 @@
         </div>
 
         <div>
-          <IonInput class="modal-addjobpost-input" label="Salary" placeholder="Input Salary" labelPlacement="stacked"
-            fill="outline" v-model="formData.salary" type="number" required>
+          <IonInput class="modal-addjobpost-input" placeholder="Input Salary" labelPlacement="stacked"
+            fill="outline" v-model="formData.salary" type="number" required><div slot="label">Salary<ion-text color="danger">*</ion-text></div>
           </IonInput>
         </div>
 
@@ -94,8 +94,8 @@
         </div>
 
         <div>
-          <IonTextarea label="Job Description" fill="outline" labelPlacement="stacked" class="modal-addjobpost-input"
-            v-model="formData.jobdes" style="height: 200px" placeholder="Enter Description of the job">
+          <IonTextarea fill="outline" labelPlacement="stacked" class="modal-addjobpost-input"
+            v-model="formData.jobdes" style="height: 200px" placeholder="Enter Description of the job"><div slot="label">Job Description<ion-text color="danger">*</ion-text></div>
           </IonTextarea>
         </div>
 
@@ -106,25 +106,15 @@
         </div>
 
         <div>
-          <IonInput class="modal-addjobpost-input" label="No. of employees" placeholder="Needed no. of employees"
-            labelPlacement="stacked" fill="outline" type="number" v-model="formData.noofempl" required>
+          <IonInput class="modal-addjobpost-input" placeholder="Needed no. of employees"
+            labelPlacement="stacked" fill="outline" type="number" v-model="formData.noofempl" required><div slot="label">No. of employees<ion-text color="danger">*</ion-text></div>
           </IonInput>
         </div>
 
         <div>
-          <IonSelect class="modal-addjobpost-input" label="Age" interface="popover" labelPlacement="stacked"
-            fill="outline" placeholder="Select preffered age" v-model="formData.age" required>
-            <IonSelectOption value="18-25">18-25</IonSelectOption>
-            <IonSelectOption value="26-35">26-35</IonSelectOption>
-            <IonSelectOption value="36-45">36-45</IonSelectOption>
-            <IonSelectOption value="46 and above">46 and above</IonSelectOption>
-          </IonSelect>
-        </div>
-
-        <div>
-          <IonSelect class="modal-addjobpost-input" label="Years of Experience" label-placement="stacked"
+          <IonSelect class="modal-addjobpost-input" label-placement="stacked"
             interface="popover" fill="outline" v-model="formData.yearsofexp"
-            placeholder="Select Mininimun Working Experience" required>
+            placeholder="Select Mininimun Working Experience" required><div slot="label">Years of Experience<ion-text color="danger">*</ion-text></div>
             <IonSelectOption value="0">0</IonSelectOption>
             <IonSelectOption value="1-5">1-5</IonSelectOption>
             <IonSelectOption value="6-10">6-10</IonSelectOption>
@@ -136,9 +126,9 @@
         </div>
 
         <div>
-          <IonSelect class="modal-addjobpost-input" label="Required Educational Attainment" label-placement="stacked"
+          <IonSelect class="modal-addjobpost-input" label-placement="stacked"
             interface="popover" fill="outline" v-model="formData.reqeduc"
-            placeholder="Select Required Educational Attainment" required>
+            placeholder="Select Required Educational Attainment" required><div slot="label">Required Educational Attaintment<ion-text color="danger">*</ion-text></div>
             <IonSelectOption value="none">none</IonSelectOption>
 
             <IonSelectOption value="Junior High School Graduate and above">Junior High School Graduate and above
@@ -158,8 +148,8 @@
           <NewTags v-on:chosen-special="updateChosenspecial" @chosen-subspecial="updatesubChosenspecial"></NewTags>
         </div>
         <div>
-          <IonInput class="modal-addjobpost-input" label="Tags" placeholder="add tags seperated by a comma ','"
-            labelPlacement="stacked" fill="outline" v-model="tagsInput" type="text" required>
+          <IonInput class="modal-addjobpost-input" placeholder="add tags seperated by a comma ','"
+            labelPlacement="stacked" fill="outline" v-model="tagsInput" type="text" required><div slot="label">Tags<ion-text color="danger">*</ion-text></div>
           </IonInput>
         </div>
 
@@ -170,15 +160,15 @@
         </div>
 
         <div class="flexcenter">
-          <IonSelect mode="md" label="Province" placeholder="Select Province" label-placement="stacked"
-            interface="popover" fill="outline" class="modal-addjobpost-input" v-model="formData.province" required>
+          <IonSelect mode="md" placeholder="Select Province" label-placement="stacked"
+            interface="popover" fill="outline" class="modal-addjobpost-input" v-model="formData.province" required><div slot="label">Province<ion-text color="danger">*</ion-text></div>
             <IonSelectOption value="Cagayan">Cagayan</IonSelectOption>
             <IonSelectOption value="Isabela">Isabela</IonSelectOption>
             <IonSelectOption value="Nueva Vizcaya">Nueva Vizcaya</IonSelectOption>
             <IonSelectOption value="Quirino">Quirino</IonSelectOption>
           </IonSelect>
-          <IonSelect mode="md" label="City/Town" placeholder="Select City/Town" label-placement="stacked"
-            interface="popover" fill="outline" class="modal-addjobpost-input" v-model="formData.citown" required>
+          <IonSelect mode="md" placeholder="Select City/Town" label-placement="stacked"
+            interface="popover" fill="outline" class="modal-addjobpost-input" v-model="formData.citown" required><div slot="label">City/Town<ion-text color="danger">*</ion-text></div>
             <IonSelectOption value="Tuguegarao City">Tuguegarao City</IonSelectOption>
             <IonSelectOption value="Aparri">Aparri</IonSelectOption>
             <IonSelectOption value="Lal-lo">Lal-lo</IonSelectOption>
@@ -333,7 +323,6 @@ export default {
       reqeduc: "",
       loc: "",
       noofempl: "",
-      age: "",
       company: companyname.value,
       isactive: "activate",
       creator: creator.value,
@@ -430,7 +419,6 @@ export default {
       this.formData.reqeduc = "";
       this.formData.loc = "";
       this.formData.noofempl = "";
-      this.formData.age = "";
       this.formData.province= "";
       this.formData.district= "";
       this.formData.citown= "";
@@ -478,10 +466,8 @@ export default {
         "yearsofexp",
         "reqeduc",
         "noofempl",
-        "age",
         "province",
         "citown",
-        "hours",
       ];
       let isFormValid = true;
       let isImageSelected = false;

@@ -1,7 +1,7 @@
 <template>
     <IonSelect mode="md" class="jprofile-modal-inputs" label-placement="stacked" interface="alert" fill="outline"
-      label="Preffered Classification" placeholder="Select Classification" v-model="prefferedClassification"
-      @ion-change="chosenSpecial()" required>
+      placeholder="Select Classification" v-model="prefferedClassification"
+      @ion-change="chosenSpecial()" required><div slot="label">Preffered Classification<ion-text color="danger">*</ion-text></div>
       <IonSelectOption value="Accounting"> Accounting </IonSelectOption>
       <IonSelectOption value="Administration & Office Support">
         Administration & Office Support
@@ -49,15 +49,15 @@
     </IonSelect>
   
     <IonSelect mode="md" class="jprofile-modal-inputs" label-placement="stacked" interface="alert" fill="outline"
-      label="Sub Classification" placeholder="Select Sub Classification" :disabled="true" v-if="!prefferedClassification">
+      placeholder="Select Sub Classification" :disabled="true" v-if="!prefferedClassification"><div slot="label">Preffered Sub Classification<ion-text color="danger">*</ion-text></div>
       <IonSelectOption value="Accounts Officers/Clerks">
         Accounts Officers/Clerks
       </IonSelectOption>
     </IonSelect>
   
     <IonSelect mode="md" class="jprofile-modal-inputs" label-placement="stacked" interface="alert" fill="outline"
-      label="Sub Classification" placeholder="Select Sub Classification" v-if="prefferedClassification == 'Accounting'"
-      v-model="subclassificationClassification" @ion-change="chosenSubspecial()">
+      placeholder="Select Sub Classification" v-if="prefferedClassification == 'Accounting'"
+      v-model="subclassificationClassification" @ion-change="chosenSubspecial()"><div slot="label">Preffered Sub Classification<ion-text color="danger">*</ion-text></div>
       <IonSelectOption value="Accounts Officers/Clerks">
         Accounts Officers/Clerks
       </IonSelectOption>
@@ -123,8 +123,8 @@
     </IonSelect>
   
     <IonSelect mode="md" class="jprofile-modal-inputs" label-placement="stacked" interface="alert" fill="outline"
-      label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
-      v-if="prefferedClassification == 'Administration & Office Support'" @ion-change="chosenSubspecial()">
+      placeholder="Select Sub Classification" v-model="subclassificationClassification"
+      v-if="prefferedClassification == 'Administration & Office Support'" @ion-change="chosenSubspecial()"><div slot="label">Preffered Sub Classification<ion-text color="danger">*</ion-text></div>
       <IonSelectOption value="Administrative Assistants">
         Administrative Assistants
       </IonSelectOption>
@@ -150,8 +150,8 @@
     </IonSelect>
   
     <IonSelect mode="md" class="jprofile-modal-inputs" label-placement="stacked" interface="alert" fill="outline"
-      label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
-      v-if="prefferedClassification == 'Advertising, Arts & Media'" @ion-change="chosenSubspecial()">
+      placeholder="Select Sub Classification" v-model="subclassificationClassification"
+      v-if="prefferedClassification == 'Advertising, Arts & Media'" @ion-change="chosenSubspecial()"><div slot="label">Preffered Sub Classification<ion-text color="danger">*</ion-text></div>
       <IonSelectOption value="Agency Account Management">
         Agency Account Management
       </IonSelectOption>
@@ -178,8 +178,8 @@
     </IonSelect>
   
     <IonSelect mode="md" class="jprofile-modal-inputs" label-placement="stacked" interface="alert" fill="outline"
-      label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
-      v-if="prefferedClassification == 'Banking & Financial Services'" @ion-change="chosenSubspecial()">
+      placeholder="Select Sub Classification" v-model="subclassificationClassification"
+      v-if="prefferedClassification == 'Banking & Financial Services'" @ion-change="chosenSubspecial()"><div slot="label">Preffered Sub Classification<ion-text color="danger">*</ion-text></div>
       <IonSelectOption value="Account & Relationship Management">
         Account & Relationship Management
       </IonSelectOption>
@@ -219,8 +219,8 @@
     </IonSelect>
   
     <IonSelect mode="md" class="jprofile-modal-inputs" label-placement="stacked" interface="alert" fill="outline"
-      label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
-      v-if="prefferedClassification == 'Call Centre & Customer Services'" @ion-change="chosenSubspecial()">
+      placeholder="Select Sub Classification" v-model="subclassificationClassification"
+      v-if="prefferedClassification == 'Call Centre & Customer Services'" @ion-change="chosenSubspecial()"><div slot="label">Preffered Sub Classification<ion-text color="danger">*</ion-text></div>
       <IonSelectOption value="Collections"> Collections </IonSelectOption>
       <IonSelectOption value="Customer Service - Call Centre">
         Customer Service - Call Centre
@@ -241,8 +241,8 @@
     </IonSelect>
   
     <IonSelect mode="md" class="jprofile-modal-inputs" label-placement="stacked" interface="alert" fill="outline"
-      label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
-      v-if="prefferedClassification == 'CEO & General Management'" @ion-change="chosenSubspecial()">
+      placeholder="Select Sub Classification" v-model="subclassificationClassification"
+      v-if="prefferedClassification == 'CEO & General Management'" @ion-change="chosenSubspecial()"><div slot="label">Preffered Sub Classification<ion-text color="danger">*</ion-text></div>
       <IonSelectOption value="Board Appointments">
         Board Appointments
       </IonSelectOption>
@@ -254,8 +254,8 @@
     </IonSelect>
   
     <IonSelect mode="md" class="jprofile-modal-inputs" label-placement="stacked" interface="alert" fill="outline"
-      label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
-      v-if="prefferedClassification == 'Community Services and Development'" @ion-change="chosenSubspecial()">
+      placeholder="Select Sub Classification" v-model="subclassificationClassification"
+      v-if="prefferedClassification == 'Community Services and Development'" @ion-change="chosenSubspecial()"><div slot="label">Preffered Sub Classification<ion-text color="danger">*</ion-text></div>
       <IonSelectOption value="Board Appointments">
         Aged & Disability Support
       </IonSelectOption>
@@ -282,8 +282,8 @@
     </IonSelect>
   
     <IonSelect mode="md" class="jprofile-modal-inputs" label-placement="stacked" interface="alert" fill="outline"
-      label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
-      v-if="prefferedClassification == 'Construction'" @ion-change="chosenSubspecial()">
+      placeholder="Select Sub Classification" v-model="subclassificationClassification"
+      v-if="prefferedClassification == 'Construction'" @ion-change="chosenSubspecial()"><div slot="label">Preffered Sub Classification<ion-text color="danger">*</ion-text></div>
       <IonSelectOption value="Contracts Management">
         Contracts Management
       </IonSelectOption>
@@ -311,8 +311,8 @@
     </IonSelect>
   
     <IonSelect mode="md" class="jprofile-modal-inputs" label-placement="stacked" interface="alert" fill="outline"
-      label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
-      v-if="prefferedClassification == 'Consulting & Strategy'" @ion-change="chosenSubspecial()">
+      placeholder="Select Sub Classification" v-model="subclassificationClassification"
+      v-if="prefferedClassification == 'Consulting & Strategy'" @ion-change="chosenSubspecial()"><div slot="label">Preffered Sub Classification<ion-text color="danger">*</ion-text></div>
       <IonSelectOption value="Analysts"> Analysts </IonSelectOption>
       <IonSelectOption value="Corporate Developement">
         Corporate Developement
@@ -330,8 +330,8 @@
     </IonSelect>
   
     <IonSelect mode="md" class="jprofile-modal-inputs" label-placement="stacked" interface="alert" fill="outline"
-      label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
-      v-if="prefferedClassification == 'Design & Architecture'" @ion-change="chosenSubspecial()">
+      placeholder="Select Sub Classification" v-model="subclassificationClassification"
+      v-if="prefferedClassification == 'Design & Architecture'" @ion-change="chosenSubspecial()"><div slot="label">Preffered Sub Classification<ion-text color="danger">*</ion-text></div>
       <IonSelectOption value="Architectural Drafting">
         Architectural Drafting
       </IonSelectOption>
@@ -358,8 +358,8 @@
     </IonSelect>
   
     <IonSelect mode="md" class="jprofile-modal-inputs" label-placement="stacked" interface="alert" fill="outline"
-      label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
-      v-if="prefferedClassification == 'Education & Training'" @ion-change="chosenSubspecial()">
+      placeholder="Select Sub Classification" v-model="subclassificationClassification"
+      v-if="prefferedClassification == 'Education & Training'" @ion-change="chosenSubspecial()"><div slot="label">Preffered Sub Classification<ion-text color="danger">*</ion-text></div>
       <IonSelectOption value="Childcare & Outside School Hours Care">
         Childcare & Outside School Hours Care
       </IonSelectOption>
@@ -403,8 +403,8 @@
     </IonSelect>
   
     <IonSelect mode="md" class="jprofile-modal-inputs" label-placement="stacked" interface="alert" fill="outline"
-      label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
-      v-if="prefferedClassification == 'Engineering'" @ion-change="chosenSubspecial()">
+      placeholder="Select Sub Classification" v-model="subclassificationClassification"
+      v-if="prefferedClassification == 'Engineering'" @ion-change="chosenSubspecial()"><div slot="label">Preffered Sub Classification<ion-text color="danger">*</ion-text></div>
       <IonSelectOption value="Aerospace Engineering">
         Aerospace Engineering
       </IonSelectOption>
@@ -456,8 +456,8 @@
     </IonSelect>
   
     <IonSelect mode="md" class="jprofile-modal-inputs" label-placement="stacked" interface="alert" fill="outline"
-      label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
-      v-if="prefferedClassification == 'Farming, Animals & Conservation'" @ion-change="chosenSubspecial()">
+      placeholder="Select Sub Classification" v-model="subclassificationClassification"
+      v-if="prefferedClassification == 'Farming, Animals & Conservation'" @ion-change="chosenSubspecial()"><div slot="label">Preffered Sub Classification<ion-text color="danger">*</ion-text></div>
       <IonSelectOption value="Agronomy & Farm Services">
         Agronomy & Farm Services
       </IonSelectOption>
@@ -479,8 +479,8 @@
     </IonSelect>
   
     <IonSelect mode="md" class="jprofile-modal-inputs" label-placement="stacked" interface="alert" fill="outline"
-      label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
-      v-if="prefferedClassification == 'Government & Defence'" @ion-change="chosenSubspecial()">
+      placeholder="Select Sub Classification" v-model="subclassificationClassification"
+      v-if="prefferedClassification == 'Government & Defence'" @ion-change="chosenSubspecial()"><div slot="label">Preffered Sub Classification<ion-text color="danger">*</ion-text></div>
       <IonSelectOption value="Air Force"> Air Force </IonSelectOption>
       <IonSelectOption value="Army"> Army </IonSelectOption>
       <IonSelectOption value="Emergency Services">
@@ -505,8 +505,8 @@
     </IonSelect>
   
     <IonSelect mode="md" class="jprofile-modal-inputs" label-placement="stacked" interface="alert" fill="outline"
-      label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
-      v-if="prefferedClassification == 'Healthcare & Medical'" @ion-change="chosenSubspecial()">
+      placeholder="Select Sub Classification" v-model="subclassificationClassification"
+      v-if="prefferedClassification == 'Healthcare & Medical'" @ion-change="chosenSubspecial()"><div slot="label">Preffered Sub Classification<ion-text color="danger">*</ion-text></div>
       <IonSelectOption value="Ambulance/Paramedics">
         Ambulance/Paramedics
       </IonSelectOption>
@@ -588,8 +588,8 @@
     </IonSelect>
   
     <IonSelect mode="md" class="jprofile-modal-inputs" label-placement="stacked" interface="alert" fill="outline"
-      label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
-      v-if="prefferedClassification == 'Hospitality & Tourism'" @ion-change="chosenSubspecial()">
+      placeholder="Select Sub Classification" v-model="subclassificationClassification"
+      v-if="prefferedClassification == 'Hospitality & Tourism'" @ion-change="chosenSubspecial()"><div slot="label">Preffered Sub Classification<ion-text color="danger">*</ion-text></div>
       <IonSelectOption value="Airlines"> Airlines </IonSelectOption>
       <IonSelectOption value="Bar & Beverage Staff"> Bar & Beverage Staff </IonSelectOption>
       <IonSelectOption value="Chef/Cooks"> Chef/Cooks </IonSelectOption>
@@ -605,8 +605,8 @@
     </IonSelect>
   
     <IonSelect mode="md" class="jprofile-modal-inputs" label-placement="stacked" interface="alert" fill="outline"
-      label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
-      v-if="prefferedClassification == 'Human Resources & Recruitment'" @ion-change="chosenSubspecial()">
+      placeholder="Select Sub Classification" v-model="subclassificationClassification"
+      v-if="prefferedClassification == 'Human Resources & Recruitment'" @ion-change="chosenSubspecial()"><div slot="label">Preffered Sub Classification<ion-text color="danger">*</ion-text></div>
       <IonSelectOption value="Consulting & Generalist HR"> Consulting & Generalist HR </IonSelectOption>
       <IonSelectOption value="Industrial & Employee Relations"> Industrial & Employee Relations </IonSelectOption>
       <IonSelectOption value="Management - Agency"> Management - Agency </IonSelectOption>
@@ -620,8 +620,8 @@
     </IonSelect>
   
     <IonSelect mode="md" class="jprofile-modal-inputs" label-placement="stacked" interface="alert" fill="outline"
-      label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
-      v-if="prefferedClassification == 'Information & Communication Technology'" @ion-change="chosenSubspecial()">
+      placeholder="Select Sub Classification" v-model="subclassificationClassification"
+      v-if="prefferedClassification == 'Information & Communication Technology'" @ion-change="chosenSubspecial()"><div slot="label">Preffered Sub Classification<ion-text color="danger">*</ion-text></div>
       <IonSelectOption value="Architects"> Architects </IonSelectOption>
       <IonSelectOption value="Business/System Analysts"> Business/System Analysts </IonSelectOption>
       <IonSelectOption value="Consultants"> Consultants </IonSelectOption>
@@ -646,8 +646,8 @@
     </IonSelect>
   
     <IonSelect mode="md" class="jprofile-modal-inputs" label-placement="stacked" interface="alert" fill="outline"
-      label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
-      v-if="prefferedClassification == 'Insurance & Superannuation'" @ion-change="chosenSubspecial()">
+      placeholder="Select Sub Classification" v-model="subclassificationClassification"
+      v-if="prefferedClassification == 'Insurance & Superannuation'" @ion-change="chosenSubspecial()"><div slot="label">Preffered Sub Classification<ion-text color="danger">*</ion-text></div>
       <IonSelectOption value="Actuarial"> Actuarial </IonSelectOption>
       <IonSelectOption value="Assessment"> Assessment </IonSelectOption>
       <IonSelectOption value="Brokerage"> Brokerage </IonSelectOption>
@@ -661,8 +661,8 @@
     </IonSelect>
   
     <IonSelect mode="md" class="jprofile-modal-inputs" label-placement="stacked" interface="alert" fill="outline"
-      label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
-      v-if="prefferedClassification == 'Legal'" @ion-change="chosenSubspecial()">
+      placeholder="Select Sub Classification" v-model="subclassificationClassification"
+      v-if="prefferedClassification == 'Legal'" @ion-change="chosenSubspecial()"><div slot="label">Preffered Sub Classification<ion-text color="danger">*</ion-text></div>
       <IonSelectOption value="Banking & Finace Law"> Banking & Finace Law </IonSelectOption>
       <IonSelectOption value="Construction Law"> Construction Law </IonSelectOption>
       <IonSelectOption value="Corporate & Commercial Law"> Corporate & Commercial Law </IonSelectOption>
@@ -685,8 +685,8 @@
     </IonSelect>
   
     <IonSelect mode="md" class="jprofile-modal-inputs" label-placement="stacked" interface="alert" fill="outline"
-      label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
-      v-if="prefferedClassification == 'Manufacturing, Transport & Logistics'" @ion-change="chosenSubspecial()">
+      placeholder="Select Sub Classification" v-model="subclassificationClassification"
+      v-if="prefferedClassification == 'Manufacturing, Transport & Logistics'" @ion-change="chosenSubspecial()"><div slot="label">Preffered Sub Classification<ion-text color="danger">*</ion-text></div>
       <IonSelectOption value="Analysis & Reporting"> Analysis & Reporting </IonSelectOption>
       <IonSelectOption value="Assembly & Process Work"> Assembly & Process Work </IonSelectOption>
       <IonSelectOption value="Aviation Services"> Aviation Services </IonSelectOption>
@@ -709,8 +709,8 @@
     </IonSelect>
   
     <IonSelect mode="md" class="jprofile-modal-inputs" label-placement="stacked" interface="alert" fill="outline"
-      label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
-      v-if="prefferedClassification == 'Marketing & Communication'" @ion-change="chosenSubspecial()">
+      placeholder="Select Sub Classification" v-model="subclassificationClassification"
+      v-if="prefferedClassification == 'Marketing & Communication'" @ion-change="chosenSubspecial()"><div slot="label">Preffered Sub Classification<ion-text color="danger">*</ion-text></div>
       <IonSelectOption value="Brand Management"> Brand Management </IonSelectOption>
       <IonSelectOption value="Digital & Search Marketing"> Digital & Search Marketing </IonSelectOption>
       <IonSelectOption value="Direct Marketing & CRM"> Direct Marketing & CRM </IonSelectOption>
@@ -726,8 +726,8 @@
     </IonSelect>
   
     <IonSelect mode="md" class="jprofile-modal-inputs" label-placement="stacked" interface="alert" fill="outline"
-      label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
-      v-if="prefferedClassification == 'Mining, Resources & Energy'" @ion-change="chosenSubspecial()">
+      placeholder="Select Sub Classification" v-model="subclassificationClassification"
+      v-if="prefferedClassification == 'Mining, Resources & Energy'" @ion-change="chosenSubspecial()"><div slot="label">Preffered Sub Classification<ion-text color="danger">*</ion-text></div>
       <IonSelectOption value="Analysis & Reporting"> Analysis & Reporting </IonSelectOption>
       <IonSelectOption value="Health, Safety & Environment"> Health, Safety & Environment </IonSelectOption>
       <IonSelectOption value="Management"> Management </IonSelectOption>
@@ -749,8 +749,8 @@
     </IonSelect>
   
     <IonSelect mode="md" class="jprofile-modal-inputs" label-placement="stacked" interface="alert" fill="outline"
-      label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
-      v-if="prefferedClassification == 'Real Estate & Property'" @ion-change="chosenSubspecial()">
+      placeholder="Select Sub Classification" v-model="subclassificationClassification"
+      v-if="prefferedClassification == 'Real Estate & Property'" @ion-change="chosenSubspecial()"><div slot="label">Preffered Sub Classification<ion-text color="danger">*</ion-text></div>
       <IonSelectOption value="Administration"> Administration </IonSelectOption>
       <IonSelectOption value="Analyst"> Analyst </IonSelectOption>
       <IonSelectOption value="Body Corporate & Facilities Management"> Body Corporate & Facilities Management
@@ -765,8 +765,8 @@
     </IonSelect>
   
     <IonSelect mode="md" class="jprofile-modal-inputs" label-placement="stacked" interface="alert" fill="outline"
-      label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
-      v-if="prefferedClassification == 'Retail & Consumer Products'" @ion-change="chosenSubspecial()">
+      placeholder="Select Sub Classification" v-model="subclassificationClassification"
+      v-if="prefferedClassification == 'Retail & Consumer Products'" @ion-change="chosenSubspecial()"><div slot="label">Preffered Sub Classification<ion-text color="danger">*</ion-text></div>
       <IonSelectOption value="Buying"> Buying </IonSelectOption>
       <IonSelectOption value="Management - Area/Multi-site"> Management - Area/Multi-site </IonSelectOption>
       <IonSelectOption value="Management - Department/Assistant"> Management - Department/Assistant </IonSelectOption>
@@ -777,8 +777,8 @@
     </IonSelect>
   
     <IonSelect mode="md" class="jprofile-modal-inputs" label-placement="stacked" interface="alert" fill="outline"
-      label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
-      v-if="prefferedClassification == 'Sales'" @ion-change="chosenSubspecial()">
+      placeholder="Select Sub Classification" v-model="subclassificationClassification"
+      v-if="prefferedClassification == 'Sales'" @ion-change="chosenSubspecial()"><div slot="label">Preffered Sub Classification<ion-text color="danger">*</ion-text></div>
       <IonSelectOption value="Account & Relationship Management"> Account & Relationship Management </IonSelectOption>
       <IonSelectOption value="Analysis & Reporting"> Analysis & Reporting </IonSelectOption>
       <IonSelectOption value="Management"> Management </IonSelectOption>
@@ -788,8 +788,8 @@
     </IonSelect>
   
     <IonSelect mode="md" class="jprofile-modal-inputs" label-placement="stacked" interface="alert" fill="outline"
-      label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
-      v-if="prefferedClassification == 'Science & Technology'" @ion-change="chosenSubspecial()">
+      placeholder="Select Sub Classification" v-model="subclassificationClassification"
+      v-if="prefferedClassification == 'Science & Technology'" @ion-change="chosenSubspecial()"><div slot="label">Preffered Sub Classification<ion-text color="danger">*</ion-text></div>
       <IonSelectOption value="Biological & Biomedical Sciences"> Biological & Biomedical Sciences </IonSelectOption>
       <IonSelectOption value="Biotechnology & Genetics"> Biotechnology & Genetics </IonSelectOption>
       <IonSelectOption value="Chemistry & Physics"> Chemistry & Physics </IonSelectOption>
@@ -804,22 +804,22 @@
     </IonSelect>
   
     <IonSelect mode="md" class="jprofile-modal-inputs" label-placement="stacked" interface="alert" fill="outline"
-      label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
-      v-if="prefferedClassification == 'Self Employment'" @ion-change="chosenSubspecial()">
+      placeholder="Select Sub Classification" v-model="subclassificationClassification"
+      v-if="prefferedClassification == 'Self Employment'" @ion-change="chosenSubspecial()"><div slot="label">Preffered Sub Classification<ion-text color="danger">*</ion-text></div>
       <IonSelectOption value=""> Self Employment </IonSelectOption>
     </IonSelect>
   
     <IonSelect mode="md" class="jprofile-modal-inputs" label-placement="stacked" interface="alert" fill="outline"
-      label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
-      v-if="prefferedClassification == 'Sport & Recreation'" @ion-change="chosenSubspecial()">
+      placeholder="Select Sub Classification" v-model="subclassificationClassification"
+      v-if="prefferedClassification == 'Sport & Recreation'" @ion-change="chosenSubspecial()"><div slot="label">Preffered Sub Classification<ion-text color="danger">*</ion-text></div>
       <IonSelectOption value="Coaching & Instruction"> Coaching & Instruction </IonSelectOption>
       <IonSelectOption value="Fitness & Personal Training"> Fitness & Personal Training </IonSelectOption>
       <IonSelectOption value="Management"> Management </IonSelectOption>
     </IonSelect>
   
     <IonSelect mode="md" class="jprofile-modal-inputs" label-placement="stacked" interface="alert" fill="outline"
-      label="Sub Classification" placeholder="Select Sub Classification" v-model="subclassificationClassification"
-      v-if="prefferedClassification == 'Trades & Services'" @ion-change="chosenSubspecial()">
+      placeholder="Select Sub Classification" v-model="subclassificationClassification"
+      v-if="prefferedClassification == 'Trades & Services'" @ion-change="chosenSubspecial()"><div slot="label">Preffered Sub Classification<ion-text color="danger">*</ion-text></div>
       <IonSelectOption value="Air Conditioning & Refrigeration"> Air Conditioning & Refrigeration </IonSelectOption>
       <IonSelectOption value="Automotive Trades"> Automotive Trades </IonSelectOption>
       <IonSelectOption value="Bakers & Pastry Chefs"> Bakers & Pastry Chefs </IonSelectOption>
@@ -846,10 +846,10 @@
     </IonSelect>
   </template>
   <script lang="ts">
-  import { IonInput, IonSelectOption, IonSelect, IonPage, IonContent } from "@ionic/vue";
+  import { IonInput, IonSelectOption, IonSelect, IonPage, IonContent, IonText } from "@ionic/vue";
   
   export default {
-    components: { IonInput, IonSelectOption, IonSelect, IonPage, IonContent },
+    components: { IonInput, IonSelectOption, IonSelect, IonPage, IonContent, IonText },
     data() {
       return {
         prefferedClassification: "",

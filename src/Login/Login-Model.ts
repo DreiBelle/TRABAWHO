@@ -1,6 +1,6 @@
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../firebaseDB";
-import { GoHomeSwipeJobSeekers, GoEmployerDashboard, GoHome } from "./Login-Controller";
+import { GoHomeSwipeJobSeekers, GoEmployerDashboard, GoHome, Goadmin } from "./Login-Controller";
 import { onAuthStateChanged, signOut, sendPasswordResetEmail  } from "firebase/auth";
 import { auth } from "@/firebaseDB";
 import { ref, onMounted } from "vue";
@@ -38,6 +38,10 @@ async function UserLogin_(Username) {
       if (storedtype === "employer") {
         console.log("Succesfully login");
         GoEmployerDashboard();
+      }
+      else if(storedtype === "admin"){
+        console.log("Succesfully login");
+        Goadmin();
       }
     }
   } else {

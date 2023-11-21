@@ -1,16 +1,10 @@
 <template>
-  <IonModal
-    :is-open="isProfileEditmodal"
-    @did-dismiss="closeEditprofile()"
-    :presenting-element="presentingElement"
-  >
+  <IonModal :is-open="isProfileEditmodal" @did-dismiss="closeEditprofile()" :presenting-element="presentingElement">
     <IonHeader mode="md">
       <IonToolbar>
         <IonTitle style="font-size: 15px"> EDIT PROFILE </IonTitle>
         <IonButtons slot="end">
-          <IonButton style="--color: #262c5c" @click="closeEditprofile()"
-            >Close</IonButton
-          >
+          <IonButton style="--color: #262c5c" @click="closeEditprofile()">Close</IonButton>
         </IonButtons>
       </IonToolbar>
     </IonHeader>
@@ -19,24 +13,15 @@
       <div v-if="!imageUrl">
         <div class="flexcenter jprofile-avatar-modal-div">
           <IonAvatar class="jprofile-modal-avatar">
-            <img
-              :src="
-                imageUrl ||
-                'https://ionicframework.com/docs/img/demos/avatar.svg'
-              "
-              alt="profile"
-            />
+            <img :src="
+              imageUrl ||
+              'https://ionicframework.com/docs/img/demos/avatar.svg'
+            " alt="profile" />
           </IonAvatar>
         </div>
         <div class="flexcenter">
-          <input
-            id="fileInput"
-            type="file"
-            accept="image/jpeg"
-            ref="myfile"
-            style="display: none"
-            @change="addProfilepicture"
-          />
+          <input id="fileInput" type="file" accept="image/jpeg" ref="myfile" style="display: none"
+            @change="addProfilepicture" />
           <label for="fileInput" class="jprofile-button-picture">
             <IonIcon style="margin-bottom: -2px" :icon="person"></IonIcon>
             Change Profile
@@ -50,14 +35,8 @@
           </IonAvatar>
         </div>
         <div class="flexcenter">
-          <input
-            id="fileInput"
-            type="file"
-            accept="image/jpeg"
-            ref="myfile"
-            style="display: none"
-            @change="addProfilepicture"
-          />
+          <input id="fileInput" type="file" accept="image/jpeg" ref="myfile" style="display: none"
+            @change="addProfilepicture" />
           <label for="fileInput" class="jprofile-button-picture">
             <IonIcon style="margin-bottom: -2px" :icon="person"></IonIcon>
             Change Profile
@@ -66,52 +45,29 @@
       </div>
       <div>
         <IonCard class="jprofile-modal-cards" style="border-top: 0px">
-          <IonInput
-            mode="md"
-            class="jprofile-modal-inputs"
-            label="Name"
-            placeholder="Enter full name"
-            labelPlacement="stacked"
-            fill="outline"
-            v-model="formData.fullname"
-            required
-          >
+          <IonInput mode="md" class="jprofile-modal-inputs" label="Name" placeholder="Enter full name"
+            labelPlacement="stacked" fill="outline" v-model="formData.fullname" required>
           </IonInput>
         </IonCard>
       </div>
       <div>
         <IonCard class="jprofile-modal-cards">
           <IonText class="jprofile-modal-field-text">
-            <IonIcon
-              style="margin-bottom: -4px"
-              :icon="informationCircleOutline"
-            ></IonIcon>
+            <IonIcon style="margin-bottom: -4px" :icon="informationCircleOutline"></IonIcon>
 
             BASIC
           </IonText>
-          <IonInput
-            type="date"
-            mode="md"
-            class="jprofile-modal-inputs"
-            label="Birthday"
-            placeholder="Enter Birthday"
-            labelPlacement="stacked"
-            fill="outline"
-            v-model="formData.bday"
-            required
-          >
+          <div class="jprofile-modal-inputs">
+            <ion-radio-group v-model="formData.pwd">
+            <ion-radio value="PWD" style="margin-right: 20px;">PWD</ion-radio>
+            <ion-radio value="NOT PWD">NOT PWD</ion-radio>
+          </ion-radio-group>
+          </div>
+          <IonInput type="date" mode="md" class="jprofile-modal-inputs" label="Birthday" placeholder="Enter Birthday"
+            labelPlacement="stacked" fill="outline" v-model="formData.bday" required>
           </IonInput>
-          <IonSelect
-            mode="md"
-            label="Gender"
-            placeholder="Select gender"
-            label-placement="stacked"
-            interface="alert"
-            fill="outline"
-            class="jprofile-modal-inputs"
-            v-model="formData.gender"
-            required
-          >
+          <IonSelect mode="md" label="Gender" placeholder="Select gender" label-placement="stacked" interface="alert"
+            fill="outline" class="jprofile-modal-inputs" v-model="formData.gender" required>
             <IonSelectOption value="Male">Male</IonSelectOption>
             <IonSelectOption value="Female">Female</IonSelectOption>
           </IonSelect>
@@ -120,53 +76,26 @@
       <div>
         <IonCard class="jprofile-modal-cards">
           <IonText class="jprofile-modal-field-text">
-            <IonIcon
-              style="margin-bottom: -3px"
-              :icon="schoolOutline"
-            ></IonIcon>
+            <IonIcon style="margin-bottom: -3px" :icon="schoolOutline"></IonIcon>
             LOCATION
           </IonText>
-          <IonSelect
-            mode="md"
-            label="Province"
-            placeholder="Select Province"
-            label-placement="stacked"
-            interface="alert"
-            fill="outline"
-            class="jprofile-modal-inputs"
-            v-model="formData.province"
-            required
-          >
+          <IonSelect mode="md" label="Province" placeholder="Select Province" label-placement="stacked" interface="alert"
+            fill="outline" class="jprofile-modal-inputs" v-model="formData.province" required>
             <IonSelectOption value="Cagayan">Cagayan</IonSelectOption>
             <IonSelectOption value="Isabela">Isabela</IonSelectOption>
-            <IonSelectOption value="Nueva Vizcaya"
-              >Nueva Vizcaya</IonSelectOption
-            >
+            <IonSelectOption value="Nueva Vizcaya">Nueva Vizcaya</IonSelectOption>
             <IonSelectOption value="Quirino">Quirino</IonSelectOption>
           </IonSelect>
-          <IonSelect
-            mode="md"
-            label="City/Town"
-            placeholder="Select City/Town"
-            label-placement="stacked"
-            interface="alert"
-            fill="outline"
-            class="jprofile-modal-inputs"
-            v-model="formData.citown"
-            required
-          >
-            <IonSelectOption value="Tuguegarao City"
-              >Tuguegarao City</IonSelectOption
-            >
+          <IonSelect mode="md" label="City/Town" placeholder="Select City/Town" label-placement="stacked"
+            interface="alert" fill="outline" class="jprofile-modal-inputs" v-model="formData.citown" required>
+            <IonSelectOption value="Tuguegarao City">Tuguegarao City</IonSelectOption>
             <IonSelectOption value="Aparri">Aparri</IonSelectOption>
             <IonSelectOption value="Lal-lo">Lal-lo</IonSelectOption>
             <IonSelectOption value="Gattaran">Gattaran</IonSelectOption>
             <IonSelectOption value="Penablanca">Penablanca</IonSelectOption>
             <IonSelectOption value="Ilagan City">Ilagan City </IonSelectOption>
             <IonSelectOption value="Cauayan City">Cauayan City</IonSelectOption>
-            <IonSelectOption value="Santiago City"
-              >Santiago City</IonSelectOption
-            >
+            <IonSelectOption value="Santiago City">Santiago City</IonSelectOption>
             <IonSelectOption value="Alicia">Alicia</IonSelectOption>
             <IonSelectOption value="Roxas">Roxas</IonSelectOption>
             <IonSelectOption value="Cabagan">Cabagan</IonSelectOption>
@@ -178,118 +107,48 @@
             <IonSelectOption value="Maddela">Maddela</IonSelectOption>
             <IonSelectOption value="Aglipay">Aglipay</IonSelectOption>
           </IonSelect>
-          <IonInput
-            mode="md"
-            class="jprofile-modal-inputs"
-            label="District"
-            placeholder="District - Purok"
-            labelPlacement="stacked"
-            fill="outline"
-            v-model="formData.district"
-            required
-          >
+          <IonInput mode="md" class="jprofile-modal-inputs" label="District" placeholder="District - Purok"
+            labelPlacement="stacked" fill="outline" v-model="formData.district" required>
           </IonInput>
-          <IonInput
-            mode="md"
-            class="jprofile-modal-inputs"
-            label="Street"
-            placeholder="Street"
-            labelPlacement="stacked"
-            fill="outline"
-            v-model="formData.street"
-            required
-          >
+          <IonInput mode="md" class="jprofile-modal-inputs" label="Street" placeholder="Street" labelPlacement="stacked"
+            fill="outline" v-model="formData.street" required>
           </IonInput>
         </IonCard>
       </div>
       <div>
         <IonCard class="jprofile-modal-cards">
           <IonText class="jprofile-modal-field-text">
-            <IonIcon
-              style="margin-bottom: -3px"
-              :icon="schoolOutline"
-            ></IonIcon>
+            <IonIcon style="margin-bottom: -3px" :icon="schoolOutline"></IonIcon>
             EDUCATION
           </IonText>
-          <IonInput
-            mode="md"
-            class="jprofile-modal-inputs"
-            label="Elementary"
-            placeholder="Elementary School"
-            labelPlacement="stacked"
-            fill="outline"
-            v-model="formData.elementary"
-            required
-          >
+          <IonInput mode="md" class="jprofile-modal-inputs" label="Elementary" placeholder="Elementary School"
+            labelPlacement="stacked" fill="outline" v-model="formData.elementary" required>
           </IonInput>
-          <IonInput
-            mode="md"
-            class="jprofile-modal-inputs"
-            label="Junior Highschool"
-            placeholder="Elementary Highschool"
-            labelPlacement="stacked"
-            fill="outline"
-            v-model="formData.juniorhigh"
-            required
-          >
+          <IonInput mode="md" class="jprofile-modal-inputs" label="Junior Highschool" placeholder="Elementary Highschool"
+            labelPlacement="stacked" fill="outline" v-model="formData.juniorhigh" required>
           </IonInput>
-          <IonInput
-            mode="md"
-            class="jprofile-modal-inputs"
-            label="Senior Highschool"
-            placeholder="Senior Highschool"
-            labelPlacement="stacked"
-            fill="outline"
-            v-model="formData.seniorhigh"
-            required
-          >
+          <IonInput mode="md" class="jprofile-modal-inputs" label="Senior Highschool" placeholder="Senior Highschool"
+            labelPlacement="stacked" fill="outline" v-model="formData.seniorhigh" required>
           </IonInput>
-          <IonInput
-            mode="md"
-            class="jprofile-modal-inputs"
-            label="College"
-            placeholder="College University"
-            labelPlacement="stacked"
-            fill="outline"
-            v-model="formData.college"
-            required
-          >
+          <IonInput mode="md" class="jprofile-modal-inputs" label="College" placeholder="College University"
+            labelPlacement="stacked" fill="outline" v-model="formData.college" required>
           </IonInput>
-          <IonInput
-            v-if="formData.masteral"
-            mode="md"
-            class="jprofile-modal-inputs"
-            label="Masteral"
-            placeholder="Masteral University"
-            labelPlacement="stacked"
-            fill="outline"
-            v-model="formData.masteral"
-            required
-          >
+          <IonInput v-if="formData.masteral" mode="md" class="jprofile-modal-inputs" label="Masteral"
+            placeholder="Masteral University" labelPlacement="stacked" fill="outline" v-model="formData.masteral"
+            required>
           </IonInput>
         </IonCard>
       </div>
       <div>
         <IonCard class="jprofile-modal-cards">
           <IonText class="jprofile-modal-field-text">
-            <IonIcon
-              style="margin-bottom: -3px"
-              :icon="filterOutline"
-            ></IonIcon>
+            <IonIcon style="margin-bottom: -3px" :icon="filterOutline"></IonIcon>
 
             PREFERENCES
           </IonText>
-          <IonSelect
-            mode="md"
-            label="years of experience"
-            placeholder="Select years of experience"
-            label-placement="stacked"
-            interface="alert"
-            fill="outline"
-            class="jprofile-modal-inputs"
-            v-model="formData.yearsofexp"
-            required
-          >
+          <IonSelect mode="md" label="years of experience" placeholder="Select years of experience"
+            label-placement="stacked" interface="alert" fill="outline" class="jprofile-modal-inputs"
+            v-model="formData.yearsofexp" required>
             <IonSelectOption value="0">0</IonSelectOption>
             <IonSelectOption value="1-5">1-5</IonSelectOption>
             <IonSelectOption value="6-10">6-10</IonSelectOption>
@@ -298,103 +157,46 @@
             <IonSelectOption value="21-23">21-23</IonSelectOption>
             <IonSelectOption value="24+">24+</IonSelectOption>
           </IonSelect>
-          <IonInput
-            mode="md"
-            class="jprofile-modal-inputs"
-            label="Salary"
-            placeholder="Enter Preffered Salary"
-            labelPlacement="stacked"
-            fill="outline"
-            v-model="formData.salary"
-            required
-          >
+          <IonInput mode="md" class="jprofile-modal-inputs" label="Salary" placeholder="Enter Preffered Salary"
+            labelPlacement="stacked" fill="outline" v-model="formData.salary" required>
           </IonInput>
-          <IonSelect
-            mode="md"
-            class="jprofile-modal-inputs"
-            label="Job Type"
-            label-placement="stacked"
-            interface="alert"
-            fill="outline"
-            placeholder="Select Preffered Job Type"
-            :multiple="true"
-            v-model="formData.jobtype"
-            required
-          >
+          <IonSelect mode="md" class="jprofile-modal-inputs" label="Job Type" label-placement="stacked" interface="alert"
+            fill="outline" placeholder="Select Preffered Job Type" :multiple="true" v-model="formData.jobtype" required>
             <IonSelectOption value="Full-Time">Full-Time</IonSelectOption>
             <IonSelectOption value="Part-Time">Part-Time</IonSelectOption>
             <IonSelectOption value="Contract">Contract</IonSelectOption>
             <IonSelectOption value="Temporary">Temporary</IonSelectOption>
             <IonSelectOption value="Internship">Internship</IonSelectOption>
           </IonSelect>
-          <IonSelect
-            mode="md"
-            class="jprofile-modal-inputs"
-            label="Location"
-            label-placement="stacked"
-            interface="alert"
-            fill="outline"
-            placeholder="Select Preffered Location"
-            v-model="formData.loc"
-            required
-          >
-            <IonSelectOption value="Work From Home"
-              >Work from home</IonSelectOption
-            >
-            <IonSelectOption value="Within the province"
-              >Within the province</IonSelectOption
-            >
-            <IonSelectOption value="Outside of the province"
-              >Outside of the province</IonSelectOption
-            >
+          <IonSelect mode="md" class="jprofile-modal-inputs" label="Location" label-placement="stacked" interface="alert"
+            fill="outline" placeholder="Select Preffered Location" v-model="formData.loc" required>
+            <IonSelectOption value="Work From Home">Work from home</IonSelectOption>
+            <IonSelectOption value="Within the province">Within the province</IonSelectOption>
+            <IonSelectOption value="Outside of the province">Outside of the province</IonSelectOption>
           </IonSelect>
         </IonCard>
       </div>
       <div>
         <IonCard class="jprofile-modal-cards" style="border-bottom: 0px">
           <IonText class="jprofile-modal-field-text">
-            <IonIcon
-              style="margin-bottom: -3px"
-              :icon="pricetagOutline"
-            ></IonIcon>
+            <IonIcon style="margin-bottom: -3px" :icon="pricetagOutline"></IonIcon>
             TAGS
           </IonText>
-          <SpecializedFields
-            :parent-subpreffered="subclassificationClassification"
-            :parent-preffered="prefferedClassification"
-            v-on:chosen-special="updateChosenspecial"
-            @chosen-subspecial="updatesubChosenspecial"
-          ></SpecializedFields>
-          <IonInput
-            class="jprofile-modal-inputs"
-            label="Tags"
-            placeholder="add tags seperated by a comma ','"
-            labelPlacement="stacked"
-            fill="outline"
-            mode="md"
-            v-model="tagsInput"
-            type="text"
-            required
-          >
+          <SpecializedFields :parent-subpreffered="subclassificationClassification"
+            :parent-preffered="prefferedClassification" v-on:chosen-special="updateChosenspecial"
+            @chosen-subspecial="updatesubChosenspecial"></SpecializedFields>
+          <IonInput class="jprofile-modal-inputs" label="Tags" placeholder="add tags seperated by a comma ','"
+            labelPlacement="stacked" fill="outline" mode="md" v-model="tagsInput" type="text" required>
           </IonInput>
         </IonCard>
       </div>
       <div>
-        <IonButton
-          expand="block"
-          @click="additionalprof"
-          class="jprofile-modal-button-save"
-          >SAVE</IonButton
-        >
+        <IonButton expand="block" @click="additionalprof" class="jprofile-modal-button-save">SAVE</IonButton>
       </div>
     </IonContent>
 
     <IonModal :is-open="isModalinterest" @did-dismiss="modalInterest(false)">
-      <ChoiceModal
-        style="border: 1px solid black"
-        :choice="modalChoices"
-        @choice-selected="handleChoiceSelected"
-      />
+      <ChoiceModal style="border: 1px solid black" :choice="modalChoices" @choice-selected="handleChoiceSelected" />
     </IonModal>
   </IonModal>
 </template>
@@ -415,6 +217,8 @@ import {
   IonSelect,
   IonSelectOption,
   IonChip,
+  IonRadio,
+  IonRadioGroup,
 } from "@ionic/vue";
 import ChoiceModal from "../SignUp/Seeker-InterestModal.vue";
 import {
@@ -455,6 +259,8 @@ export default {
     IonSelect,
     IonSelectOption,
     IonChip,
+    IonRadio,
+    IonRadioGroup,
   },
   props: {
     isProfileEditmodal: {
@@ -508,6 +314,7 @@ export default {
       salary: props.userData ? props.userData.salary : "",
       jobtype: props.userData ? props.userData.jobtype : "",
       loc: props.userData ? props.userData.loc : "",
+      pwd: props.userData ? props.userData.pwd : "",
     }));
     return {
       pencilOutline,

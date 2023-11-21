@@ -15,22 +15,33 @@
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
+                <ion-radio-group v-model="formData.pwd">
+                  <ion-radio value="PWD" style="margin-right: 20px;">PWD</ion-radio>
+                  <ion-radio value="NOT PWD">NOT PWD</ion-radio>
+                </ion-radio-group>
+              </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol class="flexcenter">
                 <IonInput mode="md" type="date" placeholder="Date of Birth" fill="outline" labelPlacement="stacked"
-                  label="Birthday" class="signup-inputs-mobile" v-model="formData.bday" required>
+                  class="signup-inputs-mobile" v-model="formData.bday" required>
+                  <div slot="label">Birthday <ion-text color="danger">*</ion-text></div>
                 </IonInput>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
                 <IonInput mode="md" type="number" placeholder="Phone Number" fill="outline" labelPlacement="stacked"
-                  label="Contact Number" class="signup-inputs-mobile" v-model="formData.contactno" required>
+                  class="signup-inputs-mobile" v-model="formData.contactno" required>
+                  <div slot="label">Contact Number <ion-text color="danger">*</ion-text></div>
                 </IonInput>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
-                <IonSelect mode="md" label="Gender" placeholder="Select Gender" label-placement="stacked"
-                  interface="popover" fill="outline" class="signup-inputs-mobile" v-model="formData.gender" required>
+                <IonSelect mode="md" placeholder="Select Gender" label-placement="stacked" interface="popover"
+                  fill="outline" class="signup-inputs-mobile" v-model="formData.gender" required>
+                  <div slot="label">Gender<ion-text color="danger">*</ion-text></div>
                   <IonSelectOption value="Male">Male</IonSelectOption>
                   <IonSelectOption value="Female">Female</IonSelectOption>
                 </IonSelect>
@@ -38,8 +49,9 @@
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
-                <IonSelect mode="md" label="Province" placeholder="Select Province" label-placement="stacked"
-                  interface="popover" fill="outline" class="signup-inputs-mobile" v-model="formData.province" required>
+                <IonSelect mode="md" placeholder="Select Province" label-placement="stacked" interface="popover"
+                  fill="outline" class="signup-inputs-mobile" v-model="formData.province" required>
+                  <div slot="label">Province<ion-text color="danger">*</ion-text></div>
                   <IonSelectOption value="Cagayan">Cagayan</IonSelectOption>
                   <IonSelectOption value="Isabela">Isabela</IonSelectOption>
                   <IonSelectOption value="Nueva Vizcaya">Nueva Vizcaya</IonSelectOption>
@@ -49,8 +61,9 @@
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
-                <IonSelect mode="md" label="City/Town" placeholder="Select City/Town" label-placement="stacked"
-                  interface="popover" fill="outline" class="signup-inputs-mobile" v-model="formData.citown" required>
+                <IonSelect mode="md" placeholder="Select City/Town" label-placement="stacked" interface="popover"
+                  fill="outline" class="signup-inputs-mobile" v-model="formData.citown" required>
+                  <div slot="label">City/Town<ion-text color="danger">*</ion-text></div>
                   <IonSelectOption value="Tuguegarao City">Tuguegarao City</IonSelectOption>
                   <IonSelectOption value="Aparri">Aparri</IonSelectOption>
                   <IonSelectOption value="Lal-lo">Lal-lo</IonSelectOption>
@@ -82,7 +95,8 @@
             <IonRow>
               <IonCol class="flexcenter">
                 <IonInput mode="md" type="text" placeholder="Street" fill="outline" labelPlacement="stacked"
-                  label="Street" class="signup-inputs-mobile" v-model="formData.street" required>
+                  class="signup-inputs-mobile" v-model="formData.street" required>
+                  <div slot="label">Street<ion-text color="danger">*</ion-text></div>
                 </IonInput>
               </IonCol>
             </IonRow>
@@ -124,6 +138,9 @@ import {
   IonContent,
   IonSelect,
   IonSelectOption,
+  IonToggle,
+  IonRadio,
+  IonRadioGroup,
 } from "@ionic/vue";
 import "./SignUp.css";
 import { GoRegister2, goBack, goLogin } from "./SignUp-Controller";
@@ -142,6 +159,7 @@ const formData = {
   citown: "",
   district: "",
   street: "",
+  pwd: "NOT PWD",
 };
 
 const isAlert = ref(false);
@@ -151,6 +169,15 @@ const alertbox = (x, message) => {
   isAlert.value = x;
   alertMessage.value = message;
 }
+
+// const handlepwd = () => {
+//   if (checkpwd == true) {
+//     formData.pwd = 'pwd'
+//   }
+//   else {
+//     formData.pwd = 'not pwd'
+//   }
+// }
 
 const submitForm = async () => {
   const requiredFields = ['bday', 'contactno', 'gender', 'province', 'citown', 'street'];
@@ -189,6 +216,7 @@ const submitForm = async () => {
         citown: formData.citown,
         district: formData.district,
         street: formData.street,
+        pwd: formData.pwd,
       });
 
       GoRegister2()
@@ -197,7 +225,7 @@ const submitForm = async () => {
       alertbox(true, `Fill all the Field to continue`)
     }
   }
-  else{
+  else {
     // alertbox(true, `Unfortunately Only 18 Above is allowed to use the system`)
     alert("You are under 18")
     GoHome()

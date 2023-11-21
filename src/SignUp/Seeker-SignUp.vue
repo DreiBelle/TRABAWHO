@@ -15,22 +15,22 @@
             <IonRow>
               <IonCol class="flexcenter">
                 <IonInput mode="md" type="text" placeholder="FirstName/MiddleName/LastName" fill="outline"
-                  labelPlacement="stacked" label="Full Name" class="signup-inputs-mobile" v-model="formData.fullname"
-                  required>
+                  labelPlacement="stacked" class="signup-inputs-mobile" v-model="formData.fullname"
+                  required><div slot="label">Full Name <ion-text color="danger">*</ion-text></div>
                 </IonInput>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
                 <IonInput mode="md" type="email" placeholder="Valid Email Address" fill="outline" labelPlacement="stacked"
-                  label="Email" class="signup-inputs-mobile" v-model="formData.email" required>
+                 class="signup-inputs-mobile" v-model="formData.email" required><div slot="label">Email <ion-text color="danger">*</ion-text></div>
                 </IonInput>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
                 <IonInput mode="md" placeholder="Password" type="password" fill="outline" labelPlacement="stacked"
-                  label="Password" class="signup-inputs-mobile" v-model="formData.password" required>
+                  class="signup-inputs-mobile" v-model="formData.password" required><div slot="label">Password <ion-text color="danger">*</ion-text></div>
                 </IonInput>
               </IonCol>
             </IonRow>
@@ -171,6 +171,7 @@ export default {
       pic: "",
       classification: "",
       subclassification: "",
+      pwd: "",
 
     };
 

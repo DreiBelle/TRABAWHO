@@ -22,12 +22,11 @@
                     fill="outline"
                     placeholder="Input Preffered Salary based on skills"
                     class="signup-inputs-mobile"
-                    label="Preffered Salary"
                     label-placement="stacked"
                     type="number"
                     v-model="formData.salary"
                     required
-                  >
+                  ><div slot="label">Preffered Salary<ion-text color="danger">*</ion-text></div>
                   </IonInput>
                 </IonCol>
               </IonRow>
@@ -35,7 +34,6 @@
                 <IonCol class="flexcenter">
                   <IonSelect
                     mode="md"
-                    label="years of experience"
                     placeholder="Select years of working experience"
                     label-placement="stacked"
                     interface="popover"
@@ -43,7 +41,7 @@
                     class="signup-inputs-mobile"
                     v-model="formData.yearsofexp"
                     required
-                  >
+                  ><div slot="label">Years of Experience<ion-text color="danger">*</ion-text></div>
                     <IonSelectOption value="0">0</IonSelectOption>
                     <IonSelectOption value="1-5">1-5</IonSelectOption>
                     <IonSelectOption value="6-10">6-10</IonSelectOption>
@@ -59,7 +57,6 @@
                   <IonSelect
                     mode="md"
                     class="signup-inputs-mobile"
-                    label="Job Type"
                     label-placement="stacked"
                     interface="popover"
                     fill="outline"
@@ -67,7 +64,7 @@
                     v-model="formData.jobtype"
                     :multiple="true"
                     required
-                  >
+                  ><div slot="label">Job Type<ion-text color="danger">*</ion-text></div>
                     <IonSelectOption value="Full-Time"
                       >Full-Time</IonSelectOption
                     >
@@ -89,14 +86,13 @@
                   <IonSelect
                     mode="md"
                     class="signup-inputs-mobile"
-                    label="Location"
                     label-placement="stacked"
                     interface="popover"
                     fill="outline"
                     placeholder="Select Preffered Work Set up"
                     v-model="formData.loc"
                     required
-                  >
+                  ><div slot="label">Location<ion-text color="danger">*</ion-text></div>
                     <IonSelectOption value="Within the province"
                       >Within the province</IonSelectOption
                     >
@@ -122,7 +118,6 @@
                 <IonCol>
                   <IonInput
                     class="signup-inputs-mobile"
-                    label="Tags"
                     placeholder="add tags seperated by a comma ','"
                     labelPlacement="stacked"
                     fill="outline"
@@ -131,7 +126,7 @@
                     mode="md"
                     required
                     style="margin-top: 10px;"
-                  >
+                  ><div slot="label">Tags<ion-text color="danger">*</ion-text></div>
                   </IonInput>
                 </IonCol>
               </IonRow>

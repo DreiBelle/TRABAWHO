@@ -15,7 +15,7 @@
                         </div>
                         <div>
                             <input id="fileInput" type="file" accept="image/jpeg" @change="handleFileChange" ref="myfile"
-                                style="display: none" />
+                                style="display: none" /><ion-text color="danger">*</ion-text>
                             <label for="fileInput" class="modal-editposting-modal">
                                 Choose Picture
                             </label>
@@ -38,16 +38,16 @@
                 </div>
                 <IonRow>
                     <IonCol class="flexcenter">
-                        <IonInput class="modal-edituser-input" label="Job Name" labelPlacement="stacked" fill="outline"
-                            v-model="job.jobname" required>
+                        <IonInput class="modal-edituser-input" labelPlacement="stacked" fill="outline"
+                            v-model="job.jobname" required><div slot="label">Job Name<ion-text color="danger">*</ion-text></div>
                         </IonInput>
                     </IonCol>
                 </IonRow>
                 <IonRow>
                     <IonCol class="flexcenter">
-                        <IonSelect class="modal-edituser-input" label="Job Type" interface="popover"
+                        <IonSelect class="modal-edituser-input" interface="popover"
                             labelPlacement="stacked" v-model="job.jobtype" fill="outline" placeholder="Select Job Type"
-                            required>
+                            required><div slot="label">Job Type<ion-text color="danger">*</ion-text></div>
                             <IonSelectOption value="Full-Time">Full-Time</IonSelectOption>
                             <IonSelectOption value="Part-Time">Part-Time</IonSelectOption>
                             <IonSelectOption value="Contract">Contract</IonSelectOption>
@@ -58,9 +58,9 @@
                 </IonRow>
                 <IonRow>
                     <IonCol class="flexcenter">
-                        <IonSelect class="modal-edituser-input" label="Position Level" label-placement="stacked"
+                        <IonSelect class="modal-edituser-input" label-placement="stacked"
                             interface="popover" fill="outline" v-model="job.positionlvl"
-                            placeholder="Select Position Level" required>
+                            placeholder="Select Position Level" required><div slot="label">Position Level<ion-text color="danger">*</ion-text></div>
                             <IonSelectOption value="CEO/SVP/AVP/VP/Director">CEO/SVP/AVP/VP/Director</IonSelectOption>
                             <IonSelectOption value="Assistant Manager/Manager">Assistant Manager/Manager</IonSelectOption>
                             <IonSelectOption value="Supervisor/5 Years & Up Experience Employee">Supervisor/5 Years & Up
@@ -74,8 +74,8 @@
                 </IonRow>
                 <IonRow>
                     <IonCol class="flexcenter">
-                        <IonInput class="modal-edituser-input" type="number" label="Salary" labelPlacement="stacked"
-                            fill="outline" v-model="job.salary" required>
+                        <IonInput class="modal-edituser-input" type="number" labelPlacement="stacked"
+                            fill="outline" v-model="job.salary" required><div slot="label">Salary<ion-text color="danger">*</ion-text></div>
                         </IonInput>
                     </IonCol>
                 </IonRow>
@@ -88,34 +88,23 @@
                 </IonRow>
                 <IonRow>
                     <IonCol class="flexcenter">
-                        <IonTextarea label="Job Description" fill="outline" labelPlacement="stacked"
-                            class="modal-edituser-input" style="height: 200px" v-model="job.jobdes">
+                        <IonTextarea fill="outline" labelPlacement="stacked"
+                            class="modal-edituser-input" style="height: 200px" v-model="job.jobdes"><div slot="label">Job Description<ion-text color="danger">*</ion-text></div>
                         </IonTextarea>
                     </IonCol>
                 </IonRow>
                 <IonRow>
                     <IonCol class="flexcenter">
-                        <IonInput class="modal-edituser-input" type="number" label="No of Employees"
-                            labelPlacement="stacked" fill="outline" v-model="job.noofempl" required>
+                        <IonInput class="modal-edituser-input" type="number"
+                            labelPlacement="stacked" fill="outline" v-model="job.noofempl" required><div slot="label">No. of Employees<ion-text color="danger">*</ion-text></div>
                         </IonInput>
                     </IonCol>
                 </IonRow>
                 <IonRow>
                     <IonCol class="flexcenter">
-                        <IonSelect class="modal-edituser-input" label="Age" interface="popover" labelPlacement="stacked"
-                            fill="outline" placeholder="Select preffered age" v-model="job.age" required>
-                            <IonSelectOption value="18-25">18-25</IonSelectOption>
-                            <IonSelectOption value="26-35">26-35</IonSelectOption>
-                            <IonSelectOption value="36-45">36-45</IonSelectOption>
-                            <IonSelectOption value="46 and above">46 and above</IonSelectOption>
-                        </IonSelect>
-                    </IonCol>
-                </IonRow>
-                <IonRow>
-                    <IonCol class="flexcenter">
-                        <IonSelect class="modal-edituser-input" label="Years of Experience" label-placement="stacked"
+                        <IonSelect class="modal-edituser-input" label-placement="stacked"
                             interface="popover" fill="outline" v-model="job.yearsofexp"
-                            placeholder="Select Mininimun Working Experience" required>
+                            placeholder="Select Mininimun Working Experience" required><div slot="label">Years of Experience<ion-text color="danger">*</ion-text></div>
                             <IonSelectOption value="0">0</IonSelectOption>
                             <IonSelectOption value="1-5">1-5</IonSelectOption>
                             <IonSelectOption value="6-10">6-10</IonSelectOption>
@@ -128,9 +117,9 @@
                 </IonRow>
                 <IonRow>
                     <IonCol class="flexcenter">
-                        <IonSelect class="modal-edituser-input" label="Required Educational Attainment"
+                        <IonSelect class="modal-edituser-input"
                             label-placement="stacked" interface="popover" fill="outline" v-model="job.reqeduc"
-                            placeholder="Select Required Educational Attainment" required>
+                            placeholder="Select Required Educational Attainment" required><div slot="label">Required Educational Attainment<ion-text color="danger">*</ion-text></div>
                             <IonSelectOption value="none">none</IonSelectOption>
 
                             <IonSelectOption value="Junior High School Graduate and above">Junior High School Graduate and
@@ -155,17 +144,17 @@
                 </IonRow>
                 <IonRow>
                     <IonCol>
-                        <IonInput class="modal-edituser-input" label="Tags" placeholder="add tags seperated by a comma ','"
+                        <IonInput class="modal-edituser-input" placeholder="add tags seperated by a comma ','"
                             labelPlacement="stacked" fill="outline" v-model="tagsInput" type="text" mode="md" required
-                            style="margin-top: 10px;">
+                            style="margin-top: 10px;"><div slot="label">Tags<ion-text color="danger">*</ion-text></div>
                         </IonInput>
                     </IonCol>
                 </IonRow>
                 <IonRow>
                     <IonCol class="flexcenter">
-                        <IonSelect mode="md" label="Province" placeholder="Select Province" label-placement="stacked"
+                        <IonSelect mode="md" placeholder="Select Province" label-placement="stacked"
                             interface="popover" fill="outline" class="modal-edituser-input" v-model="job.province"
-                            required>
+                            required><div slot="label">Province<ion-text color="danger">*</ion-text></div>
                             <IonSelectOption value="Cagayan">Cagayan</IonSelectOption>
                             <IonSelectOption value="Isabela">Isabela</IonSelectOption>
                             <IonSelectOption value="Nueva Vizcaya">Nueva Vizcaya</IonSelectOption>
@@ -175,9 +164,9 @@
                 </IonRow>
                 <IonRow>
                     <IonCol class="flexcenter">
-                        <IonSelect mode="md" label="City/Town" placeholder="Select City/Town" label-placement="stacked"
+                        <IonSelect mode="md" placeholder="Select City/Town" label-placement="stacked"
                             interface="popover" fill="outline" class="modal-edituser-input" v-model="job.citown"
-                            required>
+                            required><div slot="label">City/Town<ion-text color="danger">*</ion-text></div>
                             <IonSelectOption value="Tuguegarao City">Tuguegarao City</IonSelectOption>
                             <IonSelectOption value="Aparri">Aparri</IonSelectOption>
                             <IonSelectOption value="Lal-lo">Lal-lo</IonSelectOption>
@@ -314,7 +303,6 @@ export default {
             reqeduc: "",
             loc: "",
             noofempl: "",
-            age: "",
             isactive: "activate",
             province: "",
             district: "",
@@ -401,7 +389,6 @@ export default {
                 reqeduc: "",
                 loc: "",
                 noofempl: "",
-                age: "",
                 isactive: "activate",
                 province: "",
                 district: "",
@@ -476,7 +463,6 @@ export default {
                     this.formData.hours = job.hours
                     this.formData.jobdes = job.jobdes
                     this.formData.noofempl = job.noofempl
-                    this.formData.age = job.age
                     this.formData.yearsofexp = job.yearsofexp
                     this.formData.reqeduc = job.reqeduc
                     this.formData.province = job.province

@@ -22,6 +22,7 @@ export const useUserjStore = defineStore('userjstore', {
             jobtype: "",
             loc: "",
             chosenInterests: [],
+            pwd: "",
 
         },
     }),
@@ -56,6 +57,7 @@ export const useUserjStore = defineStore('userjstore', {
                     jobtype: "",
                     loc: "",
                     chosenInterests: [],
+                    pwd: "",
                 };
             } catch (error) {
                 console.error('Error updating data:', error);

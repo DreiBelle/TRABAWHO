@@ -92,6 +92,11 @@
             {{ user ? `${user.yearsofexp}` : "..." }} years of experience
           </IonCard>
         </div>
+        <div class="flexcenter">
+          <IonCard class="flexcenter jprofile-cards">
+            {{ user ? `${user.pwd}` : "..." }}
+          </IonCard>
+        </div>
       </div>
       <!-- <div v-if="adPremium" class="flexcenter">
         <IonCard class="jprofile-cards-ads">

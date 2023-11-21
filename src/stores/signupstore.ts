@@ -37,6 +37,7 @@ export const useSignupStore = defineStore("signup", {
       classification: "",
       subclassification: "",
       aprooved: null,
+      pwd: "",
     },
   }),
   actions: {
@@ -102,6 +103,7 @@ export const useSignupStore = defineStore("signup", {
           pic: "",
           classification: "",
           subclassification: "",
+          pwd: "",
         };
       } catch (error) {
         console.error("Error registering user:", error);
