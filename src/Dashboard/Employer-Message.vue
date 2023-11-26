@@ -39,14 +39,39 @@
               v-model="searchTerm"
             >
             </IonSearchbar>
-            <div v-if="markasDone == true">
+            <div class="flexcenter">
+              <IonIcon :icon="filterOutline"></IonIcon>
+              <IonSelect
+                style="
+                  border-bottom: 1px solid lightgrey;
+                  min-height: 0;
+                  height: 35px;
+                  width: 100%;
+                  margin-left: 2px;
+                "
+                interface="popover"
+                labelPlacement="stacked"
+                placeholder="Select Job Name"
+                required
+                v-model="filterSelect"
+              >
+                <IonSelectOption value="">All</IonSelectOption>
+                <IonSelectOption
+                  :value="chat.data.jobSwipe"
+                  v-for="chat in uniqueChats"
+                >
+                  {{ chat.data.JobSwipe }}
+                </IonSelectOption>
+              </IonSelect>
+            </div>
+            <!-- <div v-if="markasDone == true">
               <IonText class="emessage-title-doneornot"> MESSAGES </IonText>
             </div>
             <div v-else-if="markasDone == false">
               <IonText class="emessage-title-doneornot">
                 MARKED AS DONE
               </IonText>
-            </div>
+            </div> -->
           </IonCol>
         </IonRow>
         <IonRow>
@@ -453,6 +478,8 @@ import {
   IonFab,
   IonFabButton,
   IonFabList,
+  IonSelect,
+  IonSelectOption,
 } from "@ionic/vue";
 import "./message.css";
 import {
@@ -464,6 +491,7 @@ import {
   mail,
   chevronDown,
   checkmark,
+  filterOutline,
 } from "ionicons/icons";
 import {
   collection,
@@ -511,6 +539,8 @@ export default {
     IonFab,
     IonFabButton,
     IonFabList,
+    IonSelect,
+    IonSelectOption,
   },
   props: {
     passJob: {
@@ -557,6 +587,7 @@ export default {
       unsubscribe: null,
       markasDone: true,
       pdfUrl: "",
+      filterSelect: "",
     };
   },
   setup() {
@@ -568,6 +599,7 @@ export default {
       mail,
       chevronDown,
       checkmark,
+      filterOutline,
     };
   },
   emits: ["goMessages", "goMessagesData", "clear-all", "go-to-posting"],
@@ -1016,11 +1048,41 @@ export default {
   },
   computed: {
     filteredSearch() {
-      return this.chats.filter((chat) => {
-        const searchTermLower = this.searchTerm.toLowerCase();
-        if (chat.data.SeekerName) {
-          return chat.data.SeekerName.toLowerCase().includes(searchTermLower);
+      if (!this.filterSelect) {
+        return this.chats.filter((chat) => {
+          const searchTermLower = this.searchTerm.toLowerCase();
+          if (chat.data.SeekerName) {
+            return chat.data.SeekerName.toLowerCase().includes(searchTermLower);
+          }
+        });
+      } else {
+        if (!this.searchTerm) {
+          return this.chats.filter((chat) => {
+            return (
+              chat.data.JobSwipe.toLowerCase() ===
+              this.filterSelect.toLowerCase()
+            );
+          });
+        } else {
+          return this.chats.filter((chat) => {
+            const searchTermLower = this.searchTerm.toLowerCase();
+            return (
+              chat.data.JobSwipe.toLowerCase() ===
+                this.filterSelect.toLowerCase() &&
+              chat.data.SeekerName.toLowerCase().includes(searchTermLower)
+            );
+          });
         }
+      }
+    },
+    uniqueChats() {
+      const uniqueSet = new Set();
+      return this.chats.filter((chat) => {
+        const isUnique = !uniqueSet.has(chat.data.JobSwipe);
+        if (isUnique) {
+          uniqueSet.add(chat.data.JobSwipe);
+        }
+        return isUnique;
       });
     },
   },

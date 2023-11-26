@@ -9,16 +9,46 @@
         No Notifications </IonText>
     </div> -->
     <div style="height: 100%">
-      <div>
-        <IonText class="enotif-title">
-          <IonIcon :icon="notifications"></IonIcon>
-          NOTIFICATION
-        </IonText>
+      <div style="justify-content: left; align-items: center; display: flex">
+        <div style="justify-content: left !important">
+          <IonText class="enotif-title">
+            <IonIcon :icon="notifications"></IonIcon>
+            NOTIFICATION
+          </IonText>
+        </div>
+        <div style="margin-left: auto; margin-right: 30px">
+          <div class="flexcenter">
+            <IonIcon
+              :icon="filterOutline"
+              style="margin-right: 10px; font-size: 20px; color: black"
+            ></IonIcon>
+            <IonSelect
+              style="
+                width: 250px;
+                border-bottom: 1px solid lightgrey;
+                min-height: 0;
+                height: 35px;
+              "
+              interface="popover"
+              labelPlacement="stacked"
+              placeholder="Select Job Name"
+              required
+              v-model="filter"
+            >
+              <IonSelectOption value="">All</IonSelectOption>
+              <IonSelectOption
+                v-for="job in uniqueChats"
+                :value="job.jobname"
+                >{{ job.jobname }}</IonSelectOption
+              >
+            </IonSelect>
+          </div>
+        </div>
       </div>
       <IonContent>
         <div
           class="flexcenter"
-          v-for="(post, index) in jobpost"
+          v-for="(post, index) in filteredJobPostings"
           :key="post.jobdid"
         >
           <IonCard
@@ -107,6 +137,9 @@ import {
   IonAvatar,
   IonIcon,
   IonProgressBar,
+  IonSelect,
+  IonSelectOption,
+  IonButton,
 } from "@ionic/vue";
 import { onMounted, ref } from "vue";
 import {
@@ -115,7 +148,12 @@ import {
   getSwipedpostings,
   getswiperProfile,
 } from "./Dashboard-Model";
-import { chevronForward, notifications, settingsOutline } from "ionicons/icons";
+import {
+  chevronForward,
+  notifications,
+  settingsOutline,
+  filterOutline,
+} from "ionicons/icons";
 import viewUser from "./Dashboard-Modals/Notification-ViewSeeker.vue";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "@/firebaseDB";
@@ -125,6 +163,7 @@ export default {
     return {
       chevronForward,
       notifications,
+      filterOutline,
     };
   },
   data() {
@@ -141,10 +180,14 @@ export default {
       pictureViewuser: "",
       userPic: "",
       userName: "",
+      filter: "",
     };
   },
   emits: ["go-messages", "go-messages-data"],
   methods: {
+    printThings() {
+      console.log(this.filter);
+    },
     goMessages(x) {
       this.$emit("go-messages", x);
     },
@@ -204,6 +247,27 @@ export default {
       }
     },
   },
+  computed: {
+    filteredJobPostings() {
+      if (!this.filter) {
+        return this.jobpost;
+      }
+
+      return this.jobpost.filter((job) => {
+        return job.jobname.toLowerCase() === this.filter.toLowerCase();
+      });
+    },
+    uniqueChats() {
+      const uniqueSet = new Set();
+      return this.jobpost.filter((job) => {
+        const isUnique = !uniqueSet.has(job.jobname);
+        if (isUnique) {
+          uniqueSet.add(job.jobname);
+        }
+        return isUnique;
+      });
+    },
+  },
   mounted() {
     this.getSwipes();
 
@@ -212,7 +276,7 @@ export default {
       this.userName = this.user.businessname;
       this.userPic = this.user.pic;
     }, 6);
-    
+
     setTimeout(() => {
       this.userName = this.user.businessname;
       this.userPic = this.user.pic;
@@ -231,6 +295,9 @@ export default {
     IonAvatar,
     IonIcon,
     IonProgressBar,
+    IonSelect,
+    IonSelectOption,
+    IonButton,
   },
 };
 </script>

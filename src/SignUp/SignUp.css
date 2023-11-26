@@ -4,6 +4,20 @@
   align-items: center;
 }
 
+.modal-editposting-modal {
+  cursor: pointer;
+  padding: 5px;
+  background-color: #262c5c;
+  color: white;
+  border-radius: 10px;
+  height: 30px;
+  width: 200px;
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .signup-card {
   height: fit-content;
   width: 700px;
