@@ -358,7 +358,8 @@ export default {
               province: job.province,
               district: job.district,
               street: job.street,
-              chosenInterests: job.chosenInterests
+              chosenInterests: job.chosenInterests,
+              urgent: job.urgent,
             };
           })
         );
@@ -607,7 +608,8 @@ export default {
             citown: job.citown,
             district: job.district,
             street: job.street,
-            chosenInterests: job.chosenInterests
+            chosenInterests: job.chosenInterests,
+            urgent: job.urgent,
           };
         })
       );

@@ -14,8 +14,13 @@
             <IonText class="modal-editjobposting-active"> Active: </IonText>
             <IonToggle @ion-change="changeArchive()" v-model="Archive" required mode="ios" :checked="true"
               :disabled="true"></IonToggle>
+          </div><br />
+          <div class="flexcenter">
+            <IonText class="modal-editjobposting-active" style="color: red;"> Urgent: </IonText>
+            <IonToggle @ion-change="changeUrgent()" v-model="Urgent" required mode="ios"></IonToggle>
           </div>
         </div>
+
 
         <div class="flexcenter" v-if="!thereisImage">
           <div>
@@ -53,14 +58,16 @@
         </div>
 
         <div>
-          <IonInput class="modal-addjobpost-input" placeholder="Title" labelPlacement="stacked"
-            fill="outline" v-model="formData.jobname" required><div slot="label">Job Tittle<ion-text color="danger">*</ion-text></div>
+          <IonInput class="modal-addjobpost-input" placeholder="Title" labelPlacement="stacked" fill="outline"
+            v-model="formData.jobname" required>
+            <div slot="label">Job Tittle<ion-text color="danger">*</ion-text></div>
           </IonInput>
         </div>
 
         <div>
           <IonSelect class="modal-addjobpost-input" interface="popover" labelPlacement="stacked"
-            v-model="formData.jobtype" fill="outline" placeholder="Select Job Type" required><div slot="label">Job Type<ion-text color="danger">*</ion-text></div>
+            v-model="formData.jobtype" fill="outline" placeholder="Select Job Type" required>
+            <div slot="label">Job Type<ion-text color="danger">*</ion-text></div>
             <IonSelectOption value="Full-Time">Full-Time</IonSelectOption>
             <IonSelectOption value="Part-Time">Part-Time</IonSelectOption>
             <IonSelectOption value="Contract">Contract</IonSelectOption>
@@ -70,8 +77,9 @@
         </div>
 
         <div>
-          <IonSelect class="modal-addjobpost-input" label-placement="stacked" interface="popover"
-            fill="outline" v-model="formData.positionlvl" placeholder="Select Position Level" required><div slot="label">Position Level<ion-text color="danger">*</ion-text></div>
+          <IonSelect class="modal-addjobpost-input" label-placement="stacked" interface="popover" fill="outline"
+            v-model="formData.positionlvl" placeholder="Select Position Level" required>
+            <div slot="label">Position Level<ion-text color="danger">*</ion-text></div>
             <IonSelectOption value="CEO/SVP/AVP/VP/Director">CEO/SVP/AVP/VP/Director</IonSelectOption>
             <IonSelectOption value="Assistant Manager/Manager">Assistant Manager/Manager</IonSelectOption>
             <IonSelectOption value="Supervisor/5 Years & Up Experience Employee">Supervisor/5 Years & Up Experience
@@ -82,8 +90,9 @@
         </div>
 
         <div>
-          <IonInput class="modal-addjobpost-input" placeholder="Input Salary" labelPlacement="stacked"
-            fill="outline" v-model="formData.salary" type="number" required><div slot="label">Salary<ion-text color="danger">*</ion-text></div>
+          <IonInput class="modal-addjobpost-input" placeholder="Input Salary" labelPlacement="stacked" fill="outline"
+            v-model="formData.salary" type="number" required>
+            <div slot="label">Salary<ion-text color="danger">*</ion-text></div>
           </IonInput>
         </div>
 
@@ -94,8 +103,9 @@
         </div>
 
         <div>
-          <IonTextarea fill="outline" labelPlacement="stacked" class="modal-addjobpost-input"
-            v-model="formData.jobdes" style="height: 200px" placeholder="Enter Description of the job"><div slot="label">Job Description<ion-text color="danger">*</ion-text></div>
+          <IonTextarea fill="outline" labelPlacement="stacked" class="modal-addjobpost-input" v-model="formData.jobdes"
+            style="height: 200px" placeholder="Enter Description of the job">
+            <div slot="label">Job Description<ion-text color="danger">*</ion-text></div>
           </IonTextarea>
         </div>
 
@@ -106,15 +116,16 @@
         </div>
 
         <div>
-          <IonInput class="modal-addjobpost-input" placeholder="Needed no. of employees"
-            labelPlacement="stacked" fill="outline" type="number" v-model="formData.noofempl" required><div slot="label">No. of employees<ion-text color="danger">*</ion-text></div>
+          <IonInput class="modal-addjobpost-input" placeholder="Needed no. of employees" labelPlacement="stacked"
+            fill="outline" type="number" v-model="formData.noofempl" required>
+            <div slot="label">No. of employees<ion-text color="danger">*</ion-text></div>
           </IonInput>
         </div>
 
         <div>
-          <IonSelect class="modal-addjobpost-input" label-placement="stacked"
-            interface="popover" fill="outline" v-model="formData.yearsofexp"
-            placeholder="Select Mininimun Working Experience" required><div slot="label">Years of Experience<ion-text color="danger">*</ion-text></div>
+          <IonSelect class="modal-addjobpost-input" label-placement="stacked" interface="popover" fill="outline"
+            v-model="formData.yearsofexp" placeholder="Select Mininimun Working Experience" required>
+            <div slot="label">Years of Experience<ion-text color="danger">*</ion-text></div>
             <IonSelectOption value="0">0</IonSelectOption>
             <IonSelectOption value="1-5">1-5</IonSelectOption>
             <IonSelectOption value="6-10">6-10</IonSelectOption>
@@ -126,9 +137,9 @@
         </div>
 
         <div>
-          <IonSelect class="modal-addjobpost-input" label-placement="stacked"
-            interface="popover" fill="outline" v-model="formData.reqeduc"
-            placeholder="Select Required Educational Attainment" required><div slot="label">Required Educational Attaintment<ion-text color="danger">*</ion-text></div>
+          <IonSelect class="modal-addjobpost-input" label-placement="stacked" interface="popover" fill="outline"
+            v-model="formData.reqeduc" placeholder="Select Required Educational Attainment" required>
+            <div slot="label">Required Educational Attaintment<ion-text color="danger">*</ion-text></div>
             <IonSelectOption value="none">none</IonSelectOption>
 
             <IonSelectOption value="Junior High School Graduate and above">Junior High School Graduate and above
@@ -149,7 +160,8 @@
         </div>
         <div>
           <IonInput class="modal-addjobpost-input" placeholder="add tags seperated by a comma ','"
-            labelPlacement="stacked" fill="outline" v-model="tagsInput" type="text" required><div slot="label">Tags<ion-text color="danger">*</ion-text></div>
+            labelPlacement="stacked" fill="outline" v-model="tagsInput" type="text" required>
+            <div slot="label">Tags<ion-text color="danger">*</ion-text></div>
           </IonInput>
         </div>
 
@@ -160,30 +172,57 @@
         </div>
 
         <div class="flexcenter">
-          <IonSelect mode="md" placeholder="Select Province" label-placement="stacked"
-            interface="popover" fill="outline" class="modal-addjobpost-input" v-model="formData.province" required><div slot="label">Province<ion-text color="danger">*</ion-text></div>
+          <IonSelect mode="md" placeholder="Select Province" label-placement="stacked" interface="popover" fill="outline"
+            class="modal-addjobpost-input" v-model="prov" @ion-change="changeprovince()" required>
+            <div slot="label">Province<ion-text color="danger">*</ion-text></div>
             <IonSelectOption value="Cagayan">Cagayan</IonSelectOption>
             <IonSelectOption value="Isabela">Isabela</IonSelectOption>
             <IonSelectOption value="Nueva Vizcaya">Nueva Vizcaya</IonSelectOption>
             <IonSelectOption value="Quirino">Quirino</IonSelectOption>
           </IonSelect>
-          <IonSelect mode="md" placeholder="Select City/Town" label-placement="stacked"
-            interface="popover" fill="outline" class="modal-addjobpost-input" v-model="formData.citown" required><div slot="label">City/Town<ion-text color="danger">*</ion-text></div>
+          <IonSelect :disabled="true" v-if="!prov" mode="md" placeholder="Select City/Town" label-placement="stacked"
+            interface="popover" fill="outline" class="modal-addjobpost-input" required>
+            <div slot="label">City/Town<ion-text color="danger">*</ion-text></div>
             <IonSelectOption value="Tuguegarao City">Tuguegarao City</IonSelectOption>
             <IonSelectOption value="Aparri">Aparri</IonSelectOption>
             <IonSelectOption value="Lal-lo">Lal-lo</IonSelectOption>
             <IonSelectOption value="Gattaran">Gattaran</IonSelectOption>
             <IonSelectOption value="Penablanca">Penablanca</IonSelectOption>
+          </IonSelect>
+          <IonSelect v-if="prov == 'Cagayan'" mode="md" placeholder="Select City/Town" label-placement="stacked"
+            interface="popover" fill="outline" class="modal-addjobpost-input" v-model="cit" @ion-change="changecitown()"
+            required>
+            <div slot="label">City/Town<ion-text color="danger">*</ion-text></div>
+            <IonSelectOption value="Tuguegarao City">Tuguegarao City</IonSelectOption>
+            <IonSelectOption value="Aparri">Aparri</IonSelectOption>
+            <IonSelectOption value="Lal-lo">Lal-lo</IonSelectOption>
+            <IonSelectOption value="Gattaran">Gattaran</IonSelectOption>
+            <IonSelectOption value="Penablanca">Penablanca</IonSelectOption>
+          </IonSelect>
+          <IonSelect v-if="prov == 'Isabela'" mode="md" placeholder="Select City/Town" label-placement="stacked"
+            interface="popover" fill="outline" class="modal-addjobpost-input" v-model="cit" @ion-change="changecitown()"
+            required>
+            <div slot="label">City/Town<ion-text color="danger">*</ion-text></div>
             <IonSelectOption value="Ilagan City">Ilagan City </IonSelectOption>
             <IonSelectOption value="Cauayan City">Cauayan City</IonSelectOption>
             <IonSelectOption value="Santiago City">Santiago City</IonSelectOption>
             <IonSelectOption value="Alicia">Alicia</IonSelectOption>
             <IonSelectOption value="Roxas">Roxas</IonSelectOption>
             <IonSelectOption value="Cabagan">Cabagan</IonSelectOption>
+          </IonSelect>
+          <IonSelect v-if="prov == 'Nueva Vizcaya'" mode="md" placeholder="Select City/Town" label-placement="stacked"
+            interface="popover" fill="outline" class="modal-addjobpost-input" v-model="cit" @ion-change="changecitown()"
+            required>
+            <div slot="label">City/Town<ion-text color="danger">*</ion-text></div>
             <IonSelectOption value="Bayombong">Bayombong</IonSelectOption>
             <IonSelectOption value="Solano">Solano</IonSelectOption>
             <IonSelectOption value="Bagabag">Bagabag</IonSelectOption>
             <IonSelectOption value="Bambang">Bambang</IonSelectOption>
+          </IonSelect>
+          <IonSelect v-if="prov == 'Quirino'" mode="md" placeholder="Select City/Town" label-placement="stacked"
+            interface="popover" fill="outline" class="modal-addjobpost-input" v-model="cit" @ion-change="changecitown()"
+            required>
+            <div slot="label">City/Town<ion-text color="danger">*</ion-text></div>
             <IonSelectOption value="Cabarroguis">Cabarroguis</IonSelectOption>
             <IonSelectOption value="Maddela">Maddela</IonSelectOption>
             <IonSelectOption value="Aglipay">Aglipay</IonSelectOption>
@@ -252,7 +291,7 @@ import {
   IonHeader,
   IonText,
   IonToggle,
-IonProgressBar,
+  IonProgressBar,
 } from "@ionic/vue";
 import ChoiceModal from "@/SignUp/Seeker-InterestModal.vue";
 import { useJobStore } from "@/stores/jobstore";
@@ -291,7 +330,7 @@ export default {
     IonRadioGroup,
     IonToggle,
     IonProgressBar
-},
+  },
   setup() {
     const user = ref(null);
     const companyname = ref("Loading...");
@@ -333,6 +372,7 @@ export default {
       classification: "",
       subclassification: "",
       chosenInterests: "",
+      urgent: "",
     }));
 
     return {
@@ -346,6 +386,7 @@ export default {
   data() {
     return {
       Archive: true,
+      Urgent: false,
       imageUrl: null,
       modalOpen: false,
       modalChoices: [],
@@ -354,9 +395,11 @@ export default {
       thereisImage: false,
       prefferedClassification: "",
       subclassificationClassification: "",
-      EmployerEmail: localStorage.getItem("email"), 
+      EmployerEmail: localStorage.getItem("email"),
       tagsInput: "",
       isLoading: false,
+      prov: null,
+      cit: null,
     };
   },
   methods: {
@@ -385,6 +428,22 @@ export default {
       else {
         this.formData.isactive = 'notactivate'
       }
+    },
+    changeUrgent() {
+      if (this.Urgent == true) {
+        console.log(this.Urgent)
+        this.formData.urgent = true
+      }
+      else {
+        console.log(this.Urgent)
+        this.formData.urgent = false
+      }
+    },
+    changeprovince() {
+      this.formData.province = this.prov
+    },
+    changecitown() {
+      this.formData.citown = this.cit
     },
     closeOther() {
       modalController.dismiss();
@@ -419,13 +478,14 @@ export default {
       this.formData.reqeduc = "";
       this.formData.loc = "";
       this.formData.noofempl = "";
-      this.formData.province= "";
-      this.formData.district= "";
-      this.formData.citown= "";
-      this.formData.street= "";
-      this.formData.classification= "";
-      this.formData.subclassification= "";
-      this.tagsInput="";
+      this.formData.province = "";
+      this.formData.district = "";
+      this.formData.citown = "";
+      this.formData.street = "";
+      this.formData.classification = "";
+      this.formData.subclassification = "";
+      this.tagsInput = "";
+      this.formData.urgent = false;
 
 
       // Clear the image URL and set thereisImage to false
@@ -471,6 +531,15 @@ export default {
       ];
       let isFormValid = true;
       let isImageSelected = false;
+
+      if (this.Urgent == true) {
+        console.log(this.Urgent)
+        this.formData.urgent = true
+      }
+      else {
+        console.log(this.Urgent)
+        this.formData.urgent = false
+      }
 
       for (const field of requiredFields) {
         if (!this.formData[field]) {
@@ -524,8 +593,6 @@ export default {
   },
 };
 </script>
-<style>
-/* ion-col {
+<style>/* ion-col {
   border: 1px solid black;
-} */
-</style>
+} */</style>

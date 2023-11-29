@@ -1,21 +1,12 @@
 <template>
-  <IonModal
-    :is-open="isViewuser"
-    @did-dismiss="closeModal()"
-    class="enotif-view-modal"
-  >
-    <IonHeader class="flexcenter enotif-view-modal-header"
-      >{{ nameViewuser }} || {{ jobViewuser }}
+  <IonModal :is-open="isViewuser" @did-dismiss="closeModal()" class="enotif-view-modal">
+    <IonHeader class="flexcenter enotif-view-modal-header">{{ nameViewuser }} || {{ jobViewuser }}
       <div style="z-index: 1; position: absolute; right: 20px">
-        <IonIcon
-          @click="closeModal()"
-          class="enotif-pointer"
-          :icon="close"
-        ></IonIcon>
+        <IonIcon @click="closeModal()" class="enotif-pointer" :icon="close"></IonIcon>
       </div>
     </IonHeader>
     <IonContent>
-      <div v-for="user in users" style="padding: 10px">
+      <div v-for="user in users" style="padding: 10px" ref="printContent">
         <div class="enotif-view-modal-topProfile">
           <div>
             <IonAvatar class="enotif-view-modal-avatar" v-if="user.pic">
@@ -39,14 +30,13 @@
             <div>
               <div style="justify-content: left">
                 <div style="width: 100%">
-                  <IonText
-                    class="flexcenter jprofile-modal-field-text jprofile-title"
-                    style="border-radius: 100px; width: 100%"
-                  >
+                  <IonText class="flexcenter jprofile-modal-field-text jprofile-title"
+                    style="border-radius: 100px; width: 100%">
                     PERSONAL
                   </IonText>
                 </div>
                 <IonText>
+                  <p><b>Email: </b>{{ user.email }}</p>
                   <p><b>Birthday: </b>{{ user.bday }}</p>
                   <p><b>Gender: </b>{{ user.gender }}</p>
                   <p><b></b>{{ user.pwd }}</p>
@@ -60,10 +50,8 @@
             <div>
               <div>
                 <div style="width: 100%">
-                  <IonText
-                    class="flexcenter jprofile-modal-field-text jprofile-title"
-                    style="border-radius: 100px; width: 100%"
-                  >
+                  <IonText class="flexcenter jprofile-modal-field-text jprofile-title"
+                    style="border-radius: 100px; width: 100%">
                     EDUCATION
                   </IonText>
                 </div>
@@ -71,7 +59,7 @@
                   <p><b>Elementary: </b>{{ user.elementary }}</p>
                   <p><b>Highschool: </b>{{ user.juniorhigh }}</p>
                   <p><b>Senior Highschool: </b>{{ user.seniorhigh }}</p>
-                  <p><b>College: </b>{{ user.email }}</p>
+                  <p><b>College: </b>{{ user.college }}</p>
                   <p v-if="user.masteral">
                     <b>Masteral: </b>{{ user.masteral }}
                   </p>
@@ -86,10 +74,8 @@
             <div>
               <div style="justify-content: left">
                 <div style="width: 100%">
-                  <IonText
-                    class="flexcenter jprofile-modal-field-text jprofile-title"
-                    style="border-radius: 100px; width: 100%"
-                  >
+                  <IonText class="flexcenter jprofile-modal-field-text jprofile-title"
+                    style="border-radius: 100px; width: 100%">
                     SKILLS
                   </IonText>
                 </div>
@@ -114,50 +100,34 @@
           <IonCard class="jprofile-cards">
             <div class="flexcenter">
               <div style="width: 100%">
-                <IonText
-                  class="flexcenter jprofile-modal-field-text jprofile-title"
-                  style="border-radius: 100px; width: 100%"
-                >
+                <IonText class="flexcenter jprofile-modal-field-text jprofile-title"
+                  style="border-radius: 100px; width: 100%">
                   EXPERIENCES
                 </IonText>
               </div>
             </div>
-            <div
-              style="
-                display: flex;
-                height: fit-content;
-                overflow-x: auto;
-                width: 100%;
-                white-space: nowrap;
-              "
-            >
-              <IonCard
-                v-for="experience in experiences"
-                style="
-                  min-width: 300px;
-                  width: fit-content;
-                  height: fit-content;
-                  flex: 1 0 auto;
-                  margin: 5px;
-                  padding: 0;
-                "
-              >
-                <div
-                  class="flexcenter"
-                  style="background-color: #515782; color: white; height: 30px"
-                >
-                  <IonText
-                    style="font-size: 20px; font-family: BebasNeue-Regular"
-                  >
+            <div style=" display: flex;
+                                  height: fit-content;
+                                  overflow-x: auto;
+                                  width: 100%;
+                                  white-space: nowrap;
+                                ">
+              <IonCard v-for="experience in experiences" style="
+                                    min-width: 300px;
+                                    width: fit-content;
+                                    height: fit-content;
+                                    flex: 1 0 auto;
+                                    margin: 5px;
+                                    padding: 0;
+                                  ">
+                <div class="flexcenter" style="background-color: #515782; color: white; height: 30px">
+                  <IonText style="font-size: 20px; font-family: BebasNeue-Regular">
                     {{ experience.data.JobTitle }}
                   </IonText>
                 </div>
                 <div style="padding: 5px">
                   <IonText style="color: black">
-                    <p
-                      style="margin-top: 5px"
-                      class="jprofile-text-margin-bottom"
-                    >
+                    <p style="margin-top: 5px" class="jprofile-text-margin-bottom">
                       <b>Company Name: </b> {{ experience.data.CompanyName }}
                     </p>
 
@@ -172,10 +142,7 @@
                       {{ experience.data.ResDuty }}
                     </p>
 
-                    <p
-                      class="jprofile-text-margin-bottom"
-                      style="padding-bottom: 10px"
-                    >
+                    <p class="jprofile-text-margin-bottom" style="padding-bottom: 10px">
                       <b>Skills Utilized: </b> {{ experience.data.Skills }}
                     </p>
                   </IonText>
@@ -189,56 +156,25 @@
           <IonCard class="jprofile-cards">
             <div class="flexcenter">
               <div style="width: 100%">
-                <IonText
-                  class="flexcenter jprofile-modal-field-text jprofile-title"
-                  style="border-radius: 100px; width: 100%"
-                >
+                <IonText class="flexcenter jprofile-modal-field-text jprofile-title"
+                  style="border-radius: 100px; width: 100%">
                   AWARDS
                 </IonText>
               </div>
             </div>
-            <div
-              style="
-                display: flex;
-                height: fit-content;
-                overflow-x: auto;
-                width: 100%;
-                white-space: nowrap;
-              "
-            >
-              <IonCard
-                v-for="award in awards"
-                style="
-                  min-width: 300px;
-                  width: fit-content;
-                  height: fit-content;
-                  flex: 1 0 auto;
-                  margin: 5px;
-                  padding: 0;
-                "
-              >
-                <div
-                  class="flexcenter"
-                  style="background-color: #515782; color: white; height: 30px"
-                >
-                  <IonText
-                    style="font-size: 20px; font-family: BebasNeue-Regular"
-                  >
+            <div style=" display: flex; height: fit-content; overflow-x: auto; width: 100%; white-space: nowrap;">
+              <IonCard v-for="award in awards" style="min-width: 300px; width: fit-content; height: fit-content; flex: 1 0 auto; margin: 5px; padding: 0;">
+                <div class="flexcenter" style="background-color: #515782; color: white; height: 30px">
+                  <IonText style="font-size: 20px; font-family: BebasNeue-Regular">
                     {{ award.data.AwardName }}
                   </IonText>
                 </div>
                 <div style="padding: 5px">
                   <IonText style="color: black">
-                    <p
-                      style="margin-top: 5px"
-                      class="jprofile-text-margin-bottom"
-                    >
+                    <p style="margin-top: 5px" class="jprofile-text-margin-bottom">
                       <b>Where: </b> {{ award.data.AwardWhere }}
                     </p>
-                    <p
-                      class="jprofile-text-margin-bottom"
-                      style="padding-bottom: 10px"
-                    >
+                    <p class="jprofile-text-margin-bottom" style="padding-bottom: 10px">
                       <b>When: </b> {{ award.data.AwardWhen }}
                     </p>
                   </IonText>
@@ -252,11 +188,23 @@
             Message
           </IonButton>
         </div>
+        <div v-for="award in awards">
+          <div v-for="experience in experiences">
+            <div v-for="user in users">
+              <IonButton @click="printContent(user, experience, award)" class="enotif-modal-view-button">
+                Print
+              </IonButton>
+              <IonButton @click="downloadPDF(user, experience, award)" class="enotif-modal-view-button">
+                Download PDF
+              </IonButton>
+            </div>
+          </div>
+        </div>
       </div>
     </IonContent>
   </IonModal>
 </template>
-<script lang="ts">
+<script lang="ts" type="module">
 import {
   IonModal,
   IonCard,
@@ -269,6 +217,8 @@ import {
   IonButton,
 } from "@ionic/vue";
 import { db } from "@/firebaseDB";
+import html2pdf from 'html2pdf.js';
+import jsPDF from 'jspdf';
 import {
   doc,
   getDoc,
@@ -370,6 +320,138 @@ export default {
         console.log("No such document!");
       }
     },
+    printContent(userData, userexp, useraward) {
+      const printWindow = window.open('', '_blank');
+
+      if (printWindow) {
+        // Generate HTML content using userData
+        const printContentHTML = `
+        <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+          <div style="flex: 1 1 300px; max-width: 300px;">
+            <img src="${userData.pic}" alt="Profile Picture" style="width: 150px; height: 150px;">
+            <h2>${userData.fullname}</h2>
+            <h2>Basic Information</h2>
+            <div>
+              <p><b>Email:</b> ${userData.email}</p>
+              <p><b>Birthday:</b> ${userData.bday}</p>
+              <p><b>Address:</b> ${userData.street}, ${userData.district}, ${userData.province}, ${userData.citown}</p>
+              <p><b>Gender:</b> ${userData.gender}</p>
+              <p> ${userData.pwd}</p>
+            </div>
+            <hr>
+
+            <!-- Education Section -->
+            <h2>Educational Information</h2>
+            <div>
+              <p><b>Elementary:</b> ${userData.elementary}</p>
+              <p><b>Highschool:</b> ${userData.juniorhigh}</p>
+              <p><b>College:</b> ${userData.college}</p>
+              <p><b>Masteral:</b> ${userData.masteral}</p>
+            </div>
+            <hr>
+
+            <!-- Preffered Section -->
+            <h2>Skills</h2>
+            <div>
+              <p><b>Years of Experience:</b> ${userData.yearsofexp}</p>
+              <p><b>Classification:</b> ${userData.classification}</p>
+              <p><b>SubClassification:</b> ${userData.subclassification}</p>
+              <p><b>Specialities:</b> ${userData.chosenInterests}</p>
+            </div>
+          </div>
+
+          <div style="flex: 1 1 300px; max-width: 300px; margin-top: 200px;">
+            <!-- Job Experience Details -->
+            <h2>Experience</h2>
+            <div>
+              <p><b>Job Title:</b> ${userexp.data.JobTitle}</p>
+              <p><b>Company:</b> ${userexp.data.CompanyName}</p>
+              <p><b>Start Date:</b> ${userexp.data.StartDate}</p>
+              <p><b>End Date:</b> ${userexp.data.EndDate}</p>
+              <p><b>Responsibility/Duties:</b> ${userexp.data.ResDuty}</p>
+              <p><b>Skills:</b> ${userexp.data.Skills}</p>
+            </div>
+            <hr>
+
+            <!-- Award Section -->
+            <h2>Awards</h2>
+            <div>
+              <p><b>Award Name:</b> ${useraward.data.AwardName}</p>
+              <p><b>Award Where:</b> ${useraward.data.AwardWhere}</p>
+              <p><b>Award When:</b> ${useraward.data.AwardWhen}</p>
+            </div>
+            <hr>
+
+            <!-- Applying Section -->
+            <h2>Applying for:</h2>
+            <div>
+              <p><b>Job Title:</b> ${this.jobViewuser}</p>
+            </div>
+          </div>
+        </div>
+      `;
+
+        // Write content to the new window
+        printWindow.document.write(printContentHTML);
+        printWindow.document.close();
+
+        // Trigger the print dialog
+        printWindow.print();
+
+        // Close the window after printing
+        printWindow.onafterprint = function () {
+          printWindow.close();
+        };
+      } else {
+        console.error('Failed to open print window.');
+      }
+    },
+
+    downloadPDF(userData, userexp, useraward) {
+      // Create a new jsPDF instance
+      const pdf = new jsPDF();
+
+      // Add content to the PDF
+      pdf.text(`
+        ${userData.pic}
+        ${userData.fullname}
+        Basic Information
+        Email: ${userData.email}
+        Birthday: ${userData.bday}
+        Address: ${userData.street}, ${userData.district}, ${userData.province}, ${userData.citown}
+        Gender: ${userData.gender}
+        ${userData.pwd}
+        Education Information
+        Elementary: ${userData.elementary}
+        Highschool: ${userData.juniorhigh}
+        College: ${userData.college}
+        Masteral: ${userData.masteral}
+        Skills
+        Years of Experience: ${userData.yearsofexp}
+        Classification: ${userData.classification}
+        SubClassification: ${userData.subclassification}
+        Email: ${userData.chosenInterests}
+        Experience
+        Job Title: ${userexp.data.JobTitle}
+        Company:  ${userexp.data.CompanyName}
+        Start Date:  ${userexp.data.StartDate}
+        End Date:  ${userexp.data.EndDate}
+        Responsibility/Duties:  ${userexp.data.ResDuty}
+        Skills:  ${userexp.data.Skills}
+        Awards
+        Award Name:  ${userexp.data.AwardName}
+        Award Where:  ${userexp.data.AwardWhere}
+        Award When:  ${userexp.data.AwardWhen}
+        Applying For
+        Job Title:  ${this.jobViewuser}
+
+      `, 20, 20);
+      // Add more content as needed...
+
+      // Save the PDF
+      pdf.save('user_profile.pdf');
+    },
+
     getExperiences() {
       const q = query(
         collection(db, "Experiences"),
@@ -532,3 +614,10 @@ export default {
   },
 };
 </script>
+<style>
+.pic{
+  max-width: 100%;
+  height: auto;
+  margin: 10px 0;
+}
+</style>

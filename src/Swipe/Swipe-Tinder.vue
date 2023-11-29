@@ -17,6 +17,7 @@
             <div>
               <IonText class="swipe-text-stroke" style="font-size: 35px">
                 {{ item.jobname.toUpperCase() }}
+                <span v-if="item.urgent" style="color: red; font-size: 20px; margin-left: 5px">(Urgently Hiring)</span>
               </IonText>
             </div>
             <div>

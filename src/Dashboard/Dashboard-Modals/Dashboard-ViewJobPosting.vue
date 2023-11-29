@@ -33,7 +33,13 @@
           <div class="swipe-text-preview">
             <div>
               <IonText class="swipe-text-stroke" style="font-size: 35px;"> {{ jobPosting ?
-                jobPosting.jobname.toUpperCase() : "Loading..." }} </IonText>
+                jobPosting.jobname.toUpperCase() : "Loading..." }}
+              </IonText>
+            </div>
+            <div>
+              <IonText>
+                <span v-if="jobPosting.urgent" style="color: red; font-size: 20px; margin-left: 5px">(Urgently Hiring)</span>
+              </IonText>
             </div>
             <div>
               <IonText class="swipe-text-stroke2" style="font-size: 19px;"> Type: {{ jobPosting ? jobPosting.jobtype :
@@ -319,7 +325,7 @@ import {
   IonContent,
   IonHeader,
   IonInput,
-IonProgressBar,
+  IonProgressBar,
 } from "@ionic/vue";
 import {
   eyeSharp,
@@ -350,7 +356,7 @@ export default {
     IonHeader,
     IonInput,
     IonProgressBar
-},
+  },
   props: {
     isViewmodal: {
       type: Boolean,

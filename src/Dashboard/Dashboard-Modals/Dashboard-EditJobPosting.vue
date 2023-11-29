@@ -16,6 +16,10 @@
               Active:
             </IonText>
             <IonToggle @ion-change="changeArchive()" v-model="archive" required mode="ios"></IonToggle>
+          </div><br/>
+          <div class="flexcenter">
+            <IonText class="modal-editjobposting-active" style="color: red;"> Urgent: </IonText>
+            <IonToggle @ion-change="changeUrgent()" v-model="formData.urgent" required mode="ios"></IonToggle>
           </div>
         </div>
 
@@ -354,6 +358,7 @@ export default {
       street: props.jobPosting ? props.jobPosting.street : "",
       classification: props.jobPosting ? props.jobPosting.classification : "",
       subclassification: props.jobPosting ? props.jobPosting.subclassification : "",
+      urgent: props.jobPosting ? props.jobPosting.urgent : "",
     }));
 
     return {
@@ -386,6 +391,7 @@ export default {
       subclassificationClassification: props.jobPosting ? props.jobPosting.subclassification : "",
       EmployerEmail: localStorage.getItem("email"),
       isLoading: false,
+      Urgent: false,
     };
   },
   methods: {
@@ -421,6 +427,14 @@ export default {
       }
       else {
         this.formData.isactive = 'notactivate'
+      }
+    },
+    changeUrgent() {
+      if (this.formData.urgent == true) {
+        this.formData.urgent = true
+      }
+      else {
+        this.formData.urgent = false
       }
     },
     closeOther() {
@@ -481,6 +495,13 @@ export default {
       ];
       let isFormValid = true;
       let isImageSelected = false;
+
+      if (this.formData.urgent == true) {
+        this.formData.urgent = true
+      }
+      else {
+        this.formData.urgent = false
+      }
 
       for (const field of requiredFields) {
         if (!this.formData[field]) {
