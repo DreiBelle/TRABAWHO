@@ -202,18 +202,14 @@
                         </IonInput>
                     </IonCol>
                 </IonRow>
-
-                <IonRow>
-                    <IonCol class="flexcenter">
-                        <IonButton @click="closeModal">Cancel</IonButton>
-                        <IonButton @click="handleSubmit">Add Job</IonButton>
-                    </IonCol>
-                </IonRow>
             </IonContent>
 
+        </div><br/><br/>
+
+        <div class="flexcenter">
+            <IonButton style="--background: darkred; height: 35px; min-height: 0px;" @click="closeModal">Cancel</IonButton>
+            <IonButton style="--background: #262c5c; height: 35px; min-height: 0px;" @click="handleSubmit">Add Job</IonButton>
         </div>
-
-
     </IonModal>
 </template>
   

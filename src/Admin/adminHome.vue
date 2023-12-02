@@ -15,12 +15,75 @@
                 </div>
             </div>
             <div style="position: absolute; bottom: 20px; right: 20px;">
-                <IonButton style="--background: #262c5c; height: 50px; font-size: 15px;">
+                <IonButton @click="backupmodal(true)" style="--background: #262c5c; height: 50px; font-size: 15px;">
                     Export All data from database
                 </IonButton>
             </div>
         </IonContent>
     </IonPage>
+
+    <IonModal :is-open="isbackup" @did-dismiss="backupmodal(false)" style="--width: 80%; --height: 90%;">
+        <IonContent>
+            <div class="backup-container">
+                <div class="instruction">
+                    <IonText class="titles">Export Database</IonText><br /><br />
+
+                    <IonText>Go to Your Firebase Firestore</IonText><br /><br />
+                    <IonText>Click Project Settings</IonText><br /><br />
+                    <img class="imgprocedure" src="https://firebasestorage.googleapis.com/v0/b/trabawho-c6f61.appspot.com/o/backupprocedure%2Fstep%201.png?alt=media&token=3ad123e2-6153-4adc-a8bf-b8c4a8a82bb3"
+                        alt="image" /><br /><br />
+
+                    <IonText>Go to Service accounts</IonText><br />
+                    <img class="imgprocedure" src="https://firebasestorage.googleapis.com/v0/b/trabawho-c6f61.appspot.com/o/backupprocedure%2Fstep%202.png?alt=media&token=3ac6d0a5-b661-4b81-b4a7-40dacb08c190"
+                        alt="image" /><br /><br />
+
+                    <IonText>Click Generate new private key to download the key</IonText><br /><br />
+                    <img class="imgprocedure" src="https://firebasestorage.googleapis.com/v0/b/trabawho-c6f61.appspot.com/o/backupprocedure%2Fstep%203.png?alt=media&token=c643ed54-4f20-4b6e-b474-a00cd2d552a0"
+                        alt="image" /><br /><br />
+                    <IonText>In your Desktop create a folder and put that key into that folder</IonText><br /><br />
+
+                    <IonText>Rename that key whatever name you want</IonText><br /><br />
+
+                    <IonText>Click the and type in the address location of the folder on the top "cmd"</IonText><br /><br />
+
+                    <img class="imgprocedure" src="https://firebasestorage.googleapis.com/v0/b/trabawho-c6f61.appspot.com/o/backupprocedure%2Fstep%204.png?alt=media&token=b7c9597e-4cc0-430a-8ac3-4c99fb255f0a"
+                        alt="image" /><br /><br />
+
+                    <img class="imgprocedure" src="https://firebasestorage.googleapis.com/v0/b/trabawho-c6f61.appspot.com/o/backupprocedure%2Fstep%205.png?alt=media&token=349b63db-2e1d-479d-9978-48b0f2a6edb3"
+                        alt="image" /><br /><br />
+
+                    <IonText>Then execute this command</IonText><br /><br />
+
+                    <IonText>npx -p node-firestore-import-export firestore-export -a (keyname).json -b (name of the backup).json</IonText><br /><br />
+
+                    <IonText>Replace and put the keyname and edit the desired backup file name then execute it just click enter</IonText><br /><br />
+
+                    <img class="imgprocedure" src="https://firebasestorage.googleapis.com/v0/b/trabawho-c6f61.appspot.com/o/backupprocedure%2Fstep%206.png?alt=media&token=f434b1bc-db97-4e4c-b5db-b45a2d2aafb1"
+                        alt="image" /><br /><br />
+
+                    <IonText>Confirm to export by pressing y if it ask you</IonText><br /><br />
+                </div>
+
+                <div class="instruction">
+                    <IonText class="titles">Import Database</IonText><br /><br />
+
+                    <IonText>Just like in export you will go to the cmd but execute this</IonText><br /><br />
+
+                    <IonText>npx -p node-firestore-import-export firestore-import -a (keyname).json -b (name of the backup).json</IonText><br /><br />
+
+                    <IonText>Replace and put the keyname and edit the backup file name then execute it just click enter</IonText><br /><br />
+
+                    <img class="imgprocedure" src="https://firebasestorage.googleapis.com/v0/b/trabawho-c6f61.appspot.com/o/backupprocedure%2Fstep%207.png?alt=media&token=efb68935-bf3b-4e4e-b40a-d30398c7d37d"
+                        alt="image" /><br /><br />
+
+                    <IonText>Confirm to import by pressing y if it ask you</IonText><br /><br />
+                </div>
+            </div>
+        </IonContent>
+        <div class="buttonprocedure">
+            <IonButton style="width: 80%; --background: #262c5c;" @click="backupmodal(false)">DONE</IonButton>
+        </div>
+    </IonModal>
 </template>
 <script lang="ts">
 import './admin.css';
@@ -29,9 +92,10 @@ import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import Chart from 'chart.js/auto';
 import { ChartConfiguration } from 'chart.js';
 import { db } from '@/firebaseDB';
-import { IonPage, IonGrid, IonRow, IonCol, IonText, IonContent, IonButton } from '@ionic/vue';
+import { IonPage, IonGrid, IonRow, IonCol, IonText, IonContent, IonButton, IonModal } from '@ionic/vue';
 import { getJobPostings, getusers, getemployers, getjobseekers } from './admin-Model';
 import { print } from 'ionicons/icons';
+import axios from 'axios';
 export default {
     components: {
         IonPage,
@@ -41,6 +105,20 @@ export default {
         IonText,
         IonContent,
         IonButton,
+        IonModal,
+    },
+    methods: {
+        executeCommand() {
+
+        },
+        backupmodal(x) {
+            this.isbackup = x
+        },
+    },
+    data() {
+        return {
+            isbackup: false
+        }
     },
     setup() {
         const Utils = {
@@ -234,3 +312,9 @@ export default {
 
 }
 </script>
+<style>
+.titles {
+    font-weight: bold;
+    font-size: large;
+}
+</style>

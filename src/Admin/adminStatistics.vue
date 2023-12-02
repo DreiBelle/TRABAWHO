@@ -1,10 +1,15 @@
 <template>
-    <IonPage>
-        <IonContent>
+    <IonPage id="ion-page">
+        <IonContent id="ion-content">
             <div class="flexcenter" style="font-size: 50px; margin-top: 20px; font-family: BebasNeue-Regular;">
-                <IonText>
-                    Statistics
-                </IonText>
+                <div style="margin-left: 210px;">
+                    <IonText>
+                        Statistics
+                    </IonText>
+                </div>
+                <div class="flexcenter">
+                    <ion-button style="margin-left: 100px; --background: #262c5c; height: 35px; min-height: 0px;" @click="printPage">Print Report</ion-button>
+                </div>
             </div>
 
             <div class="flexcenter" style="width: 100%;">
@@ -48,7 +53,8 @@
                 </div>
             </div>
 
-            <div class="flexcenter" style="font-size: 50px; margin-top: 20px; border-top: 1px solid lightgray; font-family: BebasNeue-Regular;">
+            <div class="flexcenter"
+                style="font-size: 50px; margin-top: 20px; border-top: 1px solid lightgray; font-family: BebasNeue-Regular;">
                 <IonText>
                     Location
                 </IonText>
@@ -63,7 +69,8 @@
                 </div>
             </div>
 
-            <div class="flexcenter" style="font-size: 50px; margin-top: 20px; border-top: 1px solid lightgray; font-family: BebasNeue-Regular;">
+            <div class="flexcenter"
+                style="font-size: 50px; margin-top: 20px; border-top: 1px solid lightgray; font-family: BebasNeue-Regular;">
                 <IonText>
                     Users
                 </IonText>
@@ -78,7 +85,8 @@
                 </div>
             </div>
 
-            <div class="flexcenter" style="font-size: 50px; border-top: 1px solid lightgray; margin-top: 20px; font-family: BebasNeue-Regular;">
+            <div class="flexcenter"
+                style="font-size: 50px; border-top: 1px solid lightgray; margin-top: 20px; font-family: BebasNeue-Regular;">
                 <IonText>
                     Jobs
                 </IonText>
@@ -103,7 +111,7 @@ import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import Chart from 'chart.js/auto';
 import { ChartConfiguration } from 'chart.js';
 import { db } from '@/firebaseDB';
-import { IonPage, IonGrid, IonRow, IonCol, IonText, IonContent, IonSelect, IonSelectOption, IonCard } from '@ionic/vue';
+import { IonPage, IonGrid, IonRow, IonCol, IonText, IonContent, IonSelect, IonSelectOption, IonCard, IonButton } from '@ionic/vue';
 import {
     getJobPostings,
     getusers,
@@ -150,11 +158,89 @@ export default {
         IonContent,
         IonSelect,
         IonSelectOption,
-        IonCard
+        IonCard,
+        IonButton,
     },
     data() {
         return {
             jobs: "",
+        }
+    },
+    methods: {
+        printPage() {
+            const printWindow = window.open('', '_blank');
+
+            if (printWindow) {
+                // Generate HTML content using userData
+                const printContentHTML = `
+                <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                <div style="flex: 1 1 300px; max-width: 300px;">
+                    <h1>Report</h1><br/>
+
+                    <h2>Users</h2>
+                    <p>Users: ${this.users.length}</p>
+                    <p>Employers: ${this.employers.length}</p>
+                    <p>Jobseekers: ${this.jobseekers.length}</p>
+                    <hr>
+
+                    <h2>Genders</h2>
+                    <p>Male: ${this.male.length}</p>
+                    <p>Female: ${this.female.length}</p>
+                    <hr>
+
+                    <h2>Job Postings</h2>
+                    <p>Jobpostings: ${this.jobpostings.length}</p>
+                    <hr>
+
+                    <h2>Companies</h2>
+                    <p>Private Company: ${this.pcompany.length}</p>
+                    <p>Government Company: ${this.gcompany.length}</p>
+                    <p>Manpower Company: ${this.mcompany.length}</p>
+                    <hr>
+
+                    <h2>Provinces</h2>
+                    <p>Cagayan: ${this.cagayan.length}</p>
+                    <p>Isabela: ${this.isabela.length}</p>
+                    <p>Nueva Vizcaya: ${this.nuevavizcaya.length}</p>
+                    <p>Quirino: ${this.quirino.length}</p>
+                    <hr>
+                </div>
+
+                <div style="flex: 1 1 300px; max-width: 300px; margin-top: 100px;">
+                    <h2>Cities / Towns</h2>
+
+                    <p>Tuguegarao City: ${this.tuguegarao.length}</p>
+                    <p>Aparri: ${this.aparri.length}</p>
+                    <p>Lal-lo: ${this.lallo.length}</p>
+                    <p>Gattaran: ${this.gattaran.length}</p>
+                    <p>Penablanca: ${this.penablanca.length}</p>
+                    <p>Ilagan City: ${this.ilagan.length}</p>
+                    <p>Cauayan City: ${this.cuayan.length}</p>
+                    <p>Santiago City: ${this.santiago.length}</p>
+                    <p>Alicia: ${this.alicia.length}</p>
+                    <p>Roxas: ${this.roxas.length}</p>
+                    <p>Cabagan: ${this.cabagan.length}</p>
+                    <p>Bayombong: ${this.bayombong.length}</p>
+                    <p>Solano: ${this.solano.length}</p>
+                    <p>Bagabag: ${this.bagabag.length}</p>
+                    <p>Bambang: ${this.bambang.length}</p>
+                    <hr>
+
+
+                </div>
+                </div>
+            `;
+                printWindow.document.write(printContentHTML);
+                printWindow.document.close();
+
+                printWindow.print();
+
+                printWindow.onafterprint = function () {
+                    printWindow.close();
+                };
+            } else {
+                console.error('Failed to open print window.');
+            }
         }
     },
     setup() {

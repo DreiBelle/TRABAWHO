@@ -188,18 +188,13 @@
                         </IonInput>
                     </IonCol>
                 </IonRow>
-                <IonRow>
-                    <IonCol class="flexcenter">
-                        <IonButton @click="closeModal">Cancel</IonButton>
-                    </IonCol>
-                    <IonCol class="flexcenter">
-                        <IonButton @click="handlesubmit">Save</IonButton>
-                    </IonCol>
-                </IonRow>
             </IonContent>
 
+        </div><br/><br/>
+        <div class="flexcenter">
+            <IonButton style="--background: darkred; height: 35px; min-height: 0px;" @click="closeModal">Cancel</IonButton>
+            <IonButton style="--background: #262c5c; height: 35px; min-height: 0px;" @click="handlesubmit">Save</IonButton>
         </div>
-
 
     </IonModal>
 </template>
@@ -292,7 +287,7 @@ export default {
         }
     },
     async mounted() {
-        
+
     },
     watch: {
         passId: function (value) {

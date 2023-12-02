@@ -94,9 +94,9 @@
                                         </p>
                                     </IonText>
                                 </div>
-                                <IonButton v-if="job.isactive == 'activate'" @click="dactivate(passId)">Deactivate
+                                <IonButton style="--background: rgb(227, 36, 99); height: 35px; min-height: 0px;" v-if="job.isactive == 'activate'" @click="dactivate(passId)">Deactivate
                                 </IonButton>
-                                <IonButton v-if="job.isactive == 'notactivate'" @click="activate(passId)">Activate
+                                <IonButton style="--background: rgb(77, 149, 75); height: 35px; min-height: 0px;" v-if="job.isactive == 'notactivate'" @click="activate(passId)">Activate
                                 </IonButton>
                             </div>
                         </IonCard>
