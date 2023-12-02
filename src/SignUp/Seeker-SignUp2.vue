@@ -14,21 +14,21 @@
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
-                <IonInput mode="md" type="text" placeholder="Elementary" fill="outline" labelPlacement="stacked"
+                <IonInput mode="md" type="text" placeholder="Enter School Name and Year" fill="outline" labelPlacement="stacked"
                   label="Elementary" class="signup-inputs-mobile" v-model="Elementary" required>
                 </IonInput>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
-                <IonInput v-if="Elementary" mode="md" type="text" placeholder="Junior High School" fill="outline"
+                <IonInput v-if="Elementary" mode="md" type="text" placeholder="Enter School Name and Year" fill="outline"
                   labelPlacement="stacked" label="High School" class="signup-inputs-mobile" v-model="Juniorhigh" required>
                 </IonInput>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
-                <IonInput v-if="Juniorhigh" mode="md" type="text" placeholder="Senior High School" fill="outline"
+                <IonInput v-if="Juniorhigh" mode="md" type="text" placeholder="Enter School Name and Year" fill="outline"
                   labelPlacement="stacked" label="Senior High School" class="signup-inputs-mobile" v-model="Seniorhigh"
                   required>
                 </IonInput>
@@ -48,14 +48,14 @@
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
-                <IonInput v-if="College" mode="md" type="text" placeholder="College School" fill="outline"
+                <IonInput v-if="College" mode="md" type="text" placeholder="Enter School Name and Year" fill="outline"
                   labelPlacement="stacked" label="College School" class="signup-inputs-mobile" v-model="Collegeschool" required>
                 </IonInput>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol v-if="College == 'Masteral'" class="flexcenter">
-                <IonInput mode="md" type="text" placeholder="Input masteral degree and School Name" fill="outline"
+                <IonInput mode="md" type="text" placeholder="Masteral degree and School Name and Year" fill="outline"
                   labelPlacement="stacked" label="Masteral" class="signup-inputs-mobile" v-model="Masteral" required>
                 </IonInput>
               </IonCol>
@@ -154,6 +154,7 @@ export default {
     console.log(sharedFormData.citown);
     console.log(sharedFormData.district);
     console.log(sharedFormData.street);
+    console.log(sharedFormData.pwd);
 
     return {
       formData,

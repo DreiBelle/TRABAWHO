@@ -15,23 +15,32 @@
             <IonRow>
               <IonCol class="flexcenter">
                 <IonInput mode="md" type="text" placeholder="FirstName/MiddleName/LastName" fill="outline"
-                  labelPlacement="stacked" class="signup-inputs-mobile" v-model="formData.fullname"
-                  required><div slot="label">Full Name <ion-text color="danger">*</ion-text></div>
+                  labelPlacement="stacked" class="signup-inputs-mobile" v-model="formData.fullname" required>
+                  <div slot="label">Full Name <ion-text color="danger">*</ion-text></div>
                 </IonInput>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
                 <IonInput mode="md" type="email" placeholder="Valid Email Address" fill="outline" labelPlacement="stacked"
-                 class="signup-inputs-mobile" v-model="formData.email" required><div slot="label">Email <ion-text color="danger">*</ion-text></div>
+                  class="signup-inputs-mobile" v-model="formData.email" required>
+                  <div slot="label">Email <ion-text color="danger">*</ion-text></div>
                 </IonInput>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
                 <IonInput mode="md" placeholder="Password" type="password" fill="outline" labelPlacement="stacked"
-                  class="signup-inputs-mobile" v-model="formData.password" required><div slot="label">Password <ion-text color="danger">*</ion-text></div>
+                  class="signup-inputs-mobile" v-model="check"  @input="checkpass" required>
+                  <div slot="label">Password <ion-text color="danger">*</ion-text></div>
                 </IonInput>
+              </IonCol>
+            </IonRow>
+            <IonRow v-if="check">
+              <IonCol class="flexcenter">
+                <IonText :style="{ color: passwordColor }">
+                  Password: {{ valid }}
+                </IonText>
               </IonCol>
             </IonRow>
             <IonRow>
@@ -138,6 +147,10 @@ export default {
   data() {
     return {
       isTerms: false,
+      check: null,
+      valid: null,
+      isAlert: false,
+      alertMessage: "",
     }
   },
   setup() {
@@ -174,16 +187,32 @@ export default {
       pwd: "",
 
     };
-
-    const isAlert = ref(false);
-    const alertMessage = ref('');
-
-    const alertbox = (x, message) => {
-      isAlert.value = x;
-      alertMessage.value = message;
+    
+    return {
+      logoGoogle,
+      formData,
+      alertButtons,
+      signupStore,
     }
-
-    const signInWithGoogle = async () => {
+  },
+  computed: {
+    passwordColor() {
+      return this.valid === 'VALID' ? 'green' : this.valid === 'NOT VALID' ? 'red' : 'black';
+    },
+  },
+  methods: {
+    GoHome,
+    goLogin,
+    GoRegister2,
+    alertbox(x, message) {
+      this.isAlert = x;
+      this.alertMessage = message;
+    },
+    modalTerms(x) {
+      this.isTerms = x;
+      this.formData.acceptTerms = true;
+    },
+    async signInWithGoogle(){
       const provider = new GoogleAuthProvider();
       try {
         const result = await signInWithPopup(auth, provider);
@@ -197,21 +226,21 @@ export default {
           GoSwipe();
         } else {
           // Email is not registered, proceed with registration.
-          signupStore.setGoogle(email, name);
-          signupStore.setjobswipe({ jobdid: "" });
-          await signupStore.registerUser();
+          this.signupStore.setGoogle(email, name);
+          this.signupStore.setjobswipe({ jobdid: "" });
+          await this.signupStore.registerUser();
           localStorage.setItem("email", email);
           GoSwipe();
         }
       } catch (error) {
         // console.error('Google Sign-In Error:', error);
-        alertbox(true, error)
+        this.alertbox(true, error)
       }
-    };
-
-    const submitForm = async () => {
+    },
+    async submitForm(){
       const requiredFields = ['fullname', 'email', 'password'];
       let isFormValid = true;
+      this.formData.password = this.check
 
       function isValidPassword(password) {
         // For example, require at least 8 characters and a mix of letters, numbers, and symbols
@@ -221,66 +250,60 @@ export default {
       }
 
       for (const field of requiredFields) {
-        if (!formData[field]) {
+        if (!this.formData[field]) {
           isFormValid = false;
-          alertbox(true, `Please fill in the ${field} field.`)
+          this.alertbox(true, `Please fill in the ${field} field.`)
           break;
         }
       }
       if (!isFormValid) {
-        alertbox(true, `Fill in all the required fields to continue.`)
+        this.alertbox(true, `Fill in all the required fields to continue.`)
         return;
       }
-      if (!formData.acceptTerms) {
+      if (!this.formData.acceptTerms) {
         isFormValid = false;
-        alertbox(true, `Accept the terms and conditions to continue.`)
+        this.alertbox(true, `Accept the terms and conditions to continue.`)
       }
 
       if (isFormValid) {
         try {
-          if (isValidPassword(formData.password)) {
+          if (isValidPassword(this.formData.password)) {
 
-            const credential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+            const credential = await createUserWithEmailAndPassword(auth, this.formData.email, this.formData.password);
             console.log(credential.user);
 
             await sendEmailVerification(credential.user);
-            alertbox(true, 'Verification email sent');
+            this.alertbox(true, 'Verification email sent');
 
-            signupStore.setFormData(formData);
+            this.signupStore.setFormData(this.formData);
             GoBasic();
           }
           else {
-            alertbox(true, `Invalid password. Password must require at least 8 characters and a mix of letters, numbers, and symbols.`)
+            this.alertbox(true, `Invalid password. Password must require at least 8 characters and a mix of letters, numbers, and symbols.`)
           }
         } catch (error) {
-          alertbox(true, error.message)
+          this.alertbox(true, error.message)
 
         }
       }
       else {
-        alertbox(true, `Fill all the Field to continue`)
+        this.alertbox(true, `Fill all the Field to continue`)
 
       }
-    }
+    },
+    checkpass(){
+      function isValidPassword(password) {
+        // For example, require at least 8 characters and a mix of letters, numbers, and symbols
+        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
 
-    return {
-      signInWithGoogle,
-      submitForm,
-      logoGoogle,
-      formData,
-      alertButtons,
-      isAlert, alertMessage,
-      alertbox,
-      signupStore,
-    }
-  },
-  methods: {
-    GoHome,
-    goLogin,
-    GoRegister2,
-    modalTerms(x) {
-      this.isTerms = x;
-      this.formData.acceptTerms = true;
+        return passwordRegex.test(password);
+      }
+      if(isValidPassword(this.check)){
+        this.valid = "VALID"
+      }
+      else{
+        this.valid = "NOT VALID"
+      }
     }
   }
 }

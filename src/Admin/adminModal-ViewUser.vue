@@ -11,8 +11,8 @@
             <IonIcon v-if="user.type == 'jobseeker'" @click="OpenEditjModal(true, user.id)" class="admin-pointer"
               :icon="pencil" style="margin-right: 30px;"></IonIcon>
             <IonIcon @click="" class="admin-pointer" :icon="trash" style="margin-right: 30px;"></IonIcon>
-            <IonIcon v-if="user.type == 'employer'" @click="OpenEditModal" class="admin-pointer" :icon="close"></IonIcon>
-            <IonIcon v-if="user.type == 'jobseeker'" @click="OpenEditModal" class="admin-pointer" :icon="close"></IonIcon>
+            <IonIcon v-if="user.type == 'employer'" @click="closeModal" class="admin-pointer" :icon="close"></IonIcon>
+            <IonIcon v-if="user.type == 'jobseeker'" @click="closeModal" class="admin-pointer" :icon="close"></IonIcon>
           </div>
         </IonHeader>
         <div v-if="user.type == 'jobseeker'" style="padding: 10px">
@@ -183,6 +183,9 @@
               </div>
             </IonCard>
           </div>
+          <div>
+            <img :src="user.businesspic" alt="Business Permit" />
+          </div>
           <div v-if="!user.contactpn || !user.email || !user.loc || !user.founders || !user.mv">
             <IonText class="flexcenter admin-bebufont">
               Not Finish setting up profile
@@ -213,7 +216,7 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { arrowForwardOutline, close, pencil, trash, radioButtonOffOutline, radioButtonOnOutline } from "ionicons/icons";
 import { aprooveUserStore } from "@/stores/approve"
 import { ref } from "vue";
-import edituser from './adminModal-Edituser.vue';
+import edituser from './adminModal-EditUser.vue';
 import editjuser from './adminModal-Editjobseeker.vue';
 export default {
   emits: ['close-view-modal'],
@@ -308,7 +311,7 @@ export default {
     async disaproove(id) {
       const userPostRef = doc(db, 'users', id);
       await updateDoc(userPostRef, {
-        isactive: false
+        aprooved: false
       });
       console.log("user post dissapproved successfully!");
       this.closeModal();
