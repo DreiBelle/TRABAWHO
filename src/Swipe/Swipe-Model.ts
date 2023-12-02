@@ -66,7 +66,7 @@ async function getJobs2_(subclassification, jobtype, loc, yearsofexp, province) 
         if (loc == 'Within the province'){
             const q = query(jobpostCollection, 
                 where("province", "==", province),
-                where("subclassification", "==", subclassification),
+                where("subclassification", "in", subclassification),
                 where("jobtype", "in", jobtype),
                 where("yearsofexp", "==", yearsofexp),
             );
@@ -90,7 +90,7 @@ async function getJobs2_(subclassification, jobtype, loc, yearsofexp, province) 
         else{
             const q = query(jobpostCollection, 
                 where("province", "!=", province),
-                where("subclassification", "==", subclassification),
+                where("subclassification", "in", subclassification),
                 where("jobtype", "in", jobtype),
                 where("yearsofexp", "==", yearsofexp),
             );
@@ -124,7 +124,7 @@ async function getJobs3_(classification, jobtype, loc, yearsofexp, province) {
         if (loc == 'Within the province'){
             const q = query(jobpostCollection, 
                 where("province", "==", province),
-                where("classification", "==", classification),
+                where("classification", "in", classification),
                 where("jobtype", "in", jobtype),
                 where("yearsofexp", "==", yearsofexp),
             );
@@ -148,7 +148,7 @@ async function getJobs3_(classification, jobtype, loc, yearsofexp, province) {
         else{
             const q = query(jobpostCollection, 
                 where("province", "!=", province),
-                where("classification", "==", classification),
+                where("classification", "in", classification),
                 where("jobtype", "in", jobtype),
                 where("yearsofexp", "==", yearsofexp),
             );

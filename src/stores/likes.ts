@@ -9,6 +9,8 @@ export const uselike = defineStore("likes", {
       creator: "",
       job: "",
       swiper: "",
+      name: "",
+      pic: "",
       dateCreated: "",
     },
   }),
@@ -30,6 +32,8 @@ export const uselike = defineStore("likes", {
             creator: "",
             job: "",
             swiper: "",
+            name: "",
+            pic: "",
             dateCreated: "",
         };
       } catch (error) {

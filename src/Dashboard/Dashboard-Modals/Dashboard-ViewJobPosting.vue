@@ -7,8 +7,12 @@
           <IonCol size="1"> </IonCol>
           <IonCol size="1"> </IonCol>
           <IonCol size="1"> </IonCol>
-          <IonCol class="flexcenter" size="6">
+          <IonCol class="flexcenter" size="5">
             {{ jobPosting ? jobPosting.jobname : "Loading..." }}
+          </IonCol>
+          <IonCol size="1">
+            <IonIcon class="modal-icon" style="color: lightblue" @click="islikesModal(true)" :icon="thumbsUp">
+            </IonIcon>
           </IonCol>
           <IonCol size="1">
             <IonIcon class="modal-icon" style="color: lightgreen" @click="OpenEditModal" :icon="pencilOutline">
@@ -38,7 +42,8 @@
             </div>
             <div>
               <IonText>
-                <span v-if="jobPosting.urgent" style="color: red; font-size: 20px; margin-left: 5px">(Urgently Hiring)</span>
+                <span v-if="jobPosting.urgent" style="color: red; font-size: 20px; margin-left: 5px">(Urgently
+                  Hiring)</span>
               </IonText>
             </div>
             <div>
@@ -299,6 +304,7 @@
       </IonRow>
     </IonGrid>
     <EditModal :is-editmodal="Editmodal" :job-posting="jobPosting" @close-edit-modal="CloseEditModal" />
+    <LikesModal :is-likesmodal="isLikemodal" :job-posting="jobPosting" @close-likes-modal="islikesModal(false)"></LikesModal>
 
     <!-- <IonModal
       ref="modal"
@@ -336,6 +342,7 @@ import {
   trashOutline,
 } from "ionicons/icons";
 import EditModal from "../Dashboard-Modals/Dashboard-EditJobPosting.vue";
+import LikesModal from "../Dashboard-Modals/Dashboard-Likes.vue"
 import { useJobStore } from "@/stores/deletejobstore";
 import '@/Swipe/Swipe.css'
 import { collection, addDoc, updateDoc, doc, serverTimestamp } from "firebase/firestore";
@@ -343,6 +350,7 @@ import { db } from "@/firebaseDB";
 
 export default {
   components: {
+    LikesModal,
     IonModal,
     IonContent,
     EditModal,
@@ -371,6 +379,7 @@ export default {
       Editmodal: false,
       EmployerEmail: localStorage.getItem("email"),
       isLoading: false,
+      isLikemodal: false,
     };
   },
   setup() {
@@ -384,6 +393,9 @@ export default {
     };
   },
   methods: {
+    islikesModal(x){
+      this.isLikemodal = x
+    },
     closeView() {
       this.$emit("close-view-modal");
     },

@@ -1,11 +1,23 @@
 <template>
     <IonPage>
         <IonContent>
-            <div class="data-analytics">
-                <canvas id="userm"></canvas>
+            <div class="flexcenter">
+                <IonText style="color: black; font-size: 50px; font-family: BebasNeue-Regular ;">
+                    ALL USERS
+                </IonText>
             </div>
-            <div class="data-analytics">
-                <canvas id="usery"></canvas>
+            <div class="flexcenter" style="height: calc(100% - 200px);">
+                <div class="data-analytics">
+                    <canvas id="userm"></canvas>
+                </div>
+                <div class="data-analytics">
+                    <canvas id="usery"></canvas>
+                </div>
+            </div>
+            <div style="position: absolute; bottom: 20px; right: 20px;">
+                <IonButton style="--background: #262c5c; height: 50px; font-size: 15px;">
+                    Export All data from database
+                </IonButton>
             </div>
         </IonContent>
     </IonPage>
@@ -17,8 +29,9 @@ import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import Chart from 'chart.js/auto';
 import { ChartConfiguration } from 'chart.js';
 import { db } from '@/firebaseDB';
-import { IonPage, IonGrid, IonRow, IonCol, IonText, IonContent } from '@ionic/vue';
+import { IonPage, IonGrid, IonRow, IonCol, IonText, IonContent, IonButton } from '@ionic/vue';
 import { getJobPostings, getusers, getemployers, getjobseekers } from './admin-Model';
+import { print } from 'ionicons/icons';
 export default {
     components: {
         IonPage,
@@ -26,7 +39,8 @@ export default {
         IonRow,
         IonCol,
         IonText,
-        IonContent
+        IonContent,
+        IonButton,
     },
     setup() {
         const Utils = {
@@ -78,7 +92,7 @@ export default {
 
             const usersms = Utils.months({ count: 12 });
             const jobsms = Utils.months({ count: 12 });
-            
+
             for (const usersm of usersms) {
                 const usersInMonth = users.value.filter((user) => {
                     if (user.dateCreated) {

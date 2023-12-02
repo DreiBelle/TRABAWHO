@@ -1,39 +1,97 @@
 <template>
     <IonPage>
         <IonContent>
-            <div class="analytics-box"
-                :style="{ 'box-shadow': male.length > 0 ? 'rgba(0, 0, 0, 0.24) 0px 3px 8px' : 'none' }">
-                Male Jobseekers<br>
-                <span class="analytics-number" style="font-size: 32px; font-weight: bold;">{{ male.length }}</span>
+            <div class="flexcenter" style="font-size: 50px; margin-top: 20px; font-family: BebasNeue-Regular;">
+                <IonText>
+                    Statistics
+                </IonText>
             </div>
-            <div class="analytics-box"
-                :style="{ 'box-shadow': female.length > 0 ? 'rgba(0, 0, 0, 0.24) 0px 3px 8px' : 'none' }">
-                Female Jobseekers<br>
-                <span class="analytics-number" style="font-size: 32px; font-weight: bold;">{{ female.length }}</span>
+
+            <div class="flexcenter" style="width: 100%;">
+                <div class="data-analytics" style="width: 40%;">
+                    <canvas id="Empljobseeker"></canvas>
+                </div>
+
+                <div style="width: 20%;">
+                    <IonCard style="height: 100px; --background: lightblue" class="flexcenter">
+                        <div>
+                            <div class="flexcenter">
+                                <IonText style="font-size: 20px; color: black;">
+                                    Male Users
+                                </IonText>
+                            </div>
+                            <div class="flexcenter">
+                                <IonText style="font-size: 20px; color: black;">
+                                    {{ male.length }}
+                                </IonText>
+                            </div>
+                        </div>
+                    </IonCard>
+                    <IonCard style="height: 100px; --background: lightpink" class="flexcenter">
+                        <div>
+                            <div class="flexcenter">
+                                <IonText style="font-size: 20px; color: black;">
+                                    Female Users
+                                </IonText>
+                            </div>
+                            <div class="flexcenter">
+                                <IonText style="font-size: 20px; color: black;">
+                                    {{ female.length }}
+                                </IonText>
+                            </div>
+                        </div>
+                    </IonCard>
+                </div>
+
+                <div class="data-analytics" style="width: 40%;">
+                    <canvas id="companytype"></canvas>
+                </div>
             </div>
-            <div class="data-analytics">
-                <canvas id="Empljobseeker"></canvas>
+
+            <div class="flexcenter" style="font-size: 50px; margin-top: 20px; border-top: 1px solid lightgray; font-family: BebasNeue-Regular;">
+                <IonText>
+                    Location
+                </IonText>
             </div>
-            <div class="data-analytics">
-                <canvas id="companytype"></canvas>
+
+            <div class="flexcenter" style="width: 100%;">
+                <div class="data-analytics" style="width: 50%;">
+                    <canvas style="width: 100%;" id="pjobseeker"></canvas>
+                </div>
+                <div class="data-analytics" style="width: 50%;">
+                    <canvas style="width: 100%;" id="cjobseeker"></canvas>
+                </div>
             </div>
-            <div class="data-analytics">
-                <canvas id="pjobseeker"></canvas>
+
+            <div class="flexcenter" style="font-size: 50px; margin-top: 20px; border-top: 1px solid lightgray; font-family: BebasNeue-Regular;">
+                <IonText>
+                    Users
+                </IonText>
             </div>
-            <div class="data-analytics">
-                <canvas id="cjobseeker"></canvas>
+
+            <div class="flexcenter">
+                <div class="data-analytics">
+                    <canvas id="users"></canvas>
+                </div>
+                <div class="data-analytics">
+                    <canvas id="usery"></canvas>
+                </div>
             </div>
-            <div class="data-analytics">
-                <canvas id="users"></canvas>
+
+            <div class="flexcenter" style="font-size: 50px; border-top: 1px solid lightgray; margin-top: 20px; font-family: BebasNeue-Regular;">
+                <IonText>
+                    Jobs
+                </IonText>
             </div>
-            <div class="data-analytics">
-                <canvas id="jobs"></canvas>
-            </div>
-            <div class="data-analytics">
-                <canvas id="usery"></canvas>
-            </div>
-            <div class="data-analytics">
-                <canvas id="joby"></canvas>
+
+
+            <div class="flexcenter">
+                <div class="data-analytics">
+                    <canvas id="jobs"></canvas>
+                </div>
+                <div class="data-analytics">
+                    <canvas id="joby"></canvas>
+                </div>
             </div>
         </IonContent>
     </IonPage>
@@ -45,7 +103,7 @@ import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import Chart from 'chart.js/auto';
 import { ChartConfiguration } from 'chart.js';
 import { db } from '@/firebaseDB';
-import { IonPage, IonGrid, IonRow, IonCol, IonText, IonContent, IonSelect, IonSelectOption } from '@ionic/vue';
+import { IonPage, IonGrid, IonRow, IonCol, IonText, IonContent, IonSelect, IonSelectOption, IonCard } from '@ionic/vue';
 import {
     getJobPostings,
     getusers,
@@ -91,7 +149,8 @@ export default {
         IonText,
         IonContent,
         IonSelect,
-        IonSelectOption
+        IonSelectOption,
+        IonCard
     },
     data() {
         return {

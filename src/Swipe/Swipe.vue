@@ -161,6 +161,8 @@ export default {
       creator: "",
       job: "",
       swiper: "",
+      name: "",
+      pic: "",
     };
 
     const alertButtons = [
@@ -467,12 +469,17 @@ export default {
       this.formData.job = job.id;
       this.formData.creator = job.company;
       this.formData.swiper = this.user.id;
+      this.formData.name = this.user.fullname;
+      this.formData.pic = this.user.pic;
 
       this.uselikes.setFormData(this.formData);
       await this.uselikes.registerlike();
+
       this.formData.job = "";
       this.formData.creator = "";
       this.formData.swiper = "";
+      this.formData.name = "";
+      this.formData.pic = "";
 
       this.swipedata = [];
       this.jobdata = [];

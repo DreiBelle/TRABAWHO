@@ -42,16 +42,20 @@
                     <div class="flexcenter">
                         <IonCard class="admin-modal-view-cards">
                             <div>
-                                <div style="justify-content: left">
-                                    <IonText class="flexcenter" style="font-size: 20px; font-weight: bold">Job Information
-                                    </IonText>
-                                    <IonText>
-                                        <p><b>Salary: </b>{{ job.salary }}</p>
-                                        <p><b>Hours of Work: </b>{{ job.hours }}</p>
-                                        <p><b>Job Description: </b>{{ job.jobdes }}</p>
-                                        <p><b>Work Location: </b>{{ job.province }}, {{ job.citown }}, {{ job.district }},
-                                            {{ job.street }}</p>
-                                    </IonText>
+                                <div style="justify-content: left;">
+                                    <IonContent style="height: 200px;" class="custom-scrollbar">
+                                        <IonText class="flexcenter" style="font-size: 20px; font-weight: bold">Job
+                                            Information
+                                        </IonText>
+                                        <IonText>
+                                            <p><b>Salary: </b>{{ job.salary }}</p>
+                                            <p><b>Hours of Work: </b>{{ job.hours }}</p>
+                                            <p><b>Job Description: </b>{{ job.jobdes }}</p>
+                                            <p><b>Work Location: </b>{{ job.province }}, {{ job.citown }}, {{ job.district
+                                            }},
+                                                {{ job.street }}</p>
+                                        </IonText>
+                                    </IonContent>
                                 </div>
                             </div>
                         </IonCard>
@@ -90,8 +94,10 @@
                                         </p>
                                     </IonText>
                                 </div>
-                                <IonButton v-if="job.isactive == 'activate'" @click="dactivate(passId)">Deactivate</IonButton>
-                                <IonButton v-if="job.isactive == 'notactivate'" @click="activate(passId)">Activate</IonButton>
+                                <IonButton v-if="job.isactive == 'activate'" @click="dactivate(passId)">Deactivate
+                                </IonButton>
+                                <IonButton v-if="job.isactive == 'notactivate'" @click="activate(passId)">Activate
+                                </IonButton>
                             </div>
                         </IonCard>
                     </div>

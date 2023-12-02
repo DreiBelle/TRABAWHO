@@ -1,44 +1,37 @@
 <template>
     <div class="flexcenter">
-        <IonSearchbar class="dashboard-navbar-topbar-searchbar" v-model="searchTerm"></IonSearchbar>
+        <div class="flexcenter" style="width: 70%;">
+            <IonSearchbar class="dashboard-navbar-topbar-searchbar" v-model="searchTerm"></IonSearchbar>
+        </div>
+        <div class="flexcenter">
+            <IonButton style="--background: #262c5c; min-height: 0; height: 35px;" @click="addjobModal(true)"
+                class="admin-adduser">Add Jobpost</IonButton>
+        </div>
     </div>
-    <div class="flexcenter">
-        <IonButton @click="addjobModal(true)" class="admin-adduser">Add Jobpost</IonButton>
-    </div>
-    <div style="height: 90%;">
+    <div style="height: 80%;">
         <IonContent class="custom-scrollbar">
             <div class="admin-manageuser-cards-container">
-                <IonCard v-for="job in filteredSearch" class="flexcenter admin-manageuser-card"
+                <IonCard v-for="job in filteredSearch" class="flexcenter admin-manageuser-card" style="height: 75px;"
                     @click="viewjobModal(true, job.documentID)">
-                    <IonGrid style="height: 100%; padding: 0;">
+                    <IonGrid style="padding: 0;">
                         <IonRow style="height: 100%;">
                             <IonCol size="2" style="padding: 0;">
                                 <img class="admin-manageuser-picture" v-if="job.pic" :src="job.pic" alt="picture">
                                 <img class="admin-manageuser-picture" v-if="!job.pic"
                                     src="https://ionicframework.com/docs/img/demos/avatar.svg" alt="picture">
                             </IonCol>
-                            <IonCol size="9.3">
-                                <IonRow style="height: 33%;">
-                                    <IonCol class="admin-manageuser-borderbottom" style="border-top: 1px solid grey;">
-                                        <IonText class="admin-manageuser-text" v-if="job.jobname">
-                                            <b>Name:</b> {{ job.jobname }}
-                                        </IonText>
-                                    </IonCol>
-                                </IonRow>
-                                <IonRow style="height: 33%;">
-                                    <IonCol class="admin-manageuser-borderbottom">
-                                        <IonText class="admin-manageuser-text">
-                                            <b>Created by:</b> {{ job.creator }}
-                                        </IonText>
-                                    </IonCol>
-                                </IonRow>
-                                <IonRow style="height: 33%;">
-                                    <IonCol class="admin-manageuser-borderbottom">
-                                        <IonText class="admin-manageuser-text">
-                                            <b>Date Created:</b> {{ job.dateCreated }}
-                                        </IonText>
-                                    </IonCol>
-                                </IonRow>
+                            <IonCol size="9.3" class="flexcenter" style="justify-content: left; cursor: pointer;">
+                                <div>
+                                    <div style="color: black;">
+                                        <b>Name:</b> {{ job.jobname }}
+                                    </div>
+                                    <div style="color: black; margin-top: 10px;">
+                                        <b>Created by:</b> {{ job.creator }}
+                                    </div>
+                                    <div style="color: black; margin-top: 10px;">
+                                        <b>Date Created:</b> {{ job.dateCreated }}
+                                    </div>
+                                </div>
                             </IonCol>
                             <IonCol size=".7" class="flexcenter admin-manageuser-icons admin-manageuser-open">
                                 <IonIcon :icon="chevronForward">
@@ -64,7 +57,7 @@ import {
     onSnapshot,
     query,
     orderBy,
-where,
+    where,
 } from "firebase/firestore";
 import { db } from "@/firebaseDB";
 import { ref, onMounted } from 'vue';
@@ -81,7 +74,7 @@ export default {
             };
 
             const jobPostingsRef = collection(db, "jobpost");
-            const q = query(jobPostingsRef,where("isactive", "!=", "Removed"));
+            const q = query(jobPostingsRef, where("isactive", "!=", "Removed"));
 
             const unsubscribe = onSnapshot(q, (snapshot) => {
                 updateJobPostings(snapshot);

@@ -5,6 +5,11 @@
   flex-wrap: wrap;
 }
 
+.admin-manageuser-card:hover{
+  --background: rgb(244, 233, 233);
+  transition: all 0.3s ease;
+}
+
 .admin-manageuser-icons {
   color: #262c5c;
   font-size: 25px;

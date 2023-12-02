@@ -34,8 +34,8 @@ export const useSignupStore = defineStore("signup", {
       district: "",
       street: "",
       pic: "",
-      classification: "",
-      subclassification: "",
+      classification: [],
+      subclassification: [],
       aprooved: null,
       pwd: "",
     },
@@ -101,8 +101,8 @@ export const useSignupStore = defineStore("signup", {
           district: "",
           street: "",
           pic: "",
-          classification: "",
-          subclassification: "",
+          classification: [],
+          subclassification: [],
           pwd: "",
         };
       } catch (error) {

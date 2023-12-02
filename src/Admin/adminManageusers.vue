@@ -1,28 +1,34 @@
 <template>
     <div style="padding: 10px; padding-bottom: 2px;">
-        <IonSegment mode="ios" color="light" class="page-jobposting-segments" value="Pending">
-            <IonSegmentButton class="page-jobposting-segments-buttons" @click="ShowTabs('Pending')" value="Pending">
-                <IonLabel class="label"> Pending </IonLabel>
-            </IonSegmentButton>
-            <IonSegmentButton class="page-jobposting-segments-buttons" @click="ShowTabs('Approved')" value="Approved">
-                <IonLabel class="label"> Approved </IonLabel>
-            </IonSegmentButton>
-        </IonSegment>
+        <div class="flexcenter">
+            <div class="flexcenter" style="width: 60%;">
+                <IonSegment mode="ios" color="light" class="page-jobposting-segments" value="Pending">
+                    <IonSegmentButton class="page-jobposting-segments-buttons" @click="ShowTabs('Pending')" value="Pending">
+                        <IonLabel class="label"> Pending </IonLabel>
+                    </IonSegmentButton>
+                    <IonSegmentButton class="page-jobposting-segments-buttons" @click="ShowTabs('Approved')"
+                        value="Approved">
+                        <IonLabel class="label"> Approved </IonLabel>
+                    </IonSegmentButton>
+                </IonSegment>
+            </div>
+            <div class="flexcenter">
+                <IonButton style="--background: #262c5c; height: 35px; min-height: 0px;" @click="adduserModal(true)"
+                    class="admin-adduser">Add Employer</IonButton>
+            </div>
+            <div class="flexcenter">
+                <IonButton style="--background: #262c5c; height: 35px; min-height: 0px;" @click="adduserModal2(true)"
+                    class="admin-adduser">Add Jobseeker</IonButton>
+            </div>
+        </div>
     </div>
-    <div class="flexcenter">
-        <IonButton @click="adduserModal(true)" class="admin-adduser">Add Employer</IonButton>
-    </div>
-    <div class="flexcenter">
-        <IonButton @click="adduserModal2(true)" class="admin-adduser">Add Jobseeker</IonButton>
-    </div>
-
     <div class="flexcenter">
         <IonSearchbar class="dashboard-navbar-topbar-searchbar" v-model="searchTerm"></IonSearchbar>
         <IonIcon @click="filterModal(true)" class="admin-manageuser-icons admin-manageuser-icons-filter" :icon="filter">
         </IonIcon>
     </div>
 
-    <div style="height: 100%;">
+    <div style="height: 80%;">
         <IonContent class="custom-scrollbar">
             <div v-if="Views == 'Approved'">
                 <approved :search-term="searchTerm" :filtertype="filtertype"></approved>
@@ -95,10 +101,10 @@ export default {
     },
     methods: {
         adduserModal(x) {
-            this.isaddUser = x   
+            this.isaddUser = x
         },
         adduserModal2(x) {
-            this.isaddUser2 = x   
+            this.isaddUser2 = x
         },
         ShowTabs(View) {
             this.Views = View;
