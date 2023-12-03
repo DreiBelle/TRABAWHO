@@ -20,7 +20,7 @@
                 </div>
             </IonCard>
 
-            <IonButton expand="block" style="margin: 10px; --background: #262c5c ;">
+            <IonButton @click="printPage" expand="block" style="margin: 10px; --background: #262c5c ;">
                 Print All
             </IonButton>
         </div>
@@ -95,6 +95,37 @@ export default {
                 });
             });
         },
+        printPage() {
+            const printWindow = window.open('', '_blank');
+
+            if (printWindow) {
+                const printContentHTML = `
+                <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                    <div style="flex: 1 1 300px; max-width: 300px;">
+                        <h1>Report</h1><br/>
+                        <h2>Liked Jobposting Titled "${this.jobPosting.jobname}"</h2> 
+                        ${this.likes.map(like => `
+                            <div>
+                                <p>User: ${like.data.name}</p>
+                                <p>Date: ${this.formattedDate(like.data.dateCreated)}</p>
+                                <hr/>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+                printWindow.document.write(printContentHTML);
+                printWindow.document.close();
+
+                printWindow.print();
+
+                printWindow.onafterprint = function () {
+                    printWindow.close();
+                };
+            } else {
+                console.error('Failed to open print window.');
+            }
+        }
     },
     mounted() {
         this.getLikes();
