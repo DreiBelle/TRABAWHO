@@ -117,9 +117,10 @@ export default {
             this.unsubscribe();
         }
 
-        const q = query(
-            collection(db, "users"),
-            orderBy("dateCreated", "asc"),
+        const usersp = collection(db, "users");
+        const q = query(usersp, 
+          where("aprooved", "==", true), 
+        //   orderBy("dateCreated", "asc"),
         );
 
         this.unsubscribe = onSnapshot(q, (snapshot) => {
