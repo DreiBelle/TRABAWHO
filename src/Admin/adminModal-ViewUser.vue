@@ -2,18 +2,47 @@
   <IonModal :is-open="isViewmodal" @did-dismiss="closeModal" style="--border-radius: 20px">
     <div v-for="user in users" style="height: 100%">
       <IonContent>
-        <IonHeader class="flexcenter admin-view-modal-header">{{ passId }}
-          <div style="z-index: 1; position: absolute; right: 20px">
-            <IonIcon v-if="user.aprooved === true" @click="disaproove(passId)" class="admin-pointer" :icon="radioButtonOnOutline"></IonIcon>
-            <IonIcon v-if="user.aprooved === false" @click="aproove" class="admin-pointer" :icon="radioButtonOffOutline"></IonIcon><br/>
-            <IonIcon v-if="user.type == 'employer'" @click="OpenEditModal(true, user.id)" class="admin-pointer"
-              :icon="pencil" style="margin-right: 30px;"></IonIcon>
-            <IonIcon v-if="user.type == 'jobseeker'" @click="OpenEditjModal(true, user.id)" class="admin-pointer"
-              :icon="pencil" style="margin-right: 30px;"></IonIcon>
-            <IonIcon @click="" class="admin-pointer" :icon="trash" style="margin-right: 30px;"></IonIcon>
-            <IonIcon v-if="user.type == 'employer'" @click="closeModal" class="admin-pointer" :icon="close"></IonIcon>
-            <IonIcon v-if="user.type == 'jobseeker'" @click="closeModal" class="admin-pointer" :icon="close"></IonIcon>
-          </div>
+        <IonHeader class="flexcenter admin-view-modal-header">
+          <IonGrid>
+            <IonRow>
+              <IonCol>
+
+              </IonCol>
+              <IonCol>
+
+              </IonCol>
+              <IonCol>
+
+              </IonCol>
+              <IonCol>
+
+              </IonCol>
+              <IonCol>
+                {{ passId }}
+              </IonCol>
+              <IonCol>
+                <IonIcon v-if="user.aprooved === true" @click="disaproove(passId)" class="admin-pointer"
+                  :icon="radioButtonOnOutline"></IonIcon>
+                <IonIcon v-if="user.aprooved === false" @click="aproove" class="admin-pointer"
+                  :icon="radioButtonOffOutline">
+                </IonIcon>
+              </IonCol>
+              <IonCol>
+                <IonIcon v-if="user.type == 'employer'" @click="OpenEditModal(true, user.id)" class="admin-pointer"
+                  :icon="pencil" style="margin-right: 30px;"></IonIcon>
+                <IonIcon v-if="user.type == 'jobseeker'" @click="OpenEditjModal(true, user.id)" class="admin-pointer"
+                  :icon="pencil" style="margin-right: 30px;"></IonIcon>
+              </IonCol>
+              <IonCol>
+                <IonIcon @click="" class="admin-pointer" :icon="trash" style="margin-right: 30px;"></IonIcon>
+              </IonCol>
+              <IonCol>
+                <IonIcon v-if="user.type == 'employer'" @click="closeModal" class="admin-pointer" :icon="close"></IonIcon>
+                <IonIcon v-if="user.type == 'jobseeker'" @click="closeModal" class="admin-pointer" :icon="close">
+                </IonIcon>
+              </IonCol>
+            </IonRow>
+          </IonGrid>
         </IonHeader>
         <div v-if="user.type == 'jobseeker'" style="padding: 10px">
           <div class="admin-view-modal-topProfile">
@@ -210,6 +239,9 @@ import {
   IonModal,
   IonText,
   IonButton,
+  IonGrid,
+  IonRow,
+  IonCol,
 } from "@ionic/vue";
 import { db } from "@/firebaseDB";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
@@ -221,6 +253,9 @@ import editjuser from './adminModal-Editjobseeker.vue';
 export default {
   emits: ['close-view-modal'],
   components: {
+    IonGrid,
+    IonRow,
+    IonCol,
     IonModal,
     IonAvatar,
     IonText,

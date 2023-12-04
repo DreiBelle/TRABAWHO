@@ -39,7 +39,6 @@
                   <p><b>Email: </b>{{ user.email }}</p>
                   <p><b>Birthday: </b>{{ user.bday }}</p>
                   <p><b>Gender: </b>{{ user.gender }}</p>
-                  <p><b></b>{{ user.pwd }}</p>
                 </IonText>
               </div>
             </div>

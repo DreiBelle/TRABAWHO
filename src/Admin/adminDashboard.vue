@@ -117,6 +117,12 @@
           </IonCol>
         </IonRow>
         <IonRow>
+          <IonCol @click="ShowTabs('Help')" class="dashboard-navbar-flexcenter dashboard-navbar-cols">
+            <IonIcon class="dashboard-navbar-icons" :icon="helpCircleOutline"></IonIcon>
+            <IonText class="dashboard-navbar-navigations">Help</IonText>
+          </IonCol>
+        </IonRow>
+        <IonRow>
           <IonCol @click="handleSignout" class="dashboard-navbar-flexcenter dashboard-navbar-cols"
             style="position: absolute; bottom: 10px">
             <IonIcon class="dashboard-navbar-icons" :icon="logOutOutline"></IonIcon>
@@ -149,12 +155,14 @@ import {
   logOutOutline,
   person,
   clipboard,
+  helpCircleOutline,
 } from "ionicons/icons";
 import { ref, onMounted } from "vue";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "@/firebaseDB";
 import { GoHome } from "../Dashboard/Employer-Dashboard-Controller";
 import { getDashboardProfile } from "../Dashboard/Dashboard-Model";
+import Help from "./admin-Help.vue"
 import Home from "./adminHome.vue";
 import ManageUsers from "./adminManageusers.vue";
 import ManagePostings from "./adminManagejobpostings.vue";
@@ -170,6 +178,7 @@ const isLoggedIn = ref(false);
 
 export default {
   components: {
+    Help,
     Home,
     ManageUsers,
     ManagePostings,
@@ -230,6 +239,7 @@ export default {
       jobpostings,
       employers,
       jobseekers,
+      helpCircleOutline,
     };
   },
   data() {

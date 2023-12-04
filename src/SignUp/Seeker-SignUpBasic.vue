@@ -14,9 +14,9 @@
               </IonCol>
             </IonRow>
             <IonRow>
-              <IonCol class="flexcenter">
-                <ion-radio-group v-model="formData.pwd">
-                  <ion-radio value="PWD" style="margin-right: 20px;">PWD</ion-radio>
+              <IonCol class="flexcenter" style=" opacity: 0;">
+                <ion-radio-group v-model="formData.pwd" >
+                  <ion-radio  value="PWD" style="margin-right: 20px;">PWD</ion-radio>
                   <ion-radio value="NOT PWD">NOT PWD</ion-radio>
                 </ion-radio-group>
               </IonCol>

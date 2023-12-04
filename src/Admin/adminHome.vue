@@ -1,6 +1,6 @@
 <template>
-    <IonPage>
-        <IonContent>
+    <IonPage >
+        <IonContent >
             <div class="flexcenter">
                 <IonText style="color: black; font-size: 50px; font-family: BebasNeue-Regular ;">
                     ALL USERS
@@ -16,7 +16,7 @@
             </div>
             <div style="position: absolute; bottom: 20px; right: 20px;">
                 <IonButton @click="backupmodal(true)" style="--background: #262c5c; height: 50px; font-size: 15px;">
-                    Export All data from database
+                    HELPME
                 </IonButton>
             </div>
         </IonContent>
@@ -95,7 +95,6 @@ import { db } from '@/firebaseDB';
 import { IonPage, IonGrid, IonRow, IonCol, IonText, IonContent, IonButton, IonModal } from '@ionic/vue';
 import { getJobPostings, getusers, getemployers, getjobseekers } from './admin-Model';
 import { print } from 'ionicons/icons';
-import axios from 'axios';
 export default {
     components: {
         IonPage,
