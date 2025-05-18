@@ -22,9 +22,12 @@
                 <IonRow>
                   <IonCol style="padding-top: 10px">
                     <IonInput class="signup-inputs" fill="outline" label="Password" labelPlacement="stacked"
-                      placeholder="Enter Password" type="password" v-model="Password" required>
+                      placeholder="Enter Password" :type="showPassword ? 'text' : 'password'" v-model="Password" required>
+                      <ion-button class="seepass" fill="clear" slot="end" @click="togglePasswordVisibility">
+                        <ion-icon :icon="showPassword ? eyeOffOutline : eyeOutline"></ion-icon>
+                      </ion-button>
                     </IonInput>
-                    <div style="margin-top: 5px;" class="login-a-forgotpassword">
+                    <div style="margin-top: 50px;" class="login-a-forgotpassword">
                       <a style="cursor: pointer;" @click="resetPassword">Forgot Password?</a>
                     </div>
                   </IonCol>
@@ -77,11 +80,13 @@ import {
   IonText,
   IonCard,
   IonSpinner,
+  IonIcon,
 } from "@ionic/vue";
 import "./Login.css";
 import { GoRegister, GoHome, GoEmployer, GoEmployerDashboard } from "./Login-Controller";
 import { checkgoogle, UserLogin, updatePassword } from "./Login-Model";
 import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail } from "firebase/auth";
+import { eyeOutline, eyeOffOutline } from 'ionicons/icons';
 import { auth, db } from "@/firebaseDB";
 import HomeBar from "../Home/Home-TopBar.vue"
 import "../SignUp/SignUp.css"
@@ -94,6 +99,8 @@ const Username = ref("");
 const Password = ref("");
 const user = ref(null);
 const isLoading = ref(false)
+const pass = ref('');
+const showPassword = ref(false)
 
 const signInWithGoogle = async () => {
   const provider = new GoogleAuthProvider();
@@ -112,6 +119,9 @@ const signInWithGoogle = async () => {
     alert(error);
   }
 };
+const togglePasswordVisibility = () => {
+  showPassword.value = !showPassword.value
+}
 
 const handleUserLogin = () => {
   isLoading.value = true

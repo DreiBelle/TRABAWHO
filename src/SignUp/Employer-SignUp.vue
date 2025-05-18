@@ -59,12 +59,15 @@
                 <IonRow>
                   <IonCol>
                     <IonInput fill="outline" class="signup-inputs" labelPlacement="stacked" placeholder="Enter Password"
-                      type="password" v-model="check" @input="checkpass" required>
+                    :type="showPassword ? 'text' : 'password'" v-model="check" @input="checkpass" required>
                       <div slot="label">Password<ion-text color="danger">*</ion-text></div>
+                      <ion-button class="seepass" fill="clear" slot="end" @click="togglePasswordVisibility">
+                        <ion-icon :icon="showPassword ? eyeOffOutline : eyeOutline"></ion-icon>
+                      </ion-button>
                     </IonInput>
                   </IonCol>
                 </IonRow>
-                <IonRow v-if="check">
+                <IonRow v-if="check" class="passcheck">
                   <IonCol>
                     <IonText :style="{ color: passwordColor }">
                       Password: {{ valid }}
@@ -73,7 +76,7 @@
                 </IonRow>
                 <IonRow>
                   <IonCol class="flexcenter">
-                    <IonCheckbox v-model="formData.acceptTerms"></IonCheckbox>
+                    <IonCheckbox class="signup-text-terms" v-model="formData.acceptTerms"></IonCheckbox>
                     <IonText class="signup-text-terms">
                       I have read and accept the
                       <a style="cursor: pointer" @click="modalTerms(true)">
@@ -157,6 +160,7 @@ import {
   IonModal,
   IonSelect,
   IonSelectOption,
+  IonIcon,
 } from "@ionic/vue";
 import "./SignUp.css";
 import { GoRegister2, goBack, goTermsandCondition } from "./SignUp-Controller";
@@ -176,6 +180,7 @@ import HomeBar from "../Home/Home-TopBar.vue";
 import terms from "./Seeker-Terms.vue";
 import { ref as asd, uploadBytes, getDownloadURL } from "firebase/storage";
 import { dbImage, db } from "@/firebaseDB";
+import { eyeOutline, eyeOffOutline } from 'ionicons/icons';
 export default {
   components: {
     terms,
@@ -193,6 +198,7 @@ export default {
     IonSelect,
     IonSelectOption,
     HomeBar,
+    IonIcon,
   },
   setup() {
     const signupStore2 = useSignupStore2();
@@ -226,9 +232,17 @@ export default {
       thereisImage: false,
       check: null,
       valid: null,
+      swipeid: [],
+      jobid: [],
+      showPassword: false,
+      eyeOutline,
+      eyeOffOutline,
     };
   },
   methods: {
+    togglePasswordVisibility(){
+      this.showPassword = !this.showPassword;
+    },
     async submitForm() {
       const requiredFields = [
         "email",
@@ -250,7 +264,7 @@ export default {
         // Customize your password validation rules here
         // For example, require at least 8 characters and a mix of letters, numbers, and symbols
         const passwordRegex =
-          /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+          /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&_\-])[A-Za-z\d@$!%*#?&_\-]{8,}$/;
         return passwordRegex.test(password);
       }
       function isValidnumber(number) {
@@ -310,8 +324,12 @@ export default {
                 }
 
                 this.signupStore2.setFormData(this.formData);
-                this.signupStore2.setjobdata({ swipedid: "" });
-                this.signupStore2.setswipedata({ jobdid: "" });
+                this.swipeid.push({swipedid: ""});
+                this.jobid.push({jobdid: ""});
+                // this.signupStore2.setjobdata({ swipedid: "" });
+                // this.signupStore2.setswipedata({ jobdid: "" });
+                this.signupStore2.setjobdata(this.jobid);
+                this.signupStore2.setswipedata(this.swipeid);
                 await this.signupStore2.registerUser();
                 // localStorage.setItem("email", formData.email);
                 router.push("/LoginComputer");
@@ -355,8 +373,12 @@ export default {
         } else {
           // Email is not registered, proceed with registration.
           this.signupStore2.setGoogle(email, name);
-          this.signupStore2.setjobdata({ swipedid: "" });
-          this.signupStore2.setswipedata({ jobdid: "" });
+          this.swipeid.push({swipedid: ""});
+          this.jobid.push({jobdid: ""});
+          // this.signupStore2.setjobdata({ swipedid: "" });
+          // this.signupStore2.setswipedata({ jobdid: "" });
+          this.signupStore2.setjobdata(this.swipeid);
+          this.signupStore2.setswipedata(this.jobid);
           await this.signupStore2.registerUser();
           localStorage.setItem("email", email);
           GoEmployerDashboard();
@@ -391,8 +413,7 @@ export default {
     checkpass() {
       function isValidPassword(password) {
         // For example, require at least 8 characters and a mix of letters, numbers, and symbols
-        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
-
+        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&_\-])[A-Za-z\d@$!%*#?&_\-]{8,}$/;
         return passwordRegex.test(password);
       }
       if (isValidPassword(this.check)) {

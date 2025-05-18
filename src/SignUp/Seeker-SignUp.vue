@@ -30,9 +30,12 @@
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
-                <IonInput mode="md" placeholder="Password" type="password" fill="outline" labelPlacement="stacked"
+                <IonInput mode="md" placeholder="Password" :type="showPassword ? 'text' : 'password'" fill="outline" labelPlacement="stacked"
                   class="signup-inputs-mobile" v-model="check"  @input="checkpass" required>
                   <div slot="label">Password <ion-text color="danger">*</ion-text></div>
+                      <ion-button class="seepass" fill="clear" slot="end" @click="togglePasswordVisibility">
+                        <ion-icon :icon="showPassword ? eyeOffOutline : eyeOutline"></ion-icon>
+                      </ion-button>
                 </IonInput>
               </IonCol>
             </IonRow>
@@ -45,7 +48,7 @@
             </IonRow>
             <IonRow>
               <IonCol class="flexcenter">
-                <IonCheckbox style="margin-left: 5px;" v-model="formData.acceptTerms"></IonCheckbox>
+                <IonCheckbox class="signup-text-terms" style="margin-left: 5px;" v-model="formData.acceptTerms"></IonCheckbox>
                 <IonText class="signup-text-terms">
                   I have read and accept the
                   <a @click="modalTerms(true)" style="color: #262c5c;"> terms and conditions</a>
@@ -124,6 +127,7 @@ import { GoSwipe, GoHome, } from "@/NavBar/NavBar-Controller";
 import { logoGoogle } from "ionicons/icons";
 import { ref } from 'vue';
 import { checkgoogle, UserLogin, updatePassword } from "@/Login/Login-Model";
+import { eyeOutline, eyeOffOutline } from 'ionicons/icons';
 
 export default {
   components: {
@@ -151,6 +155,9 @@ export default {
       valid: null,
       isAlert: false,
       alertMessage: "",
+      showPassword: false,
+      eyeOutline,
+      eyeOffOutline,
     }
   },
   setup() {
@@ -201,6 +208,9 @@ export default {
     },
   },
   methods: {
+    togglePasswordVisibility(){
+      this.showPassword = !this.showPassword;
+    },
     GoHome,
     goLogin,
     GoRegister2,
@@ -244,7 +254,7 @@ export default {
 
       function isValidPassword(password) {
         // For example, require at least 8 characters and a mix of letters, numbers, and symbols
-        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&_\-])[A-Za-z\d@$!%*#?&_\-]{8,}$/;
 
         return passwordRegex.test(password);
       }
@@ -294,7 +304,7 @@ export default {
     checkpass(){
       function isValidPassword(password) {
         // For example, require at least 8 characters and a mix of letters, numbers, and symbols
-        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&_\-])[A-Za-z\d@$!%*#?&_\-]{8,}$/;
 
         return passwordRegex.test(password);
       }

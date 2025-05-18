@@ -87,6 +87,11 @@
   display: flex;
 }
 
+.seepass{
+  margin-top: -5px;
+  margin-bottom: 10px;
+}
+
 @media (max-width: 1026px) {
   .login-logo {
     height: 130px;

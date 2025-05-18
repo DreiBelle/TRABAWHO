@@ -36,6 +36,7 @@
   color: black;
   font-size: 12px;
   padding-left: 10px;
+  padding-top: 50px;
 }
 
 .signup-buttons {
@@ -252,4 +253,8 @@
   --highlight-color-focused: #262c5c;
   --border-color: black !important;
   margin: 10px 0 0 5px;
+}
+
+.passcheck{
+  margin-top: 50px;
 }

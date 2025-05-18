@@ -26,10 +26,13 @@
                 <div>
                   <div>
                     <IonInput mode="md" label="Password" labelPlacement="stacked" placeholder="Enter Password"
-                      fill="outline" class="login-input" type="password" required v-model="Password">
+                      fill="outline" class="login-input" :type="showPassword ? 'text' : 'password'" required v-model="Password">
+                      <ion-button class="seepass" fill="clear" slot="end" @click="togglePasswordVisibility">
+                        <ion-icon :icon="showPassword ? eyeOffOutline : eyeOutline"></ion-icon>
+                      </ion-button>
                     </IonInput>
                   </div>
-                  <div>
+                  <div style="margin-top: 50px;">
                     <a @click="resetPassword" class="login-a-forgotpassword">Forgot Password?</a>
                   </div>
                 </div>
@@ -112,6 +115,7 @@ import { logoGoogle } from "ionicons/icons";
 import { userInfo } from "os";
 import { getDashboardProfile } from "@/Dashboard/Dashboard-Model";
 import { collection, onSnapshot, query, where } from "@firebase/firestore";
+import { eyeOutline, eyeOffOutline } from 'ionicons/icons';
 
 const Username = ref("");
 const Password = ref("");
@@ -119,6 +123,12 @@ const Password = ref("");
 const user = ref(null);
 
 const authi = getAuth();
+
+const showPassword = ref(false)
+
+const togglePasswordVisibility = () => {
+  showPassword.value = !showPassword.value
+}
 
 const signInWithGoogle = async () => {
   const provider = new GoogleAuthProvider();
